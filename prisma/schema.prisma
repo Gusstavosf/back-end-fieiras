@@ -1,0 +1,101 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Cabinet {
+  id                      Int       @id @default(autoincrement())
+  name                    String    @unique
+  width                   Decimal   @db.Decimal(10, 2)
+  thickness               Decimal   @db.Decimal(10, 2)
+  nominalFieiraCapacity   Int
+  averageFieiraProduction Int?
+  createdAt               DateTime? @default(now())
+  updatedAt               DateTime? @default(now())
+
+  // Relations
+  ControlFieira ControlFieira[]
+  StockFieira   StockFieira[]
+  Requisitions  Requisition[]
+}
+
+model ControlFieira {
+  id             Int      @id @default(autoincrement())
+  order          Int
+  wireType       String
+  tension        Int
+  width          Decimal  @db.Decimal(10, 2)
+  thickness      Decimal  @db.Decimal(10, 2)
+  cabinetId      Int
+  orderStartDate DateTime
+  orderEndDate   DateTime
+  orderQuantity  Decimal  @db.Decimal(10, 2)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @default(now())
+
+  // Relations
+  Cabinet           Cabinet             @relation(fields: [cabinetId], references: [id])
+  ReservationFieira ReservationFieira[]
+}
+
+model StockFieira {
+  id               Int          @id @default(autoincrement())
+  cabinetId        Int
+  code             String
+  status           StatusFieira
+  currentThickness Decimal?     @db.Decimal(10, 2)
+  currentWidth     Decimal?     @db.Decimal(10, 2)
+  utilization      Int?
+  production       Int?
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @default(now())
+
+  // Relations
+  Cabinet           Cabinet             @relation(fields: [cabinetId], references: [id])
+  RequisitionItems  RequisitionItem[]
+  ReservationFieira ReservationFieira[]
+}
+
+model Requisition {
+  id              Int      @id @default(autoincrement())
+  cabinetId       Int
+  currentStockQty Int
+  requisitionQty  Int
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now())
+
+  // Relations
+  Cabinet          Cabinet           @relation(fields: [cabinetId], references: [id])
+  RequisitionItems RequisitionItem[]
+}
+
+model RequisitionItem {
+  id            Int @id @default(autoincrement())
+  requisitionId Int
+  fieiraId      Int
+
+  // Relations
+  StockFieira StockFieira @relation(fields: [fieiraId], references: [id])
+  Requisition Requisition @relation(fields: [requisitionId], references: [id])
+}
+
+model ReservationFieira {
+  id        Int @id @default(autoincrement())
+  controlId Int
+  fieiraId  Int
+
+  // Relations
+  StockFieira   StockFieira   @relation(fields: [fieiraId], references: [id])
+  ControlFieira ControlFieira @relation(fields: [controlId], references: [id])
+}
+
+enum StatusFieira {
+  new
+  requested
+  dead
+  polished
+}
