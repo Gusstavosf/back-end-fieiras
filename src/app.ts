@@ -1,5 +1,5 @@
 import express from 'express'
-import routes from './api/express/routes/route.js';
+import routes from './infra/api/express/routes/route.js';
 import ErrorHandler from './infra/middlewares/errorHandler.js';
 import Handler404 from './infra/middlewares/handler404.js';
 

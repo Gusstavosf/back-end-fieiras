@@ -1,4 +1,4 @@
-import type { CreateStockInputDto, CreateStockOutputDto, CreateStockUseCase } from "../../../../usecases/stock/create-stock/create-stock.usecase.js";
+import type { CreateStockInputDto, CreateStockOutputDto, CreateStockUseCase } from "../../../../../usecases/stock/create-stock/create-stock.usecase.js";
 import { type Route, HttpMethod } from "../route.js";
 import type { Request, Response } from "express";
 
