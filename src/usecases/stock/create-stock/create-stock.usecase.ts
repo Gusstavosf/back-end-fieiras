@@ -4,7 +4,7 @@ import type { StockGateway } from "../../../domain/stock/gateway/stock.gateway.j
 import IncorrectRequest from "../../../core/shared/errors/incorrectRequest.js";
 
 export type CreateStockInputDto = {
-    cabinet: string;
+    cabinetName: string;
     code: string;
     status: StatusFieira;
 };
@@ -28,10 +28,10 @@ export class CreateStockUseCase
 
     public async execute(input: CreateStockInputDto): Promise<CreateStockOutputDto>{
 
-        const idCabinet = await this.stockGateway.findIdCabinetByName(input.cabinet)
+        const idCabinet = await this.stockGateway.findIdCabinetByName(input.cabinetName)
 
         if (!idCabinet) {
-            throw new IncorrectRequest(`O armário '${input.cabinet}' não existe no sistema.`);
+            throw new IncorrectRequest(`O armário '${input.cabinetName}' não existe no sistema.`);
         };
 
         const existing = await this.stockGateway.findByCode(input.code, idCabinet)
@@ -59,7 +59,7 @@ export class CreateStockUseCase
             status: stock.status,
             createdAt: stock.createdAt,
             updatedAt: stock.updatedAt
-        }
+        };
 
         return output;
     }

@@ -1,14 +1,14 @@
 import type { Request, Response } from "express";
 
-export type HttMethod = "get" | "post";
+export type HttpMethod = "get" | "post";
 
-export const HttpMethod ={
-    GET: "get" as HttMethod,
-    POST: "post" as HttMethod
+export const HttpMethod = {
+    GET: "get" as HttpMethod,
+    POST: "post" as HttpMethod
 } as const; 
 
 export interface Route {
-    getHandler(): (request: Request, response: Response) => Promise<void>
+    getHandler(): (request: Request, response: Response) => Promise<void>;
     getPath(): string;
-    getMethod: HttMethod;
+    getMethod(): HttpMethod;
 }

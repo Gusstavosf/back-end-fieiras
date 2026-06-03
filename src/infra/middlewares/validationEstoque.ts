@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import { estoqueSchema } from "../../schemas/estoque.schemas.js";
+import { estoqueSchema } from "../../domain/schemas/stock.zod.validator.js";
 import IncorrectRequest from "../../core/shared/errors/incorrectRequest.js";
 import { ZodError } from "zod";
 
