@@ -1,6 +1,7 @@
 import type { CreateStockInputDto, CreateStockOutputDto, CreateStockUseCase } from "../../../../../usecases/stock/create-stock/create-stock.usecase.js";
+import { validationStock } from "../../../../middlewares/validationStock.js";
 import { type Route, HttpMethod } from "../route.js";
-import type { Request, Response } from "express";
+import type { Request, RequestHandler, Response } from "express";
 
 export type CreateStockResponseDto = {
     cabinetId: number;
@@ -49,6 +50,10 @@ export class CreateStockRoute implements Route {
 
     public getMethod(): HttpMethod {
         return this.method;
+    }
+
+    public getMiddlewares(): RequestHandler[] {
+        return [validationStock]
     }
 
     private present(output: CreateStockOutputDto): CreateStockResponseDto {

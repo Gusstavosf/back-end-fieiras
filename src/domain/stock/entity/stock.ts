@@ -1,10 +1,10 @@
 import IncorrectRequest from "../../../core/shared/errors/incorrectRequest.js";
 
 export enum StatusFieira {
-    New = "nova",
-    Requested = "requisicao",
-    Dead = "morta",
-    Polished = "polida"
+    New = "Nova",
+    Requested = "Requisição",
+    Dead = "Morta",
+    Polished = "Polida"
 }
 
 export type StockProps = {

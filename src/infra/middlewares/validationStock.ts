@@ -1,19 +1,19 @@
 import type { Request, Response, NextFunction } from "express";
-import { estoqueSchema } from "../../domain/schemas/stock.zod.validator.js";
+import { stockSchema } from "../../domain/schemas/stock.zod.validator.js";
 import IncorrectRequest from "../../core/shared/errors/incorrectRequest.js";
 import { ZodError } from "zod";
 
-export function validationEstoque(req: Request, res: Response, next: NextFunction) {
+export function validationStock(req: Request, res: Response, next: NextFunction) {
     try{
-        req.body = estoqueSchema.parse(req.body)
+        req.body = stockSchema.parse(req.body)
         next()
     } catch(erro) {
         if (erro instanceof ZodError) {
-            const detalhes = erro.issues.map(e => ({
+            const details = erro.issues.map(e => ({
                 campo: e.path.join("."),
                 mensagem: e.message
       }));
-      return next(new IncorrectRequest("Erro de validação de dados", detalhes));
+      return next(new IncorrectRequest("Erro de validação de dados", details));
     }
     next(erro);
     }
