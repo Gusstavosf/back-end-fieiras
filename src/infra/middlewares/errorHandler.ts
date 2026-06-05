@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
-import { Prisma } from '../../../generated/prisma/client.js';
+import { Prisma } from '../../generated/prisma/client.js';
 import BaseError from '../../core/shared/errors/baseError.js';
 import IncorrectRequest from '../../core/shared/errors/incorrectRequest.js';
 
