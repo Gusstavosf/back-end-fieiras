@@ -15,43 +15,41 @@ export type ListStockOutputDto = {
         utilization?: number;
         production?: number;
         createdAt: Date;
-        updatedAt: Date; 
+        updatedAt: Date;
     }[];
 };
 
-export class ListStockUseCase implements Usecase<ListStockInputDto, ListStockOutputDto>{
+export class ListStockUseCase implements Usecase<ListStockInputDto, ListStockOutputDto> {
+    private constructor(private readonly stockGateway: StockGateway) {}
 
-    private constructor(private readonly stockGateway: StockGateway){}
-
-    public static create(stockGatway: StockGateway){
+    public static create(stockGatway: StockGateway) {
         return new ListStockUseCase(stockGatway);
     }
 
     public async execute(): Promise<ListStockOutputDto> {
-
         const stockEntity = await this.stockGateway.list();
 
         const output = this.presentOutput(stockEntity);
 
         return output;
-    }   
+    }
 
-    private presentOutput(stock: Stock[]): ListStockOutputDto{
-        return{
+    private presentOutput(stock: Stock[]): ListStockOutputDto {
+        return {
             stock: stock.map((s) => {
                 return {
                     id: s.id,
                     cabinetId: s.cabinetId,
                     code: s.code,
-                    status: s.status, 
+                    status: s.status,
                     currentThickness: s.currentThickness ?? 0,
                     currentWidth: s.currentWidth ?? 0,
                     utilization: s.utilization ?? 0,
                     production: s.production ?? 0,
                     createdAt: s.createdAt,
-                    updatedAt: s.updatedAt
-                }
-            })
-        }
+                    updatedAt: s.updatedAt,
+                };
+            }),
+        };
     }
 }

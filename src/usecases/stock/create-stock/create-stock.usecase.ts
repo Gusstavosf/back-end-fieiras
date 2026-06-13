@@ -1,4 +1,4 @@
-import type { Usecase } from "../../usecase.js"
+import type { Usecase } from "../../usecase.js";
 import { Stock, StatusFieira } from "../../../domain/stock/entity/stock.js";
 import type { StockGateway } from "../../../domain/stock/gateway/stock.gateway.js";
 import IncorrectRequest from "../../../core/shared/errors/incorrectRequest.js";
@@ -6,7 +6,6 @@ import IncorrectRequest from "../../../core/shared/errors/incorrectRequest.js";
 export type CreateStockInputDto = {
     cabinetName: string;
     code: string;
-    status: StatusFieira;
 };
 
 export type CreateStockOutputDto = {
@@ -14,51 +13,52 @@ export type CreateStockOutputDto = {
     code: string;
     status: StatusFieira;
     createdAt: Date;
-    updatedAt: Date; 
+    updatedAt: Date;
 };
 
-export class CreateStockUseCase 
-    implements Usecase<CreateStockInputDto, CreateStockOutputDto> {
-
+export class CreateStockUseCase implements Usecase<
+    CreateStockInputDto,
+    CreateStockOutputDto
+> {
     private constructor(private readonly stockGateway: StockGateway) {}
 
-    public static create(stockGateway: StockGateway){
+    public static create(stockGateway: StockGateway) {
         return new CreateStockUseCase(stockGateway);
     }
 
-    public async execute(input: CreateStockInputDto): Promise<CreateStockOutputDto>{
-
-        const idCabinet = await this.stockGateway.findIdCabinetByName(input.cabinetName)
+    public async execute(input: CreateStockInputDto): Promise<CreateStockOutputDto> {
+        const idCabinet = await this.stockGateway.findIdCabinetByName(input.cabinetName);
 
         if (!idCabinet) {
-            throw new IncorrectRequest(`O armário '${input.cabinetName}' não existe no sistema.`);
-        };
+            throw new IncorrectRequest(
+                `O armário '${input.cabinetName}' não existe no sistema.`,
+            );
+        }
 
-        const existing = await this.stockGateway.findByCode(input.code, idCabinet)
+        const existing = await this.stockGateway.findByCode(input.code, idCabinet);
 
-        if (existing){
-            throw new IncorrectRequest(`A fieira ${input.code} já está cadastrada neste armário`)
-        };
+        if (existing) {
+            throw new IncorrectRequest(
+                `A fieira ${input.code} já está cadastrada neste armário`,
+            );
+        }
 
-        const stockEntity = Stock.create(
-            idCabinet, 
-            input.code, 
-            input.status
-        );
+        const stockEntity = Stock.create(idCabinet, input.code);
 
-        const output = this.presentOutput(stockEntity)
+        await this.stockGateway.save(stockEntity);
+
+        const output = this.presentOutput(stockEntity);
 
         return output;
     }
 
     private presentOutput(stock: Stock): CreateStockOutputDto {
-
         const output: CreateStockOutputDto = {
             cabinetId: stock.cabinetId!,
             code: stock.code,
             status: stock.status,
             createdAt: stock.createdAt,
-            updatedAt: stock.updatedAt
+            updatedAt: stock.updatedAt,
         };
 
         return output;

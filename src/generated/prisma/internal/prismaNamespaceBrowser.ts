@@ -56,7 +56,8 @@ export const ModelName = {
   StockFieira: 'StockFieira',
   Requisition: 'Requisition',
   RequisitionItem: 'RequisitionItem',
-  ReservationFieira: 'ReservationFieira'
+  ReservationFieira: 'ReservationFieira',
+  StockFieiraHistory: 'StockFieiraHistory'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -151,6 +152,20 @@ export const ReservationFieiraScalarFieldEnum = {
 } as const
 
 export type ReservationFieiraScalarFieldEnum = (typeof ReservationFieiraScalarFieldEnum)[keyof typeof ReservationFieiraScalarFieldEnum]
+
+
+export const StockFieiraHistoryScalarFieldEnum = {
+  id: 'id',
+  stockFieiraId: 'stockFieiraId',
+  status: 'status',
+  thickness: 'thickness',
+  width: 'width',
+  production: 'production',
+  utilization: 'utilization',
+  createdAt: 'createdAt'
+} as const
+
+export type StockFieiraHistoryScalarFieldEnum = (typeof StockFieiraHistoryScalarFieldEnum)[keyof typeof StockFieiraHistoryScalarFieldEnum]
 
 
 export const SortOrder = {

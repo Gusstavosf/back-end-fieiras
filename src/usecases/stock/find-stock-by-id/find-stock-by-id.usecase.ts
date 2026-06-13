@@ -19,18 +19,20 @@ export type FindStockOutputDto = {
 };
 
 export class FindStockByIdUseCase {
-    constructor(private readonly StockGateway: StockGateway){}
+    constructor(private readonly StockGateway: StockGateway) {}
 
-    public static create(stockGatway: StockGateway){
+    public static create(stockGatway: StockGateway) {
         return new FindStockByIdUseCase(stockGatway);
     }
 
     public async execute(input: FindSotckByIdInputDto): Promise<FindSotckByIdInputDto> {
         const stock = await this.StockGateway.findById(input.id);
 
-        if(!stock) {
-            throw new IncorrectRequest(`Ferramental com ID ${input.id} não foi encontrado no estoque.`)
-        };
+        if (!stock) {
+            throw new IncorrectRequest(
+                `Ferramental com ID ${input.id} não foi encontrado no estoque.`,
+            );
+        }
 
         const data = {
             id: stock.id!,
@@ -42,7 +44,7 @@ export class FindStockByIdUseCase {
             utilization: stock.utilization ?? 0,
             production: stock.production ?? 0,
             createdAt: stock.createdAt,
-            updatedAt: stock.updatedAt
+            updatedAt: stock.updatedAt,
         };
 
         return data;

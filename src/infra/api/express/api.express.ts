@@ -1,5 +1,5 @@
 import type { Api } from "../api.js";
-import express, { type Express } from 'express';
+import express, { type Express } from "express";
 import type { Route } from "./routes/route.js";
 import ErrorHandler from "../../middlewares/errorHandler.js";
 
@@ -11,9 +11,9 @@ export class Apiexpress implements Api {
     private constructor(routes: Route[]) {
         this.app = express();
         this.app.use(express.json());
-        this.routes = routes; 
+        this.routes = routes;
         this.addRoutes();
-        this.app.use(ErrorHandler)
+        this.app.use(ErrorHandler);
     }
 
     public static create(routes: Route[]) {

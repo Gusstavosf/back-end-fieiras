@@ -71,3 +71,8 @@ export type RequisitionItem = Prisma.RequisitionItemModel
  * 
  */
 export type ReservationFieira = Prisma.ReservationFieiraModel
+/**
+ * Model StockFieiraHistory
+ * 
+ */
+export type StockFieiraHistory = Prisma.StockFieiraHistoryModel

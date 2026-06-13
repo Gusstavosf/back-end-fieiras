@@ -55,9 +55,12 @@ model StockFieira {
   updatedAt        DateTime     @default(now())
 
   // Relations
-  Cabinet           Cabinet             @relation(fields: [cabinetId], references: [id])
+  Cabinet           Cabinet              @relation(fields: [cabinetId], references: [id])
   RequisitionItems  RequisitionItem[]
   ReservationFieira ReservationFieira[]
+  History           StockFieiraHistory[]
+
+  @@unique([cabinetId, code])
 }
 
 model Requisition {
@@ -91,6 +94,21 @@ model ReservationFieira {
   // Relations
   StockFieira   StockFieira   @relation(fields: [fieiraId], references: [id])
   ControlFieira ControlFieira @relation(fields: [controlId], references: [id])
+}
+
+model StockFieiraHistory {
+  id            Int          @id @default(autoincrement())
+  stockFieiraId Int
+  status        StatusFieira
+  thickness     Decimal      @db.Decimal(10, 2)
+  width         Decimal      @db.Decimal(10, 2)
+  production    Int
+  utilization   Int
+  createdAt     DateTime     @default(now())
+
+  StockFieira StockFieira @relation(fields: [stockFieiraId], references: [id], onDelete: Cascade)
+
+  @@map("StockFieiraHistory")
 }
 
 enum StatusFieira {

@@ -389,7 +389,8 @@ export const ModelName = {
   StockFieira: 'StockFieira',
   Requisition: 'Requisition',
   RequisitionItem: 'RequisitionItem',
-  ReservationFieira: 'ReservationFieira'
+  ReservationFieira: 'ReservationFieira',
+  StockFieiraHistory: 'StockFieiraHistory'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -405,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "cabinet" | "controlFieira" | "stockFieira" | "requisition" | "requisitionItem" | "reservationFieira"
+    modelProps: "cabinet" | "controlFieira" | "stockFieira" | "requisition" | "requisitionItem" | "reservationFieira" | "stockFieiraHistory"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -853,6 +854,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    StockFieiraHistory: {
+      payload: Prisma.$StockFieiraHistoryPayload<ExtArgs>
+      fields: Prisma.StockFieiraHistoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.StockFieiraHistoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockFieiraHistoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.StockFieiraHistoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockFieiraHistoryPayload>
+        }
+        findFirst: {
+          args: Prisma.StockFieiraHistoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockFieiraHistoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.StockFieiraHistoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockFieiraHistoryPayload>
+        }
+        findMany: {
+          args: Prisma.StockFieiraHistoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockFieiraHistoryPayload>[]
+        }
+        create: {
+          args: Prisma.StockFieiraHistoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockFieiraHistoryPayload>
+        }
+        createMany: {
+          args: Prisma.StockFieiraHistoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.StockFieiraHistoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockFieiraHistoryPayload>[]
+        }
+        delete: {
+          args: Prisma.StockFieiraHistoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockFieiraHistoryPayload>
+        }
+        update: {
+          args: Prisma.StockFieiraHistoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockFieiraHistoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.StockFieiraHistoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.StockFieiraHistoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.StockFieiraHistoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockFieiraHistoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.StockFieiraHistoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockFieiraHistoryPayload>
+        }
+        aggregate: {
+          args: Prisma.StockFieiraHistoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateStockFieiraHistory>
+        }
+        groupBy: {
+          args: Prisma.StockFieiraHistoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StockFieiraHistoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.StockFieiraHistoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StockFieiraHistoryCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -968,6 +1043,20 @@ export const ReservationFieiraScalarFieldEnum = {
 } as const
 
 export type ReservationFieiraScalarFieldEnum = (typeof ReservationFieiraScalarFieldEnum)[keyof typeof ReservationFieiraScalarFieldEnum]
+
+
+export const StockFieiraHistoryScalarFieldEnum = {
+  id: 'id',
+  stockFieiraId: 'stockFieiraId',
+  status: 'status',
+  thickness: 'thickness',
+  width: 'width',
+  production: 'production',
+  utilization: 'utilization',
+  createdAt: 'createdAt'
+} as const
+
+export type StockFieiraHistoryScalarFieldEnum = (typeof StockFieiraHistoryScalarFieldEnum)[keyof typeof StockFieiraHistoryScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1199,6 +1288,7 @@ export type GlobalOmitConfig = {
   requisition?: Prisma.RequisitionOmit
   requisitionItem?: Prisma.RequisitionItemOmit
   reservationFieira?: Prisma.ReservationFieiraOmit
+  stockFieiraHistory?: Prisma.StockFieiraHistoryOmit
 }
 
 /* Types for Logging */

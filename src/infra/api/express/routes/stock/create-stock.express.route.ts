@@ -1,7 +1,12 @@
-import type { CreateStockInputDto, CreateStockOutputDto, CreateStockUseCase } from "../../../../../usecases/stock/create-stock/create-stock.usecase.js";
+import type {
+    CreateStockInputDto,
+    CreateStockOutputDto,
+    CreateStockUseCase,
+} from "../../../../../usecases/stock/create-stock/create-stock.usecase.js";
 import { validationStock } from "../../../../middlewares/validationStock.js";
 import { type Route, HttpMethod } from "../route.js";
 import type { Request, RequestHandler, Response } from "express";
+import { StockZodValidator } from "../../validators/stock.zod.validator.js";
 
 export type CreateStockResponseDto = {
     cabinetId: number;
@@ -9,34 +14,28 @@ export type CreateStockResponseDto = {
     status: string;
     createdAt: Date;
     updatedAt: Date;
-}
+};
 
 export class CreateStockRoute implements Route {
     private constructor(
-        private readonly path: string, 
+        private readonly path: string,
         private readonly method: HttpMethod,
-        private readonly createStockService: CreateStockUseCase
+        private readonly createStockService: CreateStockUseCase,
     ) {}
 
-    public static create(createStockService: CreateStockUseCase){
-        return new CreateStockRoute(
-            "/stock",
-            HttpMethod.POST,
-            createStockService
-        );
+    public static create(createStockService: CreateStockUseCase) {
+        return new CreateStockRoute("/stock", HttpMethod.POST, createStockService);
     }
 
-    public getHandler(){
+    public getHandler() {
         return async (request: Request, response: Response) => {
-            const { cabinetName, code, status } = request.body;
-
             const input: CreateStockInputDto = {
-                cabinetName,
-                code,
-                status
+                cabinetName: request.body.cabinetName,
+                code: request.body.code,
             };
 
-            const output: CreateStockOutputDto = await this.createStockService.execute(input);
+            const output: CreateStockOutputDto =
+                await this.createStockService.execute(input);
 
             const responseBody = this.present(output);
 
@@ -53,7 +52,9 @@ export class CreateStockRoute implements Route {
     }
 
     public getMiddlewares(): RequestHandler[] {
-        return [validationStock]
+        const stockValidator = StockZodValidator.build();
+
+        return [validationStock(stockValidator)];
     }
 
     private present(output: CreateStockOutputDto): CreateStockResponseDto {
@@ -62,7 +63,7 @@ export class CreateStockRoute implements Route {
             code: output.code,
             status: output.status,
             createdAt: output.createdAt,
-            updatedAt: output.updatedAt
+            updatedAt: output.updatedAt,
         };
     }
 }
