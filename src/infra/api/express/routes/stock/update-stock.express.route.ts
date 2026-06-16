@@ -5,7 +5,7 @@ import {
 } from "../../../../../usecases/stock/update-stock/update-stock.usecase.js";
 import { HttpMethod, type Route } from "../route.js";
 import type { StatusFieira } from "../../../../../domain/stock/entity/stock.js";
-import { StockZodValidator } from "../../validators/stock.zod.validator.js";
+import { UpdateStockZodValidator } from "../../validators/stock/update-stock.zod.validator.js";
 import { validationStock } from "../../../../middlewares/validationStock.js";
 
 export type UpdateStockResponseDto = {
@@ -15,8 +15,8 @@ export type UpdateStockResponseDto = {
     status: StatusFieira;
     currentThickness?: number | undefined;
     currentWidth?: number | undefined;
-    utilization?: number | undefined;
-    production?: number | undefined;
+    utilization?: number;
+    production?: number;
     createdAt: Date;
     updatedAt: Date;
 };
@@ -29,32 +29,29 @@ export class UpdateStockRoute implements Route {
     ) {}
 
     public static create(updateStockService: UpdateStockUseCase) {
-        return new UpdateStockRoute("/stock/:id", HttpMethod.PATCH, updateStockService);
+        return new UpdateStockRoute("/stock/", HttpMethod.PATCH, updateStockService);
     }
 
     public getHandler() {
         return async (request: Request, response: Response) => {
-            const id = parseInt(String(request.params.id));
+            const {
+                cabinetName,
+                code,
+                status,
+                thickness,
+                width,
+                production,
+                utilization,
+            } = request.body;
 
             const input = {
-                id,
-                status: request.body.status,
-                thickness:
-                    request.body.thickness !== undefined
-                        ? Number(request.body.thickness)
-                        : undefined,
-                width:
-                    request.body.width !== undefined
-                        ? Number(request.body.width)
-                        : undefined,
-                production:
-                    request.body.production !== undefined
-                        ? Number(request.body.production)
-                        : undefined,
-                utilization:
-                    request.body.utilization !== undefined
-                        ? Number(request.body.utilization)
-                        : undefined,
+                cabinetName,
+                code,
+                status: status as StatusFieira,
+                thickness: thickness !== undefined ? Number(thickness) : undefined,
+                width: width !== undefined ? Number(width) : undefined,
+                production: production !== undefined ? Number(production) : undefined,
+                utilization: utilization !== undefined ? Number(utilization) : undefined,
             };
 
             const output = await this.updateStockService.execute(input);
@@ -74,7 +71,7 @@ export class UpdateStockRoute implements Route {
     }
 
     public getMiddlewares(): RequestHandler[] {
-        const stockValidator = StockZodValidator.build();
+        const stockValidator = UpdateStockZodValidator.build();
 
         return [validationStock(stockValidator)];
     }

@@ -6,7 +6,7 @@ import type {
 import { validationStock } from "../../../../middlewares/validationStock.js";
 import { type Route, HttpMethod } from "../route.js";
 import type { Request, RequestHandler, Response } from "express";
-import { StockZodValidator } from "../../validators/stock.zod.validator.js";
+import { CreateStockZodValidator } from "../../validators/stock/create-stock.zod.validator.js";
 
 export type CreateStockResponseDto = {
     cabinetId: number;
@@ -52,7 +52,7 @@ export class CreateStockRoute implements Route {
     }
 
     public getMiddlewares(): RequestHandler[] {
-        const stockValidator = StockZodValidator.build();
+        const stockValidator = CreateStockZodValidator.build();
 
         return [validationStock(stockValidator)];
     }

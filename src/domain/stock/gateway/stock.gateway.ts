@@ -9,6 +9,14 @@ export type StockHistoryInput = {
     utilization: number;
 };
 
+export type UpdateHistoryInput = {
+    status: string;
+    thickness: number;
+    width: number;
+    production: number;
+    utilization: number;
+};
+
 export interface StockGateway {
     save(stock: Stock): Promise<void>;
     list(): Promise<Stock[]>;
@@ -17,4 +25,5 @@ export interface StockGateway {
     findIdCabinetByName(cabinet: string): Promise<number | null>;
     update(stock: Stock): Promise<void>;
     saveHistory(history: StockHistoryInput): Promise<void>;
+    updateLastHistory(stockFieiraId: number, input: UpdateHistoryInput): Promise<void>;
 }

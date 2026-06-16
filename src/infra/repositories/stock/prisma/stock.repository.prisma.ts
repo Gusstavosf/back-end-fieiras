@@ -1,9 +1,11 @@
 import type {
     StockGateway,
     StockHistoryInput,
+    UpdateHistoryInput,
 } from "../../../../domain/stock/gateway/stock.gateway.js";
 import { PrismaClient } from "../../../../generated/prisma/client.js";
 import { Stock, StatusFieira } from "../../../../domain/stock/entity/stock.js";
+import type { Prisma } from "../../../../generated/prisma/client.js";
 
 export class StockReposistoryPrisma implements StockGateway {
     private constructor(private readonly prismaClient: PrismaClient) {}
@@ -43,8 +45,10 @@ export class StockReposistoryPrisma implements StockGateway {
                 cabinetId: stock.cabinetId,
                 code: stock.code,
                 status: stock.status as StatusFieira,
-                currentThickness: Number(stock.currentThickness) ?? undefined,
-                currentWidth: Number(stock.currentWidth) ?? undefined,
+                currentThickness: stock.currentThickness
+                    ? Number(stock.currentThickness)
+                    : undefined,
+                currentWidth: stock.currentWidth ? Number(stock.currentWidth) : undefined,
                 utilization: stock.utilization ?? 0,
                 production: stock.production ?? 0,
                 createdAt: stock.createdAt,
@@ -67,8 +71,12 @@ export class StockReposistoryPrisma implements StockGateway {
             cabinetId: stockCode.cabinetId,
             code: stockCode.code,
             status: stockCode.status as StatusFieira,
-            currentThickness: Number(stockCode.currentThickness) ?? undefined,
-            currentWidth: Number(stockCode.currentWidth) ?? undefined,
+            currentThickness: stockCode.currentThickness
+                ? Number(stockCode.currentThickness)
+                : undefined,
+            currentWidth: stockCode.currentWidth
+                ? Number(stockCode.currentWidth)
+                : undefined,
             utilization: stockCode.utilization ?? 0,
             production: stockCode.production ?? 0,
             createdAt: stockCode.createdAt,
@@ -113,8 +121,10 @@ export class StockReposistoryPrisma implements StockGateway {
             cabinetId: stockId.cabinetId,
             code: stockId.code,
             status: stockId.status as StatusFieira,
-            currentThickness: Number(stockId.currentThickness) ?? undefined,
-            currentWidth: Number(stockId.currentWidth) ?? undefined,
+            currentThickness: stockId.currentThickness
+                ? Number(stockId.currentThickness)
+                : undefined,
+            currentWidth: stockId.currentWidth ? Number(stockId.currentWidth) : undefined,
             utilization: stockId.utilization ?? 0,
             production: stockId.production ?? 0,
             createdAt: stockId.createdAt,
@@ -123,17 +133,41 @@ export class StockReposistoryPrisma implements StockGateway {
     }
 
     public async saveHistory(history: StockHistoryInput): Promise<void> {
-        const data = {
+        const data: Prisma.StockFieiraHistoryUncheckedCreateInput = {
             stockFieiraId: history.stockFieiraId,
             status: history.status,
-            thickness: history.thickness,
-            width: history.width,
+            thickness:
+                history.thickness !== undefined ? Number(history.thickness) : undefined,
+            width: history.width !== undefined ? Number(history.width) : undefined,
             production: history.production,
             utilization: history.utilization,
         };
 
         await this.prismaClient.stockFieiraHistory.create({
             data,
+        });
+    }
+
+    public async updateLastHistory(
+        stockFieiraId: number,
+        input: UpdateHistoryInput,
+    ): Promise<void> {
+        const lastHistory = await this.prismaClient.stockFieiraHistory.findFirst({
+            where: { stockFieiraId },
+            orderBy: { id: "desc" },
+        });
+
+        if (!lastHistory) return;
+
+        await this.prismaClient.stockFieiraHistory.update({
+            where: { id: lastHistory.id },
+            data: {
+                status: input.status as StatusFieira,
+                thickness: input.thickness,
+                width: input.width,
+                production: input.production,
+                utilization: input.utilization,
+            },
         });
     }
 }

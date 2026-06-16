@@ -100,8 +100,8 @@ model StockFieiraHistory {
   id            Int          @id @default(autoincrement())
   stockFieiraId Int
   status        StatusFieira
-  thickness     Decimal      @db.Decimal(10, 2)
-  width         Decimal      @db.Decimal(10, 2)
+  thickness     Decimal?      @db.Decimal(10, 2)
+  width         Decimal?      @db.Decimal(10, 2)
   production    Int
   utilization   Int
   createdAt     DateTime     @default(now())

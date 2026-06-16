@@ -54,7 +54,7 @@ export class CreateStockUseCase implements Usecase<
 
     private presentOutput(stock: Stock): CreateStockOutputDto {
         const output: CreateStockOutputDto = {
-            cabinetId: stock.cabinetId!,
+            cabinetId: stock.cabinetId,
             code: stock.code,
             status: stock.status,
             createdAt: stock.createdAt,
