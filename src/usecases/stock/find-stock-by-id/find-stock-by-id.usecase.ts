@@ -1,4 +1,4 @@
-import IncorrectRequest from "../../../core/shared/errors/incorrectRequest.js";
+import NotFound from "../../../core/shared/errors/notFound.js";
 import type { StockGateway } from "../../../domain/stock/gateway/stock.gateway.js";
 
 export type FindSotckByIdInputDto = {
@@ -29,7 +29,7 @@ export class FindStockByIdUseCase {
         const stock = await this.StockGateway.findById(input.id);
 
         if (!stock) {
-            throw new IncorrectRequest(
+            throw new NotFound(
                 `Ferramental com ID ${input.id} não foi encontrado no estoque.`,
             );
         }

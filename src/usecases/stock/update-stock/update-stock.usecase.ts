@@ -1,8 +1,9 @@
 import IncorrectRequest from "../../../core/shared/errors/incorrectRequest.js";
-import { Stock } from "../../../domain/stock/entity/stock.js";
+import { Stock } from "../../../domain/stock/entity/stock/stock.js";
 import type { StockGateway } from "../../../domain/stock/gateway/stock.gateway.js";
-import { StatusFieira } from "../../../domain/stock/entity/stock.js";
+import { StatusFieira } from "../../../domain/stock/entity/stock/stock.js";
 import type { Usecase } from "../../usecase.js";
+import NotFound from "../../../core/shared/errors/notFound.js";
 
 export type UpdateStockInputDto = {
     cabinetName: string;
@@ -42,15 +43,13 @@ export class UpdateStockUseCase implements Usecase<
         const idCabinet = await this.stockGateway.findIdCabinetByName(input.cabinetName);
 
         if (!idCabinet) {
-            throw new IncorrectRequest(
-                `O armário '${input.cabinetName}' não existe no sistema.`,
-            );
+            throw new NotFound(`O armário ${input.cabinetName} não existe no sistema.`);
         }
 
         const stockEntity = await this.stockGateway.findByCode(input.code, idCabinet);
 
         if (!stockEntity) {
-            throw new IncorrectRequest(
+            throw new NotFound(
                 `A fieira ${input.code} não foi encontrada dentro do armário ${input.cabinetName} .`,
             );
         }
@@ -68,6 +67,7 @@ export class UpdateStockUseCase implements Usecase<
             }
 
             stockEntity.correctMeasures({
+                status: input.status,
                 thickness: input.thickness,
                 width: input.width,
                 production: input.production,
@@ -144,11 +144,11 @@ export class UpdateStockUseCase implements Usecase<
             updatedAt: stock.updatedAt,
         };
 
-        if (stock.currentThickness !== undefined) {
+        if (stock.currentThickness !== null) {
             output.currentThickness = stock.currentThickness;
         }
 
-        if (stock.currentWidth !== undefined) {
+        if (stock.currentWidth !== null) {
             output.currentWidth = stock.currentWidth;
         }
 

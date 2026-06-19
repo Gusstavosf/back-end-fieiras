@@ -4,7 +4,7 @@ import {
     type UpdateStockOutputDto,
 } from "../../../../../usecases/stock/update-stock/update-stock.usecase.js";
 import { HttpMethod, type Route } from "../route.js";
-import type { StatusFieira } from "../../../../../domain/stock/entity/stock.js";
+import type { StatusFieira } from "../../../../../domain/stock/entity/stock/stock.js";
 import { UpdateStockZodValidator } from "../../validators/stock/update-stock.zod.validator.js";
 import { validationStock } from "../../../../middlewares/validationStock.js";
 

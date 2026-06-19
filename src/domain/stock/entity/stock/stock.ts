@@ -1,4 +1,4 @@
-import IncorrectRequest from "../../../core/shared/errors/incorrectRequest.js";
+import IncorrectRequest from "../../../../core/shared/errors/incorrectRequest.js";
 
 export enum StatusFieira {
     New = "new",
@@ -12,10 +12,10 @@ export type StockProps = {
     cabinetId: number;
     code: string;
     status: StatusFieira;
-    currentThickness?: number | undefined;
-    currentWidth?: number | undefined;
-    utilization?: number;
-    production?: number;
+    currentThickness?: number | null;
+    currentWidth?: number | null;
+    utilization: number;
+    production: number;
     createdAt: Date;
     updatedAt: Date;
 };
@@ -81,8 +81,8 @@ export class Stock {
         if (newStatus === StatusFieira.New) {
             this.props.production = 0;
             this.props.utilization = 0;
-            this.props.currentThickness = undefined;
-            this.props.currentWidth = undefined;
+            this.props.currentThickness = null;
+            this.props.currentWidth = null;
         }
 
         if (newStatus === StatusFieira.Dead || newStatus === StatusFieira.Polished) {
@@ -100,6 +100,12 @@ export class Stock {
             ) {
                 throw new IncorrectRequest(
                     "As medidas da fieira e informações de produção devem ser maiores que zero.",
+                );
+            }
+
+            if (details.thickness == null || details.width == null) {
+                throw new IncorrectRequest(
+                    `Para fieiras com status de Morta ou Polida, os campos dimensionais não podem ser nulos.`,
                 );
             }
 
@@ -122,7 +128,7 @@ export class Stock {
             this.props.currentWidth = details.width;
 
             this.props.production = (this.props.production ?? 0) + details.production;
-            this.props.utilization = (this.props.utilization ?? 0) + 1;
+            this.props.utilization += 1;
         }
 
         if (this.props.status === newStatus) {
@@ -130,39 +136,6 @@ export class Stock {
         }
 
         this.props.status = newStatus;
-        this.props.updatedAt = new Date();
-    }
-
-    public correctMeasures(details: {
-        thickness: number;
-        width: number;
-        production: number;
-        utilization: number;
-    }): void {
-        if (
-            details.thickness < 0 ||
-            details.width < 0 ||
-            details.production < 0 ||
-            details.utilization < 0
-        ) {
-            throw new IncorrectRequest(
-                "As medidas corrigidas e informações de uso não podem ser menores que zero.",
-            );
-        }
-
-        if (this.props.status === StatusFieira.New) {
-            if (details.production !== 0 || details.utilization !== 0) {
-                throw new IncorrectRequest(
-                    `A fieira "${this.props.code}" está com status de Nova, portanto a produção e a utilização devem ser obrigatoriamente zero.`,
-                );
-            }
-        }
-
-        this.props.currentThickness = details.thickness;
-        this.props.currentWidth = details.width;
-        this.props.production = details.production;
-        this.props.utilization = details.utilization;
-
         this.props.updatedAt = new Date();
     }
 
@@ -185,16 +158,16 @@ export class Stock {
         return this.props.updatedAt;
     }
 
-    public get currentThickness(): number | undefined {
-        return this.props.currentThickness;
+    public get currentThickness(): number | null {
+        return this.props.currentThickness || null;
     }
-    public get currentWidth(): number | undefined {
-        return this.props.currentWidth;
+    public get currentWidth(): number | null {
+        return this.props.currentWidth || null;
     }
     public get utilization(): number {
-        return this.props.utilization ?? 0;
+        return this.props.utilization;
     }
     public get production(): number {
-        return this.props.production ?? 0;
+        return this.props.production;
     }
 }

@@ -1051,8 +1051,8 @@ export const StockFieiraHistoryScalarFieldEnum = {
   status: 'status',
   thickness: 'thickness',
   width: 'width',
-  production: 'production',
   utilization: 'utilization',
+  production: 'production',
   createdAt: 'createdAt'
 } as const
 

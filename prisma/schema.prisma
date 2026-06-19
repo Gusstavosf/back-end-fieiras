@@ -49,8 +49,8 @@ model StockFieira {
   status           StatusFieira
   currentThickness Decimal?     @db.Decimal(10, 2)
   currentWidth     Decimal?     @db.Decimal(10, 2)
-  utilization      Int?
-  production       Int?
+  utilization      Int          @default(0)
+  production       Int          @default(0)
   createdAt        DateTime     @default(now())
   updatedAt        DateTime     @default(now())
 
@@ -100,11 +100,12 @@ model StockFieiraHistory {
   id            Int          @id @default(autoincrement())
   stockFieiraId Int
   status        StatusFieira
-  thickness     Decimal?      @db.Decimal(10, 2)
-  width         Decimal?      @db.Decimal(10, 2)
-  production    Int
-  utilization   Int
+  thickness     Decimal?     @db.Decimal(10, 2)
+  width         Decimal?     @db.Decimal(10, 2)
+  utilization   Int          @default(0)
+  production    Int          @default(0)
   createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @default(now()) @updatedAt
 
   StockFieira StockFieira @relation(fields: [stockFieiraId], references: [id], onDelete: Cascade)
 

@@ -1,5 +1,5 @@
 import type { Usecase } from "../../usecase.js";
-import { Stock, StatusFieira } from "../../../domain/stock/entity/stock.js";
+import { Stock, StatusFieira } from "../../../domain/stock/entity/stock/stock.js";
 import type { StockGateway } from "../../../domain/stock/gateway/stock.gateway.js";
 import IncorrectRequest from "../../../core/shared/errors/incorrectRequest.js";
 

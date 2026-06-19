@@ -236,8 +236,8 @@ export type StockFieiraGroupByOutputType = {
   status: $Enums.StatusFieira
   currentThickness: runtime.Decimal | null
   currentWidth: runtime.Decimal | null
-  utilization: number | null
-  production: number | null
+  utilization: number
+  production: number
   createdAt: Date
   updatedAt: Date
   _count: StockFieiraCountAggregateOutputType | null
@@ -272,8 +272,8 @@ export type StockFieiraWhereInput = {
   status?: Prisma.EnumStatusFieiraFilter<"StockFieira"> | $Enums.StatusFieira
   currentThickness?: Prisma.DecimalNullableFilter<"StockFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: Prisma.DecimalNullableFilter<"StockFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: Prisma.IntNullableFilter<"StockFieira"> | number | null
-  production?: Prisma.IntNullableFilter<"StockFieira"> | number | null
+  utilization?: Prisma.IntFilter<"StockFieira"> | number
+  production?: Prisma.IntFilter<"StockFieira"> | number
   createdAt?: Prisma.DateTimeFilter<"StockFieira"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"StockFieira"> | Date | string
   Cabinet?: Prisma.XOR<Prisma.CabinetScalarRelationFilter, Prisma.CabinetWhereInput>
@@ -289,8 +289,8 @@ export type StockFieiraOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   currentThickness?: Prisma.SortOrderInput | Prisma.SortOrder
   currentWidth?: Prisma.SortOrderInput | Prisma.SortOrder
-  utilization?: Prisma.SortOrderInput | Prisma.SortOrder
-  production?: Prisma.SortOrderInput | Prisma.SortOrder
+  utilization?: Prisma.SortOrder
+  production?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   Cabinet?: Prisma.CabinetOrderByWithRelationInput
@@ -310,8 +310,8 @@ export type StockFieiraWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumStatusFieiraFilter<"StockFieira"> | $Enums.StatusFieira
   currentThickness?: Prisma.DecimalNullableFilter<"StockFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: Prisma.DecimalNullableFilter<"StockFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: Prisma.IntNullableFilter<"StockFieira"> | number | null
-  production?: Prisma.IntNullableFilter<"StockFieira"> | number | null
+  utilization?: Prisma.IntFilter<"StockFieira"> | number
+  production?: Prisma.IntFilter<"StockFieira"> | number
   createdAt?: Prisma.DateTimeFilter<"StockFieira"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"StockFieira"> | Date | string
   Cabinet?: Prisma.XOR<Prisma.CabinetScalarRelationFilter, Prisma.CabinetWhereInput>
@@ -327,8 +327,8 @@ export type StockFieiraOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   currentThickness?: Prisma.SortOrderInput | Prisma.SortOrder
   currentWidth?: Prisma.SortOrderInput | Prisma.SortOrder
-  utilization?: Prisma.SortOrderInput | Prisma.SortOrder
-  production?: Prisma.SortOrderInput | Prisma.SortOrder
+  utilization?: Prisma.SortOrder
+  production?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.StockFieiraCountOrderByAggregateInput
@@ -348,8 +348,8 @@ export type StockFieiraScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumStatusFieiraWithAggregatesFilter<"StockFieira"> | $Enums.StatusFieira
   currentThickness?: Prisma.DecimalNullableWithAggregatesFilter<"StockFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: Prisma.DecimalNullableWithAggregatesFilter<"StockFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: Prisma.IntNullableWithAggregatesFilter<"StockFieira"> | number | null
-  production?: Prisma.IntNullableWithAggregatesFilter<"StockFieira"> | number | null
+  utilization?: Prisma.IntWithAggregatesFilter<"StockFieira"> | number
+  production?: Prisma.IntWithAggregatesFilter<"StockFieira"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"StockFieira"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"StockFieira"> | Date | string
 }
@@ -359,8 +359,8 @@ export type StockFieiraCreateInput = {
   status: $Enums.StatusFieira
   currentThickness?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: number | null
-  production?: number | null
+  utilization?: number
+  production?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   Cabinet: Prisma.CabinetCreateNestedOneWithoutStockFieiraInput
@@ -376,8 +376,8 @@ export type StockFieiraUncheckedCreateInput = {
   status: $Enums.StatusFieira
   currentThickness?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: number | null
-  production?: number | null
+  utilization?: number
+  production?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   RequisitionItems?: Prisma.RequisitionItemUncheckedCreateNestedManyWithoutStockFieiraInput
@@ -390,8 +390,8 @@ export type StockFieiraUpdateInput = {
   status?: Prisma.EnumStatusFieiraFieldUpdateOperationsInput | $Enums.StatusFieira
   currentThickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  production?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  utilization?: Prisma.IntFieldUpdateOperationsInput | number
+  production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Cabinet?: Prisma.CabinetUpdateOneRequiredWithoutStockFieiraNestedInput
@@ -407,8 +407,8 @@ export type StockFieiraUncheckedUpdateInput = {
   status?: Prisma.EnumStatusFieiraFieldUpdateOperationsInput | $Enums.StatusFieira
   currentThickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  production?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  utilization?: Prisma.IntFieldUpdateOperationsInput | number
+  production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   RequisitionItems?: Prisma.RequisitionItemUncheckedUpdateManyWithoutStockFieiraNestedInput
@@ -423,8 +423,8 @@ export type StockFieiraCreateManyInput = {
   status: $Enums.StatusFieira
   currentThickness?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: number | null
-  production?: number | null
+  utilization?: number
+  production?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -434,8 +434,8 @@ export type StockFieiraUpdateManyMutationInput = {
   status?: Prisma.EnumStatusFieiraFieldUpdateOperationsInput | $Enums.StatusFieira
   currentThickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  production?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  utilization?: Prisma.IntFieldUpdateOperationsInput | number
+  production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -447,8 +447,8 @@ export type StockFieiraUncheckedUpdateManyInput = {
   status?: Prisma.EnumStatusFieiraFieldUpdateOperationsInput | $Enums.StatusFieira
   currentThickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  production?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  utilization?: Prisma.IntFieldUpdateOperationsInput | number
+  production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -631,8 +631,8 @@ export type StockFieiraCreateWithoutCabinetInput = {
   status: $Enums.StatusFieira
   currentThickness?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: number | null
-  production?: number | null
+  utilization?: number
+  production?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   RequisitionItems?: Prisma.RequisitionItemCreateNestedManyWithoutStockFieiraInput
@@ -646,8 +646,8 @@ export type StockFieiraUncheckedCreateWithoutCabinetInput = {
   status: $Enums.StatusFieira
   currentThickness?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: number | null
-  production?: number | null
+  utilization?: number
+  production?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   RequisitionItems?: Prisma.RequisitionItemUncheckedCreateNestedManyWithoutStockFieiraInput
@@ -691,8 +691,8 @@ export type StockFieiraScalarWhereInput = {
   status?: Prisma.EnumStatusFieiraFilter<"StockFieira"> | $Enums.StatusFieira
   currentThickness?: Prisma.DecimalNullableFilter<"StockFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: Prisma.DecimalNullableFilter<"StockFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: Prisma.IntNullableFilter<"StockFieira"> | number | null
-  production?: Prisma.IntNullableFilter<"StockFieira"> | number | null
+  utilization?: Prisma.IntFilter<"StockFieira"> | number
+  production?: Prisma.IntFilter<"StockFieira"> | number
   createdAt?: Prisma.DateTimeFilter<"StockFieira"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"StockFieira"> | Date | string
 }
@@ -702,8 +702,8 @@ export type StockFieiraCreateWithoutRequisitionItemsInput = {
   status: $Enums.StatusFieira
   currentThickness?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: number | null
-  production?: number | null
+  utilization?: number
+  production?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   Cabinet: Prisma.CabinetCreateNestedOneWithoutStockFieiraInput
@@ -718,8 +718,8 @@ export type StockFieiraUncheckedCreateWithoutRequisitionItemsInput = {
   status: $Enums.StatusFieira
   currentThickness?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: number | null
-  production?: number | null
+  utilization?: number
+  production?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   ReservationFieira?: Prisma.ReservationFieiraUncheckedCreateNestedManyWithoutStockFieiraInput
@@ -747,8 +747,8 @@ export type StockFieiraUpdateWithoutRequisitionItemsInput = {
   status?: Prisma.EnumStatusFieiraFieldUpdateOperationsInput | $Enums.StatusFieira
   currentThickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  production?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  utilization?: Prisma.IntFieldUpdateOperationsInput | number
+  production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Cabinet?: Prisma.CabinetUpdateOneRequiredWithoutStockFieiraNestedInput
@@ -763,8 +763,8 @@ export type StockFieiraUncheckedUpdateWithoutRequisitionItemsInput = {
   status?: Prisma.EnumStatusFieiraFieldUpdateOperationsInput | $Enums.StatusFieira
   currentThickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  production?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  utilization?: Prisma.IntFieldUpdateOperationsInput | number
+  production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ReservationFieira?: Prisma.ReservationFieiraUncheckedUpdateManyWithoutStockFieiraNestedInput
@@ -776,8 +776,8 @@ export type StockFieiraCreateWithoutReservationFieiraInput = {
   status: $Enums.StatusFieira
   currentThickness?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: number | null
-  production?: number | null
+  utilization?: number
+  production?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   Cabinet: Prisma.CabinetCreateNestedOneWithoutStockFieiraInput
@@ -792,8 +792,8 @@ export type StockFieiraUncheckedCreateWithoutReservationFieiraInput = {
   status: $Enums.StatusFieira
   currentThickness?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: number | null
-  production?: number | null
+  utilization?: number
+  production?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   RequisitionItems?: Prisma.RequisitionItemUncheckedCreateNestedManyWithoutStockFieiraInput
@@ -821,8 +821,8 @@ export type StockFieiraUpdateWithoutReservationFieiraInput = {
   status?: Prisma.EnumStatusFieiraFieldUpdateOperationsInput | $Enums.StatusFieira
   currentThickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  production?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  utilization?: Prisma.IntFieldUpdateOperationsInput | number
+  production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Cabinet?: Prisma.CabinetUpdateOneRequiredWithoutStockFieiraNestedInput
@@ -837,8 +837,8 @@ export type StockFieiraUncheckedUpdateWithoutReservationFieiraInput = {
   status?: Prisma.EnumStatusFieiraFieldUpdateOperationsInput | $Enums.StatusFieira
   currentThickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  production?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  utilization?: Prisma.IntFieldUpdateOperationsInput | number
+  production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   RequisitionItems?: Prisma.RequisitionItemUncheckedUpdateManyWithoutStockFieiraNestedInput
@@ -850,8 +850,8 @@ export type StockFieiraCreateWithoutHistoryInput = {
   status: $Enums.StatusFieira
   currentThickness?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: number | null
-  production?: number | null
+  utilization?: number
+  production?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   Cabinet: Prisma.CabinetCreateNestedOneWithoutStockFieiraInput
@@ -866,8 +866,8 @@ export type StockFieiraUncheckedCreateWithoutHistoryInput = {
   status: $Enums.StatusFieira
   currentThickness?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: number | null
-  production?: number | null
+  utilization?: number
+  production?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   RequisitionItems?: Prisma.RequisitionItemUncheckedCreateNestedManyWithoutStockFieiraInput
@@ -895,8 +895,8 @@ export type StockFieiraUpdateWithoutHistoryInput = {
   status?: Prisma.EnumStatusFieiraFieldUpdateOperationsInput | $Enums.StatusFieira
   currentThickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  production?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  utilization?: Prisma.IntFieldUpdateOperationsInput | number
+  production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Cabinet?: Prisma.CabinetUpdateOneRequiredWithoutStockFieiraNestedInput
@@ -911,8 +911,8 @@ export type StockFieiraUncheckedUpdateWithoutHistoryInput = {
   status?: Prisma.EnumStatusFieiraFieldUpdateOperationsInput | $Enums.StatusFieira
   currentThickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  production?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  utilization?: Prisma.IntFieldUpdateOperationsInput | number
+  production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   RequisitionItems?: Prisma.RequisitionItemUncheckedUpdateManyWithoutStockFieiraNestedInput
@@ -925,8 +925,8 @@ export type StockFieiraCreateManyCabinetInput = {
   status: $Enums.StatusFieira
   currentThickness?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: number | null
-  production?: number | null
+  utilization?: number
+  production?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -936,8 +936,8 @@ export type StockFieiraUpdateWithoutCabinetInput = {
   status?: Prisma.EnumStatusFieiraFieldUpdateOperationsInput | $Enums.StatusFieira
   currentThickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  production?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  utilization?: Prisma.IntFieldUpdateOperationsInput | number
+  production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   RequisitionItems?: Prisma.RequisitionItemUpdateManyWithoutStockFieiraNestedInput
@@ -951,8 +951,8 @@ export type StockFieiraUncheckedUpdateWithoutCabinetInput = {
   status?: Prisma.EnumStatusFieiraFieldUpdateOperationsInput | $Enums.StatusFieira
   currentThickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  production?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  utilization?: Prisma.IntFieldUpdateOperationsInput | number
+  production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   RequisitionItems?: Prisma.RequisitionItemUncheckedUpdateManyWithoutStockFieiraNestedInput
@@ -966,8 +966,8 @@ export type StockFieiraUncheckedUpdateManyWithoutCabinetInput = {
   status?: Prisma.EnumStatusFieiraFieldUpdateOperationsInput | $Enums.StatusFieira
   currentThickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currentWidth?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  utilization?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  production?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  utilization?: Prisma.IntFieldUpdateOperationsInput | number
+  production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1110,8 +1110,8 @@ export type $StockFieiraPayload<ExtArgs extends runtime.Types.Extensions.Interna
     status: $Enums.StatusFieira
     currentThickness: runtime.Decimal | null
     currentWidth: runtime.Decimal | null
-    utilization: number | null
-    production: number | null
+    utilization: number
+    production: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["stockFieira"]>

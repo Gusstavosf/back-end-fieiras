@@ -1,10 +1,10 @@
-import { StatusFieira, Stock } from "../entity/stock.js";
+import { StatusFieira, Stock } from "../entity/stock/stock.js";
 
 export type StockHistoryInput = {
     stockFieiraId: number;
     status: StatusFieira;
-    thickness: number;
-    width: number;
+    thickness: number | null;
+    width: number | null;
     production: number;
     utilization: number;
 };

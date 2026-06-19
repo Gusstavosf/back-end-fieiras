@@ -1,4 +1,4 @@
-import { StatusFieira } from "../../../../../domain/stock/entity/stock.js";
+import { StatusFieira } from "../../../../../domain/stock/entity/stock/stock.js";
 import {
     ListStockUseCase,
     type ListStockOutputDto,

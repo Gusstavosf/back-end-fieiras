@@ -4,8 +4,7 @@ import type {
     UpdateHistoryInput,
 } from "../../../../domain/stock/gateway/stock.gateway.js";
 import { PrismaClient } from "../../../../generated/prisma/client.js";
-import { Stock, StatusFieira } from "../../../../domain/stock/entity/stock.js";
-import type { Prisma } from "../../../../generated/prisma/client.js";
+import { Stock, StatusFieira } from "../../../../domain/stock/entity/stock/stock.js";
 
 export class StockReposistoryPrisma implements StockGateway {
     private constructor(private readonly prismaClient: PrismaClient) {}
@@ -25,8 +24,8 @@ export class StockReposistoryPrisma implements StockGateway {
                     : null,
             currentWidth:
                 stock.currentWidth !== undefined ? Number(stock.currentWidth) : null,
-            utilization: stock.utilization ?? 0,
-            production: stock.production ?? 0,
+            utilization: stock.utilization,
+            production: stock.production,
             createdAt: stock.createdAt,
             updatedAt: stock.updatedAt,
         };
@@ -47,10 +46,10 @@ export class StockReposistoryPrisma implements StockGateway {
                 status: stock.status as StatusFieira,
                 currentThickness: stock.currentThickness
                     ? Number(stock.currentThickness)
-                    : undefined,
-                currentWidth: stock.currentWidth ? Number(stock.currentWidth) : undefined,
-                utilization: stock.utilization ?? 0,
-                production: stock.production ?? 0,
+                    : null,
+                currentWidth: stock.currentWidth ? Number(stock.currentWidth) : null,
+                utilization: stock.utilization,
+                production: stock.production,
                 createdAt: stock.createdAt,
                 updatedAt: stock.updatedAt,
             });
@@ -73,10 +72,8 @@ export class StockReposistoryPrisma implements StockGateway {
             status: stockCode.status as StatusFieira,
             currentThickness: stockCode.currentThickness
                 ? Number(stockCode.currentThickness)
-                : undefined,
-            currentWidth: stockCode.currentWidth
-                ? Number(stockCode.currentWidth)
-                : undefined,
+                : null,
+            currentWidth: stockCode.currentWidth ? Number(stockCode.currentWidth) : null,
             utilization: stockCode.utilization ?? 0,
             production: stockCode.production ?? 0,
             createdAt: stockCode.createdAt,
@@ -103,8 +100,8 @@ export class StockReposistoryPrisma implements StockGateway {
                 status: stock.status as StatusFieira,
                 currentThickness: stock.currentThickness ?? null,
                 currentWidth: stock.currentWidth ?? null,
-                utilization: stock.utilization ?? 0,
-                production: stock.production ?? 0,
+                utilization: stock.utilization,
+                production: stock.production,
             },
         });
     }
@@ -123,22 +120,21 @@ export class StockReposistoryPrisma implements StockGateway {
             status: stockId.status as StatusFieira,
             currentThickness: stockId.currentThickness
                 ? Number(stockId.currentThickness)
-                : undefined,
-            currentWidth: stockId.currentWidth ? Number(stockId.currentWidth) : undefined,
-            utilization: stockId.utilization ?? 0,
-            production: stockId.production ?? 0,
+                : null,
+            currentWidth: stockId.currentWidth ? Number(stockId.currentWidth) : null,
+            utilization: stockId.utilization,
+            production: stockId.production,
             createdAt: stockId.createdAt,
             updatedAt: stockId.updatedAt,
         });
     }
 
     public async saveHistory(history: StockHistoryInput): Promise<void> {
-        const data: Prisma.StockFieiraHistoryUncheckedCreateInput = {
+        const data = {
             stockFieiraId: history.stockFieiraId,
             status: history.status,
-            thickness:
-                history.thickness !== undefined ? Number(history.thickness) : undefined,
-            width: history.width !== undefined ? Number(history.width) : undefined,
+            thickness: history.thickness !== undefined ? Number(history.thickness) : null,
+            width: history.width !== undefined ? Number(history.width) : null,
             production: history.production,
             utilization: history.utilization,
         };
