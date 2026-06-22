@@ -1,4 +1,4 @@
-import IncorrectRequest from "../../../../core/shared/errors/incorrectRequest.js";
+import IncorrectRequest from "../../../core/shared/errors/incorrectRequest.js";
 
 export enum StatusFieira {
     New = "new",
@@ -93,8 +93,8 @@ export class Stock {
             }
 
             if (
-                details.thickness < 0 ||
-                details.width < 0 ||
+                details.thickness <= 0 ||
+                details.width <= 0 ||
                 details.production <= 0 ||
                 details.utilization <= 0
             ) {

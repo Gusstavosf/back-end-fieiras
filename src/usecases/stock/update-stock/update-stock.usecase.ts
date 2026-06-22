@@ -1,7 +1,5 @@
-import IncorrectRequest from "../../../core/shared/errors/incorrectRequest.js";
-import { Stock } from "../../../domain/stock/entity/stock/stock.js";
+import { Stock, StatusFieira } from "../../../domain/stock/entity/stock.js";
 import type { StockGateway } from "../../../domain/stock/gateway/stock.gateway.js";
-import { StatusFieira } from "../../../domain/stock/entity/stock/stock.js";
 import type { Usecase } from "../../usecase.js";
 import NotFound from "../../../core/shared/errors/notFound.js";
 
@@ -9,11 +7,10 @@ export type UpdateStockInputDto = {
     cabinetName: string;
     code: string;
     status: StatusFieira;
-    thickness?: number | undefined;
-    width?: number | undefined;
-    utilization?: number | undefined;
-    production?: number | undefined;
-    isCorretion?: boolean;
+    thickness?: number;
+    width?: number;
+    utilization?: number;
+    production?: number;
 };
 
 export type UpdateStockOutputDto = {
@@ -54,39 +51,6 @@ export class UpdateStockUseCase implements Usecase<
             );
         }
 
-        if (input.isCorretion) {
-            if (
-                input.thickness === undefined ||
-                input.width === undefined ||
-                input.production === undefined ||
-                input.utilization === undefined
-            ) {
-                throw new IncorrectRequest(
-                    "Para corrigir, todos os campos (espessura, largura, produção e utilização) devem ser enviados.",
-                );
-            }
-
-            stockEntity.correctMeasures({
-                status: input.status,
-                thickness: input.thickness,
-                width: input.width,
-                production: input.production,
-                utilization: input.utilization,
-            });
-
-            await this.stockGateway.update(stockEntity);
-
-            await this.stockGateway.updateLastHistory(stockEntity.id!, {
-                status: stockEntity.status,
-                thickness: input.thickness,
-                width: input.width,
-                production: input.production,
-                utilization: input.utilization,
-            });
-
-            return this.presentOutput(stockEntity);
-        }
-
         const isNewStatus = input.status === StatusFieira.New;
 
         const details =
@@ -101,7 +65,7 @@ export class UpdateStockUseCase implements Usecase<
                       production: input.production,
                       utilization: input.utilization,
                   }
-                : undefined;
+                : null;
 
         stockEntity.update(input.status, details);
 

@@ -53,6 +53,7 @@ export type StockFieiraHistoryMinAggregateOutputType = {
   utilization: number | null
   production: number | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type StockFieiraHistoryMaxAggregateOutputType = {
@@ -64,6 +65,7 @@ export type StockFieiraHistoryMaxAggregateOutputType = {
   utilization: number | null
   production: number | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type StockFieiraHistoryCountAggregateOutputType = {
@@ -75,6 +77,7 @@ export type StockFieiraHistoryCountAggregateOutputType = {
   utilization: number
   production: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -106,6 +109,7 @@ export type StockFieiraHistoryMinAggregateInputType = {
   utilization?: true
   production?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type StockFieiraHistoryMaxAggregateInputType = {
@@ -117,6 +121,7 @@ export type StockFieiraHistoryMaxAggregateInputType = {
   utilization?: true
   production?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type StockFieiraHistoryCountAggregateInputType = {
@@ -128,6 +133,7 @@ export type StockFieiraHistoryCountAggregateInputType = {
   utilization?: true
   production?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -226,6 +232,7 @@ export type StockFieiraHistoryGroupByOutputType = {
   utilization: number
   production: number
   createdAt: Date
+  updatedAt: Date
   _count: StockFieiraHistoryCountAggregateOutputType | null
   _avg: StockFieiraHistoryAvgAggregateOutputType | null
   _sum: StockFieiraHistorySumAggregateOutputType | null
@@ -260,6 +267,7 @@ export type StockFieiraHistoryWhereInput = {
   utilization?: Prisma.IntFilter<"StockFieiraHistory"> | number
   production?: Prisma.IntFilter<"StockFieiraHistory"> | number
   createdAt?: Prisma.DateTimeFilter<"StockFieiraHistory"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"StockFieiraHistory"> | Date | string
   StockFieira?: Prisma.XOR<Prisma.StockFieiraScalarRelationFilter, Prisma.StockFieiraWhereInput>
 }
 
@@ -272,6 +280,7 @@ export type StockFieiraHistoryOrderByWithRelationInput = {
   utilization?: Prisma.SortOrder
   production?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   StockFieira?: Prisma.StockFieiraOrderByWithRelationInput
 }
 
@@ -287,6 +296,7 @@ export type StockFieiraHistoryWhereUniqueInput = Prisma.AtLeast<{
   utilization?: Prisma.IntFilter<"StockFieiraHistory"> | number
   production?: Prisma.IntFilter<"StockFieiraHistory"> | number
   createdAt?: Prisma.DateTimeFilter<"StockFieiraHistory"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"StockFieiraHistory"> | Date | string
   StockFieira?: Prisma.XOR<Prisma.StockFieiraScalarRelationFilter, Prisma.StockFieiraWhereInput>
 }, "id">
 
@@ -299,6 +309,7 @@ export type StockFieiraHistoryOrderByWithAggregationInput = {
   utilization?: Prisma.SortOrder
   production?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.StockFieiraHistoryCountOrderByAggregateInput
   _avg?: Prisma.StockFieiraHistoryAvgOrderByAggregateInput
   _max?: Prisma.StockFieiraHistoryMaxOrderByAggregateInput
@@ -318,6 +329,7 @@ export type StockFieiraHistoryScalarWhereWithAggregatesInput = {
   utilization?: Prisma.IntWithAggregatesFilter<"StockFieiraHistory"> | number
   production?: Prisma.IntWithAggregatesFilter<"StockFieiraHistory"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"StockFieiraHistory"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"StockFieiraHistory"> | Date | string
 }
 
 export type StockFieiraHistoryCreateInput = {
@@ -327,6 +339,7 @@ export type StockFieiraHistoryCreateInput = {
   utilization?: number
   production?: number
   createdAt?: Date | string
+  updatedAt?: Date | string
   StockFieira: Prisma.StockFieiraCreateNestedOneWithoutHistoryInput
 }
 
@@ -339,6 +352,7 @@ export type StockFieiraHistoryUncheckedCreateInput = {
   utilization?: number
   production?: number
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type StockFieiraHistoryUpdateInput = {
@@ -348,6 +362,7 @@ export type StockFieiraHistoryUpdateInput = {
   utilization?: Prisma.IntFieldUpdateOperationsInput | number
   production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   StockFieira?: Prisma.StockFieiraUpdateOneRequiredWithoutHistoryNestedInput
 }
 
@@ -360,6 +375,7 @@ export type StockFieiraHistoryUncheckedUpdateInput = {
   utilization?: Prisma.IntFieldUpdateOperationsInput | number
   production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type StockFieiraHistoryCreateManyInput = {
@@ -371,6 +387,7 @@ export type StockFieiraHistoryCreateManyInput = {
   utilization?: number
   production?: number
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type StockFieiraHistoryUpdateManyMutationInput = {
@@ -380,6 +397,7 @@ export type StockFieiraHistoryUpdateManyMutationInput = {
   utilization?: Prisma.IntFieldUpdateOperationsInput | number
   production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type StockFieiraHistoryUncheckedUpdateManyInput = {
@@ -391,6 +409,7 @@ export type StockFieiraHistoryUncheckedUpdateManyInput = {
   utilization?: Prisma.IntFieldUpdateOperationsInput | number
   production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type StockFieiraHistoryListRelationFilter = {
@@ -412,6 +431,7 @@ export type StockFieiraHistoryCountOrderByAggregateInput = {
   utilization?: Prisma.SortOrder
   production?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type StockFieiraHistoryAvgOrderByAggregateInput = {
@@ -432,6 +452,7 @@ export type StockFieiraHistoryMaxOrderByAggregateInput = {
   utilization?: Prisma.SortOrder
   production?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type StockFieiraHistoryMinOrderByAggregateInput = {
@@ -443,6 +464,7 @@ export type StockFieiraHistoryMinOrderByAggregateInput = {
   utilization?: Prisma.SortOrder
   production?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type StockFieiraHistorySumOrderByAggregateInput = {
@@ -503,6 +525,7 @@ export type StockFieiraHistoryCreateWithoutStockFieiraInput = {
   utilization?: number
   production?: number
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type StockFieiraHistoryUncheckedCreateWithoutStockFieiraInput = {
@@ -513,6 +536,7 @@ export type StockFieiraHistoryUncheckedCreateWithoutStockFieiraInput = {
   utilization?: number
   production?: number
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type StockFieiraHistoryCreateOrConnectWithoutStockFieiraInput = {
@@ -553,6 +577,7 @@ export type StockFieiraHistoryScalarWhereInput = {
   utilization?: Prisma.IntFilter<"StockFieiraHistory"> | number
   production?: Prisma.IntFilter<"StockFieiraHistory"> | number
   createdAt?: Prisma.DateTimeFilter<"StockFieiraHistory"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"StockFieiraHistory"> | Date | string
 }
 
 export type StockFieiraHistoryCreateManyStockFieiraInput = {
@@ -563,6 +588,7 @@ export type StockFieiraHistoryCreateManyStockFieiraInput = {
   utilization?: number
   production?: number
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type StockFieiraHistoryUpdateWithoutStockFieiraInput = {
@@ -572,6 +598,7 @@ export type StockFieiraHistoryUpdateWithoutStockFieiraInput = {
   utilization?: Prisma.IntFieldUpdateOperationsInput | number
   production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type StockFieiraHistoryUncheckedUpdateWithoutStockFieiraInput = {
@@ -582,6 +609,7 @@ export type StockFieiraHistoryUncheckedUpdateWithoutStockFieiraInput = {
   utilization?: Prisma.IntFieldUpdateOperationsInput | number
   production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type StockFieiraHistoryUncheckedUpdateManyWithoutStockFieiraInput = {
@@ -592,6 +620,7 @@ export type StockFieiraHistoryUncheckedUpdateManyWithoutStockFieiraInput = {
   utilization?: Prisma.IntFieldUpdateOperationsInput | number
   production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -605,6 +634,7 @@ export type StockFieiraHistorySelect<ExtArgs extends runtime.Types.Extensions.In
   utilization?: boolean
   production?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   StockFieira?: boolean | Prisma.StockFieiraDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["stockFieiraHistory"]>
 
@@ -617,6 +647,7 @@ export type StockFieiraHistorySelectCreateManyAndReturn<ExtArgs extends runtime.
   utilization?: boolean
   production?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   StockFieira?: boolean | Prisma.StockFieiraDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["stockFieiraHistory"]>
 
@@ -629,6 +660,7 @@ export type StockFieiraHistorySelectUpdateManyAndReturn<ExtArgs extends runtime.
   utilization?: boolean
   production?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   StockFieira?: boolean | Prisma.StockFieiraDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["stockFieiraHistory"]>
 
@@ -641,9 +673,10 @@ export type StockFieiraHistorySelectScalar = {
   utilization?: boolean
   production?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type StockFieiraHistoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "stockFieiraId" | "status" | "thickness" | "width" | "utilization" | "production" | "createdAt", ExtArgs["result"]["stockFieiraHistory"]>
+export type StockFieiraHistoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "stockFieiraId" | "status" | "thickness" | "width" | "utilization" | "production" | "createdAt" | "updatedAt", ExtArgs["result"]["stockFieiraHistory"]>
 export type StockFieiraHistoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   StockFieira?: boolean | Prisma.StockFieiraDefaultArgs<ExtArgs>
 }
@@ -668,6 +701,7 @@ export type $StockFieiraHistoryPayload<ExtArgs extends runtime.Types.Extensions.
     utilization: number
     production: number
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["stockFieiraHistory"]>
   composites: {}
 }
@@ -1100,6 +1134,7 @@ export interface StockFieiraHistoryFieldRefs {
   readonly utilization: Prisma.FieldRef<"StockFieiraHistory", 'Int'>
   readonly production: Prisma.FieldRef<"StockFieiraHistory", 'Int'>
   readonly createdAt: Prisma.FieldRef<"StockFieiraHistory", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"StockFieiraHistory", 'DateTime'>
 }
     
 

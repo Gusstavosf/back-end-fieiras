@@ -1,12 +1,12 @@
 import { StatusFieira } from "./stock.js";
-import IncorrectRequest from "../../../../core/shared/errors/incorrectRequest.js";
+import IncorrectRequest from "../../../core/shared/errors/incorrectRequest.js";
 
 export type StockHistoryProps = {
     id: number;
     stockFieiraId: number;
     status: StatusFieira;
-    thickness: number | null;
-    width: number | null;
+    thickness?: number | null;
+    width?: number | null;
     production: number;
     utilization: number;
     createdAt: Date;
@@ -72,5 +72,36 @@ export class StockHistory {
         this.props.utilization = utilization;
 
         this.props.updatedAt = new Date();
+    }
+
+    public get id(): number {
+        return this.props.id;
+    }
+
+    public get stockFieiraId(): number {
+        return this.props.stockFieiraId;
+    }
+
+    public get status(): StatusFieira {
+        return this.props.status;
+    }
+    public get createdAt(): Date {
+        return this.props.createdAt;
+    }
+    public get updatedAt(): Date {
+        return this.props.updatedAt;
+    }
+
+    public get thickness(): number | null {
+        return this.props.thickness || null;
+    }
+    public get width(): number | null {
+        return this.props.width || null;
+    }
+    public get utilization(): number {
+        return this.props.utilization;
+    }
+    public get production(): number {
+        return this.props.production;
     }
 }

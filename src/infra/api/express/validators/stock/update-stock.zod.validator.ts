@@ -1,6 +1,6 @@
 import { z } from "zod";
 import type { Validator } from "../../../../../core/shared/validator.interface.js";
-import { StatusFieira } from "../../../../../domain/stock/entity/stock/stock.js";
+import { StatusFieira } from "../../../../../domain/stock/entity/stock.js";
 
 const statusTranslate: Record<string, StatusFieira> = {
     Nova: StatusFieira.New,

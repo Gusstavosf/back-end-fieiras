@@ -1,10 +1,9 @@
 import type {
     StockGateway,
     StockHistoryInput,
-    UpdateHistoryInput,
 } from "../../../../domain/stock/gateway/stock.gateway.js";
 import { PrismaClient } from "../../../../generated/prisma/client.js";
-import { Stock, StatusFieira } from "../../../../domain/stock/entity/stock/stock.js";
+import { Stock, StatusFieira } from "../../../../domain/stock/entity/stock.js";
 
 export class StockReposistoryPrisma implements StockGateway {
     private constructor(private readonly prismaClient: PrismaClient) {}
@@ -141,29 +140,6 @@ export class StockReposistoryPrisma implements StockGateway {
 
         await this.prismaClient.stockFieiraHistory.create({
             data,
-        });
-    }
-
-    public async updateLastHistory(
-        stockFieiraId: number,
-        input: UpdateHistoryInput,
-    ): Promise<void> {
-        const lastHistory = await this.prismaClient.stockFieiraHistory.findFirst({
-            where: { stockFieiraId },
-            orderBy: { id: "desc" },
-        });
-
-        if (!lastHistory) return;
-
-        await this.prismaClient.stockFieiraHistory.update({
-            where: { id: lastHistory.id },
-            data: {
-                status: input.status as StatusFieira,
-                thickness: input.thickness,
-                width: input.width,
-                production: input.production,
-                utilization: input.utilization,
-            },
         });
     }
 }

@@ -1,18 +1,18 @@
-import { StatusFieira, Stock } from "../entity/stock/stock.js";
+import { StatusFieira, Stock } from "../entity/stock.js";
 
 export type StockHistoryInput = {
     stockFieiraId: number;
     status: StatusFieira;
-    thickness: number | null;
-    width: number | null;
+    thickness?: number;
+    width?: number;
     production: number;
     utilization: number;
 };
 
 export type UpdateHistoryInput = {
     status: string;
-    thickness: number;
-    width: number;
+    thickness?: number;
+    width?: number;
     production: number;
     utilization: number;
 };
@@ -25,5 +25,4 @@ export interface StockGateway {
     findIdCabinetByName(cabinet: string): Promise<number | null>;
     update(stock: Stock): Promise<void>;
     saveHistory(history: StockHistoryInput): Promise<void>;
-    updateLastHistory(stockFieiraId: number, input: UpdateHistoryInput): Promise<void>;
 }

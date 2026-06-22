@@ -1053,7 +1053,8 @@ export const StockFieiraHistoryScalarFieldEnum = {
   width: 'width',
   utilization: 'utilization',
   production: 'production',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type StockFieiraHistoryScalarFieldEnum = (typeof StockFieiraHistoryScalarFieldEnum)[keyof typeof StockFieiraHistoryScalarFieldEnum]
