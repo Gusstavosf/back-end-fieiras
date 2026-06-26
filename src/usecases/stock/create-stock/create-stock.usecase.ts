@@ -1,7 +1,8 @@
 import type { Usecase } from "../../usecase.js";
-import { Stock, StatusFieira } from "../../../domain/stock/entity/stock/stock.js";
+import { Stock, StatusFieira } from "../../../domain/stock/entity/stock.js";
 import type { StockGateway } from "../../../domain/stock/gateway/stock.gateway.js";
 import IncorrectRequest from "../../../core/shared/errors/incorrectRequest.js";
+import NotFound from "../../../core/shared/errors/notFound.js";
 
 export type CreateStockInputDto = {
     cabinetName: string;
@@ -30,9 +31,7 @@ export class CreateStockUseCase implements Usecase<
         const idCabinet = await this.stockGateway.findIdCabinetByName(input.cabinetName);
 
         if (!idCabinet) {
-            throw new IncorrectRequest(
-                `O armário '${input.cabinetName}' não existe no sistema.`,
-            );
+            throw new NotFound(`O armário '${input.cabinetName}' não existe no sistema.`);
         }
 
         const existing = await this.stockGateway.findByCode(input.code, idCabinet);
@@ -47,7 +46,24 @@ export class CreateStockUseCase implements Usecase<
 
         await this.stockGateway.save(stockEntity);
 
-        const output = this.presentOutput(stockEntity);
+        const idFromStock = await this.stockGateway.findByCode(input.code, idCabinet);
+
+        if (!idFromStock) {
+            throw new NotFound(
+                `Não foi possível recuperar a fieira criada para o histórico.`,
+            );
+        }
+
+        await this.stockGateway.saveHistory({
+            stockFieiraId: idFromStock.id!,
+            status: stockEntity.status,
+            thickness: null,
+            width: null,
+            production: 0,
+            utilization: 0,
+        });
+
+        const output = this.presentOutput(idFromStock);
 
         return output;
     }

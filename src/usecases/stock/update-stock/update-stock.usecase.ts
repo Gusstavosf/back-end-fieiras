@@ -7,10 +7,10 @@ export type UpdateStockInputDto = {
     cabinetName: string;
     code: string;
     status: StatusFieira;
-    thickness?: number;
-    width?: number;
-    utilization?: number;
+    thickness?: number | null;
+    width?: number | null;
     production?: number;
+    utilization?: number | null;
 };
 
 export type UpdateStockOutputDto = {
@@ -57,15 +57,13 @@ export class UpdateStockUseCase implements Usecase<
             !isNewStatus &&
             input.thickness !== undefined &&
             input.width !== undefined &&
-            input.production !== undefined &&
-            input.utilization !== undefined
+            input.production !== undefined
                 ? {
-                      thickness: input.thickness,
-                      width: input.width,
+                      thickness: Number(input.thickness),
+                      width: Number(input.width),
                       production: input.production,
-                      utilization: input.utilization,
                   }
-                : null;
+                : undefined;
 
         stockEntity.update(input.status, details);
 
@@ -102,7 +100,7 @@ export class UpdateStockUseCase implements Usecase<
             cabinetId: stock.cabinetId,
             code: stock.code,
             status: stock.status,
-            utilization: stock.utilization ?? 0,
+            utilization: stock.utilization,
             production: stock.production ?? 0,
             createdAt: stock.createdAt,
             updatedAt: stock.updatedAt,

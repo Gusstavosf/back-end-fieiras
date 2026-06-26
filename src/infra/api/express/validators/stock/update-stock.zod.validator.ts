@@ -42,12 +42,6 @@ const stockSchemaUpdate = z
             .positive({ message: "Largura atual deve ser um valor positivo" })
             .optional(),
 
-        utilization: z
-            .number({ message: "Utilização deve ser um número" })
-            .int({ message: "Utilização deve ser um valor inteiro" })
-            .nonnegative({ message: "Utilização não pode ser um valor negativo" })
-            .optional(),
-
         production: z
             .number({ message: "Produção deve ser um número" })
             .int({ message: "Produção deve ser um valor inteiro" })
@@ -63,8 +57,7 @@ const stockSchemaUpdate = z
                 return (
                     data.thickness !== undefined &&
                     data.width !== undefined &&
-                    data.production !== undefined &&
-                    data.utilization !== undefined
+                    data.production !== undefined
                 );
             }
 
@@ -72,7 +65,7 @@ const stockSchemaUpdate = z
         },
         {
             message:
-                "Para os status 'Polida' ou 'Morta', os campos espessura, largura, produção e utilização são obrigatórios.",
+                "Para os status 'Polida' ou 'Morta', os campos espessura, largura e produção são obrigatórios.",
             path: ["status"],
         },
     );

@@ -1,4 +1,5 @@
 import IncorrectRequest from "../../../core/shared/errors/incorrectRequest.js";
+import type { StockHistory } from "./stock-history.js";
 
 export enum StatusFieira {
     New = "new",
@@ -45,35 +46,43 @@ export class Stock {
             thickness: number;
             width: number;
             production: number;
-            utilization: number;
         },
     ): void {
         if (this.props.status === StatusFieira.Dead) {
             throw new IncorrectRequest(
-                `A fieira "${this.props.code}" está morta e não pode mais ser atualizada.`,
+                `A fieira ${this.props.code} está morta e não pode mais receber nenhuma atualização.`,
             );
         }
 
-        if (this.props.status === StatusFieira.New) {
-            if (newStatus === StatusFieira.Requested) {
-                throw new IncorrectRequest(
-                    `A fieira ${this.props.code} está com status de Nova e não pode voltar a ter status de Requisição.`,
-                );
-            }
+        if (this.props.status === newStatus && newStatus !== StatusFieira.Polished) {
+            throw new IncorrectRequest(
+                `A fieira ${this.props.code} já está no estado de '${newStatus}'.`,
+            );
         }
 
-        if (this.props.status === StatusFieira.Requested) {
-            if (newStatus === StatusFieira.Polished || newStatus === StatusFieira.Dead) {
-                throw new IncorrectRequest(
-                    `A fieira ${this.props.code} está com status de Requisição e deve ter status de Nova antes de ser Polida ou Morta.`,
-                );
-            }
+        if (
+            this.props.status === StatusFieira.Requested &&
+            newStatus !== StatusFieira.New
+        ) {
+            throw new IncorrectRequest(
+                `A fieira ${this.props.code} está com status de Requisição e precisa se tornar Nova antes de qualquer outra ação.`,
+            );
         }
 
+        if (
+            this.props.status === StatusFieira.New &&
+            newStatus === StatusFieira.Requested
+        ) {
+            throw new IncorrectRequest(
+                `A fieira ${this.props.code} já foi inicializada como Nova e não pode retornar para Requisição.`,
+            );
+        }
+
+        // 3. Se é Polida, não pode regredir para Nova ou Requisição
         if (this.props.status === StatusFieira.Polished) {
-            if (newStatus == StatusFieira.New || newStatus == StatusFieira.Requested) {
+            if (newStatus === StatusFieira.New || newStatus === StatusFieira.Requested) {
                 throw new IncorrectRequest(
-                    `A fieira ${this.props.code} está com status de Polida e não pode ter o status de Nova ou Requisição novamente`,
+                    `A fieira ${this.props.code} já está em processo de polimento e não pode retornar para Nova ou Requisição.`,
                 );
             }
         }
@@ -88,24 +97,13 @@ export class Stock {
         if (newStatus === StatusFieira.Dead || newStatus === StatusFieira.Polished) {
             if (!details) {
                 throw new IncorrectRequest(
-                    `Para alterar o status para ${newStatus}, os dados de produção, utilização, largura e espessura são obrigatórios.`,
+                    `Para alterar o status para ${newStatus}, os campos de produção, largura e espessura são obrigatórios.`,
                 );
             }
 
-            if (
-                details.thickness <= 0 ||
-                details.width <= 0 ||
-                details.production <= 0 ||
-                details.utilization <= 0
-            ) {
+            if (details.thickness <= 0 || details.width <= 0 || details.production <= 0) {
                 throw new IncorrectRequest(
                     "As medidas da fieira e informações de produção devem ser maiores que zero.",
-                );
-            }
-
-            if (details.thickness == null || details.width == null) {
-                throw new IncorrectRequest(
-                    `Para fieiras com status de Morta ou Polida, os campos dimensionais não podem ser nulos.`,
                 );
             }
 
@@ -126,16 +124,36 @@ export class Stock {
 
             this.props.currentThickness = details.thickness;
             this.props.currentWidth = details.width;
-
             this.props.production = (this.props.production ?? 0) + details.production;
-            this.props.utilization += 1;
-        }
-
-        if (this.props.status === newStatus) {
-            return;
+            this.props.utilization = this.props.utilization + 1;
         }
 
         this.props.status = newStatus;
+        this.props.updatedAt = new Date();
+    }
+
+    public recalculateFromHistory(timeline: StockHistory[]): void {
+        this.props.production = 0;
+        this.props.utilization = 0;
+        this.props.currentThickness = null;
+        this.props.currentWidth = null;
+
+        const sortedTimeLine = [...timeline].sort((a, b) => a.id - b.id);
+
+        for (const history of sortedTimeLine) {
+            this.props.production += history.production;
+            this.props.utilization += history.utilization;
+
+            if (history.thickness !== undefined && history.thickness !== null) {
+                this.props.currentThickness = history.thickness;
+            }
+            if (history.width !== undefined && history.width !== null) {
+                this.props.currentWidth = history.width;
+            }
+
+            this.props.status = history.status;
+        }
+
         this.props.updatedAt = new Date();
     }
 

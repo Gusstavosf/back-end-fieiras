@@ -135,7 +135,7 @@ export class StockReposistoryPrisma implements StockGateway {
             thickness: history.thickness !== undefined ? Number(history.thickness) : null,
             width: history.width !== undefined ? Number(history.width) : null,
             production: history.production,
-            utilization: history.utilization,
+            utilization: history.utilization ?? 0,
         };
 
         await this.prismaClient.stockFieiraHistory.create({

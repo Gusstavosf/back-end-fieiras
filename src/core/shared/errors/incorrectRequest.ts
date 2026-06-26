@@ -6,7 +6,9 @@ class IncorrectRequest extends BaseError {
         detalhes?: { campo: string; mensagem: string }[],
     ) {
         super(mensagem, 400, detalhes);
-        this.name = "RequisicaoIncorreta";
+        this.name = "Requisicao Incorreta";
+
+        Object.setPrototypeOf(this, IncorrectRequest.prototype);
     }
 }
 

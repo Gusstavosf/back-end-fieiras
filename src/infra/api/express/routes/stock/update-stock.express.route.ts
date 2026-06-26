@@ -2,9 +2,10 @@ import type { Request, RequestHandler, Response } from "express";
 import {
     UpdateStockUseCase,
     type UpdateStockOutputDto,
+    type UpdateStockInputDto,
 } from "../../../../../usecases/stock/update-stock/update-stock.usecase.js";
 import { HttpMethod, type Route } from "../route.js";
-import type { StatusFieira } from "../../../../../domain/stock/entity/stock/stock.js";
+import { StatusFieira } from "../../../../../domain/stock/entity/stock.js";
 import { UpdateStockZodValidator } from "../../validators/stock/update-stock.zod.validator.js";
 import { validationStock } from "../../../../middlewares/validationStock.js";
 
@@ -13,8 +14,8 @@ export type UpdateStockResponseDto = {
     cabinetId: number;
     code: string;
     status: StatusFieira;
-    currentThickness?: number | undefined;
-    currentWidth?: number | undefined;
+    currentThickness?: number | null;
+    currentWidth?: number | null;
     utilization?: number;
     production?: number;
     createdAt: Date;
@@ -34,25 +35,23 @@ export class UpdateStockRoute implements Route {
 
     public getHandler() {
         return async (request: Request, response: Response) => {
-            const {
-                cabinetName,
-                code,
-                status,
-                thickness,
-                width,
-                production,
-                utilization,
-            } = request.body;
+            const { cabinetName, code, status, thickness, width, production } =
+                request.body;
 
-            const input = {
+            const input: UpdateStockInputDto = {
                 cabinetName,
                 code,
                 status: status as StatusFieira,
-                thickness: thickness !== undefined ? Number(thickness) : undefined,
-                width: width !== undefined ? Number(width) : undefined,
-                production: production !== undefined ? Number(production) : undefined,
-                utilization: utilization !== undefined ? Number(utilization) : undefined,
+                thickness:
+                    thickness !== undefined && thickness !== null
+                        ? Number(thickness)
+                        : null,
+                width: width !== undefined && width !== null ? Number(width) : null,
             };
+
+            if (production !== undefined && production !== null) {
+                input.production = Number(production);
+            }
 
             const output = await this.updateStockService.execute(input);
 
@@ -82,9 +81,9 @@ export class UpdateStockRoute implements Route {
             cabinetId: stock.cabinetId,
             code: stock.code,
             status: stock.status as StatusFieira,
-            currentThickness: stock.currentThickness,
-            currentWidth: stock.currentWidth,
-            utilization: stock.utilization,
+            currentThickness:
+                stock.currentThickness !== undefined ? stock.currentThickness : null,
+            currentWidth: stock.currentWidth !== undefined ? stock.currentWidth : null,
             production: stock.production,
             createdAt: stock.createdAt,
             updatedAt: stock.updatedAt,
