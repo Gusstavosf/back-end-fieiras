@@ -42,7 +42,9 @@ export class DeleteStockHistoryRoute implements Route {
 
             const output = await this.deleteHistoryService.execute(input);
 
-            response.send(200).json(output);
+            const responseBody = this.present(output);
+
+            response.send(200).json(responseBody);
         };
     }
 
@@ -52,5 +54,20 @@ export class DeleteStockHistoryRoute implements Route {
 
     public getPath(): string {
         return this.path;
+    }
+
+    private present(
+        history: DeleteStockHistoryResponseDto,
+    ): DeleteStockHistoryResponseDto {
+        return {
+            id: history.id,
+            status: history.status,
+            thickness: history.thickness,
+            width: history.width,
+            production: history.production,
+            utilization: history.utilization,
+            createdAt: history.createdAt,
+            updatedAt: history.updatedAt,
+        };
     }
 }
