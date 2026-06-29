@@ -56,7 +56,7 @@ export class Stock {
 
         if (this.props.status === newStatus && newStatus !== StatusFieira.Polished) {
             throw new IncorrectRequest(
-                `A fieira ${this.props.code} já está no estado de '${newStatus}'.`,
+                `A fieira ${this.props.code} já está no estado de ${newStatus}.`,
             );
         }
 

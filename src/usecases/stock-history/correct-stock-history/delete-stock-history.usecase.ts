@@ -1,20 +1,16 @@
+import NotFound from "../../../core/shared/errors/notFound.js";
+import type { StockHistory } from "../../../domain/stock/entity/stock-history.js";
 import type { StatusFieira } from "../../../domain/stock/entity/stock.js";
 import type { StockHistoryGateway } from "../../../domain/stock/gateway/stock-history.gateway.js";
-import type { Usecase } from "../../usecase.js";
-import NotFound from "../../../core/shared/errors/notFound.js";
-import { StockHistory } from "../../../domain/stock/entity/stock-history.js";
 import type { StockGateway } from "../../../domain/stock/gateway/stock.gateway.js";
+import type { Usecase } from "../../usecase.js";
 
-export type CorrectStockHistoryInputDto = {
+export type DeleteStockHistoryInputDto = {
     id: number;
-    status: StatusFieira;
-    thickness?: number | null | undefined;
-    width?: number | null | undefined;
-    production?: number | undefined;
 };
 
-export type CorrectStockHistoryOutputDto = {
-    id: number;
+export type DeleteStockHistoryOutputDto = {
+    stockFieiraId: number;
     status: StatusFieira;
     thickness: number | null;
     width: number | null;
@@ -24,9 +20,9 @@ export type CorrectStockHistoryOutputDto = {
     updatedAt: Date;
 };
 
-export class CorrectStockHistoryUseCase implements Usecase<
-    CorrectStockHistoryInputDto,
-    CorrectStockHistoryOutputDto
+export class DeleteStockHistoryuseCase implements Usecase<
+    DeleteStockHistoryInputDto,
+    DeleteStockHistoryOutputDto
 > {
     constructor(
         private readonly historyGateway: StockHistoryGateway,
@@ -37,10 +33,12 @@ export class CorrectStockHistoryUseCase implements Usecase<
         historyGateway: StockHistoryGateway,
         stockGateway: StockGateway,
     ) {
-        return new CorrectStockHistoryUseCase(historyGateway, stockGateway);
+        return new DeleteStockHistoryuseCase(historyGateway, stockGateway);
     }
 
-    public async execute(input: CorrectStockHistoryInputDto) {
+    public async execute(
+        input: DeleteStockHistoryInputDto,
+    ): Promise<DeleteStockHistoryOutputDto> {
         const historyEntity = await this.historyGateway.findById(input.id);
 
         if (!historyEntity) {
@@ -49,23 +47,17 @@ export class CorrectStockHistoryUseCase implements Usecase<
             );
         }
 
-        const allTimeline = await this.historyGateway.listByStockId(
+        const timeline = await this.historyGateway.listByStockId(
             historyEntity.stockFieiraId,
         );
 
-        if (!allTimeline) {
+        if (!timeline) {
             throw new NotFound(`A fieira vinculada a este histórico não foi encontrada.`);
         }
 
-        historyEntity.correctMeasures(
-            input.status !== undefined ? input.status : historyEntity.status,
-            input.thickness !== undefined ? input.thickness : historyEntity.thickness,
-            input.width !== undefined ? input.width : historyEntity.width,
-            input.production !== undefined ? input.production : historyEntity.production,
-            allTimeline,
-        );
+        historyEntity.validateDelete(timeline);
 
-        await this.historyGateway.update(historyEntity);
+        await this.historyGateway.delete(historyEntity.id);
 
         const stockEntity = await this.stockGateway.findById(historyEntity.stockFieiraId);
 
@@ -73,7 +65,7 @@ export class CorrectStockHistoryUseCase implements Usecase<
             throw new NotFound(`A fieira vinculada a este histórico não foi encontrada.`);
         }
 
-        stockEntity.recalculateFromHistory(allTimeline);
+        stockEntity.recalculateFromHistory(timeline);
 
         await this.stockGateway.update(stockEntity);
 
@@ -82,9 +74,9 @@ export class CorrectStockHistoryUseCase implements Usecase<
         return output;
     }
 
-    private presentOutput(stockHistory: StockHistory): CorrectStockHistoryOutputDto {
-        const output: CorrectStockHistoryOutputDto = {
-            id: stockHistory.id!,
+    private presentOutput(stockHistory: StockHistory): DeleteStockHistoryOutputDto {
+        const output: DeleteStockHistoryOutputDto = {
+            stockFieiraId: stockHistory.stockFieiraId,
             status: stockHistory.status,
             thickness: stockHistory.thickness,
             width: stockHistory.width,

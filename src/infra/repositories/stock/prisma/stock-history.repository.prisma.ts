@@ -90,4 +90,10 @@ export class StockHistoryRepositoryPrisma implements StockHistoryGateway {
 
         return historyList;
     }
+
+    public async delete(id: number): Promise<void> {
+        await this.prismaClient.stockFieiraHistory.delete({
+            where: { id },
+        });
+    }
 }
