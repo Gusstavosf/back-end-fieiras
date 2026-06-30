@@ -7,7 +7,6 @@ import type {
 import { HttpMethod, type Route } from "../route.js";
 
 export type DeleteStockHistoryResponseDto = {
-    id: number;
     status: StatusFieira;
     thickness?: number | null | undefined;
     width?: number | null | undefined;
@@ -44,7 +43,7 @@ export class DeleteStockHistoryRoute implements Route {
 
             const responseBody = this.present(output);
 
-            response.send(200).json(responseBody);
+            response.status(200).json(responseBody);
         };
     }
 
@@ -60,7 +59,6 @@ export class DeleteStockHistoryRoute implements Route {
         history: DeleteStockHistoryResponseDto,
     ): DeleteStockHistoryResponseDto {
         return {
-            id: history.id,
             status: history.status,
             thickness: history.thickness,
             width: history.width,
