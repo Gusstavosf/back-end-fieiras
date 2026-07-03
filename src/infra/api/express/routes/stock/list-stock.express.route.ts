@@ -9,7 +9,7 @@ import type { Request, Response } from "express";
 export type ListStockResponseDto = {
     stock: {
         id?: number | undefined;
-        cabinetId: number;
+        fieiraId: number;
         code: string;
         status: StatusFieira;
         currentThickness?: number | undefined;
@@ -54,7 +54,7 @@ export class ListStockRoute implements Route {
         const response: ListStockResponseDto = {
             stock: input.stock.map((stock) => ({
                 id: stock.id,
-                cabinetId: stock.cabinetId,
+                fieiraId: stock.cabinetId,
                 code: stock.code,
                 status: stock.status,
                 currentThickness: stock.currentThickness,

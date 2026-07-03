@@ -4,6 +4,7 @@ import type {
 } from "../../../../domain/stock/gateway/stock.gateway.js";
 import { PrismaClient } from "../../../../generated/prisma/client.js";
 import { Stock, StatusFieira } from "../../../../domain/stock/entity/stock.js";
+import type { StockFieiraUncheckedCreateInput } from "../../../../generated/prisma/models.js";
 
 export class StockReposistoryPrisma implements StockGateway {
     private constructor(private readonly prismaClient: PrismaClient) {}
@@ -13,16 +14,13 @@ export class StockReposistoryPrisma implements StockGateway {
     }
 
     public async save(stock: Stock): Promise<void> {
-        const data = {
-            cabinetId: stock.cabinetId,
+        const data: StockFieiraUncheckedCreateInput = {
+            fieiraId: stock.fieiraId,
             code: stock.code,
             status: stock.status as StatusFieira,
             currentThickness:
-                stock.currentThickness !== undefined
-                    ? Number(stock.currentThickness)
-                    : null,
-            currentWidth:
-                stock.currentWidth !== undefined ? Number(stock.currentWidth) : null,
+                stock.currentThickness == null ? null : Number(stock.currentThickness),
+            currentWidth: stock.currentWidth == null ? null : Number(stock.currentWidth),
             utilization: stock.utilization,
             production: stock.production,
             createdAt: stock.createdAt,
@@ -40,13 +38,15 @@ export class StockReposistoryPrisma implements StockGateway {
         const stockList = stocksFromDb.map((stock) => {
             return Stock.restore({
                 id: stock.id,
-                cabinetId: stock.cabinetId,
+                fieiraId: stock.fieiraId,
                 code: stock.code,
                 status: stock.status as StatusFieira,
-                currentThickness: stock.currentThickness
-                    ? Number(stock.currentThickness)
-                    : null,
-                currentWidth: stock.currentWidth ? Number(stock.currentWidth) : null,
+                currentThickness:
+                    stock.currentThickness == null
+                        ? null
+                        : Number(stock.currentThickness),
+                currentWidth:
+                    stock.currentWidth == null ? null : Number(stock.currentWidth),
                 utilization: stock.utilization,
                 production: stock.production,
                 createdAt: stock.createdAt,
@@ -57,22 +57,24 @@ export class StockReposistoryPrisma implements StockGateway {
         return stockList;
     }
 
-    public async findByCode(code: string, cabinetId: number): Promise<Stock | null> {
+    public async findByCode(code: string, fieiraId: number): Promise<Stock | null> {
         const stockCode = await this.prismaClient.stockFieira.findFirst({
-            where: { code, cabinetId },
+            where: { code, fieiraId },
         });
 
         if (!stockCode) return null;
 
         return Stock.restore({
             id: stockCode.id,
-            cabinetId: stockCode.cabinetId,
+            fieiraId: stockCode.fieiraId,
             code: stockCode.code,
             status: stockCode.status as StatusFieira,
-            currentThickness: stockCode.currentThickness
-                ? Number(stockCode.currentThickness)
-                : null,
-            currentWidth: stockCode.currentWidth ? Number(stockCode.currentWidth) : null,
+            currentThickness:
+                stockCode.currentThickness == null
+                    ? null
+                    : Number(stockCode.currentThickness),
+            currentWidth:
+                stockCode.currentWidth == null ? null : Number(stockCode.currentWidth),
             utilization: stockCode.utilization ?? 0,
             production: stockCode.production ?? 0,
             createdAt: stockCode.createdAt,
@@ -94,7 +96,7 @@ export class StockReposistoryPrisma implements StockGateway {
         await this.prismaClient.stockFieira.update({
             where: { id: stock.id },
             data: {
-                cabinetId: stock.cabinetId,
+                fieiraId: stock.fieiraId,
                 code: stock.code,
                 status: stock.status as StatusFieira,
                 currentThickness: stock.currentThickness ?? null,
@@ -114,13 +116,15 @@ export class StockReposistoryPrisma implements StockGateway {
 
         return Stock.restore({
             id: stockId.id,
-            cabinetId: stockId.cabinetId,
+            fieiraId: stockId.fieiraId,
             code: stockId.code,
             status: stockId.status as StatusFieira,
-            currentThickness: stockId.currentThickness
-                ? Number(stockId.currentThickness)
-                : null,
-            currentWidth: stockId.currentWidth ? Number(stockId.currentWidth) : null,
+            currentThickness:
+                stockId.currentThickness == null
+                    ? null
+                    : Number(stockId.currentThickness),
+            currentWidth:
+                stockId.currentWidth == null ? null : Number(stockId.currentWidth),
             utilization: stockId.utilization,
             production: stockId.production,
             createdAt: stockId.createdAt,
@@ -132,14 +136,20 @@ export class StockReposistoryPrisma implements StockGateway {
         const data = {
             stockFieiraId: history.stockFieiraId,
             status: history.status,
-            thickness: history.thickness !== undefined ? Number(history.thickness) : null,
-            width: history.width !== undefined ? Number(history.width) : null,
+            thickness: history.thickness === null ? null : Number(history.thickness),
+            width: history.width === null ? null : Number(history.width),
             production: history.production,
             utilization: history.utilization ?? 0,
         };
 
         await this.prismaClient.stockFieiraHistory.create({
             data,
+        });
+    }
+
+    public async detele(id: number): Promise<void> {
+        await this.prismaClient.stockFieira.delete({
+            where: { id },
         });
     }
 }

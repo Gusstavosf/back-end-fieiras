@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 import type { StatusFieira } from "../../../../../domain/stock/entity/stock.js";
 import type {
     DeleteStockHistoryInputDto,
-    DeleteStockHistoryuseCase,
+    DeleteStockHistoryUseCase,
 } from "../../../../../usecases/stock-history/correct-stock-history/delete-stock-history.usecase.js";
 import { HttpMethod, type Route } from "../route.js";
 
@@ -20,10 +20,10 @@ export class DeleteStockHistoryRoute implements Route {
     private constructor(
         private readonly path: string,
         private readonly method: HttpMethod,
-        private readonly deleteHistoryService: DeleteStockHistoryuseCase,
+        private readonly deleteHistoryService: DeleteStockHistoryUseCase,
     ) {}
 
-    public static create(deleteHistoryService: DeleteStockHistoryuseCase) {
+    public static create(deleteHistoryService: DeleteStockHistoryUseCase) {
         return new DeleteStockHistoryRoute(
             "/stock/history/:id",
             HttpMethod.DELETE,
@@ -41,7 +41,7 @@ export class DeleteStockHistoryRoute implements Route {
 
             const output = await this.deleteHistoryService.execute(input);
 
-            const responseBody = this.present(output);
+            const responseBody = this.presentOutput(output);
 
             response.status(200).json(responseBody);
         };
@@ -55,7 +55,7 @@ export class DeleteStockHistoryRoute implements Route {
         return this.path;
     }
 
-    private present(
+    private presentOutput(
         history: DeleteStockHistoryResponseDto,
     ): DeleteStockHistoryResponseDto {
         return {

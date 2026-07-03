@@ -28,21 +28,21 @@ export type AggregateRequisition = {
 
 export type RequisitionAvgAggregateOutputType = {
   id: number | null
-  cabinetId: number | null
+  FieiraId: number | null
   currentStockQty: number | null
   requisitionQty: number | null
 }
 
 export type RequisitionSumAggregateOutputType = {
   id: number | null
-  cabinetId: number | null
+  FieiraId: number | null
   currentStockQty: number | null
   requisitionQty: number | null
 }
 
 export type RequisitionMinAggregateOutputType = {
   id: number | null
-  cabinetId: number | null
+  FieiraId: number | null
   currentStockQty: number | null
   requisitionQty: number | null
   createdAt: Date | null
@@ -51,7 +51,7 @@ export type RequisitionMinAggregateOutputType = {
 
 export type RequisitionMaxAggregateOutputType = {
   id: number | null
-  cabinetId: number | null
+  FieiraId: number | null
   currentStockQty: number | null
   requisitionQty: number | null
   createdAt: Date | null
@@ -60,7 +60,7 @@ export type RequisitionMaxAggregateOutputType = {
 
 export type RequisitionCountAggregateOutputType = {
   id: number
-  cabinetId: number
+  FieiraId: number
   currentStockQty: number
   requisitionQty: number
   createdAt: number
@@ -71,21 +71,21 @@ export type RequisitionCountAggregateOutputType = {
 
 export type RequisitionAvgAggregateInputType = {
   id?: true
-  cabinetId?: true
+  FieiraId?: true
   currentStockQty?: true
   requisitionQty?: true
 }
 
 export type RequisitionSumAggregateInputType = {
   id?: true
-  cabinetId?: true
+  FieiraId?: true
   currentStockQty?: true
   requisitionQty?: true
 }
 
 export type RequisitionMinAggregateInputType = {
   id?: true
-  cabinetId?: true
+  FieiraId?: true
   currentStockQty?: true
   requisitionQty?: true
   createdAt?: true
@@ -94,7 +94,7 @@ export type RequisitionMinAggregateInputType = {
 
 export type RequisitionMaxAggregateInputType = {
   id?: true
-  cabinetId?: true
+  FieiraId?: true
   currentStockQty?: true
   requisitionQty?: true
   createdAt?: true
@@ -103,7 +103,7 @@ export type RequisitionMaxAggregateInputType = {
 
 export type RequisitionCountAggregateInputType = {
   id?: true
-  cabinetId?: true
+  FieiraId?: true
   currentStockQty?: true
   requisitionQty?: true
   createdAt?: true
@@ -199,7 +199,7 @@ export type RequisitionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 
 export type RequisitionGroupByOutputType = {
   id: number
-  cabinetId: number
+  FieiraId: number
   currentStockQty: number
   requisitionQty: number
   createdAt: Date
@@ -231,23 +231,23 @@ export type RequisitionWhereInput = {
   OR?: Prisma.RequisitionWhereInput[]
   NOT?: Prisma.RequisitionWhereInput | Prisma.RequisitionWhereInput[]
   id?: Prisma.IntFilter<"Requisition"> | number
-  cabinetId?: Prisma.IntFilter<"Requisition"> | number
+  FieiraId?: Prisma.IntFilter<"Requisition"> | number
   currentStockQty?: Prisma.IntFilter<"Requisition"> | number
   requisitionQty?: Prisma.IntFilter<"Requisition"> | number
   createdAt?: Prisma.DateTimeFilter<"Requisition"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Requisition"> | Date | string
-  Cabinet?: Prisma.XOR<Prisma.CabinetScalarRelationFilter, Prisma.CabinetWhereInput>
+  Fieira?: Prisma.XOR<Prisma.FieiraScalarRelationFilter, Prisma.FieiraWhereInput>
   RequisitionItems?: Prisma.RequisitionItemListRelationFilter
 }
 
 export type RequisitionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  cabinetId?: Prisma.SortOrder
+  FieiraId?: Prisma.SortOrder
   currentStockQty?: Prisma.SortOrder
   requisitionQty?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  Cabinet?: Prisma.CabinetOrderByWithRelationInput
+  Fieira?: Prisma.FieiraOrderByWithRelationInput
   RequisitionItems?: Prisma.RequisitionItemOrderByRelationAggregateInput
 }
 
@@ -256,18 +256,18 @@ export type RequisitionWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.RequisitionWhereInput | Prisma.RequisitionWhereInput[]
   OR?: Prisma.RequisitionWhereInput[]
   NOT?: Prisma.RequisitionWhereInput | Prisma.RequisitionWhereInput[]
-  cabinetId?: Prisma.IntFilter<"Requisition"> | number
+  FieiraId?: Prisma.IntFilter<"Requisition"> | number
   currentStockQty?: Prisma.IntFilter<"Requisition"> | number
   requisitionQty?: Prisma.IntFilter<"Requisition"> | number
   createdAt?: Prisma.DateTimeFilter<"Requisition"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Requisition"> | Date | string
-  Cabinet?: Prisma.XOR<Prisma.CabinetScalarRelationFilter, Prisma.CabinetWhereInput>
+  Fieira?: Prisma.XOR<Prisma.FieiraScalarRelationFilter, Prisma.FieiraWhereInput>
   RequisitionItems?: Prisma.RequisitionItemListRelationFilter
 }, "id">
 
 export type RequisitionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  cabinetId?: Prisma.SortOrder
+  FieiraId?: Prisma.SortOrder
   currentStockQty?: Prisma.SortOrder
   requisitionQty?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -284,7 +284,7 @@ export type RequisitionScalarWhereWithAggregatesInput = {
   OR?: Prisma.RequisitionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.RequisitionScalarWhereWithAggregatesInput | Prisma.RequisitionScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Requisition"> | number
-  cabinetId?: Prisma.IntWithAggregatesFilter<"Requisition"> | number
+  FieiraId?: Prisma.IntWithAggregatesFilter<"Requisition"> | number
   currentStockQty?: Prisma.IntWithAggregatesFilter<"Requisition"> | number
   requisitionQty?: Prisma.IntWithAggregatesFilter<"Requisition"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Requisition"> | Date | string
@@ -296,13 +296,13 @@ export type RequisitionCreateInput = {
   requisitionQty: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  Cabinet: Prisma.CabinetCreateNestedOneWithoutRequisitionsInput
+  Fieira: Prisma.FieiraCreateNestedOneWithoutRequisitionsInput
   RequisitionItems?: Prisma.RequisitionItemCreateNestedManyWithoutRequisitionInput
 }
 
 export type RequisitionUncheckedCreateInput = {
   id?: number
-  cabinetId: number
+  FieiraId: number
   currentStockQty: number
   requisitionQty: number
   createdAt?: Date | string
@@ -315,13 +315,13 @@ export type RequisitionUpdateInput = {
   requisitionQty?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  Cabinet?: Prisma.CabinetUpdateOneRequiredWithoutRequisitionsNestedInput
+  Fieira?: Prisma.FieiraUpdateOneRequiredWithoutRequisitionsNestedInput
   RequisitionItems?: Prisma.RequisitionItemUpdateManyWithoutRequisitionNestedInput
 }
 
 export type RequisitionUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  cabinetId?: Prisma.IntFieldUpdateOperationsInput | number
+  FieiraId?: Prisma.IntFieldUpdateOperationsInput | number
   currentStockQty?: Prisma.IntFieldUpdateOperationsInput | number
   requisitionQty?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -331,7 +331,7 @@ export type RequisitionUncheckedUpdateInput = {
 
 export type RequisitionCreateManyInput = {
   id?: number
-  cabinetId: number
+  FieiraId: number
   currentStockQty: number
   requisitionQty: number
   createdAt?: Date | string
@@ -347,7 +347,7 @@ export type RequisitionUpdateManyMutationInput = {
 
 export type RequisitionUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  cabinetId?: Prisma.IntFieldUpdateOperationsInput | number
+  FieiraId?: Prisma.IntFieldUpdateOperationsInput | number
   currentStockQty?: Prisma.IntFieldUpdateOperationsInput | number
   requisitionQty?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -366,7 +366,7 @@ export type RequisitionOrderByRelationAggregateInput = {
 
 export type RequisitionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  cabinetId?: Prisma.SortOrder
+  FieiraId?: Prisma.SortOrder
   currentStockQty?: Prisma.SortOrder
   requisitionQty?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -375,14 +375,14 @@ export type RequisitionCountOrderByAggregateInput = {
 
 export type RequisitionAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  cabinetId?: Prisma.SortOrder
+  FieiraId?: Prisma.SortOrder
   currentStockQty?: Prisma.SortOrder
   requisitionQty?: Prisma.SortOrder
 }
 
 export type RequisitionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  cabinetId?: Prisma.SortOrder
+  FieiraId?: Prisma.SortOrder
   currentStockQty?: Prisma.SortOrder
   requisitionQty?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -391,7 +391,7 @@ export type RequisitionMaxOrderByAggregateInput = {
 
 export type RequisitionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  cabinetId?: Prisma.SortOrder
+  FieiraId?: Prisma.SortOrder
   currentStockQty?: Prisma.SortOrder
   requisitionQty?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -400,7 +400,7 @@ export type RequisitionMinOrderByAggregateInput = {
 
 export type RequisitionSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  cabinetId?: Prisma.SortOrder
+  FieiraId?: Prisma.SortOrder
   currentStockQty?: Prisma.SortOrder
   requisitionQty?: Prisma.SortOrder
 }
@@ -410,45 +410,45 @@ export type RequisitionScalarRelationFilter = {
   isNot?: Prisma.RequisitionWhereInput
 }
 
-export type RequisitionCreateNestedManyWithoutCabinetInput = {
-  create?: Prisma.XOR<Prisma.RequisitionCreateWithoutCabinetInput, Prisma.RequisitionUncheckedCreateWithoutCabinetInput> | Prisma.RequisitionCreateWithoutCabinetInput[] | Prisma.RequisitionUncheckedCreateWithoutCabinetInput[]
-  connectOrCreate?: Prisma.RequisitionCreateOrConnectWithoutCabinetInput | Prisma.RequisitionCreateOrConnectWithoutCabinetInput[]
-  createMany?: Prisma.RequisitionCreateManyCabinetInputEnvelope
+export type RequisitionCreateNestedManyWithoutFieiraInput = {
+  create?: Prisma.XOR<Prisma.RequisitionCreateWithoutFieiraInput, Prisma.RequisitionUncheckedCreateWithoutFieiraInput> | Prisma.RequisitionCreateWithoutFieiraInput[] | Prisma.RequisitionUncheckedCreateWithoutFieiraInput[]
+  connectOrCreate?: Prisma.RequisitionCreateOrConnectWithoutFieiraInput | Prisma.RequisitionCreateOrConnectWithoutFieiraInput[]
+  createMany?: Prisma.RequisitionCreateManyFieiraInputEnvelope
   connect?: Prisma.RequisitionWhereUniqueInput | Prisma.RequisitionWhereUniqueInput[]
 }
 
-export type RequisitionUncheckedCreateNestedManyWithoutCabinetInput = {
-  create?: Prisma.XOR<Prisma.RequisitionCreateWithoutCabinetInput, Prisma.RequisitionUncheckedCreateWithoutCabinetInput> | Prisma.RequisitionCreateWithoutCabinetInput[] | Prisma.RequisitionUncheckedCreateWithoutCabinetInput[]
-  connectOrCreate?: Prisma.RequisitionCreateOrConnectWithoutCabinetInput | Prisma.RequisitionCreateOrConnectWithoutCabinetInput[]
-  createMany?: Prisma.RequisitionCreateManyCabinetInputEnvelope
+export type RequisitionUncheckedCreateNestedManyWithoutFieiraInput = {
+  create?: Prisma.XOR<Prisma.RequisitionCreateWithoutFieiraInput, Prisma.RequisitionUncheckedCreateWithoutFieiraInput> | Prisma.RequisitionCreateWithoutFieiraInput[] | Prisma.RequisitionUncheckedCreateWithoutFieiraInput[]
+  connectOrCreate?: Prisma.RequisitionCreateOrConnectWithoutFieiraInput | Prisma.RequisitionCreateOrConnectWithoutFieiraInput[]
+  createMany?: Prisma.RequisitionCreateManyFieiraInputEnvelope
   connect?: Prisma.RequisitionWhereUniqueInput | Prisma.RequisitionWhereUniqueInput[]
 }
 
-export type RequisitionUpdateManyWithoutCabinetNestedInput = {
-  create?: Prisma.XOR<Prisma.RequisitionCreateWithoutCabinetInput, Prisma.RequisitionUncheckedCreateWithoutCabinetInput> | Prisma.RequisitionCreateWithoutCabinetInput[] | Prisma.RequisitionUncheckedCreateWithoutCabinetInput[]
-  connectOrCreate?: Prisma.RequisitionCreateOrConnectWithoutCabinetInput | Prisma.RequisitionCreateOrConnectWithoutCabinetInput[]
-  upsert?: Prisma.RequisitionUpsertWithWhereUniqueWithoutCabinetInput | Prisma.RequisitionUpsertWithWhereUniqueWithoutCabinetInput[]
-  createMany?: Prisma.RequisitionCreateManyCabinetInputEnvelope
+export type RequisitionUpdateManyWithoutFieiraNestedInput = {
+  create?: Prisma.XOR<Prisma.RequisitionCreateWithoutFieiraInput, Prisma.RequisitionUncheckedCreateWithoutFieiraInput> | Prisma.RequisitionCreateWithoutFieiraInput[] | Prisma.RequisitionUncheckedCreateWithoutFieiraInput[]
+  connectOrCreate?: Prisma.RequisitionCreateOrConnectWithoutFieiraInput | Prisma.RequisitionCreateOrConnectWithoutFieiraInput[]
+  upsert?: Prisma.RequisitionUpsertWithWhereUniqueWithoutFieiraInput | Prisma.RequisitionUpsertWithWhereUniqueWithoutFieiraInput[]
+  createMany?: Prisma.RequisitionCreateManyFieiraInputEnvelope
   set?: Prisma.RequisitionWhereUniqueInput | Prisma.RequisitionWhereUniqueInput[]
   disconnect?: Prisma.RequisitionWhereUniqueInput | Prisma.RequisitionWhereUniqueInput[]
   delete?: Prisma.RequisitionWhereUniqueInput | Prisma.RequisitionWhereUniqueInput[]
   connect?: Prisma.RequisitionWhereUniqueInput | Prisma.RequisitionWhereUniqueInput[]
-  update?: Prisma.RequisitionUpdateWithWhereUniqueWithoutCabinetInput | Prisma.RequisitionUpdateWithWhereUniqueWithoutCabinetInput[]
-  updateMany?: Prisma.RequisitionUpdateManyWithWhereWithoutCabinetInput | Prisma.RequisitionUpdateManyWithWhereWithoutCabinetInput[]
+  update?: Prisma.RequisitionUpdateWithWhereUniqueWithoutFieiraInput | Prisma.RequisitionUpdateWithWhereUniqueWithoutFieiraInput[]
+  updateMany?: Prisma.RequisitionUpdateManyWithWhereWithoutFieiraInput | Prisma.RequisitionUpdateManyWithWhereWithoutFieiraInput[]
   deleteMany?: Prisma.RequisitionScalarWhereInput | Prisma.RequisitionScalarWhereInput[]
 }
 
-export type RequisitionUncheckedUpdateManyWithoutCabinetNestedInput = {
-  create?: Prisma.XOR<Prisma.RequisitionCreateWithoutCabinetInput, Prisma.RequisitionUncheckedCreateWithoutCabinetInput> | Prisma.RequisitionCreateWithoutCabinetInput[] | Prisma.RequisitionUncheckedCreateWithoutCabinetInput[]
-  connectOrCreate?: Prisma.RequisitionCreateOrConnectWithoutCabinetInput | Prisma.RequisitionCreateOrConnectWithoutCabinetInput[]
-  upsert?: Prisma.RequisitionUpsertWithWhereUniqueWithoutCabinetInput | Prisma.RequisitionUpsertWithWhereUniqueWithoutCabinetInput[]
-  createMany?: Prisma.RequisitionCreateManyCabinetInputEnvelope
+export type RequisitionUncheckedUpdateManyWithoutFieiraNestedInput = {
+  create?: Prisma.XOR<Prisma.RequisitionCreateWithoutFieiraInput, Prisma.RequisitionUncheckedCreateWithoutFieiraInput> | Prisma.RequisitionCreateWithoutFieiraInput[] | Prisma.RequisitionUncheckedCreateWithoutFieiraInput[]
+  connectOrCreate?: Prisma.RequisitionCreateOrConnectWithoutFieiraInput | Prisma.RequisitionCreateOrConnectWithoutFieiraInput[]
+  upsert?: Prisma.RequisitionUpsertWithWhereUniqueWithoutFieiraInput | Prisma.RequisitionUpsertWithWhereUniqueWithoutFieiraInput[]
+  createMany?: Prisma.RequisitionCreateManyFieiraInputEnvelope
   set?: Prisma.RequisitionWhereUniqueInput | Prisma.RequisitionWhereUniqueInput[]
   disconnect?: Prisma.RequisitionWhereUniqueInput | Prisma.RequisitionWhereUniqueInput[]
   delete?: Prisma.RequisitionWhereUniqueInput | Prisma.RequisitionWhereUniqueInput[]
   connect?: Prisma.RequisitionWhereUniqueInput | Prisma.RequisitionWhereUniqueInput[]
-  update?: Prisma.RequisitionUpdateWithWhereUniqueWithoutCabinetInput | Prisma.RequisitionUpdateWithWhereUniqueWithoutCabinetInput[]
-  updateMany?: Prisma.RequisitionUpdateManyWithWhereWithoutCabinetInput | Prisma.RequisitionUpdateManyWithWhereWithoutCabinetInput[]
+  update?: Prisma.RequisitionUpdateWithWhereUniqueWithoutFieiraInput | Prisma.RequisitionUpdateWithWhereUniqueWithoutFieiraInput[]
+  updateMany?: Prisma.RequisitionUpdateManyWithWhereWithoutFieiraInput | Prisma.RequisitionUpdateManyWithWhereWithoutFieiraInput[]
   deleteMany?: Prisma.RequisitionScalarWhereInput | Prisma.RequisitionScalarWhereInput[]
 }
 
@@ -466,7 +466,7 @@ export type RequisitionUpdateOneRequiredWithoutRequisitionItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.RequisitionUpdateToOneWithWhereWithoutRequisitionItemsInput, Prisma.RequisitionUpdateWithoutRequisitionItemsInput>, Prisma.RequisitionUncheckedUpdateWithoutRequisitionItemsInput>
 }
 
-export type RequisitionCreateWithoutCabinetInput = {
+export type RequisitionCreateWithoutFieiraInput = {
   currentStockQty: number
   requisitionQty: number
   createdAt?: Date | string
@@ -474,7 +474,7 @@ export type RequisitionCreateWithoutCabinetInput = {
   RequisitionItems?: Prisma.RequisitionItemCreateNestedManyWithoutRequisitionInput
 }
 
-export type RequisitionUncheckedCreateWithoutCabinetInput = {
+export type RequisitionUncheckedCreateWithoutFieiraInput = {
   id?: number
   currentStockQty: number
   requisitionQty: number
@@ -483,30 +483,30 @@ export type RequisitionUncheckedCreateWithoutCabinetInput = {
   RequisitionItems?: Prisma.RequisitionItemUncheckedCreateNestedManyWithoutRequisitionInput
 }
 
-export type RequisitionCreateOrConnectWithoutCabinetInput = {
+export type RequisitionCreateOrConnectWithoutFieiraInput = {
   where: Prisma.RequisitionWhereUniqueInput
-  create: Prisma.XOR<Prisma.RequisitionCreateWithoutCabinetInput, Prisma.RequisitionUncheckedCreateWithoutCabinetInput>
+  create: Prisma.XOR<Prisma.RequisitionCreateWithoutFieiraInput, Prisma.RequisitionUncheckedCreateWithoutFieiraInput>
 }
 
-export type RequisitionCreateManyCabinetInputEnvelope = {
-  data: Prisma.RequisitionCreateManyCabinetInput | Prisma.RequisitionCreateManyCabinetInput[]
+export type RequisitionCreateManyFieiraInputEnvelope = {
+  data: Prisma.RequisitionCreateManyFieiraInput | Prisma.RequisitionCreateManyFieiraInput[]
   skipDuplicates?: boolean
 }
 
-export type RequisitionUpsertWithWhereUniqueWithoutCabinetInput = {
+export type RequisitionUpsertWithWhereUniqueWithoutFieiraInput = {
   where: Prisma.RequisitionWhereUniqueInput
-  update: Prisma.XOR<Prisma.RequisitionUpdateWithoutCabinetInput, Prisma.RequisitionUncheckedUpdateWithoutCabinetInput>
-  create: Prisma.XOR<Prisma.RequisitionCreateWithoutCabinetInput, Prisma.RequisitionUncheckedCreateWithoutCabinetInput>
+  update: Prisma.XOR<Prisma.RequisitionUpdateWithoutFieiraInput, Prisma.RequisitionUncheckedUpdateWithoutFieiraInput>
+  create: Prisma.XOR<Prisma.RequisitionCreateWithoutFieiraInput, Prisma.RequisitionUncheckedCreateWithoutFieiraInput>
 }
 
-export type RequisitionUpdateWithWhereUniqueWithoutCabinetInput = {
+export type RequisitionUpdateWithWhereUniqueWithoutFieiraInput = {
   where: Prisma.RequisitionWhereUniqueInput
-  data: Prisma.XOR<Prisma.RequisitionUpdateWithoutCabinetInput, Prisma.RequisitionUncheckedUpdateWithoutCabinetInput>
+  data: Prisma.XOR<Prisma.RequisitionUpdateWithoutFieiraInput, Prisma.RequisitionUncheckedUpdateWithoutFieiraInput>
 }
 
-export type RequisitionUpdateManyWithWhereWithoutCabinetInput = {
+export type RequisitionUpdateManyWithWhereWithoutFieiraInput = {
   where: Prisma.RequisitionScalarWhereInput
-  data: Prisma.XOR<Prisma.RequisitionUpdateManyMutationInput, Prisma.RequisitionUncheckedUpdateManyWithoutCabinetInput>
+  data: Prisma.XOR<Prisma.RequisitionUpdateManyMutationInput, Prisma.RequisitionUncheckedUpdateManyWithoutFieiraInput>
 }
 
 export type RequisitionScalarWhereInput = {
@@ -514,7 +514,7 @@ export type RequisitionScalarWhereInput = {
   OR?: Prisma.RequisitionScalarWhereInput[]
   NOT?: Prisma.RequisitionScalarWhereInput | Prisma.RequisitionScalarWhereInput[]
   id?: Prisma.IntFilter<"Requisition"> | number
-  cabinetId?: Prisma.IntFilter<"Requisition"> | number
+  FieiraId?: Prisma.IntFilter<"Requisition"> | number
   currentStockQty?: Prisma.IntFilter<"Requisition"> | number
   requisitionQty?: Prisma.IntFilter<"Requisition"> | number
   createdAt?: Prisma.DateTimeFilter<"Requisition"> | Date | string
@@ -526,12 +526,12 @@ export type RequisitionCreateWithoutRequisitionItemsInput = {
   requisitionQty: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  Cabinet: Prisma.CabinetCreateNestedOneWithoutRequisitionsInput
+  Fieira: Prisma.FieiraCreateNestedOneWithoutRequisitionsInput
 }
 
 export type RequisitionUncheckedCreateWithoutRequisitionItemsInput = {
   id?: number
-  cabinetId: number
+  FieiraId: number
   currentStockQty: number
   requisitionQty: number
   createdAt?: Date | string
@@ -559,19 +559,19 @@ export type RequisitionUpdateWithoutRequisitionItemsInput = {
   requisitionQty?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  Cabinet?: Prisma.CabinetUpdateOneRequiredWithoutRequisitionsNestedInput
+  Fieira?: Prisma.FieiraUpdateOneRequiredWithoutRequisitionsNestedInput
 }
 
 export type RequisitionUncheckedUpdateWithoutRequisitionItemsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  cabinetId?: Prisma.IntFieldUpdateOperationsInput | number
+  FieiraId?: Prisma.IntFieldUpdateOperationsInput | number
   currentStockQty?: Prisma.IntFieldUpdateOperationsInput | number
   requisitionQty?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type RequisitionCreateManyCabinetInput = {
+export type RequisitionCreateManyFieiraInput = {
   id?: number
   currentStockQty: number
   requisitionQty: number
@@ -579,7 +579,7 @@ export type RequisitionCreateManyCabinetInput = {
   updatedAt?: Date | string
 }
 
-export type RequisitionUpdateWithoutCabinetInput = {
+export type RequisitionUpdateWithoutFieiraInput = {
   currentStockQty?: Prisma.IntFieldUpdateOperationsInput | number
   requisitionQty?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -587,7 +587,7 @@ export type RequisitionUpdateWithoutCabinetInput = {
   RequisitionItems?: Prisma.RequisitionItemUpdateManyWithoutRequisitionNestedInput
 }
 
-export type RequisitionUncheckedUpdateWithoutCabinetInput = {
+export type RequisitionUncheckedUpdateWithoutFieiraInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   currentStockQty?: Prisma.IntFieldUpdateOperationsInput | number
   requisitionQty?: Prisma.IntFieldUpdateOperationsInput | number
@@ -596,7 +596,7 @@ export type RequisitionUncheckedUpdateWithoutCabinetInput = {
   RequisitionItems?: Prisma.RequisitionItemUncheckedUpdateManyWithoutRequisitionNestedInput
 }
 
-export type RequisitionUncheckedUpdateManyWithoutCabinetInput = {
+export type RequisitionUncheckedUpdateManyWithoutFieiraInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   currentStockQty?: Prisma.IntFieldUpdateOperationsInput | number
   requisitionQty?: Prisma.IntFieldUpdateOperationsInput | number
@@ -637,67 +637,67 @@ export type RequisitionCountOutputTypeCountRequisitionItemsArgs<ExtArgs extends 
 
 export type RequisitionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  cabinetId?: boolean
+  FieiraId?: boolean
   currentStockQty?: boolean
   requisitionQty?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  Cabinet?: boolean | Prisma.CabinetDefaultArgs<ExtArgs>
+  Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
   RequisitionItems?: boolean | Prisma.Requisition$RequisitionItemsArgs<ExtArgs>
   _count?: boolean | Prisma.RequisitionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["requisition"]>
 
 export type RequisitionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  cabinetId?: boolean
+  FieiraId?: boolean
   currentStockQty?: boolean
   requisitionQty?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  Cabinet?: boolean | Prisma.CabinetDefaultArgs<ExtArgs>
+  Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["requisition"]>
 
 export type RequisitionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  cabinetId?: boolean
+  FieiraId?: boolean
   currentStockQty?: boolean
   requisitionQty?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  Cabinet?: boolean | Prisma.CabinetDefaultArgs<ExtArgs>
+  Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["requisition"]>
 
 export type RequisitionSelectScalar = {
   id?: boolean
-  cabinetId?: boolean
+  FieiraId?: boolean
   currentStockQty?: boolean
   requisitionQty?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type RequisitionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "cabinetId" | "currentStockQty" | "requisitionQty" | "createdAt" | "updatedAt", ExtArgs["result"]["requisition"]>
+export type RequisitionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "FieiraId" | "currentStockQty" | "requisitionQty" | "createdAt" | "updatedAt", ExtArgs["result"]["requisition"]>
 export type RequisitionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Cabinet?: boolean | Prisma.CabinetDefaultArgs<ExtArgs>
+  Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
   RequisitionItems?: boolean | Prisma.Requisition$RequisitionItemsArgs<ExtArgs>
   _count?: boolean | Prisma.RequisitionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type RequisitionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Cabinet?: boolean | Prisma.CabinetDefaultArgs<ExtArgs>
+  Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
 }
 export type RequisitionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Cabinet?: boolean | Prisma.CabinetDefaultArgs<ExtArgs>
+  Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
 }
 
 export type $RequisitionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Requisition"
   objects: {
-    Cabinet: Prisma.$CabinetPayload<ExtArgs>
+    Fieira: Prisma.$FieiraPayload<ExtArgs>
     RequisitionItems: Prisma.$RequisitionItemPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    cabinetId: number
+    FieiraId: number
     currentStockQty: number
     requisitionQty: number
     createdAt: Date
@@ -1096,7 +1096,7 @@ readonly fields: RequisitionFieldRefs;
  */
 export interface Prisma__RequisitionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Cabinet<T extends Prisma.CabinetDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CabinetDefaultArgs<ExtArgs>>): Prisma.Prisma__CabinetClient<runtime.Types.Result.GetResult<Prisma.$CabinetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Fieira<T extends Prisma.FieiraDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FieiraDefaultArgs<ExtArgs>>): Prisma.Prisma__FieiraClient<runtime.Types.Result.GetResult<Prisma.$FieiraPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   RequisitionItems<T extends Prisma.Requisition$RequisitionItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Requisition$RequisitionItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RequisitionItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1128,7 +1128,7 @@ export interface Prisma__RequisitionClient<T, Null = never, ExtArgs extends runt
  */
 export interface RequisitionFieldRefs {
   readonly id: Prisma.FieldRef<"Requisition", 'Int'>
-  readonly cabinetId: Prisma.FieldRef<"Requisition", 'Int'>
+  readonly FieiraId: Prisma.FieldRef<"Requisition", 'Int'>
   readonly currentStockQty: Prisma.FieldRef<"Requisition", 'Int'>
   readonly requisitionQty: Prisma.FieldRef<"Requisition", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Requisition", 'DateTime'>

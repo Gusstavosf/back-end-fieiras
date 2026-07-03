@@ -9,7 +9,7 @@ import type { Request, RequestHandler, Response } from "express";
 import { CreateStockZodValidator } from "../../validators/stock/create-stock.zod.validator.js";
 
 export type CreateStockResponseDto = {
-    cabinetId: number;
+    fieiraId: number;
     code: string;
     status: string;
     createdAt: Date;
@@ -59,7 +59,7 @@ export class CreateStockRoute implements Route {
 
     private present(output: CreateStockOutputDto): CreateStockResponseDto {
         return {
-            cabinetId: output.cabinetId,
+            fieiraId: output.fieiraId,
             code: output.code,
             status: output.status,
             createdAt: output.createdAt,

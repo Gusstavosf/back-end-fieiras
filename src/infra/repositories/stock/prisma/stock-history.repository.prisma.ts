@@ -96,4 +96,14 @@ export class StockHistoryRepositoryPrisma implements StockHistoryGateway {
             where: { id },
         });
     }
+
+    public async updateMany(histories: StockHistory[]): Promise<void> {
+        const updatePromises = histories.map((history) =>
+            this.prismaClient.stockFieiraHistory.update({
+                where: { id: history.id },
+                data: { utilization: history.utilization },
+            }),
+        );
+        await this.prismaClient.$transaction(updatePromises);
+    }
 }

@@ -11,7 +11,7 @@ import { validationStock } from "../../../../middlewares/validationStock.js";
 
 export type UpdateStockResponseDto = {
     id: number;
-    cabinetId: number;
+    fieiraId: number;
     code: string;
     status: StatusFieira;
     currentThickness?: number | null;
@@ -78,7 +78,7 @@ export class UpdateStockRoute implements Route {
     private present(stock: UpdateStockOutputDto): UpdateStockResponseDto {
         const response = {
             id: stock.id,
-            cabinetId: stock.cabinetId,
+            fieiraId: stock.fieiraId,
             code: stock.code,
             status: stock.status as StatusFieira,
             currentThickness:

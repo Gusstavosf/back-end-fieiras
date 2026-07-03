@@ -23,6 +23,11 @@ export * from './enums.js';
  */
 export type Cabinet = Prisma.CabinetModel
 /**
+ * Model Fieira
+ * 
+ */
+export type Fieira = Prisma.FieiraModel
+/**
  * Model ControlFieira
  * 
  */

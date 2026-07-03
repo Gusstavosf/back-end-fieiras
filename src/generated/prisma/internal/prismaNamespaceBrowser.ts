@@ -52,6 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Cabinet: 'Cabinet',
+  Fieira: 'Fieira',
   ControlFieira: 'ControlFieira',
   StockFieira: 'StockFieira',
   Requisition: 'Requisition',
@@ -79,6 +80,17 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const CabinetScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CabinetScalarFieldEnum = (typeof CabinetScalarFieldEnum)[keyof typeof CabinetScalarFieldEnum]
+
+
+export const FieiraScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  cabinetId: 'cabinetId',
   width: 'width',
   thickness: 'thickness',
   nominalFieiraCapacity: 'nominalFieiraCapacity',
@@ -87,7 +99,7 @@ export const CabinetScalarFieldEnum = {
   updatedAt: 'updatedAt'
 } as const
 
-export type CabinetScalarFieldEnum = (typeof CabinetScalarFieldEnum)[keyof typeof CabinetScalarFieldEnum]
+export type FieiraScalarFieldEnum = (typeof FieiraScalarFieldEnum)[keyof typeof FieiraScalarFieldEnum]
 
 
 export const ControlFieiraScalarFieldEnum = {
@@ -97,7 +109,7 @@ export const ControlFieiraScalarFieldEnum = {
   tension: 'tension',
   width: 'width',
   thickness: 'thickness',
-  cabinetId: 'cabinetId',
+  fieiraId: 'fieiraId',
   orderStartDate: 'orderStartDate',
   orderEndDate: 'orderEndDate',
   orderQuantity: 'orderQuantity',
@@ -110,7 +122,7 @@ export type ControlFieiraScalarFieldEnum = (typeof ControlFieiraScalarFieldEnum)
 
 export const StockFieiraScalarFieldEnum = {
   id: 'id',
-  cabinetId: 'cabinetId',
+  fieiraId: 'fieiraId',
   code: 'code',
   status: 'status',
   currentThickness: 'currentThickness',
@@ -126,7 +138,7 @@ export type StockFieiraScalarFieldEnum = (typeof StockFieiraScalarFieldEnum)[key
 
 export const RequisitionScalarFieldEnum = {
   id: 'id',
-  cabinetId: 'cabinetId',
+  FieiraId: 'FieiraId',
   currentStockQty: 'currentStockQty',
   requisitionQty: 'requisitionQty',
   createdAt: 'createdAt',

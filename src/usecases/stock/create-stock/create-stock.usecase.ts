@@ -10,7 +10,7 @@ export type CreateStockInputDto = {
 };
 
 export type CreateStockOutputDto = {
-    cabinetId: number;
+    fieiraId: number;
     code: string;
     status: StatusFieira;
     createdAt: Date;
@@ -70,7 +70,7 @@ export class CreateStockUseCase implements Usecase<
 
     private presentOutput(stock: Stock): CreateStockOutputDto {
         const output: CreateStockOutputDto = {
-            cabinetId: stock.cabinetId,
+            fieiraId: stock.fieiraId,
             code: stock.code,
             status: stock.status,
             createdAt: stock.createdAt,

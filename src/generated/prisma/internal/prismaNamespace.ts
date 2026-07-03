@@ -385,6 +385,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   Cabinet: 'Cabinet',
+  Fieira: 'Fieira',
   ControlFieira: 'ControlFieira',
   StockFieira: 'StockFieira',
   Requisition: 'Requisition',
@@ -406,7 +407,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "cabinet" | "controlFieira" | "stockFieira" | "requisition" | "requisitionItem" | "reservationFieira" | "stockFieiraHistory"
+    modelProps: "cabinet" | "fieira" | "controlFieira" | "stockFieira" | "requisition" | "requisitionItem" | "reservationFieira" | "stockFieiraHistory"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -481,6 +482,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.CabinetCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.CabinetCountAggregateOutputType> | number
+        }
+      }
+    }
+    Fieira: {
+      payload: Prisma.$FieiraPayload<ExtArgs>
+      fields: Prisma.FieiraFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FieiraFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieiraPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FieiraFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieiraPayload>
+        }
+        findFirst: {
+          args: Prisma.FieiraFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieiraPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FieiraFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieiraPayload>
+        }
+        findMany: {
+          args: Prisma.FieiraFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieiraPayload>[]
+        }
+        create: {
+          args: Prisma.FieiraCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieiraPayload>
+        }
+        createMany: {
+          args: Prisma.FieiraCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FieiraCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieiraPayload>[]
+        }
+        delete: {
+          args: Prisma.FieiraDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieiraPayload>
+        }
+        update: {
+          args: Prisma.FieiraUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieiraPayload>
+        }
+        deleteMany: {
+          args: Prisma.FieiraDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FieiraUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FieiraUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieiraPayload>[]
+        }
+        upsert: {
+          args: Prisma.FieiraUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieiraPayload>
+        }
+        aggregate: {
+          args: Prisma.FieiraAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFieira>
+        }
+        groupBy: {
+          args: Prisma.FieiraGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FieiraGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FieiraCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FieiraCountAggregateOutputType> | number
         }
       }
     }
@@ -970,6 +1045,17 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const CabinetScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CabinetScalarFieldEnum = (typeof CabinetScalarFieldEnum)[keyof typeof CabinetScalarFieldEnum]
+
+
+export const FieiraScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  cabinetId: 'cabinetId',
   width: 'width',
   thickness: 'thickness',
   nominalFieiraCapacity: 'nominalFieiraCapacity',
@@ -978,7 +1064,7 @@ export const CabinetScalarFieldEnum = {
   updatedAt: 'updatedAt'
 } as const
 
-export type CabinetScalarFieldEnum = (typeof CabinetScalarFieldEnum)[keyof typeof CabinetScalarFieldEnum]
+export type FieiraScalarFieldEnum = (typeof FieiraScalarFieldEnum)[keyof typeof FieiraScalarFieldEnum]
 
 
 export const ControlFieiraScalarFieldEnum = {
@@ -988,7 +1074,7 @@ export const ControlFieiraScalarFieldEnum = {
   tension: 'tension',
   width: 'width',
   thickness: 'thickness',
-  cabinetId: 'cabinetId',
+  fieiraId: 'fieiraId',
   orderStartDate: 'orderStartDate',
   orderEndDate: 'orderEndDate',
   orderQuantity: 'orderQuantity',
@@ -1001,7 +1087,7 @@ export type ControlFieiraScalarFieldEnum = (typeof ControlFieiraScalarFieldEnum)
 
 export const StockFieiraScalarFieldEnum = {
   id: 'id',
-  cabinetId: 'cabinetId',
+  fieiraId: 'fieiraId',
   code: 'code',
   status: 'status',
   currentThickness: 'currentThickness',
@@ -1017,7 +1103,7 @@ export type StockFieiraScalarFieldEnum = (typeof StockFieiraScalarFieldEnum)[key
 
 export const RequisitionScalarFieldEnum = {
   id: 'id',
-  cabinetId: 'cabinetId',
+  FieiraId: 'FieiraId',
   currentStockQty: 'currentStockQty',
   requisitionQty: 'requisitionQty',
   createdAt: 'createdAt',
@@ -1119,20 +1205,6 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
- * Reference to a field of type 'Decimal'
- */
-export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
-    
-
-
-/**
- * Reference to a field of type 'Decimal[]'
- */
-export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
-    
-
-
-/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -1143,6 +1215,20 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Decimal'
+ */
+export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+/**
+ * Reference to a field of type 'Decimal[]'
+ */
+export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
     
 
 
@@ -1284,6 +1370,7 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   cabinet?: Prisma.CabinetOmit
+  fieira?: Prisma.FieiraOmit
   controlFieira?: Prisma.ControlFieiraOmit
   stockFieira?: Prisma.StockFieiraOmit
   requisition?: Prisma.RequisitionOmit

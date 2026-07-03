@@ -5,4 +5,5 @@ export interface StockHistoryGateway {
     update(stockHistory: StockHistory): Promise<void>;
     listByStockId(stockFieiraid: number): Promise<StockHistory[]>;
     delete(id: number): Promise<void>;
+    updateMany(histories: StockHistory[]): Promise<void>;
 }

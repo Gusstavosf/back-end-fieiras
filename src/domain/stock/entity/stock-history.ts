@@ -58,6 +58,10 @@ export class StockHistory {
             .reverse()
             .find((h) => h.thickness !== null && h.width !== null);
 
+        const nextValidMeasures = [...nextHistories]
+            .reverse()
+            .find((h) => h.thickness !== null && h.width !== null);
+
         if (
             lastValidMeasures &&
             lastValidMeasures.thickness !== null &&
@@ -72,7 +76,26 @@ export class StockHistory {
                     targetWidth < lastValidMeasures.width)
             ) {
                 throw new IncorrectRequest(
-                    `As dimensões não podem ser menores que o último registro válido (Espessura: ${lastValidMeasures.thickness}, Largura: ${lastValidMeasures.width}).`,
+                    `As dimensões desse registro não podem ser menores que o último registro válido (Espessura: ${lastValidMeasures.thickness}, Largura: ${lastValidMeasures.width}).`,
+                );
+            }
+        }
+
+        if (
+            nextValidMeasures &&
+            nextValidMeasures.thickness !== null &&
+            nextValidMeasures.width !== null
+        ) {
+            if (
+                (targetThickness !== null &&
+                    targetThickness !== undefined &&
+                    targetThickness > nextValidMeasures.thickness) ||
+                (targetWidth !== null &&
+                    targetWidth !== undefined &&
+                    targetWidth > nextValidMeasures.width)
+            ) {
+                throw new IncorrectRequest(
+                    `As dimensões desse registro não podem ser maior que o próximo registro válido (Espessura: ${nextValidMeasures.thickness}, Largura: ${nextValidMeasures.width}).`,
                 );
             }
         }
@@ -90,6 +113,11 @@ export class StockHistory {
         }
 
         if (this.props.status === StatusFieira.Polished) {
+            if (targetProduction <= 0) {
+                throw new IncorrectRequest(
+                    "A produção de uma fieira deve ser maior do que zero",
+                );
+            }
             if (targetStatus === StatusFieira.New) {
                 const hasPolishedBefore = previousHistories.some(
                     (h) => h.status === StatusFieira.Polished,
@@ -147,6 +175,11 @@ export class StockHistory {
         }
 
         if (this.props.status === StatusFieira.Dead) {
+            if (targetProduction <= 0) {
+                throw new IncorrectRequest(
+                    "A produção de uma fieira deve ser maior do que zero",
+                );
+            }
             if (targetStatus === StatusFieira.New) {
                 throw new IncorrectRequest(
                     "A partir do status de Morta, só é possível retornar para status de Polida.",
@@ -216,6 +249,26 @@ export class StockHistory {
                 throw new IncorrectRequest(
                     "Não é permitido excluir registros com status de Nova com registros de usos posteriores.",
                 );
+            }
+        }
+    }
+
+    private updateUtilization(newUtilization: number): void {
+        this.props.utilization = newUtilization;
+    }
+
+    public renderUtilizations(timeline: StockHistory[]): void {
+        let counterUtilization = 1;
+
+        for (const history of timeline) {
+            if (
+                history.status === StatusFieira.Polished ||
+                history.status === StatusFieira.Dead
+            ) {
+                history.updateUtilization(counterUtilization);
+                counterUtilization++;
+            } else {
+                history.updateUtilization(0);
             }
         }
     }

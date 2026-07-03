@@ -28,7 +28,7 @@ export type AggregateStockFieira = {
 
 export type StockFieiraAvgAggregateOutputType = {
   id: number | null
-  cabinetId: number | null
+  fieiraId: number | null
   currentThickness: runtime.Decimal | null
   currentWidth: runtime.Decimal | null
   utilization: number | null
@@ -37,7 +37,7 @@ export type StockFieiraAvgAggregateOutputType = {
 
 export type StockFieiraSumAggregateOutputType = {
   id: number | null
-  cabinetId: number | null
+  fieiraId: number | null
   currentThickness: runtime.Decimal | null
   currentWidth: runtime.Decimal | null
   utilization: number | null
@@ -46,7 +46,7 @@ export type StockFieiraSumAggregateOutputType = {
 
 export type StockFieiraMinAggregateOutputType = {
   id: number | null
-  cabinetId: number | null
+  fieiraId: number | null
   code: string | null
   status: $Enums.StatusFieira | null
   currentThickness: runtime.Decimal | null
@@ -59,7 +59,7 @@ export type StockFieiraMinAggregateOutputType = {
 
 export type StockFieiraMaxAggregateOutputType = {
   id: number | null
-  cabinetId: number | null
+  fieiraId: number | null
   code: string | null
   status: $Enums.StatusFieira | null
   currentThickness: runtime.Decimal | null
@@ -72,7 +72,7 @@ export type StockFieiraMaxAggregateOutputType = {
 
 export type StockFieiraCountAggregateOutputType = {
   id: number
-  cabinetId: number
+  fieiraId: number
   code: number
   status: number
   currentThickness: number
@@ -87,7 +87,7 @@ export type StockFieiraCountAggregateOutputType = {
 
 export type StockFieiraAvgAggregateInputType = {
   id?: true
-  cabinetId?: true
+  fieiraId?: true
   currentThickness?: true
   currentWidth?: true
   utilization?: true
@@ -96,7 +96,7 @@ export type StockFieiraAvgAggregateInputType = {
 
 export type StockFieiraSumAggregateInputType = {
   id?: true
-  cabinetId?: true
+  fieiraId?: true
   currentThickness?: true
   currentWidth?: true
   utilization?: true
@@ -105,7 +105,7 @@ export type StockFieiraSumAggregateInputType = {
 
 export type StockFieiraMinAggregateInputType = {
   id?: true
-  cabinetId?: true
+  fieiraId?: true
   code?: true
   status?: true
   currentThickness?: true
@@ -118,7 +118,7 @@ export type StockFieiraMinAggregateInputType = {
 
 export type StockFieiraMaxAggregateInputType = {
   id?: true
-  cabinetId?: true
+  fieiraId?: true
   code?: true
   status?: true
   currentThickness?: true
@@ -131,7 +131,7 @@ export type StockFieiraMaxAggregateInputType = {
 
 export type StockFieiraCountAggregateInputType = {
   id?: true
-  cabinetId?: true
+  fieiraId?: true
   code?: true
   status?: true
   currentThickness?: true
@@ -231,7 +231,7 @@ export type StockFieiraGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 
 export type StockFieiraGroupByOutputType = {
   id: number
-  cabinetId: number
+  fieiraId: number
   code: string
   status: $Enums.StatusFieira
   currentThickness: runtime.Decimal | null
@@ -267,7 +267,7 @@ export type StockFieiraWhereInput = {
   OR?: Prisma.StockFieiraWhereInput[]
   NOT?: Prisma.StockFieiraWhereInput | Prisma.StockFieiraWhereInput[]
   id?: Prisma.IntFilter<"StockFieira"> | number
-  cabinetId?: Prisma.IntFilter<"StockFieira"> | number
+  fieiraId?: Prisma.IntFilter<"StockFieira"> | number
   code?: Prisma.StringFilter<"StockFieira"> | string
   status?: Prisma.EnumStatusFieiraFilter<"StockFieira"> | $Enums.StatusFieira
   currentThickness?: Prisma.DecimalNullableFilter<"StockFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -276,7 +276,7 @@ export type StockFieiraWhereInput = {
   production?: Prisma.IntFilter<"StockFieira"> | number
   createdAt?: Prisma.DateTimeFilter<"StockFieira"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"StockFieira"> | Date | string
-  Cabinet?: Prisma.XOR<Prisma.CabinetScalarRelationFilter, Prisma.CabinetWhereInput>
+  Fieira?: Prisma.XOR<Prisma.FieiraScalarRelationFilter, Prisma.FieiraWhereInput>
   RequisitionItems?: Prisma.RequisitionItemListRelationFilter
   ReservationFieira?: Prisma.ReservationFieiraListRelationFilter
   History?: Prisma.StockFieiraHistoryListRelationFilter
@@ -284,7 +284,7 @@ export type StockFieiraWhereInput = {
 
 export type StockFieiraOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  cabinetId?: Prisma.SortOrder
+  fieiraId?: Prisma.SortOrder
   code?: Prisma.SortOrder
   status?: Prisma.SortOrder
   currentThickness?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -293,7 +293,7 @@ export type StockFieiraOrderByWithRelationInput = {
   production?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  Cabinet?: Prisma.CabinetOrderByWithRelationInput
+  Fieira?: Prisma.FieiraOrderByWithRelationInput
   RequisitionItems?: Prisma.RequisitionItemOrderByRelationAggregateInput
   ReservationFieira?: Prisma.ReservationFieiraOrderByRelationAggregateInput
   History?: Prisma.StockFieiraHistoryOrderByRelationAggregateInput
@@ -301,11 +301,11 @@ export type StockFieiraOrderByWithRelationInput = {
 
 export type StockFieiraWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  cabinetId_code?: Prisma.StockFieiraCabinetIdCodeCompoundUniqueInput
+  fieiraId_code?: Prisma.StockFieiraFieiraIdCodeCompoundUniqueInput
   AND?: Prisma.StockFieiraWhereInput | Prisma.StockFieiraWhereInput[]
   OR?: Prisma.StockFieiraWhereInput[]
   NOT?: Prisma.StockFieiraWhereInput | Prisma.StockFieiraWhereInput[]
-  cabinetId?: Prisma.IntFilter<"StockFieira"> | number
+  fieiraId?: Prisma.IntFilter<"StockFieira"> | number
   code?: Prisma.StringFilter<"StockFieira"> | string
   status?: Prisma.EnumStatusFieiraFilter<"StockFieira"> | $Enums.StatusFieira
   currentThickness?: Prisma.DecimalNullableFilter<"StockFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -314,15 +314,15 @@ export type StockFieiraWhereUniqueInput = Prisma.AtLeast<{
   production?: Prisma.IntFilter<"StockFieira"> | number
   createdAt?: Prisma.DateTimeFilter<"StockFieira"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"StockFieira"> | Date | string
-  Cabinet?: Prisma.XOR<Prisma.CabinetScalarRelationFilter, Prisma.CabinetWhereInput>
+  Fieira?: Prisma.XOR<Prisma.FieiraScalarRelationFilter, Prisma.FieiraWhereInput>
   RequisitionItems?: Prisma.RequisitionItemListRelationFilter
   ReservationFieira?: Prisma.ReservationFieiraListRelationFilter
   History?: Prisma.StockFieiraHistoryListRelationFilter
-}, "id" | "cabinetId_code">
+}, "id" | "fieiraId_code">
 
 export type StockFieiraOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  cabinetId?: Prisma.SortOrder
+  fieiraId?: Prisma.SortOrder
   code?: Prisma.SortOrder
   status?: Prisma.SortOrder
   currentThickness?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -343,7 +343,7 @@ export type StockFieiraScalarWhereWithAggregatesInput = {
   OR?: Prisma.StockFieiraScalarWhereWithAggregatesInput[]
   NOT?: Prisma.StockFieiraScalarWhereWithAggregatesInput | Prisma.StockFieiraScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"StockFieira"> | number
-  cabinetId?: Prisma.IntWithAggregatesFilter<"StockFieira"> | number
+  fieiraId?: Prisma.IntWithAggregatesFilter<"StockFieira"> | number
   code?: Prisma.StringWithAggregatesFilter<"StockFieira"> | string
   status?: Prisma.EnumStatusFieiraWithAggregatesFilter<"StockFieira"> | $Enums.StatusFieira
   currentThickness?: Prisma.DecimalNullableWithAggregatesFilter<"StockFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -363,7 +363,7 @@ export type StockFieiraCreateInput = {
   production?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  Cabinet: Prisma.CabinetCreateNestedOneWithoutStockFieiraInput
+  Fieira: Prisma.FieiraCreateNestedOneWithoutStockFieiraInput
   RequisitionItems?: Prisma.RequisitionItemCreateNestedManyWithoutStockFieiraInput
   ReservationFieira?: Prisma.ReservationFieiraCreateNestedManyWithoutStockFieiraInput
   History?: Prisma.StockFieiraHistoryCreateNestedManyWithoutStockFieiraInput
@@ -371,7 +371,7 @@ export type StockFieiraCreateInput = {
 
 export type StockFieiraUncheckedCreateInput = {
   id?: number
-  cabinetId: number
+  fieiraId: number
   code: string
   status: $Enums.StatusFieira
   currentThickness?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -394,7 +394,7 @@ export type StockFieiraUpdateInput = {
   production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  Cabinet?: Prisma.CabinetUpdateOneRequiredWithoutStockFieiraNestedInput
+  Fieira?: Prisma.FieiraUpdateOneRequiredWithoutStockFieiraNestedInput
   RequisitionItems?: Prisma.RequisitionItemUpdateManyWithoutStockFieiraNestedInput
   ReservationFieira?: Prisma.ReservationFieiraUpdateManyWithoutStockFieiraNestedInput
   History?: Prisma.StockFieiraHistoryUpdateManyWithoutStockFieiraNestedInput
@@ -402,7 +402,7 @@ export type StockFieiraUpdateInput = {
 
 export type StockFieiraUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  cabinetId?: Prisma.IntFieldUpdateOperationsInput | number
+  fieiraId?: Prisma.IntFieldUpdateOperationsInput | number
   code?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStatusFieiraFieldUpdateOperationsInput | $Enums.StatusFieira
   currentThickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -418,7 +418,7 @@ export type StockFieiraUncheckedUpdateInput = {
 
 export type StockFieiraCreateManyInput = {
   id?: number
-  cabinetId: number
+  fieiraId: number
   code: string
   status: $Enums.StatusFieira
   currentThickness?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -442,7 +442,7 @@ export type StockFieiraUpdateManyMutationInput = {
 
 export type StockFieiraUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  cabinetId?: Prisma.IntFieldUpdateOperationsInput | number
+  fieiraId?: Prisma.IntFieldUpdateOperationsInput | number
   code?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStatusFieiraFieldUpdateOperationsInput | $Enums.StatusFieira
   currentThickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -463,14 +463,14 @@ export type StockFieiraOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type StockFieiraCabinetIdCodeCompoundUniqueInput = {
-  cabinetId: number
+export type StockFieiraFieiraIdCodeCompoundUniqueInput = {
+  fieiraId: number
   code: string
 }
 
 export type StockFieiraCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  cabinetId?: Prisma.SortOrder
+  fieiraId?: Prisma.SortOrder
   code?: Prisma.SortOrder
   status?: Prisma.SortOrder
   currentThickness?: Prisma.SortOrder
@@ -483,7 +483,7 @@ export type StockFieiraCountOrderByAggregateInput = {
 
 export type StockFieiraAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  cabinetId?: Prisma.SortOrder
+  fieiraId?: Prisma.SortOrder
   currentThickness?: Prisma.SortOrder
   currentWidth?: Prisma.SortOrder
   utilization?: Prisma.SortOrder
@@ -492,7 +492,7 @@ export type StockFieiraAvgOrderByAggregateInput = {
 
 export type StockFieiraMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  cabinetId?: Prisma.SortOrder
+  fieiraId?: Prisma.SortOrder
   code?: Prisma.SortOrder
   status?: Prisma.SortOrder
   currentThickness?: Prisma.SortOrder
@@ -505,7 +505,7 @@ export type StockFieiraMaxOrderByAggregateInput = {
 
 export type StockFieiraMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  cabinetId?: Prisma.SortOrder
+  fieiraId?: Prisma.SortOrder
   code?: Prisma.SortOrder
   status?: Prisma.SortOrder
   currentThickness?: Prisma.SortOrder
@@ -518,7 +518,7 @@ export type StockFieiraMinOrderByAggregateInput = {
 
 export type StockFieiraSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  cabinetId?: Prisma.SortOrder
+  fieiraId?: Prisma.SortOrder
   currentThickness?: Prisma.SortOrder
   currentWidth?: Prisma.SortOrder
   utilization?: Prisma.SortOrder
@@ -530,45 +530,45 @@ export type StockFieiraScalarRelationFilter = {
   isNot?: Prisma.StockFieiraWhereInput
 }
 
-export type StockFieiraCreateNestedManyWithoutCabinetInput = {
-  create?: Prisma.XOR<Prisma.StockFieiraCreateWithoutCabinetInput, Prisma.StockFieiraUncheckedCreateWithoutCabinetInput> | Prisma.StockFieiraCreateWithoutCabinetInput[] | Prisma.StockFieiraUncheckedCreateWithoutCabinetInput[]
-  connectOrCreate?: Prisma.StockFieiraCreateOrConnectWithoutCabinetInput | Prisma.StockFieiraCreateOrConnectWithoutCabinetInput[]
-  createMany?: Prisma.StockFieiraCreateManyCabinetInputEnvelope
+export type StockFieiraCreateNestedManyWithoutFieiraInput = {
+  create?: Prisma.XOR<Prisma.StockFieiraCreateWithoutFieiraInput, Prisma.StockFieiraUncheckedCreateWithoutFieiraInput> | Prisma.StockFieiraCreateWithoutFieiraInput[] | Prisma.StockFieiraUncheckedCreateWithoutFieiraInput[]
+  connectOrCreate?: Prisma.StockFieiraCreateOrConnectWithoutFieiraInput | Prisma.StockFieiraCreateOrConnectWithoutFieiraInput[]
+  createMany?: Prisma.StockFieiraCreateManyFieiraInputEnvelope
   connect?: Prisma.StockFieiraWhereUniqueInput | Prisma.StockFieiraWhereUniqueInput[]
 }
 
-export type StockFieiraUncheckedCreateNestedManyWithoutCabinetInput = {
-  create?: Prisma.XOR<Prisma.StockFieiraCreateWithoutCabinetInput, Prisma.StockFieiraUncheckedCreateWithoutCabinetInput> | Prisma.StockFieiraCreateWithoutCabinetInput[] | Prisma.StockFieiraUncheckedCreateWithoutCabinetInput[]
-  connectOrCreate?: Prisma.StockFieiraCreateOrConnectWithoutCabinetInput | Prisma.StockFieiraCreateOrConnectWithoutCabinetInput[]
-  createMany?: Prisma.StockFieiraCreateManyCabinetInputEnvelope
+export type StockFieiraUncheckedCreateNestedManyWithoutFieiraInput = {
+  create?: Prisma.XOR<Prisma.StockFieiraCreateWithoutFieiraInput, Prisma.StockFieiraUncheckedCreateWithoutFieiraInput> | Prisma.StockFieiraCreateWithoutFieiraInput[] | Prisma.StockFieiraUncheckedCreateWithoutFieiraInput[]
+  connectOrCreate?: Prisma.StockFieiraCreateOrConnectWithoutFieiraInput | Prisma.StockFieiraCreateOrConnectWithoutFieiraInput[]
+  createMany?: Prisma.StockFieiraCreateManyFieiraInputEnvelope
   connect?: Prisma.StockFieiraWhereUniqueInput | Prisma.StockFieiraWhereUniqueInput[]
 }
 
-export type StockFieiraUpdateManyWithoutCabinetNestedInput = {
-  create?: Prisma.XOR<Prisma.StockFieiraCreateWithoutCabinetInput, Prisma.StockFieiraUncheckedCreateWithoutCabinetInput> | Prisma.StockFieiraCreateWithoutCabinetInput[] | Prisma.StockFieiraUncheckedCreateWithoutCabinetInput[]
-  connectOrCreate?: Prisma.StockFieiraCreateOrConnectWithoutCabinetInput | Prisma.StockFieiraCreateOrConnectWithoutCabinetInput[]
-  upsert?: Prisma.StockFieiraUpsertWithWhereUniqueWithoutCabinetInput | Prisma.StockFieiraUpsertWithWhereUniqueWithoutCabinetInput[]
-  createMany?: Prisma.StockFieiraCreateManyCabinetInputEnvelope
+export type StockFieiraUpdateManyWithoutFieiraNestedInput = {
+  create?: Prisma.XOR<Prisma.StockFieiraCreateWithoutFieiraInput, Prisma.StockFieiraUncheckedCreateWithoutFieiraInput> | Prisma.StockFieiraCreateWithoutFieiraInput[] | Prisma.StockFieiraUncheckedCreateWithoutFieiraInput[]
+  connectOrCreate?: Prisma.StockFieiraCreateOrConnectWithoutFieiraInput | Prisma.StockFieiraCreateOrConnectWithoutFieiraInput[]
+  upsert?: Prisma.StockFieiraUpsertWithWhereUniqueWithoutFieiraInput | Prisma.StockFieiraUpsertWithWhereUniqueWithoutFieiraInput[]
+  createMany?: Prisma.StockFieiraCreateManyFieiraInputEnvelope
   set?: Prisma.StockFieiraWhereUniqueInput | Prisma.StockFieiraWhereUniqueInput[]
   disconnect?: Prisma.StockFieiraWhereUniqueInput | Prisma.StockFieiraWhereUniqueInput[]
   delete?: Prisma.StockFieiraWhereUniqueInput | Prisma.StockFieiraWhereUniqueInput[]
   connect?: Prisma.StockFieiraWhereUniqueInput | Prisma.StockFieiraWhereUniqueInput[]
-  update?: Prisma.StockFieiraUpdateWithWhereUniqueWithoutCabinetInput | Prisma.StockFieiraUpdateWithWhereUniqueWithoutCabinetInput[]
-  updateMany?: Prisma.StockFieiraUpdateManyWithWhereWithoutCabinetInput | Prisma.StockFieiraUpdateManyWithWhereWithoutCabinetInput[]
+  update?: Prisma.StockFieiraUpdateWithWhereUniqueWithoutFieiraInput | Prisma.StockFieiraUpdateWithWhereUniqueWithoutFieiraInput[]
+  updateMany?: Prisma.StockFieiraUpdateManyWithWhereWithoutFieiraInput | Prisma.StockFieiraUpdateManyWithWhereWithoutFieiraInput[]
   deleteMany?: Prisma.StockFieiraScalarWhereInput | Prisma.StockFieiraScalarWhereInput[]
 }
 
-export type StockFieiraUncheckedUpdateManyWithoutCabinetNestedInput = {
-  create?: Prisma.XOR<Prisma.StockFieiraCreateWithoutCabinetInput, Prisma.StockFieiraUncheckedCreateWithoutCabinetInput> | Prisma.StockFieiraCreateWithoutCabinetInput[] | Prisma.StockFieiraUncheckedCreateWithoutCabinetInput[]
-  connectOrCreate?: Prisma.StockFieiraCreateOrConnectWithoutCabinetInput | Prisma.StockFieiraCreateOrConnectWithoutCabinetInput[]
-  upsert?: Prisma.StockFieiraUpsertWithWhereUniqueWithoutCabinetInput | Prisma.StockFieiraUpsertWithWhereUniqueWithoutCabinetInput[]
-  createMany?: Prisma.StockFieiraCreateManyCabinetInputEnvelope
+export type StockFieiraUncheckedUpdateManyWithoutFieiraNestedInput = {
+  create?: Prisma.XOR<Prisma.StockFieiraCreateWithoutFieiraInput, Prisma.StockFieiraUncheckedCreateWithoutFieiraInput> | Prisma.StockFieiraCreateWithoutFieiraInput[] | Prisma.StockFieiraUncheckedCreateWithoutFieiraInput[]
+  connectOrCreate?: Prisma.StockFieiraCreateOrConnectWithoutFieiraInput | Prisma.StockFieiraCreateOrConnectWithoutFieiraInput[]
+  upsert?: Prisma.StockFieiraUpsertWithWhereUniqueWithoutFieiraInput | Prisma.StockFieiraUpsertWithWhereUniqueWithoutFieiraInput[]
+  createMany?: Prisma.StockFieiraCreateManyFieiraInputEnvelope
   set?: Prisma.StockFieiraWhereUniqueInput | Prisma.StockFieiraWhereUniqueInput[]
   disconnect?: Prisma.StockFieiraWhereUniqueInput | Prisma.StockFieiraWhereUniqueInput[]
   delete?: Prisma.StockFieiraWhereUniqueInput | Prisma.StockFieiraWhereUniqueInput[]
   connect?: Prisma.StockFieiraWhereUniqueInput | Prisma.StockFieiraWhereUniqueInput[]
-  update?: Prisma.StockFieiraUpdateWithWhereUniqueWithoutCabinetInput | Prisma.StockFieiraUpdateWithWhereUniqueWithoutCabinetInput[]
-  updateMany?: Prisma.StockFieiraUpdateManyWithWhereWithoutCabinetInput | Prisma.StockFieiraUpdateManyWithWhereWithoutCabinetInput[]
+  update?: Prisma.StockFieiraUpdateWithWhereUniqueWithoutFieiraInput | Prisma.StockFieiraUpdateWithWhereUniqueWithoutFieiraInput[]
+  updateMany?: Prisma.StockFieiraUpdateManyWithWhereWithoutFieiraInput | Prisma.StockFieiraUpdateManyWithWhereWithoutFieiraInput[]
   deleteMany?: Prisma.StockFieiraScalarWhereInput | Prisma.StockFieiraScalarWhereInput[]
 }
 
@@ -626,7 +626,7 @@ export type StockFieiraUpdateOneRequiredWithoutHistoryNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.StockFieiraUpdateToOneWithWhereWithoutHistoryInput, Prisma.StockFieiraUpdateWithoutHistoryInput>, Prisma.StockFieiraUncheckedUpdateWithoutHistoryInput>
 }
 
-export type StockFieiraCreateWithoutCabinetInput = {
+export type StockFieiraCreateWithoutFieiraInput = {
   code: string
   status: $Enums.StatusFieira
   currentThickness?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -640,7 +640,7 @@ export type StockFieiraCreateWithoutCabinetInput = {
   History?: Prisma.StockFieiraHistoryCreateNestedManyWithoutStockFieiraInput
 }
 
-export type StockFieiraUncheckedCreateWithoutCabinetInput = {
+export type StockFieiraUncheckedCreateWithoutFieiraInput = {
   id?: number
   code: string
   status: $Enums.StatusFieira
@@ -655,30 +655,30 @@ export type StockFieiraUncheckedCreateWithoutCabinetInput = {
   History?: Prisma.StockFieiraHistoryUncheckedCreateNestedManyWithoutStockFieiraInput
 }
 
-export type StockFieiraCreateOrConnectWithoutCabinetInput = {
+export type StockFieiraCreateOrConnectWithoutFieiraInput = {
   where: Prisma.StockFieiraWhereUniqueInput
-  create: Prisma.XOR<Prisma.StockFieiraCreateWithoutCabinetInput, Prisma.StockFieiraUncheckedCreateWithoutCabinetInput>
+  create: Prisma.XOR<Prisma.StockFieiraCreateWithoutFieiraInput, Prisma.StockFieiraUncheckedCreateWithoutFieiraInput>
 }
 
-export type StockFieiraCreateManyCabinetInputEnvelope = {
-  data: Prisma.StockFieiraCreateManyCabinetInput | Prisma.StockFieiraCreateManyCabinetInput[]
+export type StockFieiraCreateManyFieiraInputEnvelope = {
+  data: Prisma.StockFieiraCreateManyFieiraInput | Prisma.StockFieiraCreateManyFieiraInput[]
   skipDuplicates?: boolean
 }
 
-export type StockFieiraUpsertWithWhereUniqueWithoutCabinetInput = {
+export type StockFieiraUpsertWithWhereUniqueWithoutFieiraInput = {
   where: Prisma.StockFieiraWhereUniqueInput
-  update: Prisma.XOR<Prisma.StockFieiraUpdateWithoutCabinetInput, Prisma.StockFieiraUncheckedUpdateWithoutCabinetInput>
-  create: Prisma.XOR<Prisma.StockFieiraCreateWithoutCabinetInput, Prisma.StockFieiraUncheckedCreateWithoutCabinetInput>
+  update: Prisma.XOR<Prisma.StockFieiraUpdateWithoutFieiraInput, Prisma.StockFieiraUncheckedUpdateWithoutFieiraInput>
+  create: Prisma.XOR<Prisma.StockFieiraCreateWithoutFieiraInput, Prisma.StockFieiraUncheckedCreateWithoutFieiraInput>
 }
 
-export type StockFieiraUpdateWithWhereUniqueWithoutCabinetInput = {
+export type StockFieiraUpdateWithWhereUniqueWithoutFieiraInput = {
   where: Prisma.StockFieiraWhereUniqueInput
-  data: Prisma.XOR<Prisma.StockFieiraUpdateWithoutCabinetInput, Prisma.StockFieiraUncheckedUpdateWithoutCabinetInput>
+  data: Prisma.XOR<Prisma.StockFieiraUpdateWithoutFieiraInput, Prisma.StockFieiraUncheckedUpdateWithoutFieiraInput>
 }
 
-export type StockFieiraUpdateManyWithWhereWithoutCabinetInput = {
+export type StockFieiraUpdateManyWithWhereWithoutFieiraInput = {
   where: Prisma.StockFieiraScalarWhereInput
-  data: Prisma.XOR<Prisma.StockFieiraUpdateManyMutationInput, Prisma.StockFieiraUncheckedUpdateManyWithoutCabinetInput>
+  data: Prisma.XOR<Prisma.StockFieiraUpdateManyMutationInput, Prisma.StockFieiraUncheckedUpdateManyWithoutFieiraInput>
 }
 
 export type StockFieiraScalarWhereInput = {
@@ -686,7 +686,7 @@ export type StockFieiraScalarWhereInput = {
   OR?: Prisma.StockFieiraScalarWhereInput[]
   NOT?: Prisma.StockFieiraScalarWhereInput | Prisma.StockFieiraScalarWhereInput[]
   id?: Prisma.IntFilter<"StockFieira"> | number
-  cabinetId?: Prisma.IntFilter<"StockFieira"> | number
+  fieiraId?: Prisma.IntFilter<"StockFieira"> | number
   code?: Prisma.StringFilter<"StockFieira"> | string
   status?: Prisma.EnumStatusFieiraFilter<"StockFieira"> | $Enums.StatusFieira
   currentThickness?: Prisma.DecimalNullableFilter<"StockFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -706,14 +706,14 @@ export type StockFieiraCreateWithoutRequisitionItemsInput = {
   production?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  Cabinet: Prisma.CabinetCreateNestedOneWithoutStockFieiraInput
+  Fieira: Prisma.FieiraCreateNestedOneWithoutStockFieiraInput
   ReservationFieira?: Prisma.ReservationFieiraCreateNestedManyWithoutStockFieiraInput
   History?: Prisma.StockFieiraHistoryCreateNestedManyWithoutStockFieiraInput
 }
 
 export type StockFieiraUncheckedCreateWithoutRequisitionItemsInput = {
   id?: number
-  cabinetId: number
+  fieiraId: number
   code: string
   status: $Enums.StatusFieira
   currentThickness?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -751,14 +751,14 @@ export type StockFieiraUpdateWithoutRequisitionItemsInput = {
   production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  Cabinet?: Prisma.CabinetUpdateOneRequiredWithoutStockFieiraNestedInput
+  Fieira?: Prisma.FieiraUpdateOneRequiredWithoutStockFieiraNestedInput
   ReservationFieira?: Prisma.ReservationFieiraUpdateManyWithoutStockFieiraNestedInput
   History?: Prisma.StockFieiraHistoryUpdateManyWithoutStockFieiraNestedInput
 }
 
 export type StockFieiraUncheckedUpdateWithoutRequisitionItemsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  cabinetId?: Prisma.IntFieldUpdateOperationsInput | number
+  fieiraId?: Prisma.IntFieldUpdateOperationsInput | number
   code?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStatusFieiraFieldUpdateOperationsInput | $Enums.StatusFieira
   currentThickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -780,14 +780,14 @@ export type StockFieiraCreateWithoutReservationFieiraInput = {
   production?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  Cabinet: Prisma.CabinetCreateNestedOneWithoutStockFieiraInput
+  Fieira: Prisma.FieiraCreateNestedOneWithoutStockFieiraInput
   RequisitionItems?: Prisma.RequisitionItemCreateNestedManyWithoutStockFieiraInput
   History?: Prisma.StockFieiraHistoryCreateNestedManyWithoutStockFieiraInput
 }
 
 export type StockFieiraUncheckedCreateWithoutReservationFieiraInput = {
   id?: number
-  cabinetId: number
+  fieiraId: number
   code: string
   status: $Enums.StatusFieira
   currentThickness?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -825,14 +825,14 @@ export type StockFieiraUpdateWithoutReservationFieiraInput = {
   production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  Cabinet?: Prisma.CabinetUpdateOneRequiredWithoutStockFieiraNestedInput
+  Fieira?: Prisma.FieiraUpdateOneRequiredWithoutStockFieiraNestedInput
   RequisitionItems?: Prisma.RequisitionItemUpdateManyWithoutStockFieiraNestedInput
   History?: Prisma.StockFieiraHistoryUpdateManyWithoutStockFieiraNestedInput
 }
 
 export type StockFieiraUncheckedUpdateWithoutReservationFieiraInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  cabinetId?: Prisma.IntFieldUpdateOperationsInput | number
+  fieiraId?: Prisma.IntFieldUpdateOperationsInput | number
   code?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStatusFieiraFieldUpdateOperationsInput | $Enums.StatusFieira
   currentThickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -854,14 +854,14 @@ export type StockFieiraCreateWithoutHistoryInput = {
   production?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  Cabinet: Prisma.CabinetCreateNestedOneWithoutStockFieiraInput
+  Fieira: Prisma.FieiraCreateNestedOneWithoutStockFieiraInput
   RequisitionItems?: Prisma.RequisitionItemCreateNestedManyWithoutStockFieiraInput
   ReservationFieira?: Prisma.ReservationFieiraCreateNestedManyWithoutStockFieiraInput
 }
 
 export type StockFieiraUncheckedCreateWithoutHistoryInput = {
   id?: number
-  cabinetId: number
+  fieiraId: number
   code: string
   status: $Enums.StatusFieira
   currentThickness?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -899,14 +899,14 @@ export type StockFieiraUpdateWithoutHistoryInput = {
   production?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  Cabinet?: Prisma.CabinetUpdateOneRequiredWithoutStockFieiraNestedInput
+  Fieira?: Prisma.FieiraUpdateOneRequiredWithoutStockFieiraNestedInput
   RequisitionItems?: Prisma.RequisitionItemUpdateManyWithoutStockFieiraNestedInput
   ReservationFieira?: Prisma.ReservationFieiraUpdateManyWithoutStockFieiraNestedInput
 }
 
 export type StockFieiraUncheckedUpdateWithoutHistoryInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  cabinetId?: Prisma.IntFieldUpdateOperationsInput | number
+  fieiraId?: Prisma.IntFieldUpdateOperationsInput | number
   code?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStatusFieiraFieldUpdateOperationsInput | $Enums.StatusFieira
   currentThickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -919,7 +919,7 @@ export type StockFieiraUncheckedUpdateWithoutHistoryInput = {
   ReservationFieira?: Prisma.ReservationFieiraUncheckedUpdateManyWithoutStockFieiraNestedInput
 }
 
-export type StockFieiraCreateManyCabinetInput = {
+export type StockFieiraCreateManyFieiraInput = {
   id?: number
   code: string
   status: $Enums.StatusFieira
@@ -931,7 +931,7 @@ export type StockFieiraCreateManyCabinetInput = {
   updatedAt?: Date | string
 }
 
-export type StockFieiraUpdateWithoutCabinetInput = {
+export type StockFieiraUpdateWithoutFieiraInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStatusFieiraFieldUpdateOperationsInput | $Enums.StatusFieira
   currentThickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -945,7 +945,7 @@ export type StockFieiraUpdateWithoutCabinetInput = {
   History?: Prisma.StockFieiraHistoryUpdateManyWithoutStockFieiraNestedInput
 }
 
-export type StockFieiraUncheckedUpdateWithoutCabinetInput = {
+export type StockFieiraUncheckedUpdateWithoutFieiraInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   code?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStatusFieiraFieldUpdateOperationsInput | $Enums.StatusFieira
@@ -960,7 +960,7 @@ export type StockFieiraUncheckedUpdateWithoutCabinetInput = {
   History?: Prisma.StockFieiraHistoryUncheckedUpdateManyWithoutStockFieiraNestedInput
 }
 
-export type StockFieiraUncheckedUpdateManyWithoutCabinetInput = {
+export type StockFieiraUncheckedUpdateManyWithoutFieiraInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   code?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStatusFieiraFieldUpdateOperationsInput | $Enums.StatusFieira
@@ -1023,7 +1023,7 @@ export type StockFieiraCountOutputTypeCountHistoryArgs<ExtArgs extends runtime.T
 
 export type StockFieiraSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  cabinetId?: boolean
+  fieiraId?: boolean
   code?: boolean
   status?: boolean
   currentThickness?: boolean
@@ -1032,7 +1032,7 @@ export type StockFieiraSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   production?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  Cabinet?: boolean | Prisma.CabinetDefaultArgs<ExtArgs>
+  Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
   RequisitionItems?: boolean | Prisma.StockFieira$RequisitionItemsArgs<ExtArgs>
   ReservationFieira?: boolean | Prisma.StockFieira$ReservationFieiraArgs<ExtArgs>
   History?: boolean | Prisma.StockFieira$HistoryArgs<ExtArgs>
@@ -1041,7 +1041,7 @@ export type StockFieiraSelect<ExtArgs extends runtime.Types.Extensions.InternalA
 
 export type StockFieiraSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  cabinetId?: boolean
+  fieiraId?: boolean
   code?: boolean
   status?: boolean
   currentThickness?: boolean
@@ -1050,12 +1050,12 @@ export type StockFieiraSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   production?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  Cabinet?: boolean | Prisma.CabinetDefaultArgs<ExtArgs>
+  Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["stockFieira"]>
 
 export type StockFieiraSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  cabinetId?: boolean
+  fieiraId?: boolean
   code?: boolean
   status?: boolean
   currentThickness?: boolean
@@ -1064,12 +1064,12 @@ export type StockFieiraSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   production?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  Cabinet?: boolean | Prisma.CabinetDefaultArgs<ExtArgs>
+  Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["stockFieira"]>
 
 export type StockFieiraSelectScalar = {
   id?: boolean
-  cabinetId?: boolean
+  fieiraId?: boolean
   code?: boolean
   status?: boolean
   currentThickness?: boolean
@@ -1080,32 +1080,32 @@ export type StockFieiraSelectScalar = {
   updatedAt?: boolean
 }
 
-export type StockFieiraOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "cabinetId" | "code" | "status" | "currentThickness" | "currentWidth" | "utilization" | "production" | "createdAt" | "updatedAt", ExtArgs["result"]["stockFieira"]>
+export type StockFieiraOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fieiraId" | "code" | "status" | "currentThickness" | "currentWidth" | "utilization" | "production" | "createdAt" | "updatedAt", ExtArgs["result"]["stockFieira"]>
 export type StockFieiraInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Cabinet?: boolean | Prisma.CabinetDefaultArgs<ExtArgs>
+  Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
   RequisitionItems?: boolean | Prisma.StockFieira$RequisitionItemsArgs<ExtArgs>
   ReservationFieira?: boolean | Prisma.StockFieira$ReservationFieiraArgs<ExtArgs>
   History?: boolean | Prisma.StockFieira$HistoryArgs<ExtArgs>
   _count?: boolean | Prisma.StockFieiraCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type StockFieiraIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Cabinet?: boolean | Prisma.CabinetDefaultArgs<ExtArgs>
+  Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
 }
 export type StockFieiraIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Cabinet?: boolean | Prisma.CabinetDefaultArgs<ExtArgs>
+  Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
 }
 
 export type $StockFieiraPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "StockFieira"
   objects: {
-    Cabinet: Prisma.$CabinetPayload<ExtArgs>
+    Fieira: Prisma.$FieiraPayload<ExtArgs>
     RequisitionItems: Prisma.$RequisitionItemPayload<ExtArgs>[]
     ReservationFieira: Prisma.$ReservationFieiraPayload<ExtArgs>[]
     History: Prisma.$StockFieiraHistoryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    cabinetId: number
+    fieiraId: number
     code: string
     status: $Enums.StatusFieira
     currentThickness: runtime.Decimal | null
@@ -1508,7 +1508,7 @@ readonly fields: StockFieiraFieldRefs;
  */
 export interface Prisma__StockFieiraClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Cabinet<T extends Prisma.CabinetDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CabinetDefaultArgs<ExtArgs>>): Prisma.Prisma__CabinetClient<runtime.Types.Result.GetResult<Prisma.$CabinetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Fieira<T extends Prisma.FieiraDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FieiraDefaultArgs<ExtArgs>>): Prisma.Prisma__FieiraClient<runtime.Types.Result.GetResult<Prisma.$FieiraPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   RequisitionItems<T extends Prisma.StockFieira$RequisitionItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StockFieira$RequisitionItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RequisitionItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ReservationFieira<T extends Prisma.StockFieira$ReservationFieiraArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StockFieira$ReservationFieiraArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReservationFieiraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   History<T extends Prisma.StockFieira$HistoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StockFieira$HistoryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StockFieiraHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1542,7 +1542,7 @@ export interface Prisma__StockFieiraClient<T, Null = never, ExtArgs extends runt
  */
 export interface StockFieiraFieldRefs {
   readonly id: Prisma.FieldRef<"StockFieira", 'Int'>
-  readonly cabinetId: Prisma.FieldRef<"StockFieira", 'Int'>
+  readonly fieiraId: Prisma.FieldRef<"StockFieira", 'Int'>
   readonly code: Prisma.FieldRef<"StockFieira", 'String'>
   readonly status: Prisma.FieldRef<"StockFieira", 'StatusFieira'>
   readonly currentThickness: Prisma.FieldRef<"StockFieira", 'Decimal'>

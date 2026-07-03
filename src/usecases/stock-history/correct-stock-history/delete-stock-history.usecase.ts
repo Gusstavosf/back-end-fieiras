@@ -20,7 +20,7 @@ export type DeleteStockHistoryOutputDto = {
     updatedAt: Date;
 };
 
-export class DeleteStockHistoryuseCase implements Usecase<
+export class DeleteStockHistoryUseCase implements Usecase<
     DeleteStockHistoryInputDto,
     DeleteStockHistoryOutputDto
 > {
@@ -33,43 +33,55 @@ export class DeleteStockHistoryuseCase implements Usecase<
         historyGateway: StockHistoryGateway,
         stockGateway: StockGateway,
     ) {
-        return new DeleteStockHistoryuseCase(historyGateway, stockGateway);
+        return new DeleteStockHistoryUseCase(historyGateway, stockGateway);
     }
 
     public async execute(
         input: DeleteStockHistoryInputDto,
     ): Promise<DeleteStockHistoryOutputDto> {
-        const historyEntity = await this.historyGateway.findById(input.id);
+        const historyStockEntity = await this.historyGateway.findById(input.id);
 
-        if (!historyEntity) {
+        if (!historyStockEntity) {
             throw new NotFound(
                 `O registro de histórico com ID ${input.id} não existe no sistema.`,
             );
         }
 
         const timeline = await this.historyGateway.listByStockId(
-            historyEntity.stockFieiraId,
+            historyStockEntity.stockFieiraId,
         );
 
         if (!timeline) {
             throw new NotFound(`A fieira vinculada a este histórico não foi encontrada.`);
         }
 
-        historyEntity.validateDelete(timeline);
+        historyStockEntity.validateDelete(timeline);
 
-        await this.historyGateway.delete(historyEntity.id);
+        await this.historyGateway.delete(historyStockEntity.id);
 
-        const stockEntity = await this.stockGateway.findById(historyEntity.stockFieiraId);
+        const timelineFilter = timeline.filter(
+            (item) => item.id !== historyStockEntity.id,
+        );
+
+        const sortedTimeLine = [...timelineFilter].sort((a, b) => a.id! - b.id!);
+
+        const stockEntity = await this.stockGateway.findById(
+            historyStockEntity.stockFieiraId,
+        );
 
         if (!stockEntity) {
             throw new NotFound(`A fieira vinculada a este histórico não foi encontrada.`);
         }
 
-        stockEntity.recalculateFromHistory(timeline);
+        historyStockEntity.renderUtilizations(sortedTimeLine);
+
+        stockEntity.recalculateFromHistory(timelineFilter);
+
+        await this.historyGateway.updateMany(sortedTimeLine);
 
         await this.stockGateway.update(stockEntity);
 
-        const output = this.presentOutput(historyEntity);
+        const output = this.presentOutput(historyStockEntity);
 
         return output;
     }

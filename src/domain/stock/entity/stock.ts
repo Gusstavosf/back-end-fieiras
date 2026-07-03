@@ -10,7 +10,7 @@ export enum StatusFieira {
 
 export type StockProps = {
     id?: number;
-    cabinetId: number;
+    fieiraId: number;
     code: string;
     status: StatusFieira;
     currentThickness?: number | null;
@@ -24,11 +24,13 @@ export type StockProps = {
 export class Stock {
     private constructor(private readonly props: StockProps) {}
 
-    public static create(cabinetId: number, code: string) {
+    public static create(fieiraId: number, code: string) {
         return new Stock({
-            cabinetId,
+            fieiraId,
             code,
             status: StatusFieira.Requested,
+            currentThickness: null,
+            currentWidth: null,
             utilization: 0,
             production: 0,
             createdAt: new Date(),
@@ -78,7 +80,6 @@ export class Stock {
             );
         }
 
-        // 3. Se é Polida, não pode regredir para Nova ou Requisição
         if (this.props.status === StatusFieira.Polished) {
             if (newStatus === StatusFieira.New || newStatus === StatusFieira.Requested) {
                 throw new IncorrectRequest(
@@ -141,17 +142,22 @@ export class Stock {
         const sortedTimeLine = [...timeline].sort((a, b) => a.id - b.id);
 
         for (const history of sortedTimeLine) {
-            this.props.production += history.production;
-            this.props.utilization += history.utilization;
+            if (
+                history.status === StatusFieira.Polished ||
+                history.status === StatusFieira.Dead
+            ) {
+                this.props.production += history.production;
+                this.props.utilization = history.utilization;
 
-            if (history.thickness !== undefined && history.thickness !== null) {
-                this.props.currentThickness = history.thickness;
-            }
-            if (history.width !== undefined && history.width !== null) {
-                this.props.currentWidth = history.width;
-            }
+                if (history.thickness !== undefined && history.thickness !== null) {
+                    this.props.currentThickness = history.thickness;
+                }
+                if (history.width !== undefined && history.width !== null) {
+                    this.props.currentWidth = history.width;
+                }
 
-            this.props.status = history.status;
+                this.props.status = history.status;
+            }
         }
 
         this.props.updatedAt = new Date();
@@ -160,8 +166,8 @@ export class Stock {
     public get id(): number | undefined {
         return this.props.id;
     }
-    public get cabinetId(): number {
-        return this.props.cabinetId;
+    public get fieiraId(): number {
+        return this.props.fieiraId;
     }
     public get code(): string {
         return this.props.code;

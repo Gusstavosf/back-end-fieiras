@@ -15,7 +15,7 @@ export type UpdateStockInputDto = {
 
 export type UpdateStockOutputDto = {
     id: number;
-    cabinetId: number;
+    fieiraId: number;
     code: string;
     status: string;
     currentThickness?: number;
@@ -97,7 +97,7 @@ export class UpdateStockUseCase implements Usecase<
     private presentOutput(stock: Stock): UpdateStockOutputDto {
         const output: UpdateStockOutputDto = {
             id: stock.id!,
-            cabinetId: stock.cabinetId,
+            fieiraId: stock.fieiraId,
             code: stock.code,
             status: stock.status,
             utilization: stock.utilization,
