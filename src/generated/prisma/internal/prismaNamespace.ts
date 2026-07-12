@@ -1103,7 +1103,7 @@ export type StockFieiraScalarFieldEnum = (typeof StockFieiraScalarFieldEnum)[key
 
 export const RequisitionScalarFieldEnum = {
   id: 'id',
-  FieiraId: 'FieiraId',
+  fieiraId: 'fieiraId',
   currentStockQty: 'currentStockQty',
   requisitionQty: 'requisitionQty',
   createdAt: 'createdAt',
