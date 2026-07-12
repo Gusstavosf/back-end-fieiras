@@ -1,13 +1,46 @@
 import { PrismaClient } from "../../../../generated/prisma/client.js";
 import { StockHistory } from "../../../../domain/stock/entity/stock-history.js";
-import { StatusFieira } from "../../../../domain/stock/entity/stock.js";
+import { StatusFieira } from "../../../../generated/prisma/client.js";
+import { StatusFieira as DomainStatusFieira } from "../../../../domain/stock/entity/stock.js";
 import type { StockHistoryGateway } from "../../../../domain/stock/gateway/stock-history.gateway.js";
+import type { StockFieiraHistory } from "../../../../generated/prisma/browser.js";
 
 export class StockHistoryRepositoryPrisma implements StockHistoryGateway {
     private constructor(private readonly prismaClient: PrismaClient) {}
 
     public static build(prismaClient: PrismaClient) {
         return new StockHistoryRepositoryPrisma(prismaClient);
+    }
+
+    private decimal(value: unknown): number | null {
+        return value == null ? null : Number(value);
+    }
+
+    private toEntity(history: StockFieiraHistory): StockHistory {
+        return StockHistory.restore({
+            id: history.id,
+            stockFieiraId: history.stockFieiraId,
+            status: history.status as DomainStatusFieira,
+            thickness: this.decimal(history.thickness),
+            width: this.decimal(history.width),
+            production: history.production,
+            utilization: history.utilization,
+            createdAt: history.createdAt,
+            updatedAt: history.updatedAt,
+        });
+    }
+
+    private toPersistence(history: StockHistory) {
+        return {
+            stockFieiraId: history.stockFieiraId,
+            status: history.status as StatusFieira,
+            thickness: this.decimal(history.thickness),
+            width: this.decimal(history.width),
+            production: history.production,
+            utilization: history.utilization,
+            createdAt: history.createdAt,
+            updatedAt: history.updatedAt,
+        };
     }
 
     public async findById(id: number): Promise<StockHistory | null> {
@@ -17,24 +50,7 @@ export class StockHistoryRepositoryPrisma implements StockHistoryGateway {
 
         if (!stockHistoryId) return null;
 
-        return StockHistory.restore({
-            id: stockHistoryId.id,
-            stockFieiraId: stockHistoryId.stockFieiraId,
-            status: stockHistoryId.status as StatusFieira,
-            thickness:
-                stockHistoryId.thickness !== null &&
-                stockHistoryId.thickness !== undefined
-                    ? Number(stockHistoryId.thickness)
-                    : null,
-            width:
-                stockHistoryId.width !== null && stockHistoryId.width !== undefined
-                    ? Number(stockHistoryId.width)
-                    : null,
-            production: stockHistoryId.production,
-            utilization: stockHistoryId.utilization,
-            createdAt: stockHistoryId.createdAt,
-            updatedAt: stockHistoryId.updatedAt,
-        });
+        return this.toEntity(stockHistoryId);
     }
 
     public async update(stockHistory: StockHistory): Promise<void> {
@@ -42,24 +58,7 @@ export class StockHistoryRepositoryPrisma implements StockHistoryGateway {
 
         await this.prismaClient.stockFieiraHistory.update({
             where: { id: stockHistory.id },
-            data: {
-                id: stockHistory.id,
-                stockFieiraId: stockHistory.stockFieiraId,
-                status: stockHistory.status as StatusFieira,
-                thickness:
-                    stockHistory.thickness !== null &&
-                    stockHistory.thickness !== undefined
-                        ? Number(stockHistory.thickness)
-                        : null,
-                width:
-                    stockHistory.width !== null && stockHistory.width !== undefined
-                        ? Number(stockHistory.width)
-                        : null,
-                production: stockHistory.production,
-                utilization: stockHistory.utilization,
-                createdAt: stockHistory.createdAt,
-                updatedAt: stockHistory.updatedAt,
-            },
+            data: this.toPersistence(stockHistory),
         });
     }
 
@@ -68,25 +67,7 @@ export class StockHistoryRepositoryPrisma implements StockHistoryGateway {
             where: { stockFieiraId: stockFieiraid },
         });
 
-        const historyList = historyIdfromDb.map((stock) => {
-            return StockHistory.restore({
-                id: stock.id,
-                stockFieiraId: stock.stockFieiraId,
-                status: stock.status as StatusFieira,
-                thickness:
-                    stock.thickness !== null && stock.thickness !== undefined
-                        ? Number(stock.thickness)
-                        : null,
-                width:
-                    stock.width !== null && stock.width !== undefined
-                        ? Number(stock.width)
-                        : null,
-                utilization: stock.utilization,
-                production: stock.production,
-                createdAt: stock.createdAt,
-                updatedAt: stock.updatedAt,
-            });
-        });
+        const historyList = historyIdfromDb.map((stock) => this.toEntity(stock));
 
         return historyList;
     }

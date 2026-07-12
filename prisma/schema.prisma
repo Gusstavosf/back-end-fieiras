@@ -76,14 +76,14 @@ model StockFieira {
 
 model Requisition {
   id              Int      @id @default(autoincrement())
-  FieiraId        Int
+  fieiraId        Int
   currentStockQty Int
   requisitionQty  Int
   createdAt       DateTime @default(now())
   updatedAt       DateTime @default(now())
 
   // Relations
-  Fieira           Fieira            @relation(fields: [FieiraId], references: [id])
+  Fieira           Fieira            @relation(fields: [fieiraId], references: [id])
   RequisitionItems RequisitionItem[]
 }
 

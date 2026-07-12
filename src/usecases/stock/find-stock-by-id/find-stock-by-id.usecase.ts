@@ -36,7 +36,7 @@ export class FindStockByIdUseCase {
 
         const data = {
             id: stock.id!,
-            cabinetId: stock.cabinetId,
+            fieiraId: stock.fieiraId,
             code: stock.code,
             status: stock.status,
             currentThickness: stock.currentThickness,

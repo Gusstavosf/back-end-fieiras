@@ -20,25 +20,29 @@ export class StockHistory {
         return new StockHistory(props);
     }
 
-    public correctMeasures(
+    private validateMeasures(
+        targetProduction: number,
+        targetThickness: number | null,
+        targetWidth: number | null,
+        message: string,
+    ) {
+        if (
+            targetProduction <= 0 ||
+            targetThickness == null ||
+            targetThickness <= 0 ||
+            targetWidth == null ||
+            targetWidth <= 0
+        ) {
+            throw new IncorrectRequest(message);
+        }
+    }
+
+    private validateStatusChange(
         newStatus: StatusFieira,
-        newThickness: number | null | undefined,
-        newWidth: number | null | undefined,
-        newProduction: number | undefined,
-        timeline: StockHistory[],
-    ): void {
-        const targetStatus = newStatus !== undefined ? newStatus : this.props.status;
-        const targetThickness =
-            newThickness !== undefined ? newThickness : this.props.thickness;
-        const targetWidth = newWidth !== undefined ? newWidth : this.props.width;
-        const targetProduction =
-            newProduction !== undefined ? newProduction : this.props.production;
-
-        const sortedTimeline = [...timeline].sort((a, b) => a.id! - b.id!);
-        const currentIndex = sortedTimeline.findIndex((h) => h.id === this.id);
-        const previousHistories = sortedTimeline.slice(0, currentIndex);
-        const nextHistories = sortedTimeline.slice(currentIndex + 1);
-
+        newThickness: number | null,
+        newWidth: number | null,
+        newProduction: number | null,
+    ) {
         const hasChangeData =
             (newThickness !== undefined && newThickness !== this.props.thickness) ||
             (newWidth !== undefined && newWidth !== this.props.width) ||
@@ -53,127 +57,155 @@ export class StockHistory {
                 `Não é permitido corrigir os dados para o mesmo que ele já está atualmente`,
             );
         }
+    }
 
-        const lastValidMeasures = [...previousHistories]
-            .reverse()
-            .find((h) => h.thickness !== null && h.width !== null);
-
-        const nextValidMeasures = [...nextHistories]
-            .reverse()
-            .find((h) => h.thickness !== null && h.width !== null);
-
-        if (
-            lastValidMeasures &&
-            lastValidMeasures.thickness !== null &&
-            lastValidMeasures.width !== null
-        ) {
-            if (
-                (targetThickness !== null &&
-                    targetThickness !== undefined &&
-                    targetThickness < lastValidMeasures.thickness) ||
-                (targetWidth !== null &&
-                    targetWidth !== undefined &&
-                    targetWidth < lastValidMeasures.width)
-            ) {
-                throw new IncorrectRequest(
-                    `As dimensões desse registro não podem ser menores que o último registro válido (Espessura: ${lastValidMeasures.thickness}, Largura: ${lastValidMeasures.width}).`,
-                );
-            }
-        }
-
-        if (
-            nextValidMeasures &&
-            nextValidMeasures.thickness !== null &&
-            nextValidMeasures.width !== null
-        ) {
-            if (
-                (targetThickness !== null &&
-                    targetThickness !== undefined &&
-                    targetThickness > nextValidMeasures.thickness) ||
-                (targetWidth !== null &&
-                    targetWidth !== undefined &&
-                    targetWidth > nextValidMeasures.width)
-            ) {
-                throw new IncorrectRequest(
-                    `As dimensões desse registro não podem ser maior que o próximo registro válido (Espessura: ${nextValidMeasures.thickness}, Largura: ${nextValidMeasures.width}).`,
-                );
-            }
-        }
-
+    private validateRequested(targetStatus: StatusFieira) {
         if (targetStatus === StatusFieira.Requested) {
             throw new IncorrectRequest(
                 "Não é permitido retornar uma fieira para o status de Requisição. Caso seja necessário desfazer o histórico, exclua os registros posteriores e mantenha apenas o registro inicial de Requisição.",
             );
         }
+    }
 
+    private validateNew() {
         if (this.props.status === StatusFieira.New) {
             throw new IncorrectRequest(
                 "Registros com status Nova não podem ser alterados. Caso o recebimento tenha sido registrado incorretamente, exclua este registro.",
             );
         }
+    }
 
+    private validatePolishedToNew(
+        targetStatus: StatusFieira,
+        previousHistories: StockHistory[],
+    ) {
+        if (targetStatus === StatusFieira.New) {
+            const hasPolishedBefore = previousHistories.some(
+                (h) => h.status === StatusFieira.Polished,
+            );
+            if (hasPolishedBefore) {
+                throw new IncorrectRequest(
+                    "Não é possível voltar o status para Nova porque já existem registros de utilização anteriores a este. Para retornar retornar para Nova exclua todos os registros de Polida.",
+                );
+            }
+
+            const hasNewBefore = previousHistories.some(
+                (h) => h.status === StatusFieira.New,
+            );
+            if (hasNewBefore) {
+                throw new IncorrectRequest(
+                    "Para alterar o status para Nova, exclua esse registro atual de Polida.",
+                );
+            }
+        }
+    }
+
+    private validatePolishedToDead(
+        targetStatus: StatusFieira,
+        targetThickness: number | null,
+        targetWidth: number | null,
+        targetProduction: number,
+        nextHistories: StockHistory[],
+    ) {
+        if (targetStatus === StatusFieira.Dead) {
+            this.validateMeasures(
+                targetProduction,
+                targetThickness,
+                targetWidth,
+                "Para alterar para Morta, os campos de produção e dimensões devem ser maiores que zero.",
+            );
+
+            const hasPolishedAfter = nextHistories.some(
+                (h) => h.status === StatusFieira.Polished,
+            );
+
+            if (hasPolishedAfter) {
+                throw new IncorrectRequest(
+                    "Só é possível alterar de Polida para Morta se este for o último registro de polimento.",
+                );
+            }
+
+            const hasDeadAfter = nextHistories.some(
+                (h) => h.status === StatusFieira.Dead,
+            );
+
+            if (hasDeadAfter) {
+                throw new IncorrectRequest(
+                    "Não é possível alterar o registro de Polida para Morta pois existem registros posteriores a esse.",
+                );
+            }
+        }
+    }
+
+    private validateDeadToPolished(
+        targetThickness: number | null,
+        targetWidth: number | null,
+        targetProduction: number,
+        previousHistories: StockHistory[],
+    ) {
+        this.validateMeasures(
+            targetProduction,
+            targetThickness,
+            targetWidth,
+            "Para retornar para Polida, os campos de produção e dimensões são obrigatórios e devem ser maiores que zero.",
+        );
+
+        const lastValidMeasure = [...previousHistories]
+            .reverse()
+            .find((h) => h.thickness !== null && h.width !== null);
+
+        if (lastValidMeasure) {
+            if (
+                targetThickness! < lastValidMeasure.thickness! ||
+                targetWidth! < lastValidMeasure.width!
+            ) {
+                throw new IncorrectRequest(
+                    `A nova dimensão não pode ser menor que a última registrada (Espessura: ${lastValidMeasure.thickness}, Largura: ${lastValidMeasure.width}).`,
+                );
+            }
+        }
+    }
+
+    private validatePolished(
+        targetStatus: StatusFieira,
+        targetThickness: number | null,
+        targetWidth: number | null,
+        targetProduction: number,
+        previousHistories: StockHistory[],
+        nextHistories: StockHistory[],
+    ) {
         if (this.props.status === StatusFieira.Polished) {
             if (targetProduction <= 0) {
                 throw new IncorrectRequest(
                     "A produção de uma fieira deve ser maior do que zero",
                 );
             }
-            if (targetStatus === StatusFieira.New) {
-                const hasPolishedBefore = previousHistories.some(
-                    (h) => h.status === StatusFieira.Polished,
-                );
-                if (hasPolishedBefore) {
-                    throw new IncorrectRequest(
-                        "Não é possível voltar o status para Nova porque já existem registros de utilização anteriores a este. Para retornar retornar para Nova exclua todos os registros de Polida.",
-                    );
-                }
-
-                const hasNewBefore = previousHistories.some(
-                    (h) => h.status === StatusFieira.New,
-                );
-                if (hasNewBefore) {
-                    throw new IncorrectRequest(
-                        "Para alterar o status para Nova, exclua esse registro atual de Polida.",
-                    );
-                }
-            }
-
-            if (targetStatus === StatusFieira.Dead) {
-                if (
-                    !targetProduction ||
-                    targetProduction <= 0 ||
-                    !targetThickness ||
-                    targetThickness <= 0 ||
-                    !targetWidth ||
-                    targetWidth <= 0
-                ) {
-                    throw new IncorrectRequest(
-                        "Para alterar para Morta, os campos de produção e dimensões devem ser maiores que zero.",
-                    );
-                }
-
-                const hasPolishedAfter = nextHistories.some(
-                    (h) => h.status === StatusFieira.Polished,
-                );
-
-                if (hasPolishedAfter) {
-                    throw new IncorrectRequest(
-                        "Só é possível alterar de Polida para Morta se este for o último registro de polimento.",
-                    );
-                }
-
-                const hasDeadAfter = nextHistories.some(
-                    (h) => h.status === StatusFieira.Dead,
-                );
-
-                if (hasDeadAfter) {
-                    throw new IncorrectRequest(
-                        "Não é possível alterar o registro de Polida para Morta pois existem registros posteriores a esse.",
-                    );
-                }
-            }
         }
 
+        switch (targetStatus) {
+            case StatusFieira.New:
+                this.validatePolishedToNew(targetStatus, previousHistories);
+                break;
+
+            case StatusFieira.Dead:
+                this.validatePolishedToDead(
+                    targetStatus,
+                    targetThickness,
+                    targetWidth,
+                    targetProduction,
+                    nextHistories,
+                );
+                break;
+        }
+    }
+
+    private validateDead(
+        targetStatus: StatusFieira,
+        targetThickness: number | null,
+        targetWidth: number | null,
+        targetProduction: number,
+        previousHistories: StockHistory[],
+    ) {
         if (this.props.status === StatusFieira.Dead) {
             if (targetProduction <= 0) {
                 throw new IncorrectRequest(
@@ -187,37 +219,136 @@ export class StockHistory {
             }
 
             if (targetStatus === StatusFieira.Polished) {
-                if (
-                    targetProduction === undefined ||
-                    targetProduction === null ||
-                    targetProduction <= 0 ||
-                    targetThickness === undefined ||
-                    targetThickness === null ||
-                    targetThickness <= 0 ||
-                    targetWidth === undefined ||
-                    targetWidth === null ||
-                    targetWidth <= 0
-                ) {
-                    throw new IncorrectRequest(
-                        "Para retornar para Polida, os campos de produção e dimensões são obrigatórios e devem ser maiores que zero.",
-                    );
-                }
-
-                const lastValidMeasure = [...previousHistories]
-                    .reverse()
-                    .find((h) => h.thickness !== null && h.width !== null);
-
-                if (lastValidMeasure) {
-                    if (
-                        targetThickness! < lastValidMeasure.thickness! ||
-                        targetWidth! < lastValidMeasure.width!
-                    ) {
-                        throw new IncorrectRequest(
-                            `A nova dimensão não pode ser menor que a última registrada (Espessura: ${lastValidMeasure.thickness}, Largura: ${lastValidMeasure.width}).`,
-                        );
-                    }
-                }
+                this.validateDeadToPolished(
+                    targetThickness,
+                    targetWidth,
+                    targetProduction,
+                    previousHistories,
+                );
             }
+        }
+    }
+
+    private lastHistoryWithMeasures(
+        previousHistories: StockHistory[],
+    ): StockHistory | undefined {
+        return [...previousHistories]
+            .reverse()
+            .find((history) => history.thickness !== null && history.width !== null);
+    }
+
+    private nextHistoryWithMeasures(
+        nextHistories: StockHistory[],
+    ): StockHistory | undefined {
+        return [...nextHistories]
+            .reverse()
+            .find((history) => history.thickness !== null && history.width !== null);
+    }
+
+    private hasValue(value: number | null | undefined): value is number {
+        return value != null;
+    }
+
+    private validateDimensionsBetweenHistory(
+        targetThickness: number | null | undefined,
+        targetWidth: number | null | undefined,
+        previousHistories: StockHistory[],
+        nextHistories: StockHistory[],
+    ) {
+        const last = this.lastHistoryWithMeasures(previousHistories);
+
+        const next = this.nextHistoryWithMeasures(nextHistories);
+
+        if (last && last.thickness !== null && last.width !== null) {
+            if (
+                (this.hasValue(targetThickness) && targetThickness < last.thickness) ||
+                (this.hasValue(targetWidth) && targetWidth < last.width)
+            ) {
+                throw new IncorrectRequest(
+                    `As dimensões desse registro não podem ser menores que o último registro válido (Espessura: ${last.thickness}, Largura: ${last.width}).`,
+                );
+            }
+        }
+
+        if (next && next.thickness !== null && next.width !== null) {
+            if (
+                (targetThickness !== null &&
+                    targetThickness !== undefined &&
+                    targetThickness > next.thickness) ||
+                (targetWidth !== null &&
+                    targetWidth !== undefined &&
+                    targetWidth > next.width)
+            ) {
+                throw new IncorrectRequest(
+                    `As dimensões desse registro não podem ser maior que o próximo registro válido (Espessura: ${next.thickness}, Largura: ${next.width}).`,
+                );
+            }
+        }
+    }
+
+    public correctMeasures(
+        timeline: StockHistory[],
+        newStatus?: StatusFieira,
+        newThickness?: number | null,
+        newWidth?: number | null,
+        newProduction?: number,
+    ): void {
+        const targetStatus = newStatus ?? this.props.status;
+        const targetThickness =
+            newThickness !== undefined ? newThickness : (this.props.thickness ?? null);
+        const targetWidth =
+            newWidth !== undefined ? newWidth : (this.props.width ?? null);
+        const targetProduction = newProduction ?? this.props.production;
+
+        const sortedTimeline = [...timeline].sort((a, b) => a.id! - b.id!);
+        const currentIndex = sortedTimeline.findIndex((h) => h.id === this.id);
+
+        const previousHistories = sortedTimeline.slice(0, currentIndex);
+        const nextHistories = sortedTimeline.slice(currentIndex + 1);
+
+        this.validateStatusChange(
+            targetStatus,
+            targetThickness,
+            targetWidth,
+            targetProduction,
+        );
+
+        this.validateDimensionsBetweenHistory(
+            targetThickness,
+            targetWidth,
+            previousHistories,
+            nextHistories,
+        );
+
+        switch (this.props.status) {
+            case StatusFieira.Requested:
+                this.validateRequested(targetStatus);
+                break;
+
+            case StatusFieira.New:
+                this.validateNew();
+                break;
+
+            case StatusFieira.Polished:
+                this.validatePolished(
+                    targetStatus,
+                    targetThickness,
+                    targetWidth,
+                    targetProduction,
+                    previousHistories,
+                    nextHistories,
+                );
+                break;
+
+            case StatusFieira.Dead:
+                this.validateDead(
+                    targetStatus,
+                    targetThickness,
+                    targetWidth,
+                    targetProduction,
+                    previousHistories,
+                );
+                break;
         }
 
         this.props.status = targetStatus;

@@ -10,7 +10,7 @@ import { UpdateStockRoute } from "./infra/api/express/routes/stock/update-stock.
 import { StockHistoryRepositoryPrisma } from "./infra/repositories/stock/prisma/stock-history.repository.prisma.js";
 import { StockReposistoryPrisma } from "./infra/repositories/stock/prisma/stock.repository.prisma.js";
 import { CorrectStockHistoryUseCase } from "./usecases/stock-history/correct-stock-history/correct-stock-history.usecase.js";
-import { DeleteStockHistoryUseCase } from "./usecases/stock-history/correct-stock-history/delete-stock-history.usecase.js";
+import { DeleteStockHistoryUseCase } from "./usecases/stock-history/delete-stock-history/delete-stock-history.usecase.js";
 import { CreateStockUseCase } from "./usecases/stock/create-stock/create-stock.usecase.js";
 import { DeleteStockUseCase } from "./usecases/stock/delete-stock/delete-stock.usecase.js";
 import { FindStockByIdUseCase } from "./usecases/stock/find-stock-by-id/find-stock-by-id.usecase.js";

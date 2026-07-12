@@ -58,11 +58,11 @@ export class CorrectStockHistoryUseCase implements Usecase<
         }
 
         historyEntity.correctMeasures(
+            allTimeline,
             input.status !== undefined ? input.status : historyEntity.status,
             input.thickness !== undefined ? input.thickness : historyEntity.thickness,
             input.width !== undefined ? input.width : historyEntity.width,
             input.production !== undefined ? input.production : historyEntity.production,
-            allTimeline,
         );
 
         await this.historyGateway.update(historyEntity);

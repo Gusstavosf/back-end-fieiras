@@ -21,6 +21,12 @@ export type StockProps = {
     updatedAt: Date;
 };
 
+type UpdateDetails = {
+    thickness: number;
+    width: number;
+    production: number;
+};
+
 export class Stock {
     private constructor(private readonly props: StockProps) {}
 
@@ -42,35 +48,18 @@ export class Stock {
         return new Stock(props);
     }
 
-    public update(
-        newStatus: StatusFieira,
-        details?: {
-            thickness: number;
-            width: number;
-            production: number;
-        },
-    ): void {
-        if (this.props.status === StatusFieira.Dead) {
-            throw new IncorrectRequest(
-                `A fieira ${this.props.code} está morta e não pode mais receber nenhuma atualização.`,
-            );
-        }
-
-        if (this.props.status === newStatus && newStatus !== StatusFieira.Polished) {
-            throw new IncorrectRequest(
-                `A fieira ${this.props.code} já está no estado de ${newStatus}.`,
-            );
-        }
-
+    private validateRequested(newStatus: StatusFieira) {
         if (
             this.props.status === StatusFieira.Requested &&
             newStatus !== StatusFieira.New
         ) {
             throw new IncorrectRequest(
-                `A fieira ${this.props.code} está com status de Requisição e precisa se tornar Nova antes de qualquer outra ação.`,
+                `A fieira ${this.props.code} deve ser inicializada como Nova antes de receber qualquer outro status.`,
             );
         }
+    }
 
+    private validateNew(newStatus: StatusFieira) {
         if (
             this.props.status === StatusFieira.New &&
             newStatus === StatusFieira.Requested
@@ -79,54 +68,98 @@ export class Stock {
                 `A fieira ${this.props.code} já foi inicializada como Nova e não pode retornar para Requisição.`,
             );
         }
+    }
 
+    private validatePolished(newStatus: StatusFieira) {
         if (this.props.status === StatusFieira.Polished) {
             if (newStatus === StatusFieira.New || newStatus === StatusFieira.Requested) {
                 throw new IncorrectRequest(
-                    `A fieira ${this.props.code} já está em processo de polimento e não pode retornar para Nova ou Requisição.`,
+                    `A fieira ${this.props.code} está com status de Polida e não pode retornar para status de Nova ou de Requisição.`,
                 );
             }
         }
+    }
+
+    private validateDead() {
+        if (this.props.status === StatusFieira.Dead) {
+            throw new IncorrectRequest(
+                `A fieira ${this.props.code} está morta e não pode mais receber nenhuma atualização.`,
+            );
+        }
+    }
+
+    private validateSameStatus(newStatus: StatusFieira) {
+        if (this.props.status === newStatus && newStatus !== StatusFieira.Polished) {
+            throw new IncorrectRequest(
+                `Não é possível alterar para o mesmo status que a fieira já está atualmente.`,
+            );
+        }
+    }
+
+    private validateProductionDetails(
+        details: UpdateDetails | undefined,
+        newStatus: StatusFieira,
+    ) {
+        if (!details) {
+            throw new IncorrectRequest(
+                `Para alterar o status para ${newStatus}, os campos de produção, largura e espessura são obrigatórios.`,
+            );
+        }
+
+        if (details.thickness <= 0 || details.width <= 0 || details.production <= 0) {
+            throw new IncorrectRequest(
+                "As medidas da fieira e informações de produção devem ser maiores que zero.",
+            );
+        }
+
+        if (
+            this.props.currentThickness &&
+            details.thickness < this.props.currentThickness
+        ) {
+            throw new IncorrectRequest(
+                `A nova espessura (${details.thickness}) não pode ser menor que a espessura atual (${this.props.currentThickness}).`,
+            );
+        }
+
+        if (this.props.currentWidth && details.width < this.props.currentWidth) {
+            throw new IncorrectRequest(
+                `A nova largura (${details.width}) não pode ser menor que a largura atual (${this.props.currentWidth}).`,
+            );
+        }
+    }
+
+    private applyNewStatus() {
+        this.props.production = 0;
+        this.props.utilization = 0;
+        this.props.currentThickness = null;
+        this.props.currentWidth = null;
+    }
+
+    private applyProduction(details: UpdateDetails) {
+        this.props.currentThickness = details.thickness;
+        this.props.currentWidth = details.width;
+        this.props.production = (this.props.production ?? 0) + details.production;
+        this.props.utilization = this.props.utilization + 1;
+    }
+
+    public update(newStatus: StatusFieira, details?: UpdateDetails): void {
+        this.validateDead();
+
+        this.validateSameStatus(newStatus);
+
+        this.validateRequested(newStatus);
+
+        this.validateNew(newStatus);
 
         if (newStatus === StatusFieira.New) {
-            this.props.production = 0;
-            this.props.utilization = 0;
-            this.props.currentThickness = null;
-            this.props.currentWidth = null;
+            this.applyNewStatus();
         }
 
+        this.validatePolished(newStatus);
+
         if (newStatus === StatusFieira.Dead || newStatus === StatusFieira.Polished) {
-            if (!details) {
-                throw new IncorrectRequest(
-                    `Para alterar o status para ${newStatus}, os campos de produção, largura e espessura são obrigatórios.`,
-                );
-            }
-
-            if (details.thickness <= 0 || details.width <= 0 || details.production <= 0) {
-                throw new IncorrectRequest(
-                    "As medidas da fieira e informações de produção devem ser maiores que zero.",
-                );
-            }
-
-            if (
-                this.props.currentThickness &&
-                details.thickness < this.props.currentThickness
-            ) {
-                throw new IncorrectRequest(
-                    `A nova espessura (${details.thickness}) não pode ser menor que a espessura atual (${this.props.currentThickness}).`,
-                );
-            }
-
-            if (this.props.currentWidth && details.width < this.props.currentWidth) {
-                throw new IncorrectRequest(
-                    `A nova largura (${details.width}) não pode ser menor que a largura atual (${this.props.currentWidth}).`,
-                );
-            }
-
-            this.props.currentThickness = details.thickness;
-            this.props.currentWidth = details.width;
-            this.props.production = (this.props.production ?? 0) + details.production;
-            this.props.utilization = this.props.utilization + 1;
+            this.validateProductionDetails(details, newStatus);
+            this.applyProduction(details!);
         }
 
         this.props.status = newStatus;

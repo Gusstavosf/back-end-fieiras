@@ -3,7 +3,7 @@ import type { StatusFieira } from "../../../../../domain/stock/entity/stock.js";
 import type {
     DeleteStockHistoryInputDto,
     DeleteStockHistoryUseCase,
-} from "../../../../../usecases/stock-history/correct-stock-history/delete-stock-history.usecase.js";
+} from "../../../../../usecases/stock-history/delete-stock-history/delete-stock-history.usecase.js";
 import { HttpMethod, type Route } from "../route.js";
 
 export type DeleteStockHistoryResponseDto = {

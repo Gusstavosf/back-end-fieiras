@@ -7,7 +7,7 @@ export type ListStockInputDto = void;
 export type ListStockOutputDto = {
     stock: {
         id?: number | undefined;
-        cabinetId: number;
+        fieiraId: number;
         code: string;
         status: StatusFieira;
         currentThickness?: number;
@@ -39,7 +39,7 @@ export class ListStockUseCase implements Usecase<ListStockInputDto, ListStockOut
             stock: stock.map((s) => {
                 return {
                     id: s.id,
-                    cabinetId: s.cabinetId,
+                    fieiraId: s.fieiraId,
                     code: s.code,
                     status: s.status,
                     currentThickness: s.currentThickness ?? 0,

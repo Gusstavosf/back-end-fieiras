@@ -3,8 +3,11 @@ import type {
     StockHistoryInput,
 } from "../../../../domain/stock/gateway/stock.gateway.js";
 import { PrismaClient } from "../../../../generated/prisma/client.js";
-import { Stock, StatusFieira } from "../../../../domain/stock/entity/stock.js";
-import type { StockFieiraUncheckedCreateInput } from "../../../../generated/prisma/models.js";
+import {
+    Stock,
+    StatusFieira as DomainStatusFieira,
+} from "../../../../domain/stock/entity/stock.js";
+import { StatusFieira } from "../../../../generated/prisma/client.js";
 
 export class StockReposistoryPrisma implements StockGateway {
     private constructor(private readonly prismaClient: PrismaClient) {}
@@ -13,46 +16,71 @@ export class StockReposistoryPrisma implements StockGateway {
         return new StockReposistoryPrisma(prismaClient);
     }
 
-    public async save(stock: Stock): Promise<void> {
-        const data: StockFieiraUncheckedCreateInput = {
+    private decimal(value: unknown): number | null {
+        return value == null ? null : Number(value);
+    }
+
+    private toEntity(stock: {
+        id: number;
+        fieiraId: number;
+        code: string;
+        status: StatusFieira;
+        currentThickness: unknown;
+        currentWidth: unknown;
+        utilization: number;
+        production: number;
+        createdAt: Date;
+        updatedAt: Date;
+    }): Stock {
+        return Stock.restore({
+            id: stock.id,
             fieiraId: stock.fieiraId,
             code: stock.code,
+            status: stock.status as DomainStatusFieira,
+            currentThickness: this.decimal(stock.currentThickness),
+            currentWidth: this.decimal(stock.currentWidth),
+            utilization: stock.utilization,
+            production: stock.production,
+            createdAt: stock.createdAt,
+            updatedAt: stock.updatedAt,
+        });
+    }
+
+    private toPersistance(stock: Stock) {
+        return {
             status: stock.status as StatusFieira,
-            currentThickness:
-                stock.currentThickness == null ? null : Number(stock.currentThickness),
-            currentWidth: stock.currentWidth == null ? null : Number(stock.currentWidth),
+            fieiraId: stock.fieiraId,
+            code: stock.code,
+            currentThickness: this.decimal(stock.currentThickness),
+            currentWidth: this.decimal(stock.currentWidth),
             utilization: stock.utilization,
             production: stock.production,
             createdAt: stock.createdAt,
             updatedAt: stock.updatedAt,
         };
+    }
 
+    private toHistoryPersistence(history: StockHistoryInput) {
+        return {
+            stockFieiraId: history.stockFieiraId,
+            status: history.status as StatusFieira,
+            thickness: this.decimal(history.thickness),
+            width: this.decimal(history.width),
+            production: history.production,
+            utilization: history.utilization ?? 0,
+        };
+    }
+
+    public async save(stock: Stock): Promise<void> {
         await this.prismaClient.stockFieira.create({
-            data,
+            data: this.toPersistance(stock),
         });
     }
 
     public async list(): Promise<Stock[]> {
         const stocksFromDb = await this.prismaClient.stockFieira.findMany();
 
-        const stockList = stocksFromDb.map((stock) => {
-            return Stock.restore({
-                id: stock.id,
-                fieiraId: stock.fieiraId,
-                code: stock.code,
-                status: stock.status as StatusFieira,
-                currentThickness:
-                    stock.currentThickness == null
-                        ? null
-                        : Number(stock.currentThickness),
-                currentWidth:
-                    stock.currentWidth == null ? null : Number(stock.currentWidth),
-                utilization: stock.utilization,
-                production: stock.production,
-                createdAt: stock.createdAt,
-                updatedAt: stock.updatedAt,
-            });
-        });
+        const stockList = stocksFromDb.map((stock) => this.toEntity(stock));
 
         return stockList;
     }
@@ -64,22 +92,7 @@ export class StockReposistoryPrisma implements StockGateway {
 
         if (!stockCode) return null;
 
-        return Stock.restore({
-            id: stockCode.id,
-            fieiraId: stockCode.fieiraId,
-            code: stockCode.code,
-            status: stockCode.status as StatusFieira,
-            currentThickness:
-                stockCode.currentThickness == null
-                    ? null
-                    : Number(stockCode.currentThickness),
-            currentWidth:
-                stockCode.currentWidth == null ? null : Number(stockCode.currentWidth),
-            utilization: stockCode.utilization ?? 0,
-            production: stockCode.production ?? 0,
-            createdAt: stockCode.createdAt,
-            updatedAt: stockCode.updatedAt,
-        });
+        return this.toEntity(stockCode);
     }
 
     public async findIdCabinetByName(cabinet: string): Promise<number | null> {
@@ -95,15 +108,7 @@ export class StockReposistoryPrisma implements StockGateway {
 
         await this.prismaClient.stockFieira.update({
             where: { id: stock.id },
-            data: {
-                fieiraId: stock.fieiraId,
-                code: stock.code,
-                status: stock.status as StatusFieira,
-                currentThickness: stock.currentThickness ?? null,
-                currentWidth: stock.currentWidth ?? null,
-                utilization: stock.utilization,
-                production: stock.production,
-            },
+            data: this.toPersistance(stock),
         });
     }
 
@@ -114,36 +119,12 @@ export class StockReposistoryPrisma implements StockGateway {
 
         if (!stockId) return null;
 
-        return Stock.restore({
-            id: stockId.id,
-            fieiraId: stockId.fieiraId,
-            code: stockId.code,
-            status: stockId.status as StatusFieira,
-            currentThickness:
-                stockId.currentThickness == null
-                    ? null
-                    : Number(stockId.currentThickness),
-            currentWidth:
-                stockId.currentWidth == null ? null : Number(stockId.currentWidth),
-            utilization: stockId.utilization,
-            production: stockId.production,
-            createdAt: stockId.createdAt,
-            updatedAt: stockId.updatedAt,
-        });
+        return this.toEntity(stockId);
     }
 
     public async saveHistory(history: StockHistoryInput): Promise<void> {
-        const data = {
-            stockFieiraId: history.stockFieiraId,
-            status: history.status,
-            thickness: history.thickness === null ? null : Number(history.thickness),
-            width: history.width === null ? null : Number(history.width),
-            production: history.production,
-            utilization: history.utilization ?? 0,
-        };
-
         await this.prismaClient.stockFieiraHistory.create({
-            data,
+            data: this.toHistoryPersistence(history),
         });
     }
 
