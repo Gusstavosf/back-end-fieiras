@@ -1,17 +1,18 @@
 import NotFound from "../../../core/shared/errors/notFound.js";
+import type { Stock } from "../../../domain/stock/entity/stock.js";
 import type { StockGateway } from "../../../domain/stock/gateway/stock.gateway.js";
 
 export type FindSotckByIdInputDto = {
     id: number;
 };
 
-export type FindStockOutputDto = {
-    id: number;
-    cabinetId: number;
+export type FindStockByIDOutputDto = {
+    id: number | undefined;
+    fieiraId: number;
     code: string;
     status: string;
-    currentThickness?: number;
-    currentWidth?: number;
+    currentThickness?: number | null;
+    currentWidth?: number | null;
     utilization: number;
     production: number;
     createdAt: Date;
@@ -25,7 +26,7 @@ export class FindStockByIdUseCase {
         return new FindStockByIdUseCase(stockGatway);
     }
 
-    public async execute(input: FindSotckByIdInputDto): Promise<FindSotckByIdInputDto> {
+    public async execute(input: FindSotckByIdInputDto): Promise<FindStockByIDOutputDto> {
         const stock = await this.StockGateway.findById(input.id);
 
         if (!stock) {
@@ -34,19 +35,25 @@ export class FindStockByIdUseCase {
             );
         }
 
-        const data = {
+        const output = this.presentOutput(stock);
+
+        return output;
+    }
+
+    private presentOutput(stock: Stock): FindStockByIDOutputDto {
+        const output: FindStockByIDOutputDto = {
             id: stock.id!,
             fieiraId: stock.fieiraId,
             code: stock.code,
             status: stock.status,
             currentThickness: stock.currentThickness,
             currentWidth: stock.currentWidth,
-            utilization: stock.utilization ?? 0,
             production: stock.production ?? 0,
+            utilization: stock.utilization ?? 0,
             createdAt: stock.createdAt,
             updatedAt: stock.updatedAt,
         };
 
-        return data;
+        return output;
     }
 }

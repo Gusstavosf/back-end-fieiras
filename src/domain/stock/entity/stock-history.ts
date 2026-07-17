@@ -43,7 +43,7 @@ export class StockHistory {
         newWidth: number | null,
         newProduction: number | null,
     ) {
-        const hasChangeData =
+        const hasDataChanged =
             (newThickness !== undefined && newThickness !== this.props.thickness) ||
             (newWidth !== undefined && newWidth !== this.props.width) ||
             (newProduction !== undefined && newProduction !== this.props.production);
@@ -51,7 +51,7 @@ export class StockHistory {
         if (
             newStatus !== undefined &&
             this.props.status === newStatus &&
-            !hasChangeData
+            !hasDataChanged
         ) {
             throw new IncorrectRequest(
                 `Não é permitido corrigir os dados para o mesmo que ele já está atualmente`,
@@ -131,7 +131,7 @@ export class StockHistory {
 
             if (hasDeadAfter) {
                 throw new IncorrectRequest(
-                    "Não é possível alterar o registro de Polida para Morta pois existem registros posteriores a esse.",
+                    "Não é possível alterar o registro de Polida para Morta pois existem registros com status Morta posteriores a esse.",
                 );
             }
         }
@@ -213,8 +213,18 @@ export class StockHistory {
                 );
             }
             if (targetStatus === StatusFieira.New) {
+                const previousPolished = [...previousHistories]
+                    .reverse()
+                    .find((history) => history.status === StatusFieira.Polished);
+
+                if (previousPolished) {
+                    throw new IncorrectRequest(
+                        "Se o status está como Morta, só é possível mudar o status para Polida.",
+                    );
+                }
+
                 throw new IncorrectRequest(
-                    "A partir do status de Morta, só é possível retornar para status de Polida.",
+                    "Se você deseja que o último registro no histórico seja com status de Nova, precisa excluir esse registro com status Morta",
                 );
             }
 
@@ -391,17 +401,15 @@ export class StockHistory {
     public renderUtilizations(timeline: StockHistory[]): void {
         let counterUtilization = 1;
 
-        for (const history of timeline) {
-            if (
-                history.status === StatusFieira.Polished ||
-                history.status === StatusFieira.Dead
-            ) {
-                history.updateUtilization(counterUtilization);
-                counterUtilization++;
-            } else {
-                history.updateUtilization(0);
-            }
-        }
+        timeline.forEach((history) => {
+            const isProductiveStatus = [
+                StatusFieira.Polished,
+                StatusFieira.Dead,
+            ].includes(history.status);
+
+            const value = isProductiveStatus ? counterUtilization++ : 0;
+            history.updateUtilization(value);
+        });
     }
 
     public get id(): number {

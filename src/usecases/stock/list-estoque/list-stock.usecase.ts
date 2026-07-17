@@ -10,8 +10,8 @@ export type ListStockOutputDto = {
         fieiraId: number;
         code: string;
         status: StatusFieira;
-        currentThickness?: number;
-        currentWidth?: number;
+        currentThickness?: number | null;
+        currentWidth?: number | null;
         utilization?: number;
         production?: number;
         createdAt: Date;
@@ -36,18 +36,18 @@ export class ListStockUseCase implements Usecase<ListStockInputDto, ListStockOut
 
     private presentOutput(stock: Stock[]): ListStockOutputDto {
         return {
-            stock: stock.map((s) => {
+            stock: stock.map((stock) => {
                 return {
-                    id: s.id,
-                    fieiraId: s.fieiraId,
-                    code: s.code,
-                    status: s.status,
-                    currentThickness: s.currentThickness ?? 0,
-                    currentWidth: s.currentWidth ?? 0,
-                    utilization: s.utilization ?? 0,
-                    production: s.production ?? 0,
-                    createdAt: s.createdAt,
-                    updatedAt: s.updatedAt,
+                    id: stock.id,
+                    fieiraId: stock.fieiraId,
+                    code: stock.code,
+                    status: stock.status,
+                    currentThickness: stock.currentThickness ?? null,
+                    currentWidth: stock.currentWidth ?? null,
+                    utilization: stock.utilization ?? 0,
+                    production: stock.production ?? 0,
+                    createdAt: stock.createdAt,
+                    updatedAt: stock.updatedAt,
                 };
             }),
         };

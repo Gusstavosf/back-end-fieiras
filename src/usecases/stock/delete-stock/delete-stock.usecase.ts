@@ -13,7 +13,7 @@ export type DeleteStockOutputDto = {
     status: StatusFieira;
     code: string;
     currentThickness: number | null;
-    cuurrentWidth: number | null;
+    currentWidth: number | null;
     production: number;
     utilization: number;
     createdAt: Date;
@@ -49,7 +49,7 @@ export class DeleteStockUseCase implements Usecase<
             code: stock.code,
             status: stock.status,
             currentThickness: stock.currentThickness,
-            cuurrentWidth: stock.currentWidth,
+            currentWidth: stock.currentWidth,
             production: stock.production,
             utilization: stock.utilization,
             createdAt: stock.createdAt,
