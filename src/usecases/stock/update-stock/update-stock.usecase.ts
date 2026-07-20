@@ -37,13 +37,13 @@ export class UpdateStockUseCase implements Usecase<
     }
 
     public async execute(input: UpdateStockInputDto): Promise<UpdateStockOutputDto> {
-        const idCabinet = await this.stockGateway.findIdCabinetByName(input.cabinetName);
+        const cabinetId = await this.stockGateway.findIdCabinetByName(input.cabinetName);
 
-        if (!idCabinet) {
+        if (!cabinetId) {
             throw new NotFound(`O armário ${input.cabinetName} não existe no sistema.`);
         }
 
-        const stockEntity = await this.stockGateway.findByCode(input.code, idCabinet);
+        const stockEntity = await this.stockGateway.findByCode(input.code, cabinetId);
 
         if (!stockEntity) {
             throw new NotFound(
