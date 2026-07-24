@@ -2,11 +2,11 @@ import type {
     CreateStockInputDto,
     CreateStockOutputDto,
     CreateStockUseCase,
-} from "../../../../../usecases/stock/create-stock/create-stock.usecase.js";
-import { validationStock } from "../../../../middlewares/validationStock.js";
-import { type Route, HttpMethod } from "../route.js";
+} from "../../../../../../usecases/stock/create-stock/create-stock.usecase.js";
+import { validationStock } from "../../../../../middlewares/validationStock.js";
+import { type Route, HttpMethod } from "../../route.js";
 import type { Request, RequestHandler, Response } from "express";
-import { CreateStockZodValidator } from "../../validators/stock/create-stock.zod.validator.js";
+import { CreateStockZodValidator } from "../../../validators/stock/create-stock.zod.validator.js";
 
 export type CreateStockResponseDto = {
     fieiraId: number;

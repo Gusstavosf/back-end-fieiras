@@ -1,12 +1,12 @@
-import type { StatusFieira } from "../../../../../domain/stock/entity/stock.js";
+import type { StatusFieira } from "../../../../../../domain/stock/entity/stock.js";
 import type {
     CorrectStockHistoryInputDto,
     CorrectStockHistoryUseCase,
-} from "../../../../../usecases/stock-history/correct-stock-history/correct-stock-history.usecase.js";
-import { CorrectStockHistoryZodValidator } from "../../validators/stock-history/correct-stock-history.zod.validator.js";
-import { HttpMethod, type Route } from "../route.js";
+} from "../../../../../../usecases/stock-history/correct-stock-history/correct-stock-history.usecase.js";
+import { CorrectStockHistoryZodValidator } from "../../../validators/stock-history/correct-stock-history.zod.validator.js";
+import { HttpMethod, type Route } from "../../route.js";
 import type { Request, RequestHandler, Response } from "express";
-import { validationStock } from "../../../../middlewares/validationStock.js";
+import { validationStock } from "../../../../../middlewares/validationStock.js";
 
 export type CorrectStockHistoryResponseDto = {
     id: number;

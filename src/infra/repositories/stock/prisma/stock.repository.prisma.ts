@@ -128,7 +128,7 @@ export class StockReposistoryPrisma implements StockGateway {
         });
     }
 
-    public async detele(id: number): Promise<void> {
+    public async delete(id: number): Promise<void> {
         await this.prismaClient.stockFieira.delete({
             where: { id },
         });

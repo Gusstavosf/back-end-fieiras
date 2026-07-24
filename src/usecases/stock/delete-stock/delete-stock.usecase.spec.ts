@@ -14,7 +14,7 @@ describe("DeleteStockUseCase.execute()", () => {
             save: jest.fn(),
             update: jest.fn(),
             saveHistory: jest.fn(),
-            detele: jest.fn(),
+            delete: jest.fn(),
         };
 
         const stock = Stock.restore({
@@ -31,7 +31,7 @@ describe("DeleteStockUseCase.execute()", () => {
         });
 
         stockGateway.findById.mockResolvedValue(stock);
-        stockGateway.detele.mockResolvedValue();
+        stockGateway.delete.mockResolvedValue();
 
         const useCase = DeleteStockUseCase.create(stockGateway);
 
@@ -40,7 +40,7 @@ describe("DeleteStockUseCase.execute()", () => {
         });
 
         expect(stockGateway.findById).toHaveBeenCalledWith(1);
-        expect(stockGateway.detele).toHaveBeenCalledTimes(1);
+        expect(stockGateway.delete).toHaveBeenCalledTimes(1);
 
         expect(output).toEqual({
             id: 1,
@@ -65,7 +65,7 @@ describe("DeleteStockUseCase.execute()", () => {
             save: jest.fn(),
             update: jest.fn(),
             saveHistory: jest.fn(),
-            detele: jest.fn(),
+            delete: jest.fn(),
         };
 
         const useCase = DeleteStockUseCase.create(stockGateway);
@@ -74,6 +74,6 @@ describe("DeleteStockUseCase.execute()", () => {
 
         await expect(useCase.execute({ id: 1 })).rejects.toThrow(NotFound);
 
-        expect(stockGateway.detele).not.toHaveBeenCalled();
+        expect(stockGateway.delete).not.toHaveBeenCalled();
     });
 });

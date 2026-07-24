@@ -1,4 +1,3 @@
-import type { Request, Response } from "express";
 import type { RequestHandler } from "express";
 
 export type HttpMethod = "get" | "post" | "put" | "patch" | "delete";
@@ -12,7 +11,7 @@ export const HttpMethod = {
 } as const;
 
 export interface Route {
-    getHandler(): (request: Request, response: Response) => Promise<void>;
+    getHandler(): RequestHandler;
     getPath(): string;
     getMethod(): HttpMethod;
     getMiddlewares?(): RequestHandler[];

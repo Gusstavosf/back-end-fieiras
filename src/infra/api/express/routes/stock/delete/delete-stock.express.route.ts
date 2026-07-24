@@ -1,10 +1,10 @@
 import type { Request, Response } from "express";
-import type { StatusFieira } from "../../../../../domain/stock/entity/stock.js";
+import type { StatusFieira } from "../../../../../../domain/stock/entity/stock.js";
 import type {
     DeleteStockInputDto,
     DeleteStockUseCase,
-} from "../../../../../usecases/stock/delete-stock/delete-stock.usecase.js";
-import { HttpMethod, type Route } from "../route.js";
+} from "../../../../../../usecases/stock/delete-stock/delete-stock.usecase.js";
+import { HttpMethod, type Route } from "../../route.js";
 
 export type DeleteStockResponseDto = {
     id: number | undefined;
@@ -12,7 +12,7 @@ export type DeleteStockResponseDto = {
     status: StatusFieira;
     code: string;
     currentThickness: number | null;
-    cuurrentWidth: number | null;
+    currentWidth: number | null;
     production: number;
     utilization: number;
     createdAt: Date;
@@ -61,7 +61,7 @@ export class DeleteStockRoute implements Route {
             status: stock.status,
             code: stock.code,
             currentThickness: stock.currentThickness,
-            cuurrentWidth: stock.cuurrentWidth,
+            currentWidth: stock.currentWidth,
             production: stock.production,
             utilization: stock.utilization,
             createdAt: stock.createdAt,

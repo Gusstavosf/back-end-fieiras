@@ -1,21 +1,21 @@
-import { StatusFieira } from "../../../../../domain/stock/entity/stock.js";
+import { StatusFieira } from "../../../../../../domain/stock/entity/stock.js";
 import {
     ListStockUseCase,
     type ListStockOutputDto,
-} from "../../../../../usecases/stock/list-estoque/list-stock.usecase.js";
-import { HttpMethod, type Route } from "../route.js";
+} from "../../../../../../usecases/stock/list-estoque/list-stock.usecase.js";
+import { HttpMethod, type Route } from "../../route.js";
 import type { Request, Response } from "express";
 
 export type ListStockResponseDto = {
     stock: {
-        id?: number | undefined;
+        id: number;
         fieiraId: number;
         code: string;
         status: StatusFieira;
-        currentThickness?: number | undefined;
-        currentWidth?: number | undefined;
-        utilization?: number | undefined;
-        production?: number | undefined;
+        currentThickness: number | null;
+        currentWidth: number | null;
+        utilization: number;
+        production: number;
         createdAt: Date;
         updatedAt: Date;
     }[];
@@ -53,14 +53,14 @@ export class ListStockRoute implements Route {
     private present(input: ListStockOutputDto): ListStockResponseDto {
         const response: ListStockResponseDto = {
             stock: input.stock.map((stock) => ({
-                id: stock.id,
-                fieiraId: stock.cabinetId,
+                id: stock.id!,
+                fieiraId: stock.fieiraId,
                 code: stock.code,
                 status: stock.status,
-                currentThickness: stock.currentThickness,
-                currentWidth: stock.currentWidth,
-                utilization: stock.utilization,
-                production: stock.production,
+                currentThickness: stock.currentThickness!,
+                currentWidth: stock.currentWidth!,
+                utilization: stock.utilization!,
+                production: stock.production!,
                 createdAt: stock.createdAt,
                 updatedAt: stock.updatedAt,
             })),

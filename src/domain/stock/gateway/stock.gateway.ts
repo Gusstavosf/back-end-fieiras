@@ -25,5 +25,5 @@ export interface StockGateway {
     findIdCabinetByName(cabinet: string): Promise<number | null>;
     update(stock: Stock): Promise<void>;
     saveHistory(history: StockHistoryInput): Promise<void>;
-    detele(id: number): Promise<void>;
+    delete(id: number): Promise<void>;
 }

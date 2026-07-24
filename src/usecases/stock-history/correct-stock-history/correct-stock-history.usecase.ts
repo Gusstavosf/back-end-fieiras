@@ -45,20 +45,20 @@ export class CorrectStockHistoryUseCase implements Usecase<
 
         if (!historyEntity) {
             throw new NotFound(
-                `O registro de histórico com ID ${input.id} não existe no sistema.`,
+                `O registro de histórico com Id ${input.id} não foi encontrado.`,
             );
         }
 
-        const allTimeline = await this.historyGateway.listByStockId(
+        const timeline = await this.historyGateway.listByStockId(
             historyEntity.stockFieiraId,
         );
 
-        if (!allTimeline) {
+        if (!timeline) {
             throw new NotFound(`A fieira vinculada a este histórico não foi encontrada.`);
         }
 
         historyEntity.correctMeasures(
-            allTimeline,
+            timeline,
             input.status !== undefined ? input.status : historyEntity.status,
             input.thickness !== undefined ? input.thickness : historyEntity.thickness,
             input.width !== undefined ? input.width : historyEntity.width,
@@ -67,13 +67,21 @@ export class CorrectStockHistoryUseCase implements Usecase<
 
         await this.historyGateway.update(historyEntity);
 
+        const updatedTimeline = await this.historyGateway.listByStockId(
+            historyEntity.stockFieiraId,
+        );
+
+        if (!updatedTimeline) {
+            throw new NotFound("A fieira vinculada a este histórico não foi encontrada.");
+        }
+
         const stockEntity = await this.stockGateway.findById(historyEntity.stockFieiraId);
 
         if (!stockEntity) {
             throw new NotFound(`A fieira vinculada a este histórico não foi encontrada.`);
         }
 
-        stockEntity.recalculateFromHistory(allTimeline);
+        stockEntity.recalculateFromHistory(updatedTimeline);
 
         await this.stockGateway.update(stockEntity);
 

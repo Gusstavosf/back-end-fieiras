@@ -1,5 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 import { Prisma } from "../../generated/prisma/client.js";
+import IncorrectRequest from "../../core/shared/errors/incorrectRequest.js";
+import NotFound from "../../core/shared/errors/notFound.js";
 
 interface AppError {
     message: string;
@@ -35,16 +37,14 @@ function ErrorHandler(
     }
 
     if (isAppError(erro)) {
-        const erroNome = erro.constructor.name;
-
-        if (erroNome === "IncorrectRequest" || erroNome === "Requisicao Incorreta") {
+        if (erro instanceof IncorrectRequest) {
             return response.status(400).json({
                 message: erro.message,
                 status: 400,
             });
         }
 
-        if (erroNome === "NotFound" || erroNome === "Nao Encontrado") {
+        if (erro instanceof NotFound) {
             return response.status(404).json({
                 message: erro.message,
                 status: 404,

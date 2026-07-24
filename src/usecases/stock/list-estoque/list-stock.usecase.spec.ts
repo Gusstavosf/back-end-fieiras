@@ -13,7 +13,7 @@ describe("ListStockUseCase.execute()", () => {
             save: jest.fn(),
             update: jest.fn(),
             saveHistory: jest.fn(),
-            detele: jest.fn(),
+            delete: jest.fn(),
         };
 
         const stock = Stock.restore({
@@ -66,7 +66,7 @@ describe("ListStockUseCase.execute()", () => {
             save: jest.fn(),
             update: jest.fn(),
             saveHistory: jest.fn(),
-            detele: jest.fn(),
+            delete: jest.fn(),
         };
 
         stockGateway.list.mockResolvedValue([]);

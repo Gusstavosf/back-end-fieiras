@@ -43,7 +43,7 @@ export class DeleteStockHistoryUseCase implements Usecase<
 
         if (!historyStockEntity) {
             throw new NotFound(
-                `O registro de histórico com ID ${input.id} não existe no sistema.`,
+                `O registro de histórico com Id ${input.id} não foi encontrado.`,
             );
         }
 

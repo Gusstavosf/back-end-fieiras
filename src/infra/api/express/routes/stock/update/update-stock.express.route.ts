@@ -3,11 +3,11 @@ import {
     UpdateStockUseCase,
     type UpdateStockOutputDto,
     type UpdateStockInputDto,
-} from "../../../../../usecases/stock/update-stock/update-stock.usecase.js";
-import { HttpMethod, type Route } from "../route.js";
-import { StatusFieira } from "../../../../../domain/stock/entity/stock.js";
-import { UpdateStockZodValidator } from "../../validators/stock/update-stock.zod.validator.js";
-import { validationStock } from "../../../../middlewares/validationStock.js";
+} from "../../../../../../usecases/stock/update-stock/update-stock.usecase.js";
+import { HttpMethod, type Route } from "../../route.js";
+import { StatusFieira } from "../../../../../../domain/stock/entity/stock.js";
+import { UpdateStockZodValidator } from "../../../validators/stock/update-stock.zod.validator.js";
+import { validationStock } from "../../../../../middlewares/validationStock.js";
 
 export type UpdateStockResponseDto = {
     id: number;
@@ -57,7 +57,7 @@ export class UpdateStockRoute implements Route {
 
             const responseBody = this.present(output);
 
-            response.status(200).json(responseBody);
+            response.status(201).json(responseBody);
         };
     }
 
@@ -85,6 +85,7 @@ export class UpdateStockRoute implements Route {
                 stock.currentThickness !== undefined ? stock.currentThickness : null,
             currentWidth: stock.currentWidth !== undefined ? stock.currentWidth : null,
             production: stock.production,
+            utilization: stock.utilization,
             createdAt: stock.createdAt,
             updatedAt: stock.updatedAt,
         };

@@ -46,4 +46,8 @@ export class Apiexpress implements Api {
 
         console.table(activeRoutes);
     }
+
+    public getApp(): Express {
+        return this.app;
+    }
 }

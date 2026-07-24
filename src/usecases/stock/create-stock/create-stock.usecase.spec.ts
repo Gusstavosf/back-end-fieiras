@@ -15,7 +15,7 @@ describe("CreateStockUseCase.execute()", () => {
             save: jest.fn(),
             update: jest.fn(),
             saveHistory: jest.fn(),
-            detele: jest.fn(),
+            delete: jest.fn(),
         };
 
         const restoreRequested = {
@@ -69,7 +69,7 @@ describe("CreateStockUseCase.execute()", () => {
             save: jest.fn(),
             update: jest.fn(),
             saveHistory: jest.fn(),
-            detele: jest.fn(),
+            delete: jest.fn(),
         };
 
         const useCase = CreateStockUseCase.create(stockGateway);
@@ -97,7 +97,7 @@ describe("CreateStockUseCase.execute()", () => {
             save: jest.fn(),
             update: jest.fn(),
             saveHistory: jest.fn(),
-            detele: jest.fn(),
+            delete: jest.fn(),
         };
 
         const restoreRequested = {
@@ -139,7 +139,7 @@ describe("CreateStockUseCase.execute()", () => {
             save: jest.fn(),
             update: jest.fn(),
             saveHistory: jest.fn(),
-            detele: jest.fn(),
+            delete: jest.fn(),
         };
 
         const useCase = CreateStockUseCase.create(stockGateway);

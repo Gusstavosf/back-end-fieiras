@@ -35,7 +35,7 @@ export class DeleteStockUseCase implements Usecase<
 
         if (!stockEntity) throw new NotFound(`Fieira com ${input.id} não encontrado.`);
 
-        await this.stockGateway.detele(stockEntity.id!);
+        await this.stockGateway.delete(stockEntity.id!);
 
         const output = this.presentOutput(stockEntity);
 

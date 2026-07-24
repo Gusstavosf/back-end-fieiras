@@ -1,7 +1,7 @@
-import type { Request, Response } from "express";
-import type { FindStockByIdUseCase } from "../../../../../usecases/stock/find-stock-by-id/find-stock-by-id.usecase.js";
-import { HttpMethod, type Route } from "../route.js";
-import IncorrectRequest from "../../../../../core/shared/errors/incorrectRequest.js";
+import type { NextFunction, Request, Response } from "express";
+import type { FindStockByIdUseCase } from "../../../../../../usecases/stock/find-stock-by-id/find-stock-by-id.usecase.js";
+import { HttpMethod, type Route } from "../../route.js";
+import IncorrectRequest from "../../../../../../core/shared/errors/incorrectRequest.js";
 
 export class FindStockByIdRoute implements Route {
     private constructor(
@@ -15,7 +15,7 @@ export class FindStockByIdRoute implements Route {
     }
 
     public getHandler() {
-        return async (request: Request, response: Response) => {
+        return async (request: Request, response: Response, next: NextFunction) => {
             try {
                 const id = Number(request.params.id);
 
@@ -28,8 +28,8 @@ export class FindStockByIdRoute implements Route {
                 const output = await this.findStockByIdUseCase.execute({ id });
 
                 response.status(200).json(output);
-            } catch (error: any) {
-                response.status(error.statusCode || 500).json({ message: error.message });
+            } catch (error) {
+                next(error);
             }
         };
     }
