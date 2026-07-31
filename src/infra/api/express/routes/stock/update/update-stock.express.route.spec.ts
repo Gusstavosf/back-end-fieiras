@@ -21,20 +21,22 @@ describe("UPDATE /stock", () => {
             fieiraId: expect.any(Number),
             code: "A01",
             status: "new",
-            currentThickness: expect.any(Number),
-            currentWidth: expect.any(Number),
+            currentThickness: null,
+            currentWidth: null,
+            production: 0,
+            utilization: 0,
             createdAt: expect.any(String),
             updatedAt: expect.any(String),
         });
     });
 
-    it("should update stock to Polished successfully", async () => {
+    it.only("should update stock to Polished successfully", async () => {
         const fieira = {
             cabinetName: "CTC001",
             code: "A01",
             status: "Polida",
-            thickness: 4,
-            width: 2,
+            thickness: 4.0,
+            width: 2.5,
             production: 100,
         };
 
@@ -50,8 +52,8 @@ describe("UPDATE /stock", () => {
             fieiraId: expect.any(Number),
             code: "A01",
             status: "polished",
-            currentThickness: 4,
-            currentWidth: 2,
+            currentThickness: 4.0,
+            currentWidth: 2.5,
             utilization: 1,
             production: 100,
             createdAt: expect.any(String),
@@ -64,70 +66,8 @@ describe("UPDATE /stock", () => {
             cabinetName: "CTC001",
             code: "A01",
             status: "Polida",
-            thickness: 4,
-            width: 2,
-            production: 150,
-        };
-
-        const response = await request(app).patch("/stock").send(fieira);
-
-        console.log(response.status);
-        console.log(response.body);
-
-        expect(response.status).toBe(201);
-
-        expect(response.body).toEqual({
-            id: expect.any(Number),
-            fieiraId: expect.any(Number),
-            code: "A01",
-            status: "polished",
-            currentThickness: 4,
-            currentWidth: 2,
-            utilization: 2,
-            production: 250,
-            createdAt: expect.any(String),
-            updatedAt: expect.any(String),
-        });
-    });
-
-    it("should update stock with a third polished history", async () => {
-        const fieira = {
-            cabinetName: "CTC001",
-            code: "A01",
-            status: "Polida",
-            thickness: 4,
-            width: 2,
-            production: 150,
-        };
-
-        const response = await request(app).patch("/stock").send(fieira);
-
-        console.log(response.status);
-        console.log(response.body);
-
-        expect(response.status).toBe(201);
-
-        expect(response.body).toEqual({
-            id: expect.any(Number),
-            fieiraId: expect.any(Number),
-            code: "A01",
-            status: "polished",
-            currentThickness: 4,
-            currentWidth: 2,
-            utilization: 3,
-            production: 400,
-            createdAt: expect.any(String),
-            updatedAt: expect.any(String),
-        });
-    });
-
-    it("should update stock with a fourth polished history", async () => {
-        const fieira = {
-            cabinetName: "CTC001",
-            code: "A01",
-            status: "Polida",
-            thickness: 4,
-            width: 2,
+            thickness: 4.2,
+            width: 2.6,
             production: 100,
         };
 
@@ -143,10 +83,72 @@ describe("UPDATE /stock", () => {
             fieiraId: expect.any(Number),
             code: "A01",
             status: "polished",
-            currentThickness: 4,
-            currentWidth: 2,
+            currentThickness: 4.2,
+            currentWidth: 2.6,
+            utilization: 2,
+            production: 200,
+            createdAt: expect.any(String),
+            updatedAt: expect.any(String),
+        });
+    });
+
+    it("should update stock with a third polished history", async () => {
+        const fieira = {
+            cabinetName: "CTC001",
+            code: "A01",
+            status: "Polida",
+            thickness: 4.7,
+            width: 2.65,
+            production: 100,
+        };
+
+        const response = await request(app).patch("/stock").send(fieira);
+
+        console.log(response.status);
+        console.log(response.body);
+
+        expect(response.status).toBe(201);
+
+        expect(response.body).toEqual({
+            id: expect.any(Number),
+            fieiraId: expect.any(Number),
+            code: "A01",
+            status: "polished",
+            currentThickness: 4.7,
+            currentWidth: 2.65,
+            utilization: 3,
+            production: 300,
+            createdAt: expect.any(String),
+            updatedAt: expect.any(String),
+        });
+    });
+
+    it("should update stock with a fourth polished history", async () => {
+        const fieira = {
+            cabinetName: "CTC001",
+            code: "A01",
+            status: "Polida",
+            thickness: 4.75,
+            width: 2.69,
+            production: 100,
+        };
+
+        const response = await request(app).patch("/stock").send(fieira);
+
+        console.log(response.status);
+        console.log(response.body);
+
+        expect(response.status).toBe(201);
+
+        expect(response.body).toEqual({
+            id: expect.any(Number),
+            fieiraId: expect.any(Number),
+            code: "A01",
+            status: "polished",
+            currentThickness: 4.75,
+            currentWidth: 2.69,
             utilization: 4,
-            production: 500,
+            production: 400,
             createdAt: expect.any(String),
             updatedAt: expect.any(String),
         });
@@ -267,8 +269,8 @@ describe("UPDATE /stock", () => {
             cabinetName: "CTC001",
             code: "A01",
             status: "Morta",
-            thickness: 4,
-            width: 2,
+            thickness: 4.77,
+            width: 2.72,
             production: 100,
         };
 
@@ -284,9 +286,9 @@ describe("UPDATE /stock", () => {
             fieiraId: expect.any(Number),
             code: "A01",
             status: "dead",
-            currentThickness: 4,
-            currentWidth: 2,
-            production: 600,
+            currentThickness: 4.77,
+            currentWidth: 2.72,
+            production: 500,
             utilization: 5,
             createdAt: expect.any(String),
             updatedAt: expect.any(String),

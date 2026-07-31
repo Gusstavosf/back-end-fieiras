@@ -2,7 +2,7 @@ import request from "supertest";
 import { app } from "../../../../../../app.js";
 
 describe("POST /stock", () => {
-    it("should create stock successfully", async () => {
+    it.only("should create stock successfully", async () => {
         const fieira = {
             cabinetName: "CTC001",
             code: "A01",
@@ -14,7 +14,6 @@ describe("POST /stock", () => {
         console.log(response.body);
 
         expect(response.status).toBe(201);
-
         expect(response.body).toEqual({
             fieiraId: expect.any(Number),
             code: "A01",
@@ -27,7 +26,7 @@ describe("POST /stock", () => {
     it("should not create duplicated stock", async () => {
         const fieira = {
             cabinetName: "CTC001",
-            code: "A01",
+            code: "A02",
         };
 
         await request(app).post("/stock").send(fieira);
@@ -36,7 +35,7 @@ describe("POST /stock", () => {
 
         expect(response.status).toBe(400);
         expect(response.body.message).toContain(
-            "A fieira A01 já está cadastrada neste armário",
+            "A fieira A02 já está cadastrada neste armário",
         );
     });
 

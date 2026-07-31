@@ -17,15 +17,14 @@ model Cabinet {
 }
 
 model Fieira {
-  id                      Int       @id @default(autoincrement())
-  name                    String    @unique
-  cabinetId               Int?
-  width                   Decimal   @db.Decimal(10, 2)
-  thickness               Decimal   @db.Decimal(10, 2)
-  nominalFieiraCapacity   Int
-  averageFieiraProduction Int?
-  createdAt               DateTime? @default(now())
-  updatedAt               DateTime? @default(now())
+  id                    Int       @id @default(autoincrement())
+  cabinetId             Int?
+  width                 Decimal   @db.Decimal(10, 2)
+  thickness             Decimal   @db.Decimal(10, 2)
+  nominalFieiraCapacity Int
+  material              Material
+  createdAt             DateTime? @default(now())
+  updatedAt             DateTime? @default(now())
 
   // Relations
   Cabinet       Cabinet?        @relation(fields: [cabinetId], references: [id])
@@ -128,4 +127,9 @@ enum StatusFieira {
   requested
   dead
   polished
+}
+
+enum Material {
+  cu
+  al
 }

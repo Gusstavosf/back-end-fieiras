@@ -175,6 +175,7 @@ export class Stock {
         const sortedTimeLine = [...timeline].sort((a, b) => a.id - b.id);
 
         for (const history of sortedTimeLine) {
+            this.props.status = history.status;
             if (
                 history.status === StatusFieira.Polished ||
                 history.status === StatusFieira.Dead

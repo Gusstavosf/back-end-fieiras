@@ -3,7 +3,7 @@ import { app } from "../../../../../../app.js";
 
 describe("DELETE /stock/:id", () => {
     it.only("should delete stock successfully", async () => {
-        const response = await request(app).delete("/stock/7");
+        const response = await request(app).delete("/stock/13");
 
         console.log(response.status);
         console.log(response.body);

@@ -10,6 +10,7 @@ export type DeleteStockHistoryInputDto = {
 };
 
 export type DeleteStockHistoryOutputDto = {
+    id: number;
     stockFieiraId: number;
     status: StatusFieira;
     thickness: number | null;
@@ -88,6 +89,7 @@ export class DeleteStockHistoryUseCase implements Usecase<
 
     private presentOutput(stockHistory: StockHistory): DeleteStockHistoryOutputDto {
         const output: DeleteStockHistoryOutputDto = {
+            id: stockHistory.id,
             stockFieiraId: stockHistory.stockFieiraId,
             status: stockHistory.status,
             thickness: stockHistory.thickness,

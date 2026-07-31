@@ -1054,12 +1054,11 @@ export type CabinetScalarFieldEnum = (typeof CabinetScalarFieldEnum)[keyof typeo
 
 export const FieiraScalarFieldEnum = {
   id: 'id',
-  name: 'name',
   cabinetId: 'cabinetId',
   width: 'width',
   thickness: 'thickness',
   nominalFieiraCapacity: 'nominalFieiraCapacity',
-  averageFieiraProduction: 'averageFieiraProduction',
+  material: 'material',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

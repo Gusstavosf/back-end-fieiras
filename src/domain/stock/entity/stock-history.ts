@@ -59,7 +59,7 @@ export class StockHistory {
         }
     }
 
-    private validateRequested(targetStatus: StatusFieira) {
+    private validateToRequested(targetStatus: StatusFieira) {
         if (targetStatus === StatusFieira.Requested) {
             throw new IncorrectRequest(
                 "Não é permitido retornar uma fieira para o status de Requisição. Caso seja necessário desfazer o histórico, exclua os registros posteriores e mantenha apenas o registro inicial de Requisição.",
@@ -67,7 +67,23 @@ export class StockHistory {
         }
     }
 
-    private validateNew() {
+    private validateFromRequested() {
+        if (this.props.status === StatusFieira.Requested) {
+            throw new IncorrectRequest(
+                "Registros com status Requisição não podem ser alterados. Caso a requisição tenha sido gerada incorretamente, exclua este registro.",
+            );
+        }
+    }
+
+    private validateToNew(targetStatus: StatusFieira) {
+        if (targetStatus === StatusFieira.New) {
+            throw new IncorrectRequest(
+                "Não é permitido retornar uma fieira para o status de Nova. Caso seja necessário desfazer o histórico, exclua os registros posteriores e mantenha apenas esse registro de Nova.",
+            );
+        }
+    }
+
+    private validateFromNew() {
         if (this.props.status === StatusFieira.New) {
             throw new IncorrectRequest(
                 "Registros com status Nova não podem ser alterados. Caso o recebimento tenha sido registrado incorretamente, exclua este registro.",
@@ -85,7 +101,7 @@ export class StockHistory {
             );
             if (hasPolishedBefore) {
                 throw new IncorrectRequest(
-                    "Não é possível voltar o status para Nova porque já existem registros de utilização anteriores a este. Para retornar retornar para Nova exclua todos os registros de Polida.",
+                    "Não é possível voltar o status para Nova porque já existem registros de utilização anteriores a este. Para retornar retornar para Nova exclua todos os registros de Polida, inclusive esse.",
                 );
             }
 
@@ -332,11 +348,13 @@ export class StockHistory {
 
         switch (this.props.status) {
             case StatusFieira.Requested:
-                this.validateRequested(targetStatus);
+                this.validateToRequested(targetStatus);
+                this.validateFromRequested();
                 break;
 
             case StatusFieira.New:
-                this.validateNew();
+                this.validateToNew(targetStatus);
+                this.validateFromNew();
                 break;
 
             case StatusFieira.Polished:
@@ -348,6 +366,7 @@ export class StockHistory {
                     previousHistories,
                     nextHistories,
                 );
+
                 break;
 
             case StatusFieira.Dead:
@@ -371,7 +390,7 @@ export class StockHistory {
     public validateDelete(timeline: StockHistory[]): void {
         if (this.props.status === StatusFieira.Requested) {
             throw new IncorrectRequest(
-                "Não é permitido excluir um registro com status de Requisição por aqui.",
+                "Não é permitido excluir um registro com status de Requisição pela tela de histórico.",
             );
         }
 

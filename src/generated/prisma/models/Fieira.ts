@@ -32,7 +32,6 @@ export type FieiraAvgAggregateOutputType = {
   width: runtime.Decimal | null
   thickness: runtime.Decimal | null
   nominalFieiraCapacity: number | null
-  averageFieiraProduction: number | null
 }
 
 export type FieiraSumAggregateOutputType = {
@@ -41,41 +40,37 @@ export type FieiraSumAggregateOutputType = {
   width: runtime.Decimal | null
   thickness: runtime.Decimal | null
   nominalFieiraCapacity: number | null
-  averageFieiraProduction: number | null
 }
 
 export type FieiraMinAggregateOutputType = {
   id: number | null
-  name: string | null
   cabinetId: number | null
   width: runtime.Decimal | null
   thickness: runtime.Decimal | null
   nominalFieiraCapacity: number | null
-  averageFieiraProduction: number | null
+  material: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type FieiraMaxAggregateOutputType = {
   id: number | null
-  name: string | null
   cabinetId: number | null
   width: runtime.Decimal | null
   thickness: runtime.Decimal | null
   nominalFieiraCapacity: number | null
-  averageFieiraProduction: number | null
+  material: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type FieiraCountAggregateOutputType = {
   id: number
-  name: number
   cabinetId: number
   width: number
   thickness: number
   nominalFieiraCapacity: number
-  averageFieiraProduction: number
+  material: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -88,7 +83,6 @@ export type FieiraAvgAggregateInputType = {
   width?: true
   thickness?: true
   nominalFieiraCapacity?: true
-  averageFieiraProduction?: true
 }
 
 export type FieiraSumAggregateInputType = {
@@ -97,41 +91,37 @@ export type FieiraSumAggregateInputType = {
   width?: true
   thickness?: true
   nominalFieiraCapacity?: true
-  averageFieiraProduction?: true
 }
 
 export type FieiraMinAggregateInputType = {
   id?: true
-  name?: true
   cabinetId?: true
   width?: true
   thickness?: true
   nominalFieiraCapacity?: true
-  averageFieiraProduction?: true
+  material?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type FieiraMaxAggregateInputType = {
   id?: true
-  name?: true
   cabinetId?: true
   width?: true
   thickness?: true
   nominalFieiraCapacity?: true
-  averageFieiraProduction?: true
+  material?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type FieiraCountAggregateInputType = {
   id?: true
-  name?: true
   cabinetId?: true
   width?: true
   thickness?: true
   nominalFieiraCapacity?: true
-  averageFieiraProduction?: true
+  material?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -225,12 +215,11 @@ export type FieiraGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 
 export type FieiraGroupByOutputType = {
   id: number
-  name: string
   cabinetId: number | null
   width: runtime.Decimal
   thickness: runtime.Decimal
   nominalFieiraCapacity: number
-  averageFieiraProduction: number | null
+  material: string
   createdAt: Date | null
   updatedAt: Date | null
   _count: FieiraCountAggregateOutputType | null
@@ -260,12 +249,11 @@ export type FieiraWhereInput = {
   OR?: Prisma.FieiraWhereInput[]
   NOT?: Prisma.FieiraWhereInput | Prisma.FieiraWhereInput[]
   id?: Prisma.IntFilter<"Fieira"> | number
-  name?: Prisma.StringFilter<"Fieira"> | string
   cabinetId?: Prisma.IntNullableFilter<"Fieira"> | number | null
   width?: Prisma.DecimalFilter<"Fieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFilter<"Fieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity?: Prisma.IntFilter<"Fieira"> | number
-  averageFieiraProduction?: Prisma.IntNullableFilter<"Fieira"> | number | null
+  material?: Prisma.StringFilter<"Fieira"> | string
   createdAt?: Prisma.DateTimeNullableFilter<"Fieira"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableFilter<"Fieira"> | Date | string | null
   Cabinet?: Prisma.XOR<Prisma.CabinetNullableScalarRelationFilter, Prisma.CabinetWhereInput> | null
@@ -276,12 +264,11 @@ export type FieiraWhereInput = {
 
 export type FieiraOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
   cabinetId?: Prisma.SortOrderInput | Prisma.SortOrder
   width?: Prisma.SortOrder
   thickness?: Prisma.SortOrder
   nominalFieiraCapacity?: Prisma.SortOrder
-  averageFieiraProduction?: Prisma.SortOrderInput | Prisma.SortOrder
+  material?: Prisma.SortOrder
   createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   Cabinet?: Prisma.CabinetOrderByWithRelationInput
@@ -292,7 +279,6 @@ export type FieiraOrderByWithRelationInput = {
 
 export type FieiraWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  name?: string
   AND?: Prisma.FieiraWhereInput | Prisma.FieiraWhereInput[]
   OR?: Prisma.FieiraWhereInput[]
   NOT?: Prisma.FieiraWhereInput | Prisma.FieiraWhereInput[]
@@ -300,23 +286,22 @@ export type FieiraWhereUniqueInput = Prisma.AtLeast<{
   width?: Prisma.DecimalFilter<"Fieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFilter<"Fieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity?: Prisma.IntFilter<"Fieira"> | number
-  averageFieiraProduction?: Prisma.IntNullableFilter<"Fieira"> | number | null
+  material?: Prisma.StringFilter<"Fieira"> | string
   createdAt?: Prisma.DateTimeNullableFilter<"Fieira"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableFilter<"Fieira"> | Date | string | null
   Cabinet?: Prisma.XOR<Prisma.CabinetNullableScalarRelationFilter, Prisma.CabinetWhereInput> | null
   ControlFieira?: Prisma.ControlFieiraListRelationFilter
   StockFieira?: Prisma.StockFieiraListRelationFilter
   Requisitions?: Prisma.RequisitionListRelationFilter
-}, "id" | "name">
+}, "id">
 
 export type FieiraOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
   cabinetId?: Prisma.SortOrderInput | Prisma.SortOrder
   width?: Prisma.SortOrder
   thickness?: Prisma.SortOrder
   nominalFieiraCapacity?: Prisma.SortOrder
-  averageFieiraProduction?: Prisma.SortOrderInput | Prisma.SortOrder
+  material?: Prisma.SortOrder
   createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.FieiraCountOrderByAggregateInput
@@ -331,22 +316,20 @@ export type FieiraScalarWhereWithAggregatesInput = {
   OR?: Prisma.FieiraScalarWhereWithAggregatesInput[]
   NOT?: Prisma.FieiraScalarWhereWithAggregatesInput | Prisma.FieiraScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Fieira"> | number
-  name?: Prisma.StringWithAggregatesFilter<"Fieira"> | string
   cabinetId?: Prisma.IntNullableWithAggregatesFilter<"Fieira"> | number | null
   width?: Prisma.DecimalWithAggregatesFilter<"Fieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalWithAggregatesFilter<"Fieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity?: Prisma.IntWithAggregatesFilter<"Fieira"> | number
-  averageFieiraProduction?: Prisma.IntNullableWithAggregatesFilter<"Fieira"> | number | null
+  material?: Prisma.StringWithAggregatesFilter<"Fieira"> | string
   createdAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Fieira"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Fieira"> | Date | string | null
 }
 
 export type FieiraCreateInput = {
-  name: string
   width: runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity: number
-  averageFieiraProduction?: number | null
+  material: string
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   Cabinet?: Prisma.CabinetCreateNestedOneWithoutFieiraInput
@@ -357,12 +340,11 @@ export type FieiraCreateInput = {
 
 export type FieiraUncheckedCreateInput = {
   id?: number
-  name: string
   cabinetId?: number | null
   width: runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity: number
-  averageFieiraProduction?: number | null
+  material: string
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   ControlFieira?: Prisma.ControlFieiraUncheckedCreateNestedManyWithoutFieiraInput
@@ -371,11 +353,10 @@ export type FieiraUncheckedCreateInput = {
 }
 
 export type FieiraUpdateInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity?: Prisma.IntFieldUpdateOperationsInput | number
-  averageFieiraProduction?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  material?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Cabinet?: Prisma.CabinetUpdateOneWithoutFieiraNestedInput
@@ -386,12 +367,11 @@ export type FieiraUpdateInput = {
 
 export type FieiraUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   cabinetId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity?: Prisma.IntFieldUpdateOperationsInput | number
-  averageFieiraProduction?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  material?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ControlFieira?: Prisma.ControlFieiraUncheckedUpdateManyWithoutFieiraNestedInput
@@ -401,34 +381,31 @@ export type FieiraUncheckedUpdateInput = {
 
 export type FieiraCreateManyInput = {
   id?: number
-  name: string
   cabinetId?: number | null
   width: runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity: number
-  averageFieiraProduction?: number | null
+  material: string
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
 }
 
 export type FieiraUpdateManyMutationInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity?: Prisma.IntFieldUpdateOperationsInput | number
-  averageFieiraProduction?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  material?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type FieiraUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   cabinetId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity?: Prisma.IntFieldUpdateOperationsInput | number
-  averageFieiraProduction?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  material?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -445,12 +422,11 @@ export type FieiraOrderByRelationAggregateInput = {
 
 export type FieiraCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
   cabinetId?: Prisma.SortOrder
   width?: Prisma.SortOrder
   thickness?: Prisma.SortOrder
   nominalFieiraCapacity?: Prisma.SortOrder
-  averageFieiraProduction?: Prisma.SortOrder
+  material?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -461,29 +437,26 @@ export type FieiraAvgOrderByAggregateInput = {
   width?: Prisma.SortOrder
   thickness?: Prisma.SortOrder
   nominalFieiraCapacity?: Prisma.SortOrder
-  averageFieiraProduction?: Prisma.SortOrder
 }
 
 export type FieiraMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
   cabinetId?: Prisma.SortOrder
   width?: Prisma.SortOrder
   thickness?: Prisma.SortOrder
   nominalFieiraCapacity?: Prisma.SortOrder
-  averageFieiraProduction?: Prisma.SortOrder
+  material?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type FieiraMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
   cabinetId?: Prisma.SortOrder
   width?: Prisma.SortOrder
   thickness?: Prisma.SortOrder
   nominalFieiraCapacity?: Prisma.SortOrder
-  averageFieiraProduction?: Prisma.SortOrder
+  material?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -494,7 +467,6 @@ export type FieiraSumOrderByAggregateInput = {
   width?: Prisma.SortOrder
   thickness?: Prisma.SortOrder
   nominalFieiraCapacity?: Prisma.SortOrder
-  averageFieiraProduction?: Prisma.SortOrder
 }
 
 export type FieiraScalarRelationFilter = {
@@ -603,11 +575,10 @@ export type FieiraUpdateOneRequiredWithoutRequisitionsNestedInput = {
 }
 
 export type FieiraCreateWithoutCabinetInput = {
-  name: string
   width: runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity: number
-  averageFieiraProduction?: number | null
+  material: string
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   ControlFieira?: Prisma.ControlFieiraCreateNestedManyWithoutFieiraInput
@@ -617,11 +588,10 @@ export type FieiraCreateWithoutCabinetInput = {
 
 export type FieiraUncheckedCreateWithoutCabinetInput = {
   id?: number
-  name: string
   width: runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity: number
-  averageFieiraProduction?: number | null
+  material: string
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   ControlFieira?: Prisma.ControlFieiraUncheckedCreateNestedManyWithoutFieiraInput
@@ -660,22 +630,20 @@ export type FieiraScalarWhereInput = {
   OR?: Prisma.FieiraScalarWhereInput[]
   NOT?: Prisma.FieiraScalarWhereInput | Prisma.FieiraScalarWhereInput[]
   id?: Prisma.IntFilter<"Fieira"> | number
-  name?: Prisma.StringFilter<"Fieira"> | string
   cabinetId?: Prisma.IntNullableFilter<"Fieira"> | number | null
   width?: Prisma.DecimalFilter<"Fieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFilter<"Fieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity?: Prisma.IntFilter<"Fieira"> | number
-  averageFieiraProduction?: Prisma.IntNullableFilter<"Fieira"> | number | null
+  material?: Prisma.StringFilter<"Fieira"> | string
   createdAt?: Prisma.DateTimeNullableFilter<"Fieira"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableFilter<"Fieira"> | Date | string | null
 }
 
 export type FieiraCreateWithoutControlFieiraInput = {
-  name: string
   width: runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity: number
-  averageFieiraProduction?: number | null
+  material: string
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   Cabinet?: Prisma.CabinetCreateNestedOneWithoutFieiraInput
@@ -685,12 +653,11 @@ export type FieiraCreateWithoutControlFieiraInput = {
 
 export type FieiraUncheckedCreateWithoutControlFieiraInput = {
   id?: number
-  name: string
   cabinetId?: number | null
   width: runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity: number
-  averageFieiraProduction?: number | null
+  material: string
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   StockFieira?: Prisma.StockFieiraUncheckedCreateNestedManyWithoutFieiraInput
@@ -714,11 +681,10 @@ export type FieiraUpdateToOneWithWhereWithoutControlFieiraInput = {
 }
 
 export type FieiraUpdateWithoutControlFieiraInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity?: Prisma.IntFieldUpdateOperationsInput | number
-  averageFieiraProduction?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  material?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Cabinet?: Prisma.CabinetUpdateOneWithoutFieiraNestedInput
@@ -728,12 +694,11 @@ export type FieiraUpdateWithoutControlFieiraInput = {
 
 export type FieiraUncheckedUpdateWithoutControlFieiraInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   cabinetId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity?: Prisma.IntFieldUpdateOperationsInput | number
-  averageFieiraProduction?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  material?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   StockFieira?: Prisma.StockFieiraUncheckedUpdateManyWithoutFieiraNestedInput
@@ -741,11 +706,10 @@ export type FieiraUncheckedUpdateWithoutControlFieiraInput = {
 }
 
 export type FieiraCreateWithoutStockFieiraInput = {
-  name: string
   width: runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity: number
-  averageFieiraProduction?: number | null
+  material: string
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   Cabinet?: Prisma.CabinetCreateNestedOneWithoutFieiraInput
@@ -755,12 +719,11 @@ export type FieiraCreateWithoutStockFieiraInput = {
 
 export type FieiraUncheckedCreateWithoutStockFieiraInput = {
   id?: number
-  name: string
   cabinetId?: number | null
   width: runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity: number
-  averageFieiraProduction?: number | null
+  material: string
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   ControlFieira?: Prisma.ControlFieiraUncheckedCreateNestedManyWithoutFieiraInput
@@ -784,11 +747,10 @@ export type FieiraUpdateToOneWithWhereWithoutStockFieiraInput = {
 }
 
 export type FieiraUpdateWithoutStockFieiraInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity?: Prisma.IntFieldUpdateOperationsInput | number
-  averageFieiraProduction?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  material?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Cabinet?: Prisma.CabinetUpdateOneWithoutFieiraNestedInput
@@ -798,12 +760,11 @@ export type FieiraUpdateWithoutStockFieiraInput = {
 
 export type FieiraUncheckedUpdateWithoutStockFieiraInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   cabinetId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity?: Prisma.IntFieldUpdateOperationsInput | number
-  averageFieiraProduction?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  material?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ControlFieira?: Prisma.ControlFieiraUncheckedUpdateManyWithoutFieiraNestedInput
@@ -811,11 +772,10 @@ export type FieiraUncheckedUpdateWithoutStockFieiraInput = {
 }
 
 export type FieiraCreateWithoutRequisitionsInput = {
-  name: string
   width: runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity: number
-  averageFieiraProduction?: number | null
+  material: string
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   Cabinet?: Prisma.CabinetCreateNestedOneWithoutFieiraInput
@@ -825,12 +785,11 @@ export type FieiraCreateWithoutRequisitionsInput = {
 
 export type FieiraUncheckedCreateWithoutRequisitionsInput = {
   id?: number
-  name: string
   cabinetId?: number | null
   width: runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity: number
-  averageFieiraProduction?: number | null
+  material: string
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   ControlFieira?: Prisma.ControlFieiraUncheckedCreateNestedManyWithoutFieiraInput
@@ -854,11 +813,10 @@ export type FieiraUpdateToOneWithWhereWithoutRequisitionsInput = {
 }
 
 export type FieiraUpdateWithoutRequisitionsInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity?: Prisma.IntFieldUpdateOperationsInput | number
-  averageFieiraProduction?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  material?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Cabinet?: Prisma.CabinetUpdateOneWithoutFieiraNestedInput
@@ -868,12 +826,11 @@ export type FieiraUpdateWithoutRequisitionsInput = {
 
 export type FieiraUncheckedUpdateWithoutRequisitionsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   cabinetId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity?: Prisma.IntFieldUpdateOperationsInput | number
-  averageFieiraProduction?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  material?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ControlFieira?: Prisma.ControlFieiraUncheckedUpdateManyWithoutFieiraNestedInput
@@ -882,21 +839,19 @@ export type FieiraUncheckedUpdateWithoutRequisitionsInput = {
 
 export type FieiraCreateManyCabinetInput = {
   id?: number
-  name: string
   width: runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity: number
-  averageFieiraProduction?: number | null
+  material: string
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
 }
 
 export type FieiraUpdateWithoutCabinetInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity?: Prisma.IntFieldUpdateOperationsInput | number
-  averageFieiraProduction?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  material?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ControlFieira?: Prisma.ControlFieiraUpdateManyWithoutFieiraNestedInput
@@ -906,11 +861,10 @@ export type FieiraUpdateWithoutCabinetInput = {
 
 export type FieiraUncheckedUpdateWithoutCabinetInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity?: Prisma.IntFieldUpdateOperationsInput | number
-  averageFieiraProduction?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  material?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ControlFieira?: Prisma.ControlFieiraUncheckedUpdateManyWithoutFieiraNestedInput
@@ -920,11 +874,10 @@ export type FieiraUncheckedUpdateWithoutCabinetInput = {
 
 export type FieiraUncheckedUpdateManyWithoutCabinetInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   nominalFieiraCapacity?: Prisma.IntFieldUpdateOperationsInput | number
-  averageFieiraProduction?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  material?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -980,12 +933,11 @@ export type FieiraCountOutputTypeCountRequisitionsArgs<ExtArgs extends runtime.T
 
 export type FieiraSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
   cabinetId?: boolean
   width?: boolean
   thickness?: boolean
   nominalFieiraCapacity?: boolean
-  averageFieiraProduction?: boolean
+  material?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   Cabinet?: boolean | Prisma.Fieira$CabinetArgs<ExtArgs>
@@ -997,12 +949,11 @@ export type FieiraSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
 
 export type FieiraSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
   cabinetId?: boolean
   width?: boolean
   thickness?: boolean
   nominalFieiraCapacity?: boolean
-  averageFieiraProduction?: boolean
+  material?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   Cabinet?: boolean | Prisma.Fieira$CabinetArgs<ExtArgs>
@@ -1010,12 +961,11 @@ export type FieiraSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
 
 export type FieiraSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
   cabinetId?: boolean
   width?: boolean
   thickness?: boolean
   nominalFieiraCapacity?: boolean
-  averageFieiraProduction?: boolean
+  material?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   Cabinet?: boolean | Prisma.Fieira$CabinetArgs<ExtArgs>
@@ -1023,17 +973,16 @@ export type FieiraSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 
 export type FieiraSelectScalar = {
   id?: boolean
-  name?: boolean
   cabinetId?: boolean
   width?: boolean
   thickness?: boolean
   nominalFieiraCapacity?: boolean
-  averageFieiraProduction?: boolean
+  material?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type FieiraOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "cabinetId" | "width" | "thickness" | "nominalFieiraCapacity" | "averageFieiraProduction" | "createdAt" | "updatedAt", ExtArgs["result"]["fieira"]>
+export type FieiraOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "cabinetId" | "width" | "thickness" | "nominalFieiraCapacity" | "material" | "createdAt" | "updatedAt", ExtArgs["result"]["fieira"]>
 export type FieiraInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Cabinet?: boolean | Prisma.Fieira$CabinetArgs<ExtArgs>
   ControlFieira?: boolean | Prisma.Fieira$ControlFieiraArgs<ExtArgs>
@@ -1058,12 +1007,11 @@ export type $FieiraPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    name: string
     cabinetId: number | null
     width: runtime.Decimal
     thickness: runtime.Decimal
     nominalFieiraCapacity: number
-    averageFieiraProduction: number | null
+    material: string
     createdAt: Date | null
     updatedAt: Date | null
   }, ExtArgs["result"]["fieira"]>
@@ -1494,12 +1442,11 @@ export interface Prisma__FieiraClient<T, Null = never, ExtArgs extends runtime.T
  */
 export interface FieiraFieldRefs {
   readonly id: Prisma.FieldRef<"Fieira", 'Int'>
-  readonly name: Prisma.FieldRef<"Fieira", 'String'>
   readonly cabinetId: Prisma.FieldRef<"Fieira", 'Int'>
   readonly width: Prisma.FieldRef<"Fieira", 'Decimal'>
   readonly thickness: Prisma.FieldRef<"Fieira", 'Decimal'>
   readonly nominalFieiraCapacity: Prisma.FieldRef<"Fieira", 'Int'>
-  readonly averageFieiraProduction: Prisma.FieldRef<"Fieira", 'Int'>
+  readonly material: Prisma.FieldRef<"Fieira", 'String'>
   readonly createdAt: Prisma.FieldRef<"Fieira", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Fieira", 'DateTime'>
 }
