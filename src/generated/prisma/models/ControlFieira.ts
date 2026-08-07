@@ -29,34 +29,40 @@ export type AggregateControlFieira = {
 export type ControlFieiraAvgAggregateOutputType = {
   id: number | null
   order: number | null
+  orderQuantity: runtime.Decimal | null
+  material: number | null
   tension: number | null
   width: runtime.Decimal | null
   thickness: runtime.Decimal | null
   fieiraId: number | null
-  orderQuantity: runtime.Decimal | null
 }
 
 export type ControlFieiraSumAggregateOutputType = {
   id: number | null
   order: number | null
+  orderQuantity: runtime.Decimal | null
+  material: number | null
   tension: number | null
   width: runtime.Decimal | null
   thickness: runtime.Decimal | null
   fieiraId: number | null
-  orderQuantity: runtime.Decimal | null
 }
 
 export type ControlFieiraMinAggregateOutputType = {
   id: number | null
   order: number | null
+  orderQuantity: runtime.Decimal | null
+  material: number | null
   wireType: string | null
+  metal: $Enums.Metal | null
   tension: number | null
   width: runtime.Decimal | null
   thickness: runtime.Decimal | null
   fieiraId: number | null
   orderStartDate: Date | null
   orderEndDate: Date | null
-  orderQuantity: runtime.Decimal | null
+  orderCreateDate: Date | null
+  status: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -64,14 +70,18 @@ export type ControlFieiraMinAggregateOutputType = {
 export type ControlFieiraMaxAggregateOutputType = {
   id: number | null
   order: number | null
+  orderQuantity: runtime.Decimal | null
+  material: number | null
   wireType: string | null
+  metal: $Enums.Metal | null
   tension: number | null
   width: runtime.Decimal | null
   thickness: runtime.Decimal | null
   fieiraId: number | null
   orderStartDate: Date | null
   orderEndDate: Date | null
-  orderQuantity: runtime.Decimal | null
+  orderCreateDate: Date | null
+  status: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -79,14 +89,18 @@ export type ControlFieiraMaxAggregateOutputType = {
 export type ControlFieiraCountAggregateOutputType = {
   id: number
   order: number
+  orderQuantity: number
+  material: number
   wireType: number
+  metal: number
   tension: number
   width: number
   thickness: number
   fieiraId: number
   orderStartDate: number
   orderEndDate: number
-  orderQuantity: number
+  orderCreateDate: number
+  status: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -96,34 +110,40 @@ export type ControlFieiraCountAggregateOutputType = {
 export type ControlFieiraAvgAggregateInputType = {
   id?: true
   order?: true
+  orderQuantity?: true
+  material?: true
   tension?: true
   width?: true
   thickness?: true
   fieiraId?: true
-  orderQuantity?: true
 }
 
 export type ControlFieiraSumAggregateInputType = {
   id?: true
   order?: true
+  orderQuantity?: true
+  material?: true
   tension?: true
   width?: true
   thickness?: true
   fieiraId?: true
-  orderQuantity?: true
 }
 
 export type ControlFieiraMinAggregateInputType = {
   id?: true
   order?: true
+  orderQuantity?: true
+  material?: true
   wireType?: true
+  metal?: true
   tension?: true
   width?: true
   thickness?: true
   fieiraId?: true
   orderStartDate?: true
   orderEndDate?: true
-  orderQuantity?: true
+  orderCreateDate?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -131,14 +151,18 @@ export type ControlFieiraMinAggregateInputType = {
 export type ControlFieiraMaxAggregateInputType = {
   id?: true
   order?: true
+  orderQuantity?: true
+  material?: true
   wireType?: true
+  metal?: true
   tension?: true
   width?: true
   thickness?: true
   fieiraId?: true
   orderStartDate?: true
   orderEndDate?: true
-  orderQuantity?: true
+  orderCreateDate?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -146,14 +170,18 @@ export type ControlFieiraMaxAggregateInputType = {
 export type ControlFieiraCountAggregateInputType = {
   id?: true
   order?: true
+  orderQuantity?: true
+  material?: true
   wireType?: true
+  metal?: true
   tension?: true
   width?: true
   thickness?: true
   fieiraId?: true
   orderStartDate?: true
   orderEndDate?: true
-  orderQuantity?: true
+  orderCreateDate?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -248,14 +276,18 @@ export type ControlFieiraGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
 export type ControlFieiraGroupByOutputType = {
   id: number
   order: number
+  orderQuantity: runtime.Decimal
+  material: number
   wireType: string
+  metal: $Enums.Metal
   tension: number
   width: runtime.Decimal
   thickness: runtime.Decimal
   fieiraId: number
   orderStartDate: Date
   orderEndDate: Date
-  orderQuantity: runtime.Decimal
+  orderCreateDate: Date
+  status: string
   createdAt: Date
   updatedAt: Date
   _count: ControlFieiraCountAggregateOutputType | null
@@ -286,14 +318,18 @@ export type ControlFieiraWhereInput = {
   NOT?: Prisma.ControlFieiraWhereInput | Prisma.ControlFieiraWhereInput[]
   id?: Prisma.IntFilter<"ControlFieira"> | number
   order?: Prisma.IntFilter<"ControlFieira"> | number
+  orderQuantity?: Prisma.DecimalFilter<"ControlFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  material?: Prisma.IntFilter<"ControlFieira"> | number
   wireType?: Prisma.StringFilter<"ControlFieira"> | string
+  metal?: Prisma.EnumMetalFilter<"ControlFieira"> | $Enums.Metal
   tension?: Prisma.IntFilter<"ControlFieira"> | number
   width?: Prisma.DecimalFilter<"ControlFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFilter<"ControlFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   fieiraId?: Prisma.IntFilter<"ControlFieira"> | number
   orderStartDate?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
   orderEndDate?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
-  orderQuantity?: Prisma.DecimalFilter<"ControlFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  orderCreateDate?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
+  status?: Prisma.StringFilter<"ControlFieira"> | string
   createdAt?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
   Fieira?: Prisma.XOR<Prisma.FieiraScalarRelationFilter, Prisma.FieiraWhereInput>
@@ -303,14 +339,18 @@ export type ControlFieiraWhereInput = {
 export type ControlFieiraOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   order?: Prisma.SortOrder
+  orderQuantity?: Prisma.SortOrder
+  material?: Prisma.SortOrder
   wireType?: Prisma.SortOrder
+  metal?: Prisma.SortOrder
   tension?: Prisma.SortOrder
   width?: Prisma.SortOrder
   thickness?: Prisma.SortOrder
   fieiraId?: Prisma.SortOrder
   orderStartDate?: Prisma.SortOrder
   orderEndDate?: Prisma.SortOrder
-  orderQuantity?: Prisma.SortOrder
+  orderCreateDate?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   Fieira?: Prisma.FieiraOrderByWithRelationInput
@@ -323,14 +363,18 @@ export type ControlFieiraWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.ControlFieiraWhereInput[]
   NOT?: Prisma.ControlFieiraWhereInput | Prisma.ControlFieiraWhereInput[]
   order?: Prisma.IntFilter<"ControlFieira"> | number
+  orderQuantity?: Prisma.DecimalFilter<"ControlFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  material?: Prisma.IntFilter<"ControlFieira"> | number
   wireType?: Prisma.StringFilter<"ControlFieira"> | string
+  metal?: Prisma.EnumMetalFilter<"ControlFieira"> | $Enums.Metal
   tension?: Prisma.IntFilter<"ControlFieira"> | number
   width?: Prisma.DecimalFilter<"ControlFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFilter<"ControlFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   fieiraId?: Prisma.IntFilter<"ControlFieira"> | number
   orderStartDate?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
   orderEndDate?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
-  orderQuantity?: Prisma.DecimalFilter<"ControlFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  orderCreateDate?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
+  status?: Prisma.StringFilter<"ControlFieira"> | string
   createdAt?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
   Fieira?: Prisma.XOR<Prisma.FieiraScalarRelationFilter, Prisma.FieiraWhereInput>
@@ -340,14 +384,18 @@ export type ControlFieiraWhereUniqueInput = Prisma.AtLeast<{
 export type ControlFieiraOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   order?: Prisma.SortOrder
+  orderQuantity?: Prisma.SortOrder
+  material?: Prisma.SortOrder
   wireType?: Prisma.SortOrder
+  metal?: Prisma.SortOrder
   tension?: Prisma.SortOrder
   width?: Prisma.SortOrder
   thickness?: Prisma.SortOrder
   fieiraId?: Prisma.SortOrder
   orderStartDate?: Prisma.SortOrder
   orderEndDate?: Prisma.SortOrder
-  orderQuantity?: Prisma.SortOrder
+  orderCreateDate?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ControlFieiraCountOrderByAggregateInput
@@ -363,27 +411,35 @@ export type ControlFieiraScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ControlFieiraScalarWhereWithAggregatesInput | Prisma.ControlFieiraScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"ControlFieira"> | number
   order?: Prisma.IntWithAggregatesFilter<"ControlFieira"> | number
+  orderQuantity?: Prisma.DecimalWithAggregatesFilter<"ControlFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  material?: Prisma.IntWithAggregatesFilter<"ControlFieira"> | number
   wireType?: Prisma.StringWithAggregatesFilter<"ControlFieira"> | string
+  metal?: Prisma.EnumMetalWithAggregatesFilter<"ControlFieira"> | $Enums.Metal
   tension?: Prisma.IntWithAggregatesFilter<"ControlFieira"> | number
   width?: Prisma.DecimalWithAggregatesFilter<"ControlFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalWithAggregatesFilter<"ControlFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   fieiraId?: Prisma.IntWithAggregatesFilter<"ControlFieira"> | number
   orderStartDate?: Prisma.DateTimeWithAggregatesFilter<"ControlFieira"> | Date | string
   orderEndDate?: Prisma.DateTimeWithAggregatesFilter<"ControlFieira"> | Date | string
-  orderQuantity?: Prisma.DecimalWithAggregatesFilter<"ControlFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  orderCreateDate?: Prisma.DateTimeWithAggregatesFilter<"ControlFieira"> | Date | string
+  status?: Prisma.StringWithAggregatesFilter<"ControlFieira"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ControlFieira"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ControlFieira"> | Date | string
 }
 
 export type ControlFieiraCreateInput = {
   order: number
+  orderQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  material: number
   wireType: string
+  metal: $Enums.Metal
   tension: number
   width: runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
   orderStartDate: Date | string
   orderEndDate: Date | string
-  orderQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  orderCreateDate: Date | string
+  status: string
   createdAt?: Date | string
   updatedAt?: Date | string
   Fieira: Prisma.FieiraCreateNestedOneWithoutControlFieiraInput
@@ -393,14 +449,18 @@ export type ControlFieiraCreateInput = {
 export type ControlFieiraUncheckedCreateInput = {
   id?: number
   order: number
+  orderQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  material: number
   wireType: string
+  metal: $Enums.Metal
   tension: number
   width: runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
   fieiraId: number
   orderStartDate: Date | string
   orderEndDate: Date | string
-  orderQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  orderCreateDate: Date | string
+  status: string
   createdAt?: Date | string
   updatedAt?: Date | string
   ReservationFieira?: Prisma.ReservationFieiraUncheckedCreateNestedManyWithoutControlFieiraInput
@@ -408,13 +468,17 @@ export type ControlFieiraUncheckedCreateInput = {
 
 export type ControlFieiraUpdateInput = {
   order?: Prisma.IntFieldUpdateOperationsInput | number
+  orderQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  material?: Prisma.IntFieldUpdateOperationsInput | number
   wireType?: Prisma.StringFieldUpdateOperationsInput | string
+  metal?: Prisma.EnumMetalFieldUpdateOperationsInput | $Enums.Metal
   tension?: Prisma.IntFieldUpdateOperationsInput | number
   width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   orderStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderEndDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  orderQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  orderCreateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Fieira?: Prisma.FieiraUpdateOneRequiredWithoutControlFieiraNestedInput
@@ -424,14 +488,18 @@ export type ControlFieiraUpdateInput = {
 export type ControlFieiraUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   order?: Prisma.IntFieldUpdateOperationsInput | number
+  orderQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  material?: Prisma.IntFieldUpdateOperationsInput | number
   wireType?: Prisma.StringFieldUpdateOperationsInput | string
+  metal?: Prisma.EnumMetalFieldUpdateOperationsInput | $Enums.Metal
   tension?: Prisma.IntFieldUpdateOperationsInput | number
   width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   fieiraId?: Prisma.IntFieldUpdateOperationsInput | number
   orderStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderEndDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  orderQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  orderCreateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ReservationFieira?: Prisma.ReservationFieiraUncheckedUpdateManyWithoutControlFieiraNestedInput
@@ -440,27 +508,35 @@ export type ControlFieiraUncheckedUpdateInput = {
 export type ControlFieiraCreateManyInput = {
   id?: number
   order: number
+  orderQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  material: number
   wireType: string
+  metal: $Enums.Metal
   tension: number
   width: runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
   fieiraId: number
   orderStartDate: Date | string
   orderEndDate: Date | string
-  orderQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  orderCreateDate: Date | string
+  status: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type ControlFieiraUpdateManyMutationInput = {
   order?: Prisma.IntFieldUpdateOperationsInput | number
+  orderQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  material?: Prisma.IntFieldUpdateOperationsInput | number
   wireType?: Prisma.StringFieldUpdateOperationsInput | string
+  metal?: Prisma.EnumMetalFieldUpdateOperationsInput | $Enums.Metal
   tension?: Prisma.IntFieldUpdateOperationsInput | number
   width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   orderStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderEndDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  orderQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  orderCreateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -468,14 +544,18 @@ export type ControlFieiraUpdateManyMutationInput = {
 export type ControlFieiraUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   order?: Prisma.IntFieldUpdateOperationsInput | number
+  orderQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  material?: Prisma.IntFieldUpdateOperationsInput | number
   wireType?: Prisma.StringFieldUpdateOperationsInput | string
+  metal?: Prisma.EnumMetalFieldUpdateOperationsInput | $Enums.Metal
   tension?: Prisma.IntFieldUpdateOperationsInput | number
   width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   fieiraId?: Prisma.IntFieldUpdateOperationsInput | number
   orderStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderEndDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  orderQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  orderCreateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -493,14 +573,18 @@ export type ControlFieiraOrderByRelationAggregateInput = {
 export type ControlFieiraCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   order?: Prisma.SortOrder
+  orderQuantity?: Prisma.SortOrder
+  material?: Prisma.SortOrder
   wireType?: Prisma.SortOrder
+  metal?: Prisma.SortOrder
   tension?: Prisma.SortOrder
   width?: Prisma.SortOrder
   thickness?: Prisma.SortOrder
   fieiraId?: Prisma.SortOrder
   orderStartDate?: Prisma.SortOrder
   orderEndDate?: Prisma.SortOrder
-  orderQuantity?: Prisma.SortOrder
+  orderCreateDate?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -508,24 +592,29 @@ export type ControlFieiraCountOrderByAggregateInput = {
 export type ControlFieiraAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   order?: Prisma.SortOrder
+  orderQuantity?: Prisma.SortOrder
+  material?: Prisma.SortOrder
   tension?: Prisma.SortOrder
   width?: Prisma.SortOrder
   thickness?: Prisma.SortOrder
   fieiraId?: Prisma.SortOrder
-  orderQuantity?: Prisma.SortOrder
 }
 
 export type ControlFieiraMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   order?: Prisma.SortOrder
+  orderQuantity?: Prisma.SortOrder
+  material?: Prisma.SortOrder
   wireType?: Prisma.SortOrder
+  metal?: Prisma.SortOrder
   tension?: Prisma.SortOrder
   width?: Prisma.SortOrder
   thickness?: Prisma.SortOrder
   fieiraId?: Prisma.SortOrder
   orderStartDate?: Prisma.SortOrder
   orderEndDate?: Prisma.SortOrder
-  orderQuantity?: Prisma.SortOrder
+  orderCreateDate?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -533,14 +622,18 @@ export type ControlFieiraMaxOrderByAggregateInput = {
 export type ControlFieiraMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   order?: Prisma.SortOrder
+  orderQuantity?: Prisma.SortOrder
+  material?: Prisma.SortOrder
   wireType?: Prisma.SortOrder
+  metal?: Prisma.SortOrder
   tension?: Prisma.SortOrder
   width?: Prisma.SortOrder
   thickness?: Prisma.SortOrder
   fieiraId?: Prisma.SortOrder
   orderStartDate?: Prisma.SortOrder
   orderEndDate?: Prisma.SortOrder
-  orderQuantity?: Prisma.SortOrder
+  orderCreateDate?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -548,11 +641,12 @@ export type ControlFieiraMinOrderByAggregateInput = {
 export type ControlFieiraSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   order?: Prisma.SortOrder
+  orderQuantity?: Prisma.SortOrder
+  material?: Prisma.SortOrder
   tension?: Prisma.SortOrder
   width?: Prisma.SortOrder
   thickness?: Prisma.SortOrder
   fieiraId?: Prisma.SortOrder
-  orderQuantity?: Prisma.SortOrder
 }
 
 export type ControlFieiraScalarRelationFilter = {
@@ -602,8 +696,8 @@ export type ControlFieiraUncheckedUpdateManyWithoutFieiraNestedInput = {
   deleteMany?: Prisma.ControlFieiraScalarWhereInput | Prisma.ControlFieiraScalarWhereInput[]
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
+export type EnumMetalFieldUpdateOperationsInput = {
+  set?: $Enums.Metal
 }
 
 export type ControlFieiraCreateNestedOneWithoutReservationFieiraInput = {
@@ -622,13 +716,17 @@ export type ControlFieiraUpdateOneRequiredWithoutReservationFieiraNestedInput = 
 
 export type ControlFieiraCreateWithoutFieiraInput = {
   order: number
+  orderQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  material: number
   wireType: string
+  metal: $Enums.Metal
   tension: number
   width: runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
   orderStartDate: Date | string
   orderEndDate: Date | string
-  orderQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  orderCreateDate: Date | string
+  status: string
   createdAt?: Date | string
   updatedAt?: Date | string
   ReservationFieira?: Prisma.ReservationFieiraCreateNestedManyWithoutControlFieiraInput
@@ -637,13 +735,17 @@ export type ControlFieiraCreateWithoutFieiraInput = {
 export type ControlFieiraUncheckedCreateWithoutFieiraInput = {
   id?: number
   order: number
+  orderQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  material: number
   wireType: string
+  metal: $Enums.Metal
   tension: number
   width: runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
   orderStartDate: Date | string
   orderEndDate: Date | string
-  orderQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  orderCreateDate: Date | string
+  status: string
   createdAt?: Date | string
   updatedAt?: Date | string
   ReservationFieira?: Prisma.ReservationFieiraUncheckedCreateNestedManyWithoutControlFieiraInput
@@ -681,27 +783,35 @@ export type ControlFieiraScalarWhereInput = {
   NOT?: Prisma.ControlFieiraScalarWhereInput | Prisma.ControlFieiraScalarWhereInput[]
   id?: Prisma.IntFilter<"ControlFieira"> | number
   order?: Prisma.IntFilter<"ControlFieira"> | number
+  orderQuantity?: Prisma.DecimalFilter<"ControlFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  material?: Prisma.IntFilter<"ControlFieira"> | number
   wireType?: Prisma.StringFilter<"ControlFieira"> | string
+  metal?: Prisma.EnumMetalFilter<"ControlFieira"> | $Enums.Metal
   tension?: Prisma.IntFilter<"ControlFieira"> | number
   width?: Prisma.DecimalFilter<"ControlFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFilter<"ControlFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   fieiraId?: Prisma.IntFilter<"ControlFieira"> | number
   orderStartDate?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
   orderEndDate?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
-  orderQuantity?: Prisma.DecimalFilter<"ControlFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  orderCreateDate?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
+  status?: Prisma.StringFilter<"ControlFieira"> | string
   createdAt?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
 }
 
 export type ControlFieiraCreateWithoutReservationFieiraInput = {
   order: number
+  orderQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  material: number
   wireType: string
+  metal: $Enums.Metal
   tension: number
   width: runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
   orderStartDate: Date | string
   orderEndDate: Date | string
-  orderQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  orderCreateDate: Date | string
+  status: string
   createdAt?: Date | string
   updatedAt?: Date | string
   Fieira: Prisma.FieiraCreateNestedOneWithoutControlFieiraInput
@@ -710,14 +820,18 @@ export type ControlFieiraCreateWithoutReservationFieiraInput = {
 export type ControlFieiraUncheckedCreateWithoutReservationFieiraInput = {
   id?: number
   order: number
+  orderQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  material: number
   wireType: string
+  metal: $Enums.Metal
   tension: number
   width: runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
   fieiraId: number
   orderStartDate: Date | string
   orderEndDate: Date | string
-  orderQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  orderCreateDate: Date | string
+  status: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -740,13 +854,17 @@ export type ControlFieiraUpdateToOneWithWhereWithoutReservationFieiraInput = {
 
 export type ControlFieiraUpdateWithoutReservationFieiraInput = {
   order?: Prisma.IntFieldUpdateOperationsInput | number
+  orderQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  material?: Prisma.IntFieldUpdateOperationsInput | number
   wireType?: Prisma.StringFieldUpdateOperationsInput | string
+  metal?: Prisma.EnumMetalFieldUpdateOperationsInput | $Enums.Metal
   tension?: Prisma.IntFieldUpdateOperationsInput | number
   width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   orderStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderEndDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  orderQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  orderCreateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Fieira?: Prisma.FieiraUpdateOneRequiredWithoutControlFieiraNestedInput
@@ -755,14 +873,18 @@ export type ControlFieiraUpdateWithoutReservationFieiraInput = {
 export type ControlFieiraUncheckedUpdateWithoutReservationFieiraInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   order?: Prisma.IntFieldUpdateOperationsInput | number
+  orderQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  material?: Prisma.IntFieldUpdateOperationsInput | number
   wireType?: Prisma.StringFieldUpdateOperationsInput | string
+  metal?: Prisma.EnumMetalFieldUpdateOperationsInput | $Enums.Metal
   tension?: Prisma.IntFieldUpdateOperationsInput | number
   width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   fieiraId?: Prisma.IntFieldUpdateOperationsInput | number
   orderStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderEndDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  orderQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  orderCreateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -770,26 +892,34 @@ export type ControlFieiraUncheckedUpdateWithoutReservationFieiraInput = {
 export type ControlFieiraCreateManyFieiraInput = {
   id?: number
   order: number
+  orderQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  material: number
   wireType: string
+  metal: $Enums.Metal
   tension: number
   width: runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
   orderStartDate: Date | string
   orderEndDate: Date | string
-  orderQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  orderCreateDate: Date | string
+  status: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type ControlFieiraUpdateWithoutFieiraInput = {
   order?: Prisma.IntFieldUpdateOperationsInput | number
+  orderQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  material?: Prisma.IntFieldUpdateOperationsInput | number
   wireType?: Prisma.StringFieldUpdateOperationsInput | string
+  metal?: Prisma.EnumMetalFieldUpdateOperationsInput | $Enums.Metal
   tension?: Prisma.IntFieldUpdateOperationsInput | number
   width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   orderStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderEndDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  orderQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  orderCreateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ReservationFieira?: Prisma.ReservationFieiraUpdateManyWithoutControlFieiraNestedInput
@@ -798,13 +928,17 @@ export type ControlFieiraUpdateWithoutFieiraInput = {
 export type ControlFieiraUncheckedUpdateWithoutFieiraInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   order?: Prisma.IntFieldUpdateOperationsInput | number
+  orderQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  material?: Prisma.IntFieldUpdateOperationsInput | number
   wireType?: Prisma.StringFieldUpdateOperationsInput | string
+  metal?: Prisma.EnumMetalFieldUpdateOperationsInput | $Enums.Metal
   tension?: Prisma.IntFieldUpdateOperationsInput | number
   width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   orderStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderEndDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  orderQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  orderCreateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ReservationFieira?: Prisma.ReservationFieiraUncheckedUpdateManyWithoutControlFieiraNestedInput
@@ -813,13 +947,17 @@ export type ControlFieiraUncheckedUpdateWithoutFieiraInput = {
 export type ControlFieiraUncheckedUpdateManyWithoutFieiraInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   order?: Prisma.IntFieldUpdateOperationsInput | number
+  orderQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  material?: Prisma.IntFieldUpdateOperationsInput | number
   wireType?: Prisma.StringFieldUpdateOperationsInput | string
+  metal?: Prisma.EnumMetalFieldUpdateOperationsInput | $Enums.Metal
   tension?: Prisma.IntFieldUpdateOperationsInput | number
   width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   orderStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderEndDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  orderQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  orderCreateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -858,14 +996,18 @@ export type ControlFieiraCountOutputTypeCountReservationFieiraArgs<ExtArgs exten
 export type ControlFieiraSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   order?: boolean
+  orderQuantity?: boolean
+  material?: boolean
   wireType?: boolean
+  metal?: boolean
   tension?: boolean
   width?: boolean
   thickness?: boolean
   fieiraId?: boolean
   orderStartDate?: boolean
   orderEndDate?: boolean
-  orderQuantity?: boolean
+  orderCreateDate?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
@@ -876,14 +1018,18 @@ export type ControlFieiraSelect<ExtArgs extends runtime.Types.Extensions.Interna
 export type ControlFieiraSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   order?: boolean
+  orderQuantity?: boolean
+  material?: boolean
   wireType?: boolean
+  metal?: boolean
   tension?: boolean
   width?: boolean
   thickness?: boolean
   fieiraId?: boolean
   orderStartDate?: boolean
   orderEndDate?: boolean
-  orderQuantity?: boolean
+  orderCreateDate?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
@@ -892,14 +1038,18 @@ export type ControlFieiraSelectCreateManyAndReturn<ExtArgs extends runtime.Types
 export type ControlFieiraSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   order?: boolean
+  orderQuantity?: boolean
+  material?: boolean
   wireType?: boolean
+  metal?: boolean
   tension?: boolean
   width?: boolean
   thickness?: boolean
   fieiraId?: boolean
   orderStartDate?: boolean
   orderEndDate?: boolean
-  orderQuantity?: boolean
+  orderCreateDate?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
@@ -908,19 +1058,23 @@ export type ControlFieiraSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
 export type ControlFieiraSelectScalar = {
   id?: boolean
   order?: boolean
+  orderQuantity?: boolean
+  material?: boolean
   wireType?: boolean
+  metal?: boolean
   tension?: boolean
   width?: boolean
   thickness?: boolean
   fieiraId?: boolean
   orderStartDate?: boolean
   orderEndDate?: boolean
-  orderQuantity?: boolean
+  orderCreateDate?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ControlFieiraOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "order" | "wireType" | "tension" | "width" | "thickness" | "fieiraId" | "orderStartDate" | "orderEndDate" | "orderQuantity" | "createdAt" | "updatedAt", ExtArgs["result"]["controlFieira"]>
+export type ControlFieiraOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "order" | "orderQuantity" | "material" | "wireType" | "metal" | "tension" | "width" | "thickness" | "fieiraId" | "orderStartDate" | "orderEndDate" | "orderCreateDate" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["controlFieira"]>
 export type ControlFieiraInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
   ReservationFieira?: boolean | Prisma.ControlFieira$ReservationFieiraArgs<ExtArgs>
@@ -942,14 +1096,18 @@ export type $ControlFieiraPayload<ExtArgs extends runtime.Types.Extensions.Inter
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     order: number
+    orderQuantity: runtime.Decimal
+    material: number
     wireType: string
+    metal: $Enums.Metal
     tension: number
     width: runtime.Decimal
     thickness: runtime.Decimal
     fieiraId: number
     orderStartDate: Date
     orderEndDate: Date
-    orderQuantity: runtime.Decimal
+    orderCreateDate: Date
+    status: string
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["controlFieira"]>
@@ -1379,14 +1537,18 @@ export interface Prisma__ControlFieiraClient<T, Null = never, ExtArgs extends ru
 export interface ControlFieiraFieldRefs {
   readonly id: Prisma.FieldRef<"ControlFieira", 'Int'>
   readonly order: Prisma.FieldRef<"ControlFieira", 'Int'>
+  readonly orderQuantity: Prisma.FieldRef<"ControlFieira", 'Decimal'>
+  readonly material: Prisma.FieldRef<"ControlFieira", 'Int'>
   readonly wireType: Prisma.FieldRef<"ControlFieira", 'String'>
+  readonly metal: Prisma.FieldRef<"ControlFieira", 'Metal'>
   readonly tension: Prisma.FieldRef<"ControlFieira", 'Int'>
   readonly width: Prisma.FieldRef<"ControlFieira", 'Decimal'>
   readonly thickness: Prisma.FieldRef<"ControlFieira", 'Decimal'>
   readonly fieiraId: Prisma.FieldRef<"ControlFieira", 'Int'>
   readonly orderStartDate: Prisma.FieldRef<"ControlFieira", 'DateTime'>
   readonly orderEndDate: Prisma.FieldRef<"ControlFieira", 'DateTime'>
-  readonly orderQuantity: Prisma.FieldRef<"ControlFieira", 'Decimal'>
+  readonly orderCreateDate: Prisma.FieldRef<"ControlFieira", 'DateTime'>
+  readonly status: Prisma.FieldRef<"ControlFieira", 'String'>
   readonly createdAt: Prisma.FieldRef<"ControlFieira", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"ControlFieira", 'DateTime'>
 }

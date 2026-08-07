@@ -17,3 +17,11 @@ export const StatusFieira = {
 } as const
 
 export type StatusFieira = (typeof StatusFieira)[keyof typeof StatusFieira]
+
+
+export const Metal = {
+  cu: 'cu',
+  al: 'al'
+} as const
+
+export type Metal = (typeof Metal)[keyof typeof Metal]

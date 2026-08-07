@@ -176,8 +176,8 @@ export type CabinetGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 export type CabinetGroupByOutputType = {
   id: number
   name: string
-  createdAt: Date | null
-  updatedAt: Date | null
+  createdAt: Date
+  updatedAt: Date
   _count: CabinetCountAggregateOutputType | null
   _avg: CabinetAvgAggregateOutputType | null
   _sum: CabinetSumAggregateOutputType | null
@@ -206,16 +206,16 @@ export type CabinetWhereInput = {
   NOT?: Prisma.CabinetWhereInput | Prisma.CabinetWhereInput[]
   id?: Prisma.IntFilter<"Cabinet"> | number
   name?: Prisma.StringFilter<"Cabinet"> | string
-  createdAt?: Prisma.DateTimeNullableFilter<"Cabinet"> | Date | string | null
-  updatedAt?: Prisma.DateTimeNullableFilter<"Cabinet"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"Cabinet"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Cabinet"> | Date | string
   Fieira?: Prisma.FieiraListRelationFilter
 }
 
 export type CabinetOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   Fieira?: Prisma.FieiraOrderByRelationAggregateInput
 }
 
@@ -225,16 +225,16 @@ export type CabinetWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.CabinetWhereInput | Prisma.CabinetWhereInput[]
   OR?: Prisma.CabinetWhereInput[]
   NOT?: Prisma.CabinetWhereInput | Prisma.CabinetWhereInput[]
-  createdAt?: Prisma.DateTimeNullableFilter<"Cabinet"> | Date | string | null
-  updatedAt?: Prisma.DateTimeNullableFilter<"Cabinet"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"Cabinet"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Cabinet"> | Date | string
   Fieira?: Prisma.FieiraListRelationFilter
 }, "id" | "name">
 
 export type CabinetOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.CabinetCountOrderByAggregateInput
   _avg?: Prisma.CabinetAvgOrderByAggregateInput
   _max?: Prisma.CabinetMaxOrderByAggregateInput
@@ -248,58 +248,58 @@ export type CabinetScalarWhereWithAggregatesInput = {
   NOT?: Prisma.CabinetScalarWhereWithAggregatesInput | Prisma.CabinetScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Cabinet"> | number
   name?: Prisma.StringWithAggregatesFilter<"Cabinet"> | string
-  createdAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Cabinet"> | Date | string | null
-  updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Cabinet"> | Date | string | null
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Cabinet"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Cabinet"> | Date | string
 }
 
 export type CabinetCreateInput = {
   name: string
-  createdAt?: Date | string | null
-  updatedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   Fieira?: Prisma.FieiraCreateNestedManyWithoutCabinetInput
 }
 
 export type CabinetUncheckedCreateInput = {
   id?: number
   name: string
-  createdAt?: Date | string | null
-  updatedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   Fieira?: Prisma.FieiraUncheckedCreateNestedManyWithoutCabinetInput
 }
 
 export type CabinetUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Fieira?: Prisma.FieiraUpdateManyWithoutCabinetNestedInput
 }
 
 export type CabinetUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Fieira?: Prisma.FieiraUncheckedUpdateManyWithoutCabinetNestedInput
 }
 
 export type CabinetCreateManyInput = {
   id?: number
   name: string
-  createdAt?: Date | string | null
-  updatedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type CabinetUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CabinetUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CabinetCountOrderByAggregateInput = {
@@ -340,8 +340,8 @@ export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -370,15 +370,15 @@ export type CabinetUpdateOneWithoutFieiraNestedInput = {
 
 export type CabinetCreateWithoutFieiraInput = {
   name: string
-  createdAt?: Date | string | null
-  updatedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type CabinetUncheckedCreateWithoutFieiraInput = {
   id?: number
   name: string
-  createdAt?: Date | string | null
-  updatedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type CabinetCreateOrConnectWithoutFieiraInput = {
@@ -399,15 +399,15 @@ export type CabinetUpdateToOneWithWhereWithoutFieiraInput = {
 
 export type CabinetUpdateWithoutFieiraInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CabinetUncheckedUpdateWithoutFieiraInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -487,8 +487,8 @@ export type $CabinetPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
-    createdAt: Date | null
-    updatedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["cabinet"]>
   composites: {}
 }

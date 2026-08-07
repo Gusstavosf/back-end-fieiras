@@ -2,16 +2,32 @@ export type ControlFieiraProps = {
     id: number;
     fieiraId: number;
     order: number;
+    orderQuantity: number;
     wireType: string;
+    metal: Metal;
     tension: number;
     width: number;
     thickness: number;
     orderStartDate: Date;
     orderEndDate: Date;
-    orderQuantity: number;
+    orderCreateDate: Date;
+    status: ControlStatus;
     createdAt: Date;
     updatedAt: Date;
 };
+
+export enum Metal {
+    Cu = "cu",
+    Al = "al",
+}
+
+export enum ControlStatus {
+    Open = "open",
+    ReleasedPrinted = "released_printed",
+    ReleasedNotPrinted = "released_not_printed",
+    Completed = "completed",
+    Canceled = "canceled",
+}
 
 export class ControlFieira {
     private constructor(private readonly props: ControlFieiraProps) {}
@@ -42,6 +58,10 @@ export class ControlFieira {
         return this.props.wireType;
     }
 
+    public get material(): Metal {
+        return this.props.metal;
+    }
+
     public get tension(): number {
         return this.props.tension;
     }
@@ -64,6 +84,10 @@ export class ControlFieira {
 
     public get orderQuantity(): number {
         return this.props.orderQuantity;
+    }
+
+    public get status(): ControlStatus {
+        return this.props.status;
     }
 
     public get createdAt(): Date {

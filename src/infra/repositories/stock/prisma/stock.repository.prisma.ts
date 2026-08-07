@@ -8,6 +8,7 @@ import {
     StatusFieira as DomainStatusFieira,
 } from "../../../../domain/stock/entity/stock.js";
 import { StatusFieira } from "../../../../generated/prisma/client.js";
+import { Cabinet } from "../../../../domain/cabinet/entity/cabinet.js";
 
 export class StockReposistoryPrisma implements StockGateway {
     private constructor(private readonly prismaClient: PrismaClient) {}
@@ -132,5 +133,53 @@ export class StockReposistoryPrisma implements StockGateway {
         await this.prismaClient.stockFieira.delete({
             where: { id },
         });
+    }
+
+    public async findEmptyCabinet(): Promise<Cabinet | null> {
+        const cabinet = await this.prismaClient.cabinet.findFirst({
+            where: {
+                Fieira: {
+                    none: {},
+                },
+            },
+        });
+
+        if (!cabinet) {
+            return null;
+        }
+
+        return Cabinet.restore({
+            id: cabinet.id,
+            name: cabinet.name,
+            createdAt: cabinet.createdAt,
+            updatedAt: cabinet.updatedAt,
+        });
+    }
+
+    public async findReusableCabinets(): Promise<Cabinet[]> {
+        const cabinets = await this.prismaClient.cabinet.findMany({
+            where: {
+                Fieira: {
+                    some: {
+                        StockFieira: {
+                            every: {
+                                status: "dead",
+                            },
+                        },
+                    },
+                },
+            },
+        });
+
+        const cabinetList = cabinets.map((cabinet) =>
+            Cabinet.restore({
+                id: cabinet.id,
+                name: cabinet.name,
+                createdAt: cabinet.createdAt,
+                updatedAt: cabinet.updatedAt,
+            }),
+        );
+
+        return cabinetList;
     }
 }

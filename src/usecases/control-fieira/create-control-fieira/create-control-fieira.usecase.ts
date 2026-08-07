@@ -1,4 +1,6 @@
+import type { Metal } from "../../../domain/control-fieira/entity/control-fieira.js";
 import type { ControlFieiraGateway } from "../../../domain/control-fieira/gateway/control-fieira.gateway.js";
+import { FieiraCalculator } from "../../../domain/fieira/calculators/fieira.calculator.js";
 import type { Usecase } from "../../usecase.js";
 
 export type CreateControlFieiraInputDto = {
@@ -15,14 +17,17 @@ export type CreateControlFieiraInputDto = {
 export type CreateControlFieiraOutputDto = {
     id: number;
     fieiraId: number;
+    material: number;
     order: number;
+    metal: Metal;
     wireType: string;
     tension: number;
     width: number;
     thickness: number;
     orderStartDate: Date;
     orderEndDate: Date;
-    orderQuantity: number;
+    orderCreateDate: Date;
+    status: string;
     createdAt: Date;
     updatedAt: Date;
 };

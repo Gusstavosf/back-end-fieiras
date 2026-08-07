@@ -1,35 +1,23 @@
 export type FieiraProps = {
     id: number;
-    cabinetId: number;
+    cabinetId: number | null;
     width: number;
     thickness: number;
     nominalFieiraCapacity: number;
-    material: Material;
     createdAt: Date;
     updatedAt: Date;
 };
 
-export enum Material {
-    Cu = "cu",
-    Al = "al",
-}
-
 export class Fieira {
     private constructor(private readonly props: FieiraProps) {}
 
-    public static create(
-        cabinetId: number,
-        width: number,
-        thickness: number,
-        material: Material,
-    ) {
+    public static create(cabinetId: number, width: number, thickness: number) {
         return new Fieira({
             id: 0,
             cabinetId,
             width,
             thickness,
             nominalFieiraCapacity: 0,
-            material,
             createdAt: new Date(),
             updatedAt: new Date(),
         });
@@ -43,7 +31,7 @@ export class Fieira {
         return this.props.id;
     }
 
-    public get cabinetId(): number {
+    public get cabinetId(): number | null {
         return this.props.cabinetId;
     }
 
@@ -57,10 +45,6 @@ export class Fieira {
 
     public get nominalFieiraCapacity(): number {
         return this.props.nominalFieiraCapacity;
-    }
-
-    public get material(): string {
-        return this.props.material;
     }
 
     public get createdAt(): Date {

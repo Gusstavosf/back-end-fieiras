@@ -8,48 +8,55 @@ datasource db {
 }
 
 model Cabinet {
-  id        Int       @id @default(autoincrement())
-  name      String    @unique
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @default(now())
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 
   Fieira Fieira[]
 }
 
 model Fieira {
-  id                    Int       @id @default(autoincrement())
-  cabinetId             Int?
-  width                 Decimal   @db.Decimal(10, 2)
-  thickness             Decimal   @db.Decimal(10, 2)
+  id                    Int      @id @default(autoincrement())
+  cabinetId             Int?     @unique
+  width                 Decimal  @db.Decimal(10, 2)
+  thickness             Decimal  @db.Decimal(10, 2)
   nominalFieiraCapacity Int
-  material              Material
-  createdAt             DateTime? @default(now())
-  updatedAt             DateTime? @default(now())
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @default(now())
 
   // Relations
   Cabinet       Cabinet?        @relation(fields: [cabinetId], references: [id])
   ControlFieira ControlFieira[]
   StockFieira   StockFieira[]
   Requisitions  Requisition[]
+
+  @@unique([width, thickness])
 }
 
 model ControlFieira {
-  id             Int      @id @default(autoincrement())
-  order          Int
-  wireType       String
-  tension        Int
-  width          Decimal  @db.Decimal(10, 2)
-  thickness      Decimal  @db.Decimal(10, 2)
-  fieiraId       Int
-  orderStartDate DateTime
-  orderEndDate   DateTime
-  orderQuantity  Decimal  @db.Decimal(10, 2)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @default(now())
+  id              Int           @id @default(autoincrement())
+  order           Int
+  orderQuantity   Decimal       @db.Decimal(10, 3)
+  material        Int
+  wireType        String
+  metal           Metal
+  tension         Int
+  width           Decimal       @db.Decimal(10, 2)
+  thickness       Decimal       @db.Decimal(10, 2)
+  fieiraId        Int
+  orderStartDate  DateTime
+  orderEndDate    DateTime
+  orderCreateDate DateTime
+  status          ControlStatus
+  qtdFieiraNec    Int
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @default(now())
 
   // Relations
-  Fieira            Fieira              @relation(fields: [fieiraId], references: [id])
-  ReservationFieira ReservationFieira[]
+  Fieira              Fieira               @relation(fields: [fieiraId], references: [id])
+  ReservationFieira   ReservationFieira[]
+  requisitionControls RequisitionControl[]
 }
 
 model StockFieira {
@@ -82,8 +89,9 @@ model Requisition {
   updatedAt       DateTime @default(now())
 
   // Relations
-  Fieira           Fieira            @relation(fields: [fieiraId], references: [id])
-  RequisitionItems RequisitionItem[]
+  Fieira              Fieira               @relation(fields: [fieiraId], references: [id])
+  RequisitionItems    RequisitionItem[]
+  requisitionControls RequisitionControl[]
 }
 
 model RequisitionItem {
@@ -94,6 +102,19 @@ model RequisitionItem {
   // Relations
   StockFieira StockFieira @relation(fields: [fieiraId], references: [id])
   Requisition Requisition @relation(fields: [requisitionId], references: [id])
+
+  @@unique([requisitionId, fieiraId])
+}
+
+model RequisitionControl {
+  id              Int @id @default(autoincrement())
+  requisitionId   Int
+  controlFieiraId Int
+
+  Requisition   Requisition   @relation(fields: [requisitionId], references: [id])
+  ControlFieira ControlFieira @relation(fields: [controlFieiraId], references: [id])
+
+  @@unique([requisitionId, controlFieiraId])
 }
 
 model ReservationFieira {
@@ -104,6 +125,8 @@ model ReservationFieira {
   // Relations
   StockFieira   StockFieira   @relation(fields: [fieiraId], references: [id])
   ControlFieira ControlFieira @relation(fields: [controlId], references: [id])
+
+  @@unique([controlId, fieiraId])
 }
 
 model StockFieiraHistory {
@@ -122,6 +145,16 @@ model StockFieiraHistory {
   @@map("StockFieiraHistory")
 }
 
+model SupplierFieiraStock {
+  id           Int      @id @default(autoincrement())
+  thickness    Decimal? @db.Decimal(10, 2)
+  width        Decimal? @db.Decimal(10, 2)
+  quantitySent Int
+  quantityUsed Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now())
+}
+
 enum StatusFieira {
   new
   requested
@@ -129,7 +162,15 @@ enum StatusFieira {
   polished
 }
 
-enum Material {
+enum Metal {
   cu
   al
+}
+
+enum ControlStatus {
+  open
+  released_printed
+  released_not_printed
+  completed
+  canceled
 }

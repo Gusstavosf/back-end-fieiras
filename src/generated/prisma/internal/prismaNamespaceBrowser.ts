@@ -58,7 +58,8 @@ export const ModelName = {
   Requisition: 'Requisition',
   RequisitionItem: 'RequisitionItem',
   ReservationFieira: 'ReservationFieira',
-  StockFieiraHistory: 'StockFieiraHistory'
+  StockFieiraHistory: 'StockFieiraHistory',
+  SupplierStock: 'SupplierStock'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -93,7 +94,6 @@ export const FieiraScalarFieldEnum = {
   width: 'width',
   thickness: 'thickness',
   nominalFieiraCapacity: 'nominalFieiraCapacity',
-  material: 'material',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -104,14 +104,18 @@ export type FieiraScalarFieldEnum = (typeof FieiraScalarFieldEnum)[keyof typeof 
 export const ControlFieiraScalarFieldEnum = {
   id: 'id',
   order: 'order',
+  orderQuantity: 'orderQuantity',
+  material: 'material',
   wireType: 'wireType',
+  metal: 'metal',
   tension: 'tension',
   width: 'width',
   thickness: 'thickness',
   fieiraId: 'fieiraId',
   orderStartDate: 'orderStartDate',
   orderEndDate: 'orderEndDate',
-  orderQuantity: 'orderQuantity',
+  orderCreateDate: 'orderCreateDate',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -178,6 +182,19 @@ export const StockFieiraHistoryScalarFieldEnum = {
 } as const
 
 export type StockFieiraHistoryScalarFieldEnum = (typeof StockFieiraHistoryScalarFieldEnum)[keyof typeof StockFieiraHistoryScalarFieldEnum]
+
+
+export const SupplierStockScalarFieldEnum = {
+  id: 'id',
+  thickness: 'thickness',
+  width: 'width',
+  quantitySent: 'quantitySent',
+  quantityUsed: 'quantityUsed',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SupplierStockScalarFieldEnum = (typeof SupplierStockScalarFieldEnum)[keyof typeof SupplierStockScalarFieldEnum]
 
 
 export const SortOrder = {
