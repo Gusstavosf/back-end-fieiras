@@ -72,6 +72,11 @@ export type Requisition = Prisma.RequisitionModel
  */
 export type RequisitionItem = Prisma.RequisitionItemModel
 /**
+ * Model RequisitionControl
+ * 
+ */
+export type RequisitionControl = Prisma.RequisitionControlModel
+/**
  * Model ReservationFieira
  * 
  */
@@ -82,7 +87,7 @@ export type ReservationFieira = Prisma.ReservationFieiraModel
  */
 export type StockFieiraHistory = Prisma.StockFieiraHistoryModel
 /**
- * Model SupplierStock
+ * Model SupplierFieiraStock
  * 
  */
-export type SupplierStock = Prisma.SupplierStockModel
+export type SupplierFieiraStock = Prisma.SupplierFieiraStockModel

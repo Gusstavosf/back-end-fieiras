@@ -238,6 +238,7 @@ export type RequisitionWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Requisition"> | Date | string
   Fieira?: Prisma.XOR<Prisma.FieiraScalarRelationFilter, Prisma.FieiraWhereInput>
   RequisitionItems?: Prisma.RequisitionItemListRelationFilter
+  requisitionControls?: Prisma.RequisitionControlListRelationFilter
 }
 
 export type RequisitionOrderByWithRelationInput = {
@@ -249,6 +250,7 @@ export type RequisitionOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   Fieira?: Prisma.FieiraOrderByWithRelationInput
   RequisitionItems?: Prisma.RequisitionItemOrderByRelationAggregateInput
+  requisitionControls?: Prisma.RequisitionControlOrderByRelationAggregateInput
 }
 
 export type RequisitionWhereUniqueInput = Prisma.AtLeast<{
@@ -263,6 +265,7 @@ export type RequisitionWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Requisition"> | Date | string
   Fieira?: Prisma.XOR<Prisma.FieiraScalarRelationFilter, Prisma.FieiraWhereInput>
   RequisitionItems?: Prisma.RequisitionItemListRelationFilter
+  requisitionControls?: Prisma.RequisitionControlListRelationFilter
 }, "id">
 
 export type RequisitionOrderByWithAggregationInput = {
@@ -298,6 +301,7 @@ export type RequisitionCreateInput = {
   updatedAt?: Date | string
   Fieira: Prisma.FieiraCreateNestedOneWithoutRequisitionsInput
   RequisitionItems?: Prisma.RequisitionItemCreateNestedManyWithoutRequisitionInput
+  requisitionControls?: Prisma.RequisitionControlCreateNestedManyWithoutRequisitionInput
 }
 
 export type RequisitionUncheckedCreateInput = {
@@ -308,6 +312,7 @@ export type RequisitionUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   RequisitionItems?: Prisma.RequisitionItemUncheckedCreateNestedManyWithoutRequisitionInput
+  requisitionControls?: Prisma.RequisitionControlUncheckedCreateNestedManyWithoutRequisitionInput
 }
 
 export type RequisitionUpdateInput = {
@@ -317,6 +322,7 @@ export type RequisitionUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Fieira?: Prisma.FieiraUpdateOneRequiredWithoutRequisitionsNestedInput
   RequisitionItems?: Prisma.RequisitionItemUpdateManyWithoutRequisitionNestedInput
+  requisitionControls?: Prisma.RequisitionControlUpdateManyWithoutRequisitionNestedInput
 }
 
 export type RequisitionUncheckedUpdateInput = {
@@ -327,6 +333,7 @@ export type RequisitionUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   RequisitionItems?: Prisma.RequisitionItemUncheckedUpdateManyWithoutRequisitionNestedInput
+  requisitionControls?: Prisma.RequisitionControlUncheckedUpdateManyWithoutRequisitionNestedInput
 }
 
 export type RequisitionCreateManyInput = {
@@ -466,12 +473,27 @@ export type RequisitionUpdateOneRequiredWithoutRequisitionItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.RequisitionUpdateToOneWithWhereWithoutRequisitionItemsInput, Prisma.RequisitionUpdateWithoutRequisitionItemsInput>, Prisma.RequisitionUncheckedUpdateWithoutRequisitionItemsInput>
 }
 
+export type RequisitionCreateNestedOneWithoutRequisitionControlsInput = {
+  create?: Prisma.XOR<Prisma.RequisitionCreateWithoutRequisitionControlsInput, Prisma.RequisitionUncheckedCreateWithoutRequisitionControlsInput>
+  connectOrCreate?: Prisma.RequisitionCreateOrConnectWithoutRequisitionControlsInput
+  connect?: Prisma.RequisitionWhereUniqueInput
+}
+
+export type RequisitionUpdateOneRequiredWithoutRequisitionControlsNestedInput = {
+  create?: Prisma.XOR<Prisma.RequisitionCreateWithoutRequisitionControlsInput, Prisma.RequisitionUncheckedCreateWithoutRequisitionControlsInput>
+  connectOrCreate?: Prisma.RequisitionCreateOrConnectWithoutRequisitionControlsInput
+  upsert?: Prisma.RequisitionUpsertWithoutRequisitionControlsInput
+  connect?: Prisma.RequisitionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RequisitionUpdateToOneWithWhereWithoutRequisitionControlsInput, Prisma.RequisitionUpdateWithoutRequisitionControlsInput>, Prisma.RequisitionUncheckedUpdateWithoutRequisitionControlsInput>
+}
+
 export type RequisitionCreateWithoutFieiraInput = {
   currentStockQty: number
   requisitionQty: number
   createdAt?: Date | string
   updatedAt?: Date | string
   RequisitionItems?: Prisma.RequisitionItemCreateNestedManyWithoutRequisitionInput
+  requisitionControls?: Prisma.RequisitionControlCreateNestedManyWithoutRequisitionInput
 }
 
 export type RequisitionUncheckedCreateWithoutFieiraInput = {
@@ -481,6 +503,7 @@ export type RequisitionUncheckedCreateWithoutFieiraInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   RequisitionItems?: Prisma.RequisitionItemUncheckedCreateNestedManyWithoutRequisitionInput
+  requisitionControls?: Prisma.RequisitionControlUncheckedCreateNestedManyWithoutRequisitionInput
 }
 
 export type RequisitionCreateOrConnectWithoutFieiraInput = {
@@ -527,6 +550,7 @@ export type RequisitionCreateWithoutRequisitionItemsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   Fieira: Prisma.FieiraCreateNestedOneWithoutRequisitionsInput
+  requisitionControls?: Prisma.RequisitionControlCreateNestedManyWithoutRequisitionInput
 }
 
 export type RequisitionUncheckedCreateWithoutRequisitionItemsInput = {
@@ -536,6 +560,7 @@ export type RequisitionUncheckedCreateWithoutRequisitionItemsInput = {
   requisitionQty: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  requisitionControls?: Prisma.RequisitionControlUncheckedCreateNestedManyWithoutRequisitionInput
 }
 
 export type RequisitionCreateOrConnectWithoutRequisitionItemsInput = {
@@ -560,6 +585,7 @@ export type RequisitionUpdateWithoutRequisitionItemsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Fieira?: Prisma.FieiraUpdateOneRequiredWithoutRequisitionsNestedInput
+  requisitionControls?: Prisma.RequisitionControlUpdateManyWithoutRequisitionNestedInput
 }
 
 export type RequisitionUncheckedUpdateWithoutRequisitionItemsInput = {
@@ -569,6 +595,61 @@ export type RequisitionUncheckedUpdateWithoutRequisitionItemsInput = {
   requisitionQty?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  requisitionControls?: Prisma.RequisitionControlUncheckedUpdateManyWithoutRequisitionNestedInput
+}
+
+export type RequisitionCreateWithoutRequisitionControlsInput = {
+  currentStockQty: number
+  requisitionQty: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  Fieira: Prisma.FieiraCreateNestedOneWithoutRequisitionsInput
+  RequisitionItems?: Prisma.RequisitionItemCreateNestedManyWithoutRequisitionInput
+}
+
+export type RequisitionUncheckedCreateWithoutRequisitionControlsInput = {
+  id?: number
+  fieiraId: number
+  currentStockQty: number
+  requisitionQty: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  RequisitionItems?: Prisma.RequisitionItemUncheckedCreateNestedManyWithoutRequisitionInput
+}
+
+export type RequisitionCreateOrConnectWithoutRequisitionControlsInput = {
+  where: Prisma.RequisitionWhereUniqueInput
+  create: Prisma.XOR<Prisma.RequisitionCreateWithoutRequisitionControlsInput, Prisma.RequisitionUncheckedCreateWithoutRequisitionControlsInput>
+}
+
+export type RequisitionUpsertWithoutRequisitionControlsInput = {
+  update: Prisma.XOR<Prisma.RequisitionUpdateWithoutRequisitionControlsInput, Prisma.RequisitionUncheckedUpdateWithoutRequisitionControlsInput>
+  create: Prisma.XOR<Prisma.RequisitionCreateWithoutRequisitionControlsInput, Prisma.RequisitionUncheckedCreateWithoutRequisitionControlsInput>
+  where?: Prisma.RequisitionWhereInput
+}
+
+export type RequisitionUpdateToOneWithWhereWithoutRequisitionControlsInput = {
+  where?: Prisma.RequisitionWhereInput
+  data: Prisma.XOR<Prisma.RequisitionUpdateWithoutRequisitionControlsInput, Prisma.RequisitionUncheckedUpdateWithoutRequisitionControlsInput>
+}
+
+export type RequisitionUpdateWithoutRequisitionControlsInput = {
+  currentStockQty?: Prisma.IntFieldUpdateOperationsInput | number
+  requisitionQty?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  Fieira?: Prisma.FieiraUpdateOneRequiredWithoutRequisitionsNestedInput
+  RequisitionItems?: Prisma.RequisitionItemUpdateManyWithoutRequisitionNestedInput
+}
+
+export type RequisitionUncheckedUpdateWithoutRequisitionControlsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  fieiraId?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStockQty?: Prisma.IntFieldUpdateOperationsInput | number
+  requisitionQty?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  RequisitionItems?: Prisma.RequisitionItemUncheckedUpdateManyWithoutRequisitionNestedInput
 }
 
 export type RequisitionCreateManyFieiraInput = {
@@ -585,6 +666,7 @@ export type RequisitionUpdateWithoutFieiraInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   RequisitionItems?: Prisma.RequisitionItemUpdateManyWithoutRequisitionNestedInput
+  requisitionControls?: Prisma.RequisitionControlUpdateManyWithoutRequisitionNestedInput
 }
 
 export type RequisitionUncheckedUpdateWithoutFieiraInput = {
@@ -594,6 +676,7 @@ export type RequisitionUncheckedUpdateWithoutFieiraInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   RequisitionItems?: Prisma.RequisitionItemUncheckedUpdateManyWithoutRequisitionNestedInput
+  requisitionControls?: Prisma.RequisitionControlUncheckedUpdateManyWithoutRequisitionNestedInput
 }
 
 export type RequisitionUncheckedUpdateManyWithoutFieiraInput = {
@@ -611,10 +694,12 @@ export type RequisitionUncheckedUpdateManyWithoutFieiraInput = {
 
 export type RequisitionCountOutputType = {
   RequisitionItems: number
+  requisitionControls: number
 }
 
 export type RequisitionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   RequisitionItems?: boolean | RequisitionCountOutputTypeCountRequisitionItemsArgs
+  requisitionControls?: boolean | RequisitionCountOutputTypeCountRequisitionControlsArgs
 }
 
 /**
@@ -634,6 +719,13 @@ export type RequisitionCountOutputTypeCountRequisitionItemsArgs<ExtArgs extends 
   where?: Prisma.RequisitionItemWhereInput
 }
 
+/**
+ * RequisitionCountOutputType without action
+ */
+export type RequisitionCountOutputTypeCountRequisitionControlsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RequisitionControlWhereInput
+}
+
 
 export type RequisitionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -644,6 +736,7 @@ export type RequisitionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   updatedAt?: boolean
   Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
   RequisitionItems?: boolean | Prisma.Requisition$RequisitionItemsArgs<ExtArgs>
+  requisitionControls?: boolean | Prisma.Requisition$requisitionControlsArgs<ExtArgs>
   _count?: boolean | Prisma.RequisitionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["requisition"]>
 
@@ -680,6 +773,7 @@ export type RequisitionOmit<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type RequisitionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
   RequisitionItems?: boolean | Prisma.Requisition$RequisitionItemsArgs<ExtArgs>
+  requisitionControls?: boolean | Prisma.Requisition$requisitionControlsArgs<ExtArgs>
   _count?: boolean | Prisma.RequisitionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type RequisitionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -694,6 +788,7 @@ export type $RequisitionPayload<ExtArgs extends runtime.Types.Extensions.Interna
   objects: {
     Fieira: Prisma.$FieiraPayload<ExtArgs>
     RequisitionItems: Prisma.$RequisitionItemPayload<ExtArgs>[]
+    requisitionControls: Prisma.$RequisitionControlPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1098,6 +1193,7 @@ export interface Prisma__RequisitionClient<T, Null = never, ExtArgs extends runt
   readonly [Symbol.toStringTag]: "PrismaPromise"
   Fieira<T extends Prisma.FieiraDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FieiraDefaultArgs<ExtArgs>>): Prisma.Prisma__FieiraClient<runtime.Types.Result.GetResult<Prisma.$FieiraPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   RequisitionItems<T extends Prisma.Requisition$RequisitionItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Requisition$RequisitionItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RequisitionItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  requisitionControls<T extends Prisma.Requisition$requisitionControlsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Requisition$requisitionControlsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RequisitionControlPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1555,6 +1651,30 @@ export type Requisition$RequisitionItemsArgs<ExtArgs extends runtime.Types.Exten
   take?: number
   skip?: number
   distinct?: Prisma.RequisitionItemScalarFieldEnum | Prisma.RequisitionItemScalarFieldEnum[]
+}
+
+/**
+ * Requisition.requisitionControls
+ */
+export type Requisition$requisitionControlsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RequisitionControl
+   */
+  select?: Prisma.RequisitionControlSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RequisitionControl
+   */
+  omit?: Prisma.RequisitionControlOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RequisitionControlInclude<ExtArgs> | null
+  where?: Prisma.RequisitionControlWhereInput
+  orderBy?: Prisma.RequisitionControlOrderByWithRelationInput | Prisma.RequisitionControlOrderByWithRelationInput[]
+  cursor?: Prisma.RequisitionControlWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RequisitionControlScalarFieldEnum | Prisma.RequisitionControlScalarFieldEnum[]
 }
 
 /**

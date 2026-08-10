@@ -222,6 +222,7 @@ export type ReservationFieiraOrderByWithRelationInput = {
 
 export type ReservationFieiraWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  controlId_fieiraId?: Prisma.ReservationFieiraControlIdFieiraIdCompoundUniqueInput
   AND?: Prisma.ReservationFieiraWhereInput | Prisma.ReservationFieiraWhereInput[]
   OR?: Prisma.ReservationFieiraWhereInput[]
   NOT?: Prisma.ReservationFieiraWhereInput | Prisma.ReservationFieiraWhereInput[]
@@ -229,7 +230,7 @@ export type ReservationFieiraWhereUniqueInput = Prisma.AtLeast<{
   fieiraId?: Prisma.IntFilter<"ReservationFieira"> | number
   StockFieira?: Prisma.XOR<Prisma.StockFieiraScalarRelationFilter, Prisma.StockFieiraWhereInput>
   ControlFieira?: Prisma.XOR<Prisma.ControlFieiraScalarRelationFilter, Prisma.ControlFieiraWhereInput>
-}, "id">
+}, "id" | "controlId_fieiraId">
 
 export type ReservationFieiraOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -297,6 +298,11 @@ export type ReservationFieiraListRelationFilter = {
 
 export type ReservationFieiraOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type ReservationFieiraControlIdFieiraIdCompoundUniqueInput = {
+  controlId: number
+  fieiraId: number
 }
 
 export type ReservationFieiraCountOrderByAggregateInput = {

@@ -35,6 +35,7 @@ export type ControlFieiraAvgAggregateOutputType = {
   width: runtime.Decimal | null
   thickness: runtime.Decimal | null
   fieiraId: number | null
+  qtdFieiraNec: number | null
 }
 
 export type ControlFieiraSumAggregateOutputType = {
@@ -46,6 +47,7 @@ export type ControlFieiraSumAggregateOutputType = {
   width: runtime.Decimal | null
   thickness: runtime.Decimal | null
   fieiraId: number | null
+  qtdFieiraNec: number | null
 }
 
 export type ControlFieiraMinAggregateOutputType = {
@@ -62,7 +64,8 @@ export type ControlFieiraMinAggregateOutputType = {
   orderStartDate: Date | null
   orderEndDate: Date | null
   orderCreateDate: Date | null
-  status: string | null
+  status: $Enums.ControlStatus | null
+  qtdFieiraNec: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -81,7 +84,8 @@ export type ControlFieiraMaxAggregateOutputType = {
   orderStartDate: Date | null
   orderEndDate: Date | null
   orderCreateDate: Date | null
-  status: string | null
+  status: $Enums.ControlStatus | null
+  qtdFieiraNec: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -101,6 +105,7 @@ export type ControlFieiraCountAggregateOutputType = {
   orderEndDate: number
   orderCreateDate: number
   status: number
+  qtdFieiraNec: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -116,6 +121,7 @@ export type ControlFieiraAvgAggregateInputType = {
   width?: true
   thickness?: true
   fieiraId?: true
+  qtdFieiraNec?: true
 }
 
 export type ControlFieiraSumAggregateInputType = {
@@ -127,6 +133,7 @@ export type ControlFieiraSumAggregateInputType = {
   width?: true
   thickness?: true
   fieiraId?: true
+  qtdFieiraNec?: true
 }
 
 export type ControlFieiraMinAggregateInputType = {
@@ -144,6 +151,7 @@ export type ControlFieiraMinAggregateInputType = {
   orderEndDate?: true
   orderCreateDate?: true
   status?: true
+  qtdFieiraNec?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -163,6 +171,7 @@ export type ControlFieiraMaxAggregateInputType = {
   orderEndDate?: true
   orderCreateDate?: true
   status?: true
+  qtdFieiraNec?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -182,6 +191,7 @@ export type ControlFieiraCountAggregateInputType = {
   orderEndDate?: true
   orderCreateDate?: true
   status?: true
+  qtdFieiraNec?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -287,7 +297,8 @@ export type ControlFieiraGroupByOutputType = {
   orderStartDate: Date
   orderEndDate: Date
   orderCreateDate: Date
-  status: string
+  status: $Enums.ControlStatus
+  qtdFieiraNec: number
   createdAt: Date
   updatedAt: Date
   _count: ControlFieiraCountAggregateOutputType | null
@@ -329,11 +340,13 @@ export type ControlFieiraWhereInput = {
   orderStartDate?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
   orderEndDate?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
   orderCreateDate?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
-  status?: Prisma.StringFilter<"ControlFieira"> | string
+  status?: Prisma.EnumControlStatusFilter<"ControlFieira"> | $Enums.ControlStatus
+  qtdFieiraNec?: Prisma.IntFilter<"ControlFieira"> | number
   createdAt?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
   Fieira?: Prisma.XOR<Prisma.FieiraScalarRelationFilter, Prisma.FieiraWhereInput>
   ReservationFieira?: Prisma.ReservationFieiraListRelationFilter
+  requisitionControls?: Prisma.RequisitionControlListRelationFilter
 }
 
 export type ControlFieiraOrderByWithRelationInput = {
@@ -351,10 +364,12 @@ export type ControlFieiraOrderByWithRelationInput = {
   orderEndDate?: Prisma.SortOrder
   orderCreateDate?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  qtdFieiraNec?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   Fieira?: Prisma.FieiraOrderByWithRelationInput
   ReservationFieira?: Prisma.ReservationFieiraOrderByRelationAggregateInput
+  requisitionControls?: Prisma.RequisitionControlOrderByRelationAggregateInput
 }
 
 export type ControlFieiraWhereUniqueInput = Prisma.AtLeast<{
@@ -374,11 +389,13 @@ export type ControlFieiraWhereUniqueInput = Prisma.AtLeast<{
   orderStartDate?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
   orderEndDate?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
   orderCreateDate?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
-  status?: Prisma.StringFilter<"ControlFieira"> | string
+  status?: Prisma.EnumControlStatusFilter<"ControlFieira"> | $Enums.ControlStatus
+  qtdFieiraNec?: Prisma.IntFilter<"ControlFieira"> | number
   createdAt?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
   Fieira?: Prisma.XOR<Prisma.FieiraScalarRelationFilter, Prisma.FieiraWhereInput>
   ReservationFieira?: Prisma.ReservationFieiraListRelationFilter
+  requisitionControls?: Prisma.RequisitionControlListRelationFilter
 }, "id">
 
 export type ControlFieiraOrderByWithAggregationInput = {
@@ -396,6 +413,7 @@ export type ControlFieiraOrderByWithAggregationInput = {
   orderEndDate?: Prisma.SortOrder
   orderCreateDate?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  qtdFieiraNec?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ControlFieiraCountOrderByAggregateInput
@@ -422,7 +440,8 @@ export type ControlFieiraScalarWhereWithAggregatesInput = {
   orderStartDate?: Prisma.DateTimeWithAggregatesFilter<"ControlFieira"> | Date | string
   orderEndDate?: Prisma.DateTimeWithAggregatesFilter<"ControlFieira"> | Date | string
   orderCreateDate?: Prisma.DateTimeWithAggregatesFilter<"ControlFieira"> | Date | string
-  status?: Prisma.StringWithAggregatesFilter<"ControlFieira"> | string
+  status?: Prisma.EnumControlStatusWithAggregatesFilter<"ControlFieira"> | $Enums.ControlStatus
+  qtdFieiraNec?: Prisma.IntWithAggregatesFilter<"ControlFieira"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ControlFieira"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ControlFieira"> | Date | string
 }
@@ -439,11 +458,13 @@ export type ControlFieiraCreateInput = {
   orderStartDate: Date | string
   orderEndDate: Date | string
   orderCreateDate: Date | string
-  status: string
+  status: $Enums.ControlStatus
+  qtdFieiraNec: number
   createdAt?: Date | string
   updatedAt?: Date | string
   Fieira: Prisma.FieiraCreateNestedOneWithoutControlFieiraInput
   ReservationFieira?: Prisma.ReservationFieiraCreateNestedManyWithoutControlFieiraInput
+  requisitionControls?: Prisma.RequisitionControlCreateNestedManyWithoutControlFieiraInput
 }
 
 export type ControlFieiraUncheckedCreateInput = {
@@ -460,10 +481,12 @@ export type ControlFieiraUncheckedCreateInput = {
   orderStartDate: Date | string
   orderEndDate: Date | string
   orderCreateDate: Date | string
-  status: string
+  status: $Enums.ControlStatus
+  qtdFieiraNec: number
   createdAt?: Date | string
   updatedAt?: Date | string
   ReservationFieira?: Prisma.ReservationFieiraUncheckedCreateNestedManyWithoutControlFieiraInput
+  requisitionControls?: Prisma.RequisitionControlUncheckedCreateNestedManyWithoutControlFieiraInput
 }
 
 export type ControlFieiraUpdateInput = {
@@ -478,11 +501,13 @@ export type ControlFieiraUpdateInput = {
   orderStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderEndDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderCreateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumControlStatusFieldUpdateOperationsInput | $Enums.ControlStatus
+  qtdFieiraNec?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Fieira?: Prisma.FieiraUpdateOneRequiredWithoutControlFieiraNestedInput
   ReservationFieira?: Prisma.ReservationFieiraUpdateManyWithoutControlFieiraNestedInput
+  requisitionControls?: Prisma.RequisitionControlUpdateManyWithoutControlFieiraNestedInput
 }
 
 export type ControlFieiraUncheckedUpdateInput = {
@@ -499,10 +524,12 @@ export type ControlFieiraUncheckedUpdateInput = {
   orderStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderEndDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderCreateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumControlStatusFieldUpdateOperationsInput | $Enums.ControlStatus
+  qtdFieiraNec?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ReservationFieira?: Prisma.ReservationFieiraUncheckedUpdateManyWithoutControlFieiraNestedInput
+  requisitionControls?: Prisma.RequisitionControlUncheckedUpdateManyWithoutControlFieiraNestedInput
 }
 
 export type ControlFieiraCreateManyInput = {
@@ -519,7 +546,8 @@ export type ControlFieiraCreateManyInput = {
   orderStartDate: Date | string
   orderEndDate: Date | string
   orderCreateDate: Date | string
-  status: string
+  status: $Enums.ControlStatus
+  qtdFieiraNec: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -536,7 +564,8 @@ export type ControlFieiraUpdateManyMutationInput = {
   orderStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderEndDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderCreateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumControlStatusFieldUpdateOperationsInput | $Enums.ControlStatus
+  qtdFieiraNec?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -555,7 +584,8 @@ export type ControlFieiraUncheckedUpdateManyInput = {
   orderStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderEndDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderCreateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumControlStatusFieldUpdateOperationsInput | $Enums.ControlStatus
+  qtdFieiraNec?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -585,6 +615,7 @@ export type ControlFieiraCountOrderByAggregateInput = {
   orderEndDate?: Prisma.SortOrder
   orderCreateDate?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  qtdFieiraNec?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -598,6 +629,7 @@ export type ControlFieiraAvgOrderByAggregateInput = {
   width?: Prisma.SortOrder
   thickness?: Prisma.SortOrder
   fieiraId?: Prisma.SortOrder
+  qtdFieiraNec?: Prisma.SortOrder
 }
 
 export type ControlFieiraMaxOrderByAggregateInput = {
@@ -615,6 +647,7 @@ export type ControlFieiraMaxOrderByAggregateInput = {
   orderEndDate?: Prisma.SortOrder
   orderCreateDate?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  qtdFieiraNec?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -634,6 +667,7 @@ export type ControlFieiraMinOrderByAggregateInput = {
   orderEndDate?: Prisma.SortOrder
   orderCreateDate?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  qtdFieiraNec?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -647,6 +681,7 @@ export type ControlFieiraSumOrderByAggregateInput = {
   width?: Prisma.SortOrder
   thickness?: Prisma.SortOrder
   fieiraId?: Prisma.SortOrder
+  qtdFieiraNec?: Prisma.SortOrder
 }
 
 export type ControlFieiraScalarRelationFilter = {
@@ -700,6 +735,24 @@ export type EnumMetalFieldUpdateOperationsInput = {
   set?: $Enums.Metal
 }
 
+export type EnumControlStatusFieldUpdateOperationsInput = {
+  set?: $Enums.ControlStatus
+}
+
+export type ControlFieiraCreateNestedOneWithoutRequisitionControlsInput = {
+  create?: Prisma.XOR<Prisma.ControlFieiraCreateWithoutRequisitionControlsInput, Prisma.ControlFieiraUncheckedCreateWithoutRequisitionControlsInput>
+  connectOrCreate?: Prisma.ControlFieiraCreateOrConnectWithoutRequisitionControlsInput
+  connect?: Prisma.ControlFieiraWhereUniqueInput
+}
+
+export type ControlFieiraUpdateOneRequiredWithoutRequisitionControlsNestedInput = {
+  create?: Prisma.XOR<Prisma.ControlFieiraCreateWithoutRequisitionControlsInput, Prisma.ControlFieiraUncheckedCreateWithoutRequisitionControlsInput>
+  connectOrCreate?: Prisma.ControlFieiraCreateOrConnectWithoutRequisitionControlsInput
+  upsert?: Prisma.ControlFieiraUpsertWithoutRequisitionControlsInput
+  connect?: Prisma.ControlFieiraWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ControlFieiraUpdateToOneWithWhereWithoutRequisitionControlsInput, Prisma.ControlFieiraUpdateWithoutRequisitionControlsInput>, Prisma.ControlFieiraUncheckedUpdateWithoutRequisitionControlsInput>
+}
+
 export type ControlFieiraCreateNestedOneWithoutReservationFieiraInput = {
   create?: Prisma.XOR<Prisma.ControlFieiraCreateWithoutReservationFieiraInput, Prisma.ControlFieiraUncheckedCreateWithoutReservationFieiraInput>
   connectOrCreate?: Prisma.ControlFieiraCreateOrConnectWithoutReservationFieiraInput
@@ -726,10 +779,12 @@ export type ControlFieiraCreateWithoutFieiraInput = {
   orderStartDate: Date | string
   orderEndDate: Date | string
   orderCreateDate: Date | string
-  status: string
+  status: $Enums.ControlStatus
+  qtdFieiraNec: number
   createdAt?: Date | string
   updatedAt?: Date | string
   ReservationFieira?: Prisma.ReservationFieiraCreateNestedManyWithoutControlFieiraInput
+  requisitionControls?: Prisma.RequisitionControlCreateNestedManyWithoutControlFieiraInput
 }
 
 export type ControlFieiraUncheckedCreateWithoutFieiraInput = {
@@ -745,10 +800,12 @@ export type ControlFieiraUncheckedCreateWithoutFieiraInput = {
   orderStartDate: Date | string
   orderEndDate: Date | string
   orderCreateDate: Date | string
-  status: string
+  status: $Enums.ControlStatus
+  qtdFieiraNec: number
   createdAt?: Date | string
   updatedAt?: Date | string
   ReservationFieira?: Prisma.ReservationFieiraUncheckedCreateNestedManyWithoutControlFieiraInput
+  requisitionControls?: Prisma.RequisitionControlUncheckedCreateNestedManyWithoutControlFieiraInput
 }
 
 export type ControlFieiraCreateOrConnectWithoutFieiraInput = {
@@ -794,9 +851,108 @@ export type ControlFieiraScalarWhereInput = {
   orderStartDate?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
   orderEndDate?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
   orderCreateDate?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
-  status?: Prisma.StringFilter<"ControlFieira"> | string
+  status?: Prisma.EnumControlStatusFilter<"ControlFieira"> | $Enums.ControlStatus
+  qtdFieiraNec?: Prisma.IntFilter<"ControlFieira"> | number
   createdAt?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ControlFieira"> | Date | string
+}
+
+export type ControlFieiraCreateWithoutRequisitionControlsInput = {
+  order: number
+  orderQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  material: number
+  wireType: string
+  metal: $Enums.Metal
+  tension: number
+  width: runtime.Decimal | runtime.DecimalJsLike | number | string
+  thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
+  orderStartDate: Date | string
+  orderEndDate: Date | string
+  orderCreateDate: Date | string
+  status: $Enums.ControlStatus
+  qtdFieiraNec: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  Fieira: Prisma.FieiraCreateNestedOneWithoutControlFieiraInput
+  ReservationFieira?: Prisma.ReservationFieiraCreateNestedManyWithoutControlFieiraInput
+}
+
+export type ControlFieiraUncheckedCreateWithoutRequisitionControlsInput = {
+  id?: number
+  order: number
+  orderQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  material: number
+  wireType: string
+  metal: $Enums.Metal
+  tension: number
+  width: runtime.Decimal | runtime.DecimalJsLike | number | string
+  thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
+  fieiraId: number
+  orderStartDate: Date | string
+  orderEndDate: Date | string
+  orderCreateDate: Date | string
+  status: $Enums.ControlStatus
+  qtdFieiraNec: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  ReservationFieira?: Prisma.ReservationFieiraUncheckedCreateNestedManyWithoutControlFieiraInput
+}
+
+export type ControlFieiraCreateOrConnectWithoutRequisitionControlsInput = {
+  where: Prisma.ControlFieiraWhereUniqueInput
+  create: Prisma.XOR<Prisma.ControlFieiraCreateWithoutRequisitionControlsInput, Prisma.ControlFieiraUncheckedCreateWithoutRequisitionControlsInput>
+}
+
+export type ControlFieiraUpsertWithoutRequisitionControlsInput = {
+  update: Prisma.XOR<Prisma.ControlFieiraUpdateWithoutRequisitionControlsInput, Prisma.ControlFieiraUncheckedUpdateWithoutRequisitionControlsInput>
+  create: Prisma.XOR<Prisma.ControlFieiraCreateWithoutRequisitionControlsInput, Prisma.ControlFieiraUncheckedCreateWithoutRequisitionControlsInput>
+  where?: Prisma.ControlFieiraWhereInput
+}
+
+export type ControlFieiraUpdateToOneWithWhereWithoutRequisitionControlsInput = {
+  where?: Prisma.ControlFieiraWhereInput
+  data: Prisma.XOR<Prisma.ControlFieiraUpdateWithoutRequisitionControlsInput, Prisma.ControlFieiraUncheckedUpdateWithoutRequisitionControlsInput>
+}
+
+export type ControlFieiraUpdateWithoutRequisitionControlsInput = {
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  orderQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  material?: Prisma.IntFieldUpdateOperationsInput | number
+  wireType?: Prisma.StringFieldUpdateOperationsInput | string
+  metal?: Prisma.EnumMetalFieldUpdateOperationsInput | $Enums.Metal
+  tension?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  orderStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orderEndDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orderCreateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumControlStatusFieldUpdateOperationsInput | $Enums.ControlStatus
+  qtdFieiraNec?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  Fieira?: Prisma.FieiraUpdateOneRequiredWithoutControlFieiraNestedInput
+  ReservationFieira?: Prisma.ReservationFieiraUpdateManyWithoutControlFieiraNestedInput
+}
+
+export type ControlFieiraUncheckedUpdateWithoutRequisitionControlsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  orderQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  material?: Prisma.IntFieldUpdateOperationsInput | number
+  wireType?: Prisma.StringFieldUpdateOperationsInput | string
+  metal?: Prisma.EnumMetalFieldUpdateOperationsInput | $Enums.Metal
+  tension?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  fieiraId?: Prisma.IntFieldUpdateOperationsInput | number
+  orderStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orderEndDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orderCreateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumControlStatusFieldUpdateOperationsInput | $Enums.ControlStatus
+  qtdFieiraNec?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ReservationFieira?: Prisma.ReservationFieiraUncheckedUpdateManyWithoutControlFieiraNestedInput
 }
 
 export type ControlFieiraCreateWithoutReservationFieiraInput = {
@@ -811,10 +967,12 @@ export type ControlFieiraCreateWithoutReservationFieiraInput = {
   orderStartDate: Date | string
   orderEndDate: Date | string
   orderCreateDate: Date | string
-  status: string
+  status: $Enums.ControlStatus
+  qtdFieiraNec: number
   createdAt?: Date | string
   updatedAt?: Date | string
   Fieira: Prisma.FieiraCreateNestedOneWithoutControlFieiraInput
+  requisitionControls?: Prisma.RequisitionControlCreateNestedManyWithoutControlFieiraInput
 }
 
 export type ControlFieiraUncheckedCreateWithoutReservationFieiraInput = {
@@ -831,9 +989,11 @@ export type ControlFieiraUncheckedCreateWithoutReservationFieiraInput = {
   orderStartDate: Date | string
   orderEndDate: Date | string
   orderCreateDate: Date | string
-  status: string
+  status: $Enums.ControlStatus
+  qtdFieiraNec: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  requisitionControls?: Prisma.RequisitionControlUncheckedCreateNestedManyWithoutControlFieiraInput
 }
 
 export type ControlFieiraCreateOrConnectWithoutReservationFieiraInput = {
@@ -864,10 +1024,12 @@ export type ControlFieiraUpdateWithoutReservationFieiraInput = {
   orderStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderEndDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderCreateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumControlStatusFieldUpdateOperationsInput | $Enums.ControlStatus
+  qtdFieiraNec?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Fieira?: Prisma.FieiraUpdateOneRequiredWithoutControlFieiraNestedInput
+  requisitionControls?: Prisma.RequisitionControlUpdateManyWithoutControlFieiraNestedInput
 }
 
 export type ControlFieiraUncheckedUpdateWithoutReservationFieiraInput = {
@@ -884,9 +1046,11 @@ export type ControlFieiraUncheckedUpdateWithoutReservationFieiraInput = {
   orderStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderEndDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderCreateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumControlStatusFieldUpdateOperationsInput | $Enums.ControlStatus
+  qtdFieiraNec?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  requisitionControls?: Prisma.RequisitionControlUncheckedUpdateManyWithoutControlFieiraNestedInput
 }
 
 export type ControlFieiraCreateManyFieiraInput = {
@@ -902,7 +1066,8 @@ export type ControlFieiraCreateManyFieiraInput = {
   orderStartDate: Date | string
   orderEndDate: Date | string
   orderCreateDate: Date | string
-  status: string
+  status: $Enums.ControlStatus
+  qtdFieiraNec: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -919,10 +1084,12 @@ export type ControlFieiraUpdateWithoutFieiraInput = {
   orderStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderEndDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderCreateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumControlStatusFieldUpdateOperationsInput | $Enums.ControlStatus
+  qtdFieiraNec?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ReservationFieira?: Prisma.ReservationFieiraUpdateManyWithoutControlFieiraNestedInput
+  requisitionControls?: Prisma.RequisitionControlUpdateManyWithoutControlFieiraNestedInput
 }
 
 export type ControlFieiraUncheckedUpdateWithoutFieiraInput = {
@@ -938,10 +1105,12 @@ export type ControlFieiraUncheckedUpdateWithoutFieiraInput = {
   orderStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderEndDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderCreateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumControlStatusFieldUpdateOperationsInput | $Enums.ControlStatus
+  qtdFieiraNec?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ReservationFieira?: Prisma.ReservationFieiraUncheckedUpdateManyWithoutControlFieiraNestedInput
+  requisitionControls?: Prisma.RequisitionControlUncheckedUpdateManyWithoutControlFieiraNestedInput
 }
 
 export type ControlFieiraUncheckedUpdateManyWithoutFieiraInput = {
@@ -957,7 +1126,8 @@ export type ControlFieiraUncheckedUpdateManyWithoutFieiraInput = {
   orderStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderEndDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderCreateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumControlStatusFieldUpdateOperationsInput | $Enums.ControlStatus
+  qtdFieiraNec?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -969,10 +1139,12 @@ export type ControlFieiraUncheckedUpdateManyWithoutFieiraInput = {
 
 export type ControlFieiraCountOutputType = {
   ReservationFieira: number
+  requisitionControls: number
 }
 
 export type ControlFieiraCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ReservationFieira?: boolean | ControlFieiraCountOutputTypeCountReservationFieiraArgs
+  requisitionControls?: boolean | ControlFieiraCountOutputTypeCountRequisitionControlsArgs
 }
 
 /**
@@ -992,6 +1164,13 @@ export type ControlFieiraCountOutputTypeCountReservationFieiraArgs<ExtArgs exten
   where?: Prisma.ReservationFieiraWhereInput
 }
 
+/**
+ * ControlFieiraCountOutputType without action
+ */
+export type ControlFieiraCountOutputTypeCountRequisitionControlsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RequisitionControlWhereInput
+}
+
 
 export type ControlFieiraSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1008,10 +1187,12 @@ export type ControlFieiraSelect<ExtArgs extends runtime.Types.Extensions.Interna
   orderEndDate?: boolean
   orderCreateDate?: boolean
   status?: boolean
+  qtdFieiraNec?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
   ReservationFieira?: boolean | Prisma.ControlFieira$ReservationFieiraArgs<ExtArgs>
+  requisitionControls?: boolean | Prisma.ControlFieira$requisitionControlsArgs<ExtArgs>
   _count?: boolean | Prisma.ControlFieiraCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["controlFieira"]>
 
@@ -1030,6 +1211,7 @@ export type ControlFieiraSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   orderEndDate?: boolean
   orderCreateDate?: boolean
   status?: boolean
+  qtdFieiraNec?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
@@ -1050,6 +1232,7 @@ export type ControlFieiraSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   orderEndDate?: boolean
   orderCreateDate?: boolean
   status?: boolean
+  qtdFieiraNec?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
@@ -1070,14 +1253,16 @@ export type ControlFieiraSelectScalar = {
   orderEndDate?: boolean
   orderCreateDate?: boolean
   status?: boolean
+  qtdFieiraNec?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ControlFieiraOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "order" | "orderQuantity" | "material" | "wireType" | "metal" | "tension" | "width" | "thickness" | "fieiraId" | "orderStartDate" | "orderEndDate" | "orderCreateDate" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["controlFieira"]>
+export type ControlFieiraOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "order" | "orderQuantity" | "material" | "wireType" | "metal" | "tension" | "width" | "thickness" | "fieiraId" | "orderStartDate" | "orderEndDate" | "orderCreateDate" | "status" | "qtdFieiraNec" | "createdAt" | "updatedAt", ExtArgs["result"]["controlFieira"]>
 export type ControlFieiraInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
   ReservationFieira?: boolean | Prisma.ControlFieira$ReservationFieiraArgs<ExtArgs>
+  requisitionControls?: boolean | Prisma.ControlFieira$requisitionControlsArgs<ExtArgs>
   _count?: boolean | Prisma.ControlFieiraCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ControlFieiraIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1092,6 +1277,7 @@ export type $ControlFieiraPayload<ExtArgs extends runtime.Types.Extensions.Inter
   objects: {
     Fieira: Prisma.$FieiraPayload<ExtArgs>
     ReservationFieira: Prisma.$ReservationFieiraPayload<ExtArgs>[]
+    requisitionControls: Prisma.$RequisitionControlPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1107,7 +1293,8 @@ export type $ControlFieiraPayload<ExtArgs extends runtime.Types.Extensions.Inter
     orderStartDate: Date
     orderEndDate: Date
     orderCreateDate: Date
-    status: string
+    status: $Enums.ControlStatus
+    qtdFieiraNec: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["controlFieira"]>
@@ -1506,6 +1693,7 @@ export interface Prisma__ControlFieiraClient<T, Null = never, ExtArgs extends ru
   readonly [Symbol.toStringTag]: "PrismaPromise"
   Fieira<T extends Prisma.FieiraDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FieiraDefaultArgs<ExtArgs>>): Prisma.Prisma__FieiraClient<runtime.Types.Result.GetResult<Prisma.$FieiraPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   ReservationFieira<T extends Prisma.ControlFieira$ReservationFieiraArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ControlFieira$ReservationFieiraArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReservationFieiraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  requisitionControls<T extends Prisma.ControlFieira$requisitionControlsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ControlFieira$requisitionControlsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RequisitionControlPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1548,7 +1736,8 @@ export interface ControlFieiraFieldRefs {
   readonly orderStartDate: Prisma.FieldRef<"ControlFieira", 'DateTime'>
   readonly orderEndDate: Prisma.FieldRef<"ControlFieira", 'DateTime'>
   readonly orderCreateDate: Prisma.FieldRef<"ControlFieira", 'DateTime'>
-  readonly status: Prisma.FieldRef<"ControlFieira", 'String'>
+  readonly status: Prisma.FieldRef<"ControlFieira", 'ControlStatus'>
+  readonly qtdFieiraNec: Prisma.FieldRef<"ControlFieira", 'Int'>
   readonly createdAt: Prisma.FieldRef<"ControlFieira", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"ControlFieira", 'DateTime'>
 }
@@ -1973,6 +2162,30 @@ export type ControlFieira$ReservationFieiraArgs<ExtArgs extends runtime.Types.Ex
   take?: number
   skip?: number
   distinct?: Prisma.ReservationFieiraScalarFieldEnum | Prisma.ReservationFieiraScalarFieldEnum[]
+}
+
+/**
+ * ControlFieira.requisitionControls
+ */
+export type ControlFieira$requisitionControlsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RequisitionControl
+   */
+  select?: Prisma.RequisitionControlSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RequisitionControl
+   */
+  omit?: Prisma.RequisitionControlOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RequisitionControlInclude<ExtArgs> | null
+  where?: Prisma.RequisitionControlWhereInput
+  orderBy?: Prisma.RequisitionControlOrderByWithRelationInput | Prisma.RequisitionControlOrderByWithRelationInput[]
+  cursor?: Prisma.RequisitionControlWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RequisitionControlScalarFieldEnum | Prisma.RequisitionControlScalarFieldEnum[]
 }
 
 /**

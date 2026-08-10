@@ -25,3 +25,14 @@ export const Metal = {
 } as const
 
 export type Metal = (typeof Metal)[keyof typeof Metal]
+
+
+export const ControlStatus = {
+  open: 'open',
+  released_printed: 'released_printed',
+  released_not_printed: 'released_not_printed',
+  completed: 'completed',
+  canceled: 'canceled'
+} as const
+
+export type ControlStatus = (typeof ControlStatus)[keyof typeof ControlStatus]

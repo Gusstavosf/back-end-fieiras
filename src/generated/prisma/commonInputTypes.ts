@@ -165,6 +165,13 @@ export type EnumMetalFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumMetalFilter<$PrismaModel> | $Enums.Metal
 }
 
+export type EnumControlStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ControlStatus | Prisma.EnumControlStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ControlStatus[] | Prisma.ListEnumControlStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ControlStatus[] | Prisma.ListEnumControlStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumControlStatusFilter<$PrismaModel> | $Enums.ControlStatus
+}
+
 export type EnumMetalWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.Metal | Prisma.EnumMetalFieldRefInput<$PrismaModel>
   in?: $Enums.Metal[] | Prisma.ListEnumMetalFieldRefInput<$PrismaModel>
@@ -173,6 +180,16 @@ export type EnumMetalWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumMetalFilter<$PrismaModel>
   _max?: Prisma.NestedEnumMetalFilter<$PrismaModel>
+}
+
+export type EnumControlStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ControlStatus | Prisma.EnumControlStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ControlStatus[] | Prisma.ListEnumControlStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ControlStatus[] | Prisma.ListEnumControlStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumControlStatusWithAggregatesFilter<$PrismaModel> | $Enums.ControlStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumControlStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumControlStatusFilter<$PrismaModel>
 }
 
 export type EnumStatusFieiraFilter<$PrismaModel = never> = {
@@ -385,6 +402,13 @@ export type NestedEnumMetalFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumMetalFilter<$PrismaModel> | $Enums.Metal
 }
 
+export type NestedEnumControlStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ControlStatus | Prisma.EnumControlStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ControlStatus[] | Prisma.ListEnumControlStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ControlStatus[] | Prisma.ListEnumControlStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumControlStatusFilter<$PrismaModel> | $Enums.ControlStatus
+}
+
 export type NestedEnumMetalWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.Metal | Prisma.EnumMetalFieldRefInput<$PrismaModel>
   in?: $Enums.Metal[] | Prisma.ListEnumMetalFieldRefInput<$PrismaModel>
@@ -393,6 +417,16 @@ export type NestedEnumMetalWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumMetalFilter<$PrismaModel>
   _max?: Prisma.NestedEnumMetalFilter<$PrismaModel>
+}
+
+export type NestedEnumControlStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ControlStatus | Prisma.EnumControlStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ControlStatus[] | Prisma.ListEnumControlStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ControlStatus[] | Prisma.ListEnumControlStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumControlStatusWithAggregatesFilter<$PrismaModel> | $Enums.ControlStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumControlStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumControlStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumStatusFieiraFilter<$PrismaModel = never> = {

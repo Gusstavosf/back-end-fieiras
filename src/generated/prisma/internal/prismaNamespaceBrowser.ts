@@ -57,9 +57,10 @@ export const ModelName = {
   StockFieira: 'StockFieira',
   Requisition: 'Requisition',
   RequisitionItem: 'RequisitionItem',
+  RequisitionControl: 'RequisitionControl',
   ReservationFieira: 'ReservationFieira',
   StockFieiraHistory: 'StockFieiraHistory',
-  SupplierStock: 'SupplierStock'
+  SupplierFieiraStock: 'SupplierFieiraStock'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -116,6 +117,7 @@ export const ControlFieiraScalarFieldEnum = {
   orderEndDate: 'orderEndDate',
   orderCreateDate: 'orderCreateDate',
   status: 'status',
+  qtdFieiraNec: 'qtdFieiraNec',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -160,6 +162,15 @@ export const RequisitionItemScalarFieldEnum = {
 export type RequisitionItemScalarFieldEnum = (typeof RequisitionItemScalarFieldEnum)[keyof typeof RequisitionItemScalarFieldEnum]
 
 
+export const RequisitionControlScalarFieldEnum = {
+  id: 'id',
+  requisitionId: 'requisitionId',
+  controlFieiraId: 'controlFieiraId'
+} as const
+
+export type RequisitionControlScalarFieldEnum = (typeof RequisitionControlScalarFieldEnum)[keyof typeof RequisitionControlScalarFieldEnum]
+
+
 export const ReservationFieiraScalarFieldEnum = {
   id: 'id',
   controlId: 'controlId',
@@ -184,7 +195,7 @@ export const StockFieiraHistoryScalarFieldEnum = {
 export type StockFieiraHistoryScalarFieldEnum = (typeof StockFieiraHistoryScalarFieldEnum)[keyof typeof StockFieiraHistoryScalarFieldEnum]
 
 
-export const SupplierStockScalarFieldEnum = {
+export const SupplierFieiraStockScalarFieldEnum = {
   id: 'id',
   thickness: 'thickness',
   width: 'width',
@@ -194,7 +205,7 @@ export const SupplierStockScalarFieldEnum = {
   updatedAt: 'updatedAt'
 } as const
 
-export type SupplierStockScalarFieldEnum = (typeof SupplierStockScalarFieldEnum)[keyof typeof SupplierStockScalarFieldEnum]
+export type SupplierFieiraStockScalarFieldEnum = (typeof SupplierFieiraStockScalarFieldEnum)[keyof typeof SupplierFieiraStockScalarFieldEnum]
 
 
 export const SortOrder = {

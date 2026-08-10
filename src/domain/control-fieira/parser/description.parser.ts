@@ -1,21 +1,20 @@
-import { Metal } from "../entity/control-fieira.js";
+import { Metal, type Tension } from "../entity/control-fieira.js";
 
 type ParsedDescription = {
-    metal: string;
+    metal: Metal;
     wireType: string;
     width: number;
     thickness: number;
-    tension: number;
+    tension: Tension;
 };
 
 type Initial = "FRC" | "FRA" | "CTC" | "CTA" | "CRC" | "CRA";
 type WireType = `${Initial} ${string}`;
-type Tension = 60 | 90 | 120 | 140 | 170 | 220;
 
 export class DescriptionParser {
     private readonly supported = ["FRC", "FRA", "CTC", "CTA", "CRC", "CRA"];
 
-    parse(description: string): ParsedDescription | null {
+    public parse(description: string): ParsedDescription | null {
         const initial = description.split(" ")[0];
 
         if (!this.isSupported(String(initial))) {
@@ -42,7 +41,7 @@ export class DescriptionParser {
         }
     }
 
-    parseCTC(description: string): ParsedDescription {
+    private parseCTC(description: string): ParsedDescription {
         const regex =
             /^(?<material>CTC|CTA).*?(?<width>\d+(?:,\d+)?)X(?<thickness>\d+(?:,\d+)?)\s+(?<tension>\d+)/;
 
@@ -60,7 +59,7 @@ export class DescriptionParser {
         const parsedTension = this.parseTension(Number(tension));
 
         return {
-            metal: parseMetal,
+            metal: parseMetal as Metal,
             wireType: parsedWireType,
             width: parsedDimensions.width,
             thickness: parsedDimensions.thickness,
@@ -68,7 +67,7 @@ export class DescriptionParser {
         };
     }
 
-    parseCRC(description: string): ParsedDescription {
+    private parseCRC(description: string): ParsedDescription {
         const regex =
             /^(?<material>CRC|CRA)\s+\d+(?<coating>P\/E|KFT).*?(?<width>\d+(?:,\d+)?)X(?<thickness>\d+(?:,\d+)?)\s+T\s+(?<tension>\d+)/;
 
@@ -86,7 +85,7 @@ export class DescriptionParser {
         const parsedTension = this.parseTension(Number(tension));
 
         return {
-            metal: parseMetal,
+            metal: parseMetal as Metal,
             wireType: parsedWireType,
             width: parsedDimensions.width,
             thickness: parsedDimensions.thickness,
@@ -94,7 +93,7 @@ export class DescriptionParser {
         };
     }
 
-    parseStandardWire(description: string): ParsedDescription {
+    private parseStandardWire(description: string): ParsedDescription {
         const regex =
             /^(?<material>FRC|FRA)\s+(?<coating>[A-Z0-9]+)(?:\s+T\d+)?(?:\s+\d+(?:,\d+)?%N)?(?:\s+\d+(?:,\d+)?)?\s+(?<width>\d+(?:,\d+)?)X(?<thickness>\d+(?:,\d+)?)\s+(?<process>[TL])\s+(?<tension>\d+)/;
 
@@ -112,7 +111,7 @@ export class DescriptionParser {
         const parsedTension = this.parseTension(Number(tension));
 
         return {
-            metal: parseMetal,
+            metal: parseMetal as Metal,
             wireType: parsedWireType,
             width: parsedDimensions.width,
             thickness: parsedDimensions.thickness,

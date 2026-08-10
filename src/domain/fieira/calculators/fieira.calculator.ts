@@ -1,9 +1,10 @@
+import type { Metal, Tension } from "../../control-fieira/entity/control-fieira.js";
 import { NominalCapacityCalculator } from "./nominal-capacity.calculator.js";
-import { OverMetalCalculator, type Material } from "./over-metal.calculator.js";
+import { OverMetalCalculator } from "./over-metal.calculator.js";
 
 export type FieiraCalculatorInput = {
-    material: Material;
-    tension: 60 | 90 | 120 | 140 | 170 | 220;
+    metal: Metal;
+    tension: Tension;
     width: number;
     thickness: number;
 };
@@ -14,6 +15,11 @@ export type FieiraCalculatorOutput = {
     nominalCapacity: number;
 };
 
+export type RequiredFieiraCalculatorInput = {
+    orderQuantity: number;
+    nominalCapacity: number;
+};
+
 export class FieiraCalculator {
     public static calculate(input: FieiraCalculatorInput): FieiraCalculatorOutput {
         const dimensions = OverMetalCalculator.calculate(input);
@@ -21,7 +27,7 @@ export class FieiraCalculator {
         const nominalCapacity = NominalCapacityCalculator.calculate({
             width: input.width,
             thickness: input.thickness,
-            material: input.material,
+            material: input.metal,
         });
 
         return {
@@ -33,7 +39,7 @@ export class FieiraCalculator {
 }
 
 export class RequiredFieiraCalculator {
-    public static calculate(orderQuantity: number, nominalCapacity: number): number {
-        return Math.ceil(orderQuantity / nominalCapacity);
+    public static calculate(input: RequiredFieiraCalculatorInput): number {
+        return Math.ceil(input.orderQuantity / input.nominalCapacity);
     }
 }

@@ -36,7 +36,7 @@ model Fieira {
 
 model ControlFieira {
   id              Int           @id @default(autoincrement())
-  order           Int
+  order           Int           @unique
   orderQuantity   Decimal       @db.Decimal(10, 3)
   material        Int
   wireType        String
@@ -44,6 +44,8 @@ model ControlFieira {
   tension         Int
   width           Decimal       @db.Decimal(10, 2)
   thickness       Decimal       @db.Decimal(10, 2)
+  fieiraWidth     Decimal       @db.Decimal(10, 2)
+  fieiraThickness Decimal       @db.Decimal(10, 2)
   fieiraId        Int
   orderStartDate  DateTime
   orderEndDate    DateTime

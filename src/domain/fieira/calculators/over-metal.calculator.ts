@@ -1,10 +1,7 @@
-export enum Material {
-    Cu = "Cu",
-    Al = "Al",
-}
+import type { Metal } from "../../control-fieira/entity/control-fieira.js";
 
 export type OverMetalInput = {
-    material: Material;
+    metal: Metal;
     tension: 60 | 90 | 120 | 140 | 170 | 220;
     width: number;
     thickness: number;
@@ -19,7 +16,7 @@ export type OverMetalOutput = {
 
 export class OverMetalCalculator {
     public static calculate({
-        material,
+        metal,
         tension,
         width,
         thickness,
@@ -27,8 +24,8 @@ export class OverMetalCalculator {
         let overmetalWidth = 0;
         let overmetalThickness = 0;
 
-        switch (material) {
-            case Material.Cu:
+        switch (metal) {
+            case Metal.Cu:
                 switch (tension) {
                     case 60:
                         overmetalWidth = 0.02;
@@ -87,7 +84,7 @@ export class OverMetalCalculator {
                 }
                 break;
 
-            case Material.Al:
+            case Metal.Al:
                 overmetalWidth = Number(
                     (0.0035 * width - 0.0035 * thickness + 0.02).toFixed(2),
                 );
