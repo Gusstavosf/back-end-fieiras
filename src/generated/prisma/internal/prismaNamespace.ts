@@ -1207,6 +1207,7 @@ export const FieiraScalarFieldEnum = {
   cabinetId: 'cabinetId',
   width: 'width',
   thickness: 'thickness',
+  tension: 'tension',
   nominalFieiraCapacity: 'nominalFieiraCapacity',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1287,7 +1288,10 @@ export type RequisitionControlScalarFieldEnum = (typeof RequisitionControlScalar
 export const ReservationFieiraScalarFieldEnum = {
   id: 'id',
   controlId: 'controlId',
-  fieiraId: 'fieiraId'
+  stockFieiraId: 'stockFieiraId',
+  quantity: 'quantity',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type ReservationFieiraScalarFieldEnum = (typeof ReservationFieiraScalarFieldEnum)[keyof typeof ReservationFieiraScalarFieldEnum]

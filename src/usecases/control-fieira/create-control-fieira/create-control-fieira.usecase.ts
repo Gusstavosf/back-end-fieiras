@@ -13,6 +13,7 @@ import type { Usecase } from "../../usecase.js";
 import { DescriptionParser } from "../../../domain/control-fieira/parser/description.parser.js";
 import { StatusParser } from "../../../domain/control-fieira/parser/status.parser.js";
 import type { FieiraGateway } from "../../../domain/fieira/gateway/fieira.gateway.js";
+import { Fieira } from "../../../domain/fieira/entity/fieira.js";
 
 export type CreateControlFieiraInputDto = {
     order: number;
@@ -36,8 +37,6 @@ export type CreateControlFieiraOutputDto = {
     tension: Tension;
     width: number;
     thickness: number;
-    fieiraWidth: number;
-    fieiraThickness: number;
     orderStartDate: Date;
     orderEndDate: Date;
     orderCreateDate: Date;
@@ -110,10 +109,29 @@ export class CreateControlFieiraUseCase implements Usecase<
         const fieiraExisting = await this.fieiraGateway.findByDimensions(
             fieira.fieiraWidth,
             fieira.fieiraThickness,
+            parsedDescription.tension,
         );
 
+        let fieiraId: number;
+
+        if (fieiraExisting) {
+            fieiraId = fieiraExisting.id;
+        } else {
+            const newFieira = Fieira.create(
+                null,
+                fieira.fieiraWidth,
+                fieira.fieiraThickness,
+                parsedDescription.tension,
+                fieira.nominalCapacity,
+            );
+
+            const savedFieira = await this.fieiraGateway.save(newFieira);
+
+            fieiraId = savedFieira.id;
+        }
+
         const controlFieira = ControlFieira.create({
-            fieiraId: fieiraExisting?.id ?? null,
+            fieiraId: fieiraId,
             order: input.order,
             material: input.material,
             orderQuantity: input.orderQuantity,
@@ -122,8 +140,6 @@ export class CreateControlFieiraUseCase implements Usecase<
             tension: parsedDescription.tension,
             width: parsedDescription.width,
             thickness: parsedDescription.thickness,
-            fieiraWidth: fieira.fieiraWidth,
-            fieiraThickness: fieira.fieiraThickness,
             orderStartDate: input.orderStartDate,
             orderEndDate: input.orderEndDate,
             orderCreateDate: input.orderCreatedDate,
@@ -150,8 +166,6 @@ export class CreateControlFieiraUseCase implements Usecase<
             tension: controlFieira.tension,
             width: controlFieira.width,
             thickness: controlFieira.thickness,
-            fieiraWidth: controlFieira.fieiraWidth,
-            fieiraThickness: controlFieira.fieiraThickness,
             orderStartDate: controlFieira.orderStartDate,
             orderEndDate: controlFieira.orderEndDate,
             orderCreateDate: controlFieira.orderCreateDate,

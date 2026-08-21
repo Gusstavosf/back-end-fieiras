@@ -1,5 +1,5 @@
 import request from "supertest";
-import { app } from "../../../../../../app.js";
+import { app } from "../../../../../../main/app.js";
 
 describe("FIND-BY-ID /stock/:id", () => {
     it("should list stock successfully", async () => {

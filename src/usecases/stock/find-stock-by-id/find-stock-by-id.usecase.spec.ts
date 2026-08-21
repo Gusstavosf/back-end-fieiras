@@ -14,7 +14,7 @@ describe("FindStockByIdUseCase.execute()", () => {
             save: jest.fn(),
             update: jest.fn(),
             saveHistory: jest.fn(),
-            detele: jest.fn(),
+            delete: jest.fn(),
         };
 
         const stock = Stock.restore({
@@ -63,7 +63,7 @@ describe("FindStockByIdUseCase.execute()", () => {
             save: jest.fn(),
             update: jest.fn(),
             saveHistory: jest.fn(),
-            detele: jest.fn(),
+            delete: jest.fn(),
         };
 
         const useCase = FindStockByIdUseCase.create(stockGateway);

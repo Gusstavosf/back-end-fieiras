@@ -29,31 +29,42 @@ export type AggregateReservationFieira = {
 export type ReservationFieiraAvgAggregateOutputType = {
   id: number | null
   controlId: number | null
-  fieiraId: number | null
+  stockFieiraId: number | null
+  quantity: runtime.Decimal | null
 }
 
 export type ReservationFieiraSumAggregateOutputType = {
   id: number | null
   controlId: number | null
-  fieiraId: number | null
+  stockFieiraId: number | null
+  quantity: runtime.Decimal | null
 }
 
 export type ReservationFieiraMinAggregateOutputType = {
   id: number | null
   controlId: number | null
-  fieiraId: number | null
+  stockFieiraId: number | null
+  quantity: runtime.Decimal | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ReservationFieiraMaxAggregateOutputType = {
   id: number | null
   controlId: number | null
-  fieiraId: number | null
+  stockFieiraId: number | null
+  quantity: runtime.Decimal | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ReservationFieiraCountAggregateOutputType = {
   id: number
   controlId: number
-  fieiraId: number
+  stockFieiraId: number
+  quantity: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -61,31 +72,42 @@ export type ReservationFieiraCountAggregateOutputType = {
 export type ReservationFieiraAvgAggregateInputType = {
   id?: true
   controlId?: true
-  fieiraId?: true
+  stockFieiraId?: true
+  quantity?: true
 }
 
 export type ReservationFieiraSumAggregateInputType = {
   id?: true
   controlId?: true
-  fieiraId?: true
+  stockFieiraId?: true
+  quantity?: true
 }
 
 export type ReservationFieiraMinAggregateInputType = {
   id?: true
   controlId?: true
-  fieiraId?: true
+  stockFieiraId?: true
+  quantity?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type ReservationFieiraMaxAggregateInputType = {
   id?: true
   controlId?: true
-  fieiraId?: true
+  stockFieiraId?: true
+  quantity?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type ReservationFieiraCountAggregateInputType = {
   id?: true
   controlId?: true
-  fieiraId?: true
+  stockFieiraId?: true
+  quantity?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -178,7 +200,10 @@ export type ReservationFieiraGroupByArgs<ExtArgs extends runtime.Types.Extension
 export type ReservationFieiraGroupByOutputType = {
   id: number
   controlId: number
-  fieiraId: number
+  stockFieiraId: number
+  quantity: runtime.Decimal
+  createdAt: Date
+  updatedAt: Date
   _count: ReservationFieiraCountAggregateOutputType | null
   _avg: ReservationFieiraAvgAggregateOutputType | null
   _sum: ReservationFieiraSumAggregateOutputType | null
@@ -207,7 +232,10 @@ export type ReservationFieiraWhereInput = {
   NOT?: Prisma.ReservationFieiraWhereInput | Prisma.ReservationFieiraWhereInput[]
   id?: Prisma.IntFilter<"ReservationFieira"> | number
   controlId?: Prisma.IntFilter<"ReservationFieira"> | number
-  fieiraId?: Prisma.IntFilter<"ReservationFieira"> | number
+  stockFieiraId?: Prisma.IntFilter<"ReservationFieira"> | number
+  quantity?: Prisma.DecimalFilter<"ReservationFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFilter<"ReservationFieira"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"ReservationFieira"> | Date | string
   StockFieira?: Prisma.XOR<Prisma.StockFieiraScalarRelationFilter, Prisma.StockFieiraWhereInput>
   ControlFieira?: Prisma.XOR<Prisma.ControlFieiraScalarRelationFilter, Prisma.ControlFieiraWhereInput>
 }
@@ -215,27 +243,36 @@ export type ReservationFieiraWhereInput = {
 export type ReservationFieiraOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   controlId?: Prisma.SortOrder
-  fieiraId?: Prisma.SortOrder
+  stockFieiraId?: Prisma.SortOrder
+  quantity?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   StockFieira?: Prisma.StockFieiraOrderByWithRelationInput
   ControlFieira?: Prisma.ControlFieiraOrderByWithRelationInput
 }
 
 export type ReservationFieiraWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  controlId_fieiraId?: Prisma.ReservationFieiraControlIdFieiraIdCompoundUniqueInput
+  controlId_stockFieiraId?: Prisma.ReservationFieiraControlIdStockFieiraIdCompoundUniqueInput
   AND?: Prisma.ReservationFieiraWhereInput | Prisma.ReservationFieiraWhereInput[]
   OR?: Prisma.ReservationFieiraWhereInput[]
   NOT?: Prisma.ReservationFieiraWhereInput | Prisma.ReservationFieiraWhereInput[]
   controlId?: Prisma.IntFilter<"ReservationFieira"> | number
-  fieiraId?: Prisma.IntFilter<"ReservationFieira"> | number
+  stockFieiraId?: Prisma.IntFilter<"ReservationFieira"> | number
+  quantity?: Prisma.DecimalFilter<"ReservationFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFilter<"ReservationFieira"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"ReservationFieira"> | Date | string
   StockFieira?: Prisma.XOR<Prisma.StockFieiraScalarRelationFilter, Prisma.StockFieiraWhereInput>
   ControlFieira?: Prisma.XOR<Prisma.ControlFieiraScalarRelationFilter, Prisma.ControlFieiraWhereInput>
-}, "id" | "controlId_fieiraId">
+}, "id" | "controlId_stockFieiraId">
 
 export type ReservationFieiraOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   controlId?: Prisma.SortOrder
-  fieiraId?: Prisma.SortOrder
+  stockFieiraId?: Prisma.SortOrder
+  quantity?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.ReservationFieiraCountOrderByAggregateInput
   _avg?: Prisma.ReservationFieiraAvgOrderByAggregateInput
   _max?: Prisma.ReservationFieiraMaxOrderByAggregateInput
@@ -249,10 +286,16 @@ export type ReservationFieiraScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ReservationFieiraScalarWhereWithAggregatesInput | Prisma.ReservationFieiraScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"ReservationFieira"> | number
   controlId?: Prisma.IntWithAggregatesFilter<"ReservationFieira"> | number
-  fieiraId?: Prisma.IntWithAggregatesFilter<"ReservationFieira"> | number
+  stockFieiraId?: Prisma.IntWithAggregatesFilter<"ReservationFieira"> | number
+  quantity?: Prisma.DecimalWithAggregatesFilter<"ReservationFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"ReservationFieira"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ReservationFieira"> | Date | string
 }
 
 export type ReservationFieiraCreateInput = {
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   StockFieira: Prisma.StockFieiraCreateNestedOneWithoutReservationFieiraInput
   ControlFieira: Prisma.ControlFieiraCreateNestedOneWithoutReservationFieiraInput
 }
@@ -260,10 +303,16 @@ export type ReservationFieiraCreateInput = {
 export type ReservationFieiraUncheckedCreateInput = {
   id?: number
   controlId: number
-  fieiraId: number
+  stockFieiraId: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ReservationFieiraUpdateInput = {
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   StockFieira?: Prisma.StockFieiraUpdateOneRequiredWithoutReservationFieiraNestedInput
   ControlFieira?: Prisma.ControlFieiraUpdateOneRequiredWithoutReservationFieiraNestedInput
 }
@@ -271,23 +320,34 @@ export type ReservationFieiraUpdateInput = {
 export type ReservationFieiraUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   controlId?: Prisma.IntFieldUpdateOperationsInput | number
-  fieiraId?: Prisma.IntFieldUpdateOperationsInput | number
+  stockFieiraId?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReservationFieiraCreateManyInput = {
   id?: number
   controlId: number
-  fieiraId: number
+  stockFieiraId: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ReservationFieiraUpdateManyMutationInput = {
-
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReservationFieiraUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   controlId?: Prisma.IntFieldUpdateOperationsInput | number
-  fieiraId?: Prisma.IntFieldUpdateOperationsInput | number
+  stockFieiraId?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReservationFieiraListRelationFilter = {
@@ -300,39 +360,50 @@ export type ReservationFieiraOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type ReservationFieiraControlIdFieiraIdCompoundUniqueInput = {
+export type ReservationFieiraControlIdStockFieiraIdCompoundUniqueInput = {
   controlId: number
-  fieiraId: number
+  stockFieiraId: number
 }
 
 export type ReservationFieiraCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   controlId?: Prisma.SortOrder
-  fieiraId?: Prisma.SortOrder
+  stockFieiraId?: Prisma.SortOrder
+  quantity?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ReservationFieiraAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   controlId?: Prisma.SortOrder
-  fieiraId?: Prisma.SortOrder
+  stockFieiraId?: Prisma.SortOrder
+  quantity?: Prisma.SortOrder
 }
 
 export type ReservationFieiraMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   controlId?: Prisma.SortOrder
-  fieiraId?: Prisma.SortOrder
+  stockFieiraId?: Prisma.SortOrder
+  quantity?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ReservationFieiraMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   controlId?: Prisma.SortOrder
-  fieiraId?: Prisma.SortOrder
+  stockFieiraId?: Prisma.SortOrder
+  quantity?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ReservationFieiraSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   controlId?: Prisma.SortOrder
-  fieiraId?: Prisma.SortOrder
+  stockFieiraId?: Prisma.SortOrder
+  quantity?: Prisma.SortOrder
 }
 
 export type ReservationFieiraCreateNestedManyWithoutControlFieiraInput = {
@@ -420,12 +491,18 @@ export type ReservationFieiraUncheckedUpdateManyWithoutStockFieiraNestedInput = 
 }
 
 export type ReservationFieiraCreateWithoutControlFieiraInput = {
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   StockFieira: Prisma.StockFieiraCreateNestedOneWithoutReservationFieiraInput
 }
 
 export type ReservationFieiraUncheckedCreateWithoutControlFieiraInput = {
   id?: number
-  fieiraId: number
+  stockFieiraId: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ReservationFieiraCreateOrConnectWithoutControlFieiraInput = {
@@ -460,16 +537,25 @@ export type ReservationFieiraScalarWhereInput = {
   NOT?: Prisma.ReservationFieiraScalarWhereInput | Prisma.ReservationFieiraScalarWhereInput[]
   id?: Prisma.IntFilter<"ReservationFieira"> | number
   controlId?: Prisma.IntFilter<"ReservationFieira"> | number
-  fieiraId?: Prisma.IntFilter<"ReservationFieira"> | number
+  stockFieiraId?: Prisma.IntFilter<"ReservationFieira"> | number
+  quantity?: Prisma.DecimalFilter<"ReservationFieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFilter<"ReservationFieira"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"ReservationFieira"> | Date | string
 }
 
 export type ReservationFieiraCreateWithoutStockFieiraInput = {
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   ControlFieira: Prisma.ControlFieiraCreateNestedOneWithoutReservationFieiraInput
 }
 
 export type ReservationFieiraUncheckedCreateWithoutStockFieiraInput = {
   id?: number
   controlId: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ReservationFieiraCreateOrConnectWithoutStockFieiraInput = {
@@ -500,40 +586,64 @@ export type ReservationFieiraUpdateManyWithWhereWithoutStockFieiraInput = {
 
 export type ReservationFieiraCreateManyControlFieiraInput = {
   id?: number
-  fieiraId: number
+  stockFieiraId: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ReservationFieiraUpdateWithoutControlFieiraInput = {
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   StockFieira?: Prisma.StockFieiraUpdateOneRequiredWithoutReservationFieiraNestedInput
 }
 
 export type ReservationFieiraUncheckedUpdateWithoutControlFieiraInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  fieiraId?: Prisma.IntFieldUpdateOperationsInput | number
+  stockFieiraId?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReservationFieiraUncheckedUpdateManyWithoutControlFieiraInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  fieiraId?: Prisma.IntFieldUpdateOperationsInput | number
+  stockFieiraId?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReservationFieiraCreateManyStockFieiraInput = {
   id?: number
   controlId: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ReservationFieiraUpdateWithoutStockFieiraInput = {
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ControlFieira?: Prisma.ControlFieiraUpdateOneRequiredWithoutReservationFieiraNestedInput
 }
 
 export type ReservationFieiraUncheckedUpdateWithoutStockFieiraInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   controlId?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReservationFieiraUncheckedUpdateManyWithoutStockFieiraInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   controlId?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -541,7 +651,10 @@ export type ReservationFieiraUncheckedUpdateManyWithoutStockFieiraInput = {
 export type ReservationFieiraSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   controlId?: boolean
-  fieiraId?: boolean
+  stockFieiraId?: boolean
+  quantity?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   StockFieira?: boolean | Prisma.StockFieiraDefaultArgs<ExtArgs>
   ControlFieira?: boolean | Prisma.ControlFieiraDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["reservationFieira"]>
@@ -549,7 +662,10 @@ export type ReservationFieiraSelect<ExtArgs extends runtime.Types.Extensions.Int
 export type ReservationFieiraSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   controlId?: boolean
-  fieiraId?: boolean
+  stockFieiraId?: boolean
+  quantity?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   StockFieira?: boolean | Prisma.StockFieiraDefaultArgs<ExtArgs>
   ControlFieira?: boolean | Prisma.ControlFieiraDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["reservationFieira"]>
@@ -557,7 +673,10 @@ export type ReservationFieiraSelectCreateManyAndReturn<ExtArgs extends runtime.T
 export type ReservationFieiraSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   controlId?: boolean
-  fieiraId?: boolean
+  stockFieiraId?: boolean
+  quantity?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   StockFieira?: boolean | Prisma.StockFieiraDefaultArgs<ExtArgs>
   ControlFieira?: boolean | Prisma.ControlFieiraDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["reservationFieira"]>
@@ -565,10 +684,13 @@ export type ReservationFieiraSelectUpdateManyAndReturn<ExtArgs extends runtime.T
 export type ReservationFieiraSelectScalar = {
   id?: boolean
   controlId?: boolean
-  fieiraId?: boolean
+  stockFieiraId?: boolean
+  quantity?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type ReservationFieiraOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "controlId" | "fieiraId", ExtArgs["result"]["reservationFieira"]>
+export type ReservationFieiraOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "controlId" | "stockFieiraId" | "quantity" | "createdAt" | "updatedAt", ExtArgs["result"]["reservationFieira"]>
 export type ReservationFieiraInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   StockFieira?: boolean | Prisma.StockFieiraDefaultArgs<ExtArgs>
   ControlFieira?: boolean | Prisma.ControlFieiraDefaultArgs<ExtArgs>
@@ -591,7 +713,10 @@ export type $ReservationFieiraPayload<ExtArgs extends runtime.Types.Extensions.I
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     controlId: number
-    fieiraId: number
+    stockFieiraId: number
+    quantity: runtime.Decimal
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["reservationFieira"]>
   composites: {}
 }
@@ -1019,7 +1144,10 @@ export interface Prisma__ReservationFieiraClient<T, Null = never, ExtArgs extend
 export interface ReservationFieiraFieldRefs {
   readonly id: Prisma.FieldRef<"ReservationFieira", 'Int'>
   readonly controlId: Prisma.FieldRef<"ReservationFieira", 'Int'>
-  readonly fieiraId: Prisma.FieldRef<"ReservationFieira", 'Int'>
+  readonly stockFieiraId: Prisma.FieldRef<"ReservationFieira", 'Int'>
+  readonly quantity: Prisma.FieldRef<"ReservationFieira", 'Decimal'>
+  readonly createdAt: Prisma.FieldRef<"ReservationFieira", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"ReservationFieira", 'DateTime'>
 }
     
 

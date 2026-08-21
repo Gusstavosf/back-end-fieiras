@@ -18,6 +18,7 @@ export class FieiraRepositoryPrisma implements FieiraGateway {
             cabinetId: fieira.cabinetId,
             width: Number(fieira.width),
             thickness: Number(fieira.thickness),
+            tension: Number(fieira.tension),
             nominalFieiraCapacity: fieira.nominalFieiraCapacity,
             createdAt: fieira.createdAt,
             updatedAt: fieira.updatedAt,
@@ -29,16 +30,19 @@ export class FieiraRepositoryPrisma implements FieiraGateway {
             cabinetId: fieira.cabinetId,
             width: fieira.width,
             thickness: fieira.thickness,
+            tension: fieira.tension,
             nominalFieiraCapacity: fieira.nominalFieiraCapacity,
             createdAt: fieira.createdAt,
             updatedAt: fieira.updatedAt,
         };
     }
 
-    public async save(fieira: Fieira): Promise<void> {
-        await this.prismaClient.fieira.create({
+    public async save(fieira: Fieira): Promise<Fieira> {
+        const savedFieira = await this.prismaClient.fieira.create({
             data: this.toPersistence(fieira),
         });
+
+        return this.toEntity(savedFieira);
     }
 
     public async list(): Promise<Fieira[]> {
@@ -65,15 +69,45 @@ export class FieiraRepositoryPrisma implements FieiraGateway {
         return this.toEntity(fieira);
     }
 
+    public async findById(id: number): Promise<Fieira | null> {
+        const fieira = await this.prismaClient.fieira.findUnique({
+            where: {
+                id,
+            },
+        });
+
+        if (!fieira) {
+            return null;
+        }
+
+        return this.toEntity(fieira);
+    }
+
+    public async findByCabinetId(cabinetId: number): Promise<Fieira | null> {
+        const fieira = await this.prismaClient.fieira.findUnique({
+            where: {
+                cabinetId,
+            },
+        });
+
+        if (!fieira) {
+            return null;
+        }
+
+        return this.toEntity(fieira);
+    }
+
     public async findByDimensions(
         width: number,
         thickness: number,
+        tension: number,
     ): Promise<Fieira | null> {
         const fieira = await this.prismaClient.fieira.findUnique({
             where: {
-                width_thickness: {
+                width_thickness_tension: {
                     width,
                     thickness,
+                    tension,
                 },
             },
         });

@@ -27,7 +27,7 @@ export class FieiraCalculator {
         const nominalCapacity = NominalCapacityCalculator.calculate({
             width: input.width,
             thickness: input.thickness,
-            material: input.metal,
+            metal: input.metal,
         });
 
         return {

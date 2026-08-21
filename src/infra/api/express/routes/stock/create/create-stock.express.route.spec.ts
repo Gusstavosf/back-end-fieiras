@@ -1,5 +1,5 @@
 import request from "supertest";
-import { app } from "../../../../../../app.js";
+import { app } from "../../../../../../main/app.js";
 
 describe("POST /stock", () => {
     it.only("should create stock successfully", async () => {

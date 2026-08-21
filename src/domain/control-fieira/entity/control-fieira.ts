@@ -8,8 +8,6 @@ export type ControlFieiraProps = {
     tension: number;
     width: number;
     thickness: number;
-    fieiraWidth: number;
-    fieiraThickness: number;
     orderStartDate: Date;
     orderEndDate: Date;
     orderCreateDate: Date;
@@ -37,7 +35,7 @@ export enum ControlStatus {
 export class ControlFieira {
     private constructor(
         private readonly props: ControlFieiraProps,
-        private readonly _id?: number | undefined,
+        private readonly _id?: number,
     ) {}
 
     public static create(props: ControlFieiraProps) {
@@ -82,14 +80,6 @@ export class ControlFieira {
 
     public get thickness(): number {
         return this.props.thickness;
-    }
-
-    public get fieiraWidth(): number {
-        return this.props.fieiraWidth;
-    }
-
-    public get fieiraThickness(): number {
-        return this.props.fieiraThickness;
     }
 
     public get orderStartDate(): Date {

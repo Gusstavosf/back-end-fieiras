@@ -182,4 +182,24 @@ export class StockReposistoryPrisma implements StockGateway {
 
         return cabinetList;
     }
+
+    public async findProductionByStatus(fieiraId: number): Promise<number[] | null> {
+        const stockFieiras = await this.prismaClient.stockFieira.findMany({
+            where: {
+                fieiraId,
+                status: {
+                    in: [StatusFieira.dead, StatusFieira.polished],
+                },
+            },
+            select: {
+                production: true,
+            },
+        });
+
+        if (!stockFieiras) {
+            return null;
+        }
+
+        return stockFieiras.map((stockFieira) => stockFieira.production);
+    }
 }

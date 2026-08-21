@@ -1,5 +1,5 @@
 import request from "supertest";
-import { app } from "../../../../../../app.js";
+import { app } from "../../../../../../main/app.js";
 
 describe("UPDATE /stock", () => {
     it("should update stock to New successfully", async () => {

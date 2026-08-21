@@ -1,5 +1,5 @@
 import request from "supertest";
-import { app } from "../../../../../../app.js";
+import { app } from "../../../../../../main/app.js";
 
 describe("DELETE /stock/:id", () => {
     it.only("should delete stock successfully", async () => {

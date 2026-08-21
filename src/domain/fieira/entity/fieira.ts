@@ -3,6 +3,7 @@ export type FieiraProps = {
     cabinetId: number | null;
     width: number;
     thickness: number;
+    tension: number;
     nominalFieiraCapacity: number;
     createdAt: Date;
     updatedAt: Date;
@@ -11,13 +12,20 @@ export type FieiraProps = {
 export class Fieira {
     private constructor(private readonly props: FieiraProps) {}
 
-    public static create(cabinetId: number, width: number, thickness: number) {
+    public static create(
+        cabinetId: number | null,
+        width: number,
+        thickness: number,
+        tension: number,
+        nominalFieiraCapacity: number,
+    ) {
         return new Fieira({
             id: 0,
             cabinetId,
             width,
             thickness,
-            nominalFieiraCapacity: 0,
+            tension,
+            nominalFieiraCapacity,
             createdAt: new Date(),
             updatedAt: new Date(),
         });
@@ -25,6 +33,16 @@ export class Fieira {
 
     public static restore(props: FieiraProps) {
         return new Fieira(props);
+    }
+
+    public attachCabinet(cabinetId: number): void {
+        this.props.cabinetId = cabinetId;
+        this.props.updatedAt = new Date();
+    }
+
+    public removeCabinet(): void {
+        this.props.cabinetId = null;
+        this.props.updatedAt = new Date();
     }
 
     public get id(): number {
@@ -41,6 +59,10 @@ export class Fieira {
 
     public get thickness(): number {
         return this.props.thickness;
+    }
+
+    public get tension(): number {
+        return this.props.tension;
     }
 
     public get nominalFieiraCapacity(): number {

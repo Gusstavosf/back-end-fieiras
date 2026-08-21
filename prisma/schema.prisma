@@ -21,6 +21,7 @@ model Fieira {
   cabinetId             Int?     @unique
   width                 Decimal  @db.Decimal(10, 2)
   thickness             Decimal  @db.Decimal(10, 2)
+  tension               Int
   nominalFieiraCapacity Int
   createdAt             DateTime @default(now())
   updatedAt             DateTime @default(now())
@@ -31,7 +32,7 @@ model Fieira {
   StockFieira   StockFieira[]
   Requisitions  Requisition[]
 
-  @@unique([width, thickness])
+  @@unique([width, thickness, tension])
 }
 
 model ControlFieira {
@@ -44,9 +45,7 @@ model ControlFieira {
   tension         Int
   width           Decimal       @db.Decimal(10, 2)
   thickness       Decimal       @db.Decimal(10, 2)
-  fieiraWidth     Decimal       @db.Decimal(10, 2)
-  fieiraThickness Decimal       @db.Decimal(10, 2)
-  fieiraId        Int
+  fieiraId        Int?
   orderStartDate  DateTime
   orderEndDate    DateTime
   orderCreateDate DateTime
@@ -56,7 +55,7 @@ model ControlFieira {
   updatedAt       DateTime      @default(now())
 
   // Relations
-  Fieira              Fieira               @relation(fields: [fieiraId], references: [id])
+  Fieira              Fieira?              @relation(fields: [fieiraId], references: [id])
   ReservationFieira   ReservationFieira[]
   requisitionControls RequisitionControl[]
 }
@@ -120,15 +119,17 @@ model RequisitionControl {
 }
 
 model ReservationFieira {
-  id        Int @id @default(autoincrement())
-  controlId Int
-  fieiraId  Int
+  id            Int      @id @default(autoincrement())
+  controlId     Int
+  stockFieiraId Int
+  quantity      Decimal  @db.Decimal(10, 3)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now()) @updatedAt
 
-  // Relations
-  StockFieira   StockFieira   @relation(fields: [fieiraId], references: [id])
+  StockFieira   StockFieira   @relation(fields: [stockFieiraId], references: [id])
   ControlFieira ControlFieira @relation(fields: [controlId], references: [id])
 
-  @@unique([controlId, fieiraId])
+  @@unique([controlId, stockFieiraId])
 }
 
 model StockFieiraHistory {

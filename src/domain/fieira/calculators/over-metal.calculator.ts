@@ -1,4 +1,4 @@
-import type { Metal } from "../../control-fieira/entity/control-fieira.js";
+import { Metal } from "../../control-fieira/entity/control-fieira.js";
 
 export type OverMetalInput = {
     metal: Metal;

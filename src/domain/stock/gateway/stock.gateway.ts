@@ -26,6 +26,7 @@ export interface StockGateway {
     findIdCabinetByName(cabinet: string): Promise<number | null>;
     findEmptyCabinet(): Promise<Cabinet | null>;
     findReusableCabinets(): Promise<Cabinet[]>;
+    findProductionByStatus(fieiraId: number): Promise<number[] | null>;
     update(stock: Stock): Promise<void>;
     saveHistory(history: StockHistoryInput): Promise<void>;
     delete(id: number): Promise<void>;
