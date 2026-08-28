@@ -5,4 +5,5 @@ export interface ReservationFieiraGateway {
     findByControlFieira(controlFieiraId: number): Promise<ReservationFieira[]>;
     findByStockFieira(stockFieiraId: number): Promise<ReservationFieira[]>;
     delete(controlFieiraId: number, stockFieiraId: number): Promise<void>;
+    indByControlFieira(controlFieiraId: number): Promise<ReservationFieira[]>;
 }

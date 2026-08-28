@@ -108,6 +108,7 @@ export class ControlFieiraRepositoryPrisma implements ControlFieiraGateway {
     public async listPendingFieiras(): Promise<ControlFieira[]> {
         const controlFieiraPeinding = await this.prismaClient.controlFieira.findMany({
             where: {
+                status: ControlStatus.ReleasedPrinted,
                 fieiraId: {
                     not: null,
                 },

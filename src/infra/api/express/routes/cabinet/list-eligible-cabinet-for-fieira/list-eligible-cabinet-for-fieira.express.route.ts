@@ -9,10 +9,10 @@ import type { Request, Response } from "express";
 export type ListEligibleCabinetForFieiraResponseDto = {
     eligibleCabinets: {
         cabinetName: string;
-        dimension: string;
-        tension: number;
+        dimension: string | null;
+        tension: number | null;
         qtdFieiraStock: number;
-        lastModification: Date;
+        lastModification: Date | null;
     }[];
 };
 

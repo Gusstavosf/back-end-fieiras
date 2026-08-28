@@ -33,6 +33,10 @@ export class DeleteCabinetUseCase implements Usecase<
 
         const cabinet = await this.cabinetGateway.delete(input.name);
 
+        if (!cabinet) {
+            throw new NotFound(`O armário ${cabinet} não foi encontrado`);
+        }
+
         const output = this.presentOutput(cabinet);
 
         return output;

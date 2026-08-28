@@ -9,10 +9,10 @@ export type ListEligibleCabinetForFieiraInputDto = void;
 export type ListEligibleCabinetForFieiraOutputDto = {
     eligibleCabinets: {
         cabinetName: string;
-        dimension: string;
-        tension: number;
+        dimension: string | null;
+        tension: number | null;
         qtdFieiraStock: number;
-        lastModification: Date;
+        lastModification: Date | null;
     }[];
 };
 
@@ -28,6 +28,10 @@ export class ListEligibleCabinetForFieiraUseCase implements Usecase<
 
     private sortEligibleCabinets(cabinets: EligibleCabinet[]): EligibleCabinet[] {
         return [...cabinets].sort((a, b) => {
+            if (a.hasFieira !== b.hasFieira) {
+                return a.hasFieira ? 1 : -1;
+            }
+
             if (a.allFieirasDead !== b.allFieirasDead) {
                 return a.allFieirasDead ? -1 : 1;
             }
@@ -44,8 +48,11 @@ export class ListEligibleCabinetForFieiraUseCase implements Usecase<
 
     public async execute(): Promise<ListEligibleCabinetForFieiraOutputDto> {
         const cabinetEligible = await this.cabinetGateway.listEligibleForFieira();
+        const emptyCabinets = await this.cabinetGateway.listCabinetsEmpty();
 
-        const ctcCabinets = this.filterEligibleCabinets(cabinetEligible);
+        const cabinets = [...cabinetEligible, ...emptyCabinets];
+
+        const ctcCabinets = this.filterEligibleCabinets(cabinets);
 
         const sortedCabinets = this.sortEligibleCabinets(ctcCabinets);
 
@@ -60,7 +67,10 @@ export class ListEligibleCabinetForFieiraUseCase implements Usecase<
         return {
             eligibleCabinets: cabinets.map((cabinet) => ({
                 cabinetName: cabinet.cabinetName,
-                dimension: `${cabinet.width}x${cabinet.thickness}`,
+                dimension:
+                    cabinet.width !== null && cabinet.thickness !== null
+                        ? `${cabinet.width}x${cabinet.thickness}`
+                        : null,
                 tension: cabinet.tension,
                 qtdFieiraStock: cabinet.qtdFieiraStock,
                 lastModification: cabinet.lastModification,

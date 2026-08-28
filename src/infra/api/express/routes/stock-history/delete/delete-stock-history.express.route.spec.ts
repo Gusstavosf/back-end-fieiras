@@ -7,7 +7,6 @@ describe("DELETE /stock/history/:id", () => {
 
         console.log(response.status);
         console.log(response.body);
-
         expect(response.status).toBe(200);
 
         expect(response.body).toEqual({

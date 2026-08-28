@@ -234,11 +234,11 @@ describe("UPDATE /stock/history/:id", () => {
         console.log(response.status);
         console.log(response.body);
 
-        expect(response.status).toBe(400);
+        expect(response.status).toBe(404);
 
         expect(response.body).toEqual({
             message: expect.any(String),
-            status: 400,
+            status: 404,
         });
     });
 });

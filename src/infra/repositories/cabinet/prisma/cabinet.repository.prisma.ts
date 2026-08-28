@@ -111,6 +111,7 @@ export class CabinetRepositoryPrisma implements CabinetGateway {
                 thickness: Number(fieira.thickness),
                 tension: fieira.tension,
                 qtdFieiraStock: fieira.StockFieira.length,
+                hasFieira: true,
                 allFieirasDead: fieira.StockFieira.every(
                     (stockFieira) => stockFieira.status === StatusFieira.dead,
                 ),
@@ -123,5 +124,26 @@ export class CabinetRepositoryPrisma implements CabinetGateway {
         );
 
         return cabinetsList;
+    }
+
+    public async listCabinetsEmpty(): Promise<EligibleCabinet[]> {
+        const cabinets = await this.prismaClient.cabinet.findMany({
+            where: {
+                Fieira: {
+                    none: {},
+                },
+            },
+        });
+
+        return cabinets.map((cabinet) => ({
+            cabinetName: cabinet.name,
+            width: null,
+            thickness: null,
+            tension: null,
+            qtdFieiraStock: 0,
+            allFieirasDead: false,
+            hasFieira: false,
+            lastModification: null,
+        }));
     }
 }

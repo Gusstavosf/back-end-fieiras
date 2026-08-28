@@ -9,34 +9,36 @@ import {
 } from "../../../domain/fieira/calculators/fieira.calculator.js";
 import type { Usecase } from "../../usecase.js";
 
-export type ListControlPendingFieiraIntputDto = Record<string, never>;
+export type ListControlFieiraWithoutCabinetIntputDto = Record<string, never>;
 
-export type ListControlPendingFieiraOutputDto = {
-    fieiraWidth: number;
-    fieiraThickness: number;
-    tension: number;
-    qtdOrdens: number;
-    orders: {
-        order: number;
-        material: number;
-        orderQuantity: number;
-        wireType: string;
-        qtdFieiraNec: number;
+export type ListControlFieiraWithoutCabinetOutputDto = {
+    pendingFieira: {
+        fieiraWidth: number;
+        fieiraThickness: number;
+        tension: number;
+        qtdOrdens: number;
+        orders: {
+            order: number;
+            material: number;
+            orderQuantity: number;
+            wireType: string;
+            qtdFieiraNec: number;
+        }[];
+        qtdFieiraNecTotal: number;
     }[];
-    qtdFieiraNecTotal: number;
 };
 
-export class ListControlPendingFieiraUseCase implements Usecase<
-    ListControlPendingFieiraIntputDto,
-    ListControlPendingFieiraOutputDto[]
+export class ListControlFieiraWithoutCabinetUseCase implements Usecase<
+    ListControlFieiraWithoutCabinetIntputDto,
+    ListControlFieiraWithoutCabinetOutputDto
 > {
     private constructor(private readonly controlFieiraGateway: ControlFieiraGateway) {}
 
     public static create(controlFieiraGateway: ControlFieiraGateway) {
-        return new ListControlPendingFieiraUseCase(controlFieiraGateway);
+        return new ListControlFieiraWithoutCabinetUseCase(controlFieiraGateway);
     }
 
-    public async execute(): Promise<ListControlPendingFieiraOutputDto[]> {
+    public async execute(): Promise<ListControlFieiraWithoutCabinetOutputDto> {
         const pendingFeiras = await this.controlFieiraGateway.listPendingFieiras();
 
         const groups = new Map<
@@ -75,7 +77,7 @@ export class ListControlPendingFieiraUseCase implements Usecase<
             }
         }
 
-        const output: ListControlPendingFieiraOutputDto[] = [];
+        const pendingFieira = [];
 
         for (const group of groups.values()) {
             const totalOrderQuantity = group.controlFieiras.reduce(
@@ -83,45 +85,29 @@ export class ListControlPendingFieiraUseCase implements Usecase<
                 0,
             );
 
-            const qtdFieiraNectotal = RequiredFieiraCalculator.calculate({
+            const qtdFieiraNecTotal = RequiredFieiraCalculator.calculate({
                 orderQuantity: totalOrderQuantity,
                 nominalCapacity: group.nominalCapacity,
             });
 
-            output.push(
-                this.presentOutput(
-                    group.controlFieiras,
-                    group.fieiraWidth,
-                    group.fieiraThickness,
-                    group.tension,
-                    qtdFieiraNectotal,
-                ),
-            );
+            pendingFieira.push({
+                fieiraWidth: group.fieiraWidth,
+                fieiraThickness: group.fieiraThickness,
+                tension: group.tension,
+                qtdOrdens: group.controlFieiras.length,
+                orders: group.controlFieiras.map((controlFieira) => ({
+                    order: controlFieira.order,
+                    material: controlFieira.material,
+                    orderQuantity: controlFieira.orderQuantity,
+                    wireType: controlFieira.wireType,
+                    qtdFieiraNec: controlFieira.qtdFieiraNec,
+                })),
+                qtdFieiraNecTotal: qtdFieiraNecTotal,
+            });
         }
 
-        return output;
-    }
-
-    private presentOutput(
-        controlFieiras: ControlFieira[],
-        fieiraWidth: number,
-        fieiraThickness: number,
-        tension: Tension,
-        qtdFieiraNecTotal: number,
-    ): ListControlPendingFieiraOutputDto {
         return {
-            fieiraWidth,
-            fieiraThickness,
-            tension,
-            qtdOrdens: controlFieiras.length,
-            orders: controlFieiras.map((controlFieira) => ({
-                order: controlFieira.order,
-                material: controlFieira.material,
-                orderQuantity: controlFieira.orderQuantity,
-                wireType: controlFieira.wireType,
-                qtdFieiraNec: controlFieira.qtdFieiraNec,
-            })),
-            qtdFieiraNecTotal,
+            pendingFieira,
         };
     }
 }

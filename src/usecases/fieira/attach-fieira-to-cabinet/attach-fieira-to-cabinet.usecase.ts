@@ -18,7 +18,7 @@ export type AttachFieiraToCabinetOutputDto = {
     tension: number;
 };
 
-export class AttachFieiraToCabinet implements Usecase<
+export class AttachFieiraToCabinetUseCase implements Usecase<
     AttachFieiraToCabinetInputDto,
     AttachFieiraToCabinetOutputDto
 > {
@@ -28,7 +28,7 @@ export class AttachFieiraToCabinet implements Usecase<
     ) {}
 
     public static create(fieiraGateway: FieiraGateway, cabinetGateway: CabinetGateway) {
-        return new AttachFieiraToCabinet(fieiraGateway, cabinetGateway);
+        return new AttachFieiraToCabinetUseCase(fieiraGateway, cabinetGateway);
     }
 
     public async execute(

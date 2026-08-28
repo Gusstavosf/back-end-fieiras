@@ -10,6 +10,7 @@ export interface ControlFieiraGateway {
     list(): Promise<ControlFieiraWithCabinetName[]>;
     findByOrder(order: number): Promise<ControlFieira | null>;
     listPendingFieiras(): Promise<ControlFieira[]>;
+    listFieirasPendingStock(): Promise<ControlFieira[]>;
     update(controlFieira: ControlFieira): Promise<void>;
     delete(order: number): Promise<void>;
 }
