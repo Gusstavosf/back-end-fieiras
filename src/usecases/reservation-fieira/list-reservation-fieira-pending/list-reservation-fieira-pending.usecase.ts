@@ -12,7 +12,7 @@ import type { Usecase } from "../../usecase.js";
 
 export type ListReservationFieiraPendingInputDto = Record<string, never>;
 export type ListReservationFieiraPendingOutputDto = {
-    pendingStock: {
+    pendingStocks: {
         wireWidth: number;
         wireThickness: number;
         tension: number;
@@ -48,9 +48,7 @@ export class ListReservationFieiraPendingUseCase implements Usecase<
         );
     }
 
-    public async execute(
-        input: ListReservationFieiraPendingInputDto,
-    ): Promise<ListReservationFieiraPendingOutputDto> {
+    public async execute(): Promise<ListReservationFieiraPendingOutputDto> {
         const pendingStock = await this.controlFieiraGateway.listFieirasPendingStock();
 
         const groups = new Map<
@@ -110,7 +108,7 @@ export class ListReservationFieiraPendingUseCase implements Usecase<
                     );
 
                 totalReserved += reservations.reduce(
-                    (total, reservation) => total + reservation.quantity,
+                    (total, reservation) => total + reservation.quantity!,
                     0,
                 );
             }

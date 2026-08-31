@@ -106,19 +106,20 @@ export class ControlFieiraRepositoryPrisma implements ControlFieiraGateway {
     }
 
     public async listPendingFieiras(): Promise<ControlFieira[]> {
-        const controlFieiraPeinding = await this.prismaClient.controlFieira.findMany({
-            where: {
-                status: ControlStatus.ReleasedPrinted,
-                fieiraId: {
-                    not: null,
+        const controlFieiraPeindingCabinet =
+            await this.prismaClient.controlFieira.findMany({
+                where: {
+                    status: ControlStatus.ReleasedPrinted,
+                    fieiraId: {
+                        not: null,
+                    },
+                    Fieira: {
+                        cabinetId: null,
+                    },
                 },
-                Fieira: {
-                    cabinetId: null,
-                },
-            },
-        });
+            });
 
-        const controlFieiraList = controlFieiraPeinding.map((controlFieira) =>
+        const controlFieiraList = controlFieiraPeindingCabinet.map((controlFieira) =>
             this.toEntity(controlFieira),
         );
 
@@ -136,5 +137,31 @@ export class ControlFieiraRepositoryPrisma implements ControlFieiraGateway {
         await this.prismaClient.controlFieira.delete({
             where: { order },
         });
+    }
+
+    public async listFieirasPendingStock(): Promise<ControlFieira[]> {
+        const controlFieiraPeindingStock = await this.prismaClient.controlFieira.findMany(
+            {
+                where: {
+                    status: ControlStatus.ReleasedPrinted,
+                    fieiraId: {
+                        not: null,
+                    },
+                    ReservationFieira: {
+                        none: {
+                            stockFieiraId: {
+                                not: null,
+                            },
+                        },
+                    },
+                },
+            },
+        );
+
+        const controlFieiraList = controlFieiraPeindingStock.map((controlFieira) =>
+            this.toEntity(controlFieira),
+        );
+
+        return controlFieiraList;
     }
 }

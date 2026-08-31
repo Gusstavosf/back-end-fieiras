@@ -14,6 +14,8 @@ import { DescriptionParser } from "../../../domain/control-fieira/parser/descrip
 import { StatusParser } from "../../../domain/control-fieira/parser/status.parser.js";
 import type { FieiraGateway } from "../../../domain/fieira/gateway/fieira.gateway.js";
 import { Fieira } from "../../../domain/fieira/entity/fieira.js";
+import type { ReservationFieiraGateway } from "../../../domain/reservation-fieira/gateway/reservation-fieira.gateway.js";
+import { ReservationFieira } from "../../../domain/reservation-fieira/entity/reservation-fieira.js";
 
 export type CreateControlFieiraInputDto = {
     order: number;
@@ -53,6 +55,7 @@ export class CreateControlFieiraUseCase implements Usecase<
     private constructor(
         private readonly controlFieiraGateway: ControlFieiraGateway,
         private readonly fieiraGateway: FieiraGateway,
+        private readonly reservationFieiraGateway: ReservationFieiraGateway,
         private readonly descriptionParser: DescriptionParser,
         private readonly statusParser: StatusParser,
     ) {}
@@ -60,12 +63,14 @@ export class CreateControlFieiraUseCase implements Usecase<
     public static create(
         controlFieiraGateway: ControlFieiraGateway,
         fieiraGateway: FieiraGateway,
+        reservationFieiraGateway: ReservationFieiraGateway,
         descriptionParser: DescriptionParser,
         statusParser: StatusParser,
     ) {
         return new CreateControlFieiraUseCase(
             controlFieiraGateway,
             fieiraGateway,
+            reservationFieiraGateway,
             descriptionParser,
             statusParser,
         );
@@ -150,6 +155,16 @@ export class CreateControlFieiraUseCase implements Usecase<
         });
 
         const savedControlFieira = await this.controlFieiraGateway.save(controlFieira);
+
+        const reservation = ReservationFieira.create({
+            controlFieiraId: savedControlFieira.id!,
+            stockFieiraId: null,
+            quantity: null,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        });
+
+        await this.reservationFieiraGateway.save(reservation);
 
         return this.presentOutput(savedControlFieira);
     }

@@ -9,15 +9,18 @@ import { FieiraRepositoryPrisma } from "../../infra/repositories/fieira/prisma/f
 import { CreateControlFieiraUseCase } from "../../usecases/control-fieira/create-control-fieira/create-control-fieira.usecase.js";
 import { ListControlFieiraUseCase } from "../../usecases/control-fieira/list-control-fieira/list-control-fieira.usecase.js";
 import { ListControlFieiraWithoutCabinetUseCase } from "../../usecases/control-fieira/list-control-fieira-without-cabinet/list-control-fieira-without-cabinet.usecase.js";
+import { ReservationFieiraRepository } from "../../infra/repositories/reservation-fieira/reservation-fieira.repository.prisma.js";
 
 const controlFieiraRepository = ControlFieiraRepositoryPrisma.build(prisma);
 const fieiraRepository = FieiraRepositoryPrisma.build(prisma);
+const reservationFieiraRepository = ReservationFieiraRepository.build(prisma);
 const descriptionParser = new DescriptionParser();
 const statusParser = new StatusParser();
 
 const createControlFieira = CreateControlFieiraUseCase.create(
     controlFieiraRepository,
     fieiraRepository,
+    reservationFieiraRepository,
     descriptionParser,
     statusParser,
 );

@@ -1,7 +1,7 @@
 export type ReservationFieiraProps = {
     controlFieiraId: number;
-    stockFieiraId: number;
-    quantity: number;
+    stockFieiraId: number | null;
+    quantity: number | null;
     createdAt: Date;
     updatedAt: Date;
 };
@@ -28,12 +28,12 @@ export class ReservationFieira {
         return this.props.controlFieiraId;
     }
 
-    public get stockFieiraId(): number {
-        return this.props.stockFieiraId;
+    public get stockFieiraId(): number | null {
+        return this.props.stockFieiraId ?? null;
     }
 
-    public get quantity(): number {
-        return this.props.quantity;
+    public get quantity(): number | null {
+        return this.props.quantity ?? null;
     }
 
     public get createdAt(): Date {

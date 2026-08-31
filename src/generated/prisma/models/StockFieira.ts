@@ -530,6 +530,11 @@ export type StockFieiraScalarRelationFilter = {
   isNot?: Prisma.StockFieiraWhereInput
 }
 
+export type StockFieiraNullableScalarRelationFilter = {
+  is?: Prisma.StockFieiraWhereInput | null
+  isNot?: Prisma.StockFieiraWhereInput | null
+}
+
 export type StockFieiraCreateNestedManyWithoutFieiraInput = {
   create?: Prisma.XOR<Prisma.StockFieiraCreateWithoutFieiraInput, Prisma.StockFieiraUncheckedCreateWithoutFieiraInput> | Prisma.StockFieiraCreateWithoutFieiraInput[] | Prisma.StockFieiraUncheckedCreateWithoutFieiraInput[]
   connectOrCreate?: Prisma.StockFieiraCreateOrConnectWithoutFieiraInput | Prisma.StockFieiraCreateOrConnectWithoutFieiraInput[]
@@ -604,10 +609,12 @@ export type StockFieiraCreateNestedOneWithoutReservationFieiraInput = {
   connect?: Prisma.StockFieiraWhereUniqueInput
 }
 
-export type StockFieiraUpdateOneRequiredWithoutReservationFieiraNestedInput = {
+export type StockFieiraUpdateOneWithoutReservationFieiraNestedInput = {
   create?: Prisma.XOR<Prisma.StockFieiraCreateWithoutReservationFieiraInput, Prisma.StockFieiraUncheckedCreateWithoutReservationFieiraInput>
   connectOrCreate?: Prisma.StockFieiraCreateOrConnectWithoutReservationFieiraInput
   upsert?: Prisma.StockFieiraUpsertWithoutReservationFieiraInput
+  disconnect?: Prisma.StockFieiraWhereInput | boolean
+  delete?: Prisma.StockFieiraWhereInput | boolean
   connect?: Prisma.StockFieiraWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.StockFieiraUpdateToOneWithWhereWithoutReservationFieiraInput, Prisma.StockFieiraUpdateWithoutReservationFieiraInput>, Prisma.StockFieiraUncheckedUpdateWithoutReservationFieiraInput>
 }
