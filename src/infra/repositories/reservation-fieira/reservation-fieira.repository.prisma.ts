@@ -5,11 +5,11 @@ import type {
     ReservationFieira as PrismaReservationFieira,
 } from "../../../generated/prisma/client.js";
 
-export class ReservationFieiraRepository implements ReservationFieiraGateway {
+export class ReservationFieiraRepositoryPrisma implements ReservationFieiraGateway {
     private constructor(private readonly prismaClient: PrismaClient) {}
 
     public static build(prismaClient: PrismaClient) {
-        return new ReservationFieiraRepository(prismaClient);
+        return new ReservationFieiraRepositoryPrisma(prismaClient);
     }
 
     private toEntity(reservation: PrismaReservationFieira): ReservationFieira {
@@ -43,11 +43,27 @@ export class ReservationFieiraRepository implements ReservationFieiraGateway {
         return this.toEntity(reservationSaved);
     }
 
-    public async findByControlFieira(
-        controlFieiraId: number,
-    ): Promise<ReservationFieira[]> {}
+    public async findByControlFieira(controlId: number): Promise<ReservationFieira[]> {
+        const findByControlId = await this.prismaClient.reservationFieira.findMany({
+            where: { controlId },
+        });
 
-    public async findByStockFieira(stockFieiraId: number): Promise<ReservationFieira[]> {}
+        const controlFieiraList = findByControlId.map((controlFieira) =>
+            this.toEntity(controlFieira),
+        );
 
-    public async delete(controlFieiraId: number, stockFieiraId: number): Promise<void> {}
+        return controlFieiraList;
+    }
+
+    public async findByStockFieira(stockFieiraId: number): Promise<ReservationFieira[]> {
+        const findByStockFieira = await this.prismaClient.reservationFieira.findMany({
+            where: { stockFieiraId },
+        });
+
+        const controlFieiraList = findByStockFieira.map((controlFieira) =>
+            this.toEntity(controlFieira),
+        );
+
+        return controlFieiraList;
+    }
 }

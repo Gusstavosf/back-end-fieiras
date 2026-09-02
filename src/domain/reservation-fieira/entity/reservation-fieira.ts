@@ -20,6 +20,12 @@ export class ReservationFieira {
         return new ReservationFieira(props, id);
     }
 
+    public attachStockFieira(stockFieiraId: number, quantity: number): void {
+        this.props.stockFieiraId = stockFieiraId;
+        this.props.quantity = quantity;
+        this.props.updatedAt = new Date();
+    }
+
     public get id(): number | undefined {
         return this._id;
     }

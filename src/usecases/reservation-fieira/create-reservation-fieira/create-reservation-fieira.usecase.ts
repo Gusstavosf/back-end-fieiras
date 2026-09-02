@@ -32,6 +32,20 @@ export class CreateReservationFieiraUseCase implements Usecase<
         private readonly fieiraGateway: FieiraGateway,
     ) {}
 
+    public static create(
+        controlFieiraGateway: ControlFieiraGateway,
+        stockFieiraGateway: StockGateway,
+        reservationFieiraGateway: ReservationFieiraGateway,
+        fieiraGateway: FieiraGateway,
+    ) {
+        return new CreateReservationFieiraUseCase(
+            controlFieiraGateway,
+            stockFieiraGateway,
+            reservationFieiraGateway,
+            fieiraGateway,
+        );
+    }
+
     public async execute(
         input: CreateReservationFieiraInputDto,
     ): Promise<CreateReservationFieiraOutputDto> {
@@ -65,7 +79,7 @@ export class CreateReservationFieiraUseCase implements Usecase<
             await this.reservationFieiraGateway.findByStockFieira(input.stockFieiraId);
 
         const totalReservedStock = reservationFieiraQuantity.reduce(
-            (total, reservation) => total + reservation.quantity,
+            (total, reservation) => total + reservation.quantity!,
             0,
         );
 
@@ -81,12 +95,16 @@ export class CreateReservationFieiraUseCase implements Usecase<
         const availableCapacity =
             nominalCapacity - stockFieira.production - totalReservedStock;
 
+        if (!controlFieira.id) {
+            throw new NotFound("Id não encontrado");
+        }
+
         const reservationOrder = await this.reservationFieiraGateway.findByControlFieira(
-            controlFieira.id!,
+            controlFieira.id,
         );
 
         const totalReserved = reservationOrder.reduce(
-            (total, reservation) => total + reservation.quantity,
+            (total, reservation) => total + reservation.quantity!,
             0,
         );
 
@@ -95,7 +113,7 @@ export class CreateReservationFieiraUseCase implements Usecase<
         const quantity = Math.min(availableCapacity, remainingQuantity);
 
         const reservation = ReservationFieira.create({
-            controlFieiraId: controlFieira.id!,
+            controlFieiraId: controlFieira.id,
             stockFieiraId: stockFieira.id!,
             quantity: quantity,
             createdAt: new Date(),
@@ -112,6 +130,12 @@ export class CreateReservationFieiraUseCase implements Usecase<
     public presentOutput(
         reservation: ReservationFieira,
     ): CreateReservationFieiraOutputDto {
+        if (reservation.stockFieiraId === null || reservation.quantity === null) {
+            throw new IncorrectRequest(
+                "Reserva de fieira não possui Estoque ou Quantidade.",
+            );
+        }
+
         return {
             controlFieiraId: reservation.controlFieiraId,
             stockFieiraId: reservation.stockFieiraId,
