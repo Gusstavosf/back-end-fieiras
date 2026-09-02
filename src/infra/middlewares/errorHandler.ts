@@ -20,6 +20,7 @@ function ErrorHandler(
     _next: NextFunction,
 ) {
     if (erro instanceof Prisma.PrismaClientValidationError) {
+        console.log(erro);
         return response.status(400).json({ message: "Erro de validação nos dados" });
     }
 

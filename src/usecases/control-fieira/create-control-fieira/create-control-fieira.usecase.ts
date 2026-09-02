@@ -24,7 +24,7 @@ export type CreateControlFieiraInputDto = {
     orderQuantity: number;
     orderStartDate: Date;
     orderEndDate: Date;
-    orderCreatedDate: Date;
+    orderCreateDate: Date;
     status: string;
 };
 
@@ -147,7 +147,7 @@ export class CreateControlFieiraUseCase implements Usecase<
             thickness: parsedDescription.thickness,
             orderStartDate: input.orderStartDate,
             orderEndDate: input.orderEndDate,
-            orderCreateDate: input.orderCreatedDate,
+            orderCreateDate: input.orderCreateDate,
             status: parsedStatus as ControlStatus,
             qtdFieiraNec,
             createdAt: new Date(),

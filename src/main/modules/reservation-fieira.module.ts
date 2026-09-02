@@ -1,4 +1,6 @@
 import prisma from "../../config/db.js";
+import { CreateReservationFieiraRoute } from "../../infra/api/express/routes/reservation-fieira/create-reservation-fieira/create-reservation-fieira.express.route.js";
+import { ListReservationFieiraPendingRoute } from "../../infra/api/express/routes/reservation-fieira/list-reservation-fieira-pending/list-reservation-fieira-pending.express.route.js";
 import { ControlFieiraRepositoryPrisma } from "../../infra/repositories/control-fieira/prisma/control-fieira.repository.prisma.js";
 import { FieiraRepositoryPrisma } from "../../infra/repositories/fieira/prisma/fieira.repository.prisma.js";
 import { ReservationFieiraRepositoryPrisma } from "../../infra/repositories/reservation-fieira/reservation-fieira.repository.prisma.js";
@@ -22,4 +24,14 @@ const createReservationFieira = CreateReservationFieiraUseCase.create(
     fieraRepository,
 );
 
-export const reservationFieiraRoutes = [];
+const listReservationFieiraPendingRoute = ListReservationFieiraPendingRoute.create(
+    listReservationFieiraPending,
+);
+const createReservationFieiraRoute = CreateReservationFieiraRoute.create(
+    createReservationFieira,
+);
+
+export const reservationFieiraRoutes = [
+    listReservationFieiraPendingRoute,
+    createReservationFieiraRoute,
+];

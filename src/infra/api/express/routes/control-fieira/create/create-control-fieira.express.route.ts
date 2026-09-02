@@ -54,7 +54,7 @@ export class CreateControlFieiraRoute implements Route {
                 orderQuantity: request.body.orderQuantity,
                 orderStartDate: request.body.orderStartDate,
                 orderEndDate: request.body.orderEndDate,
-                orderCreatedDate: request.body.orderCreateDate,
+                orderCreateDate: request.body.orderCreateDate,
                 status: request.body.status,
             };
 

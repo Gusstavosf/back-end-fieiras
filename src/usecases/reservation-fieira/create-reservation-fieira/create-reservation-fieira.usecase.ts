@@ -120,7 +120,7 @@ export class CreateReservationFieiraUseCase implements Usecase<
             updatedAt: new Date(),
         });
 
-        const savedReservation = await this.reservationFieiraGateway.save(reservation);
+        const savedReservation = await this.reservationFieiraGateway.update(reservation);
 
         const output = this.presentOutput(savedReservation);
 

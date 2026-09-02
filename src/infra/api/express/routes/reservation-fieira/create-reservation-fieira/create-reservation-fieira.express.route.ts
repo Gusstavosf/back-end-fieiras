@@ -24,7 +24,7 @@ export class CreateReservationFieiraRoute implements Route {
     public static create(createReservationFieiraService: CreateReservationFieiraUseCase) {
         return new CreateReservationFieiraRoute(
             "/reservation-fieira",
-            HttpMethod.POST,
+            HttpMethod.PATCH,
             createReservationFieiraService,
         );
     }

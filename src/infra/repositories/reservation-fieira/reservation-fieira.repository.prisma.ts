@@ -1,3 +1,4 @@
+import NotFound from "../../../core/shared/errors/notFound.js";
 import { ReservationFieira } from "../../../domain/reservation-fieira/entity/reservation-fieira.js";
 import type { ReservationFieiraGateway } from "../../../domain/reservation-fieira/gateway/reservation-fieira.gateway.js";
 import type {
@@ -41,6 +42,19 @@ export class ReservationFieiraRepositoryPrisma implements ReservationFieiraGatew
         });
 
         return this.toEntity(reservationSaved);
+    }
+
+    public async update(reservation: ReservationFieira): Promise<ReservationFieira> {
+        if (!reservation.id) {
+            throw new NotFound("Id não encontrado");
+        }
+
+        const reservationUpdated = await this.prismaClient.reservationFieira.update({
+            where: { id: reservation.id },
+            data: this.toPersistence(reservation),
+        });
+
+        return this.toEntity(reservationUpdated);
     }
 
     public async findByControlFieira(controlId: number): Promise<ReservationFieira[]> {

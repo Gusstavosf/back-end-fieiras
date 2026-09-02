@@ -155,7 +155,6 @@ export class DescriptionParser {
     }
 
     private parseDimensions(dimension: string) {
-        console.log(dimension);
         const partDimension = dimension.split("X");
 
         const [width, thickness] = partDimension;
