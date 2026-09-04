@@ -2,6 +2,7 @@ import {
     ControlFieira,
     ControlStatus,
     Metal,
+    type Tension,
 } from "../../../../domain/control-fieira/entity/control-fieira.js";
 import type {
     ControlFieiraGateway,
@@ -28,7 +29,7 @@ export class ControlFieiraRepositoryPrisma implements ControlFieiraGateway {
                 orderQuantity: Number(controlFieira.orderQuantity),
                 wireType: controlFieira.wireType,
                 metal: controlFieira.metal as Metal,
-                tension: controlFieira.tension,
+                tension: controlFieira.tension as Tension,
                 width: Number(controlFieira.width),
                 thickness: Number(controlFieira.thickness),
                 orderStartDate: controlFieira.orderStartDate,
@@ -103,6 +104,18 @@ export class ControlFieiraRepositoryPrisma implements ControlFieiraGateway {
         }
 
         return this.toEntity(controlFieira);
+    }
+
+    public async findByOrders(orders: number[]): Promise<ControlFieira[]> {
+        const controlFieiras = await this.prismaClient.controlFieira.findMany({
+            where: {
+                order: {
+                    in: orders,
+                },
+            },
+        });
+
+        return controlFieiras.map((controlFieiras) => this.toEntity(controlFieiras));
     }
 
     public async listPendingFieiras(): Promise<ControlFieira[]> {

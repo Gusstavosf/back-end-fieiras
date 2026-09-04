@@ -1,3 +1,5 @@
+import IncorrectRequest from "../../../core/shared/errors/incorrectRequest.js";
+
 export type ControlFieiraProps = {
     fieiraId: number | null;
     order: number;
@@ -5,7 +7,7 @@ export type ControlFieiraProps = {
     orderQuantity: number;
     wireType: string;
     metal: Metal;
-    tension: number;
+    tension: Tension;
     width: number;
     thickness: number;
     orderStartDate: Date;
@@ -15,6 +17,21 @@ export type ControlFieiraProps = {
     status: ControlStatus;
     createdAt: Date;
     updatedAt: Date;
+};
+
+export type UpdateControlFieiraProps = {
+    fieiraId: number | null;
+    orderQuantity: number;
+    wireType: string;
+    metal: Metal;
+    tension: Tension;
+    width: number;
+    thickness: number;
+    orderStartDate: Date;
+    orderEndDate: Date;
+    orderCreateDate: Date;
+    status: ControlStatus;
+    qtdFieiraNec: number;
 };
 
 export enum Metal {
@@ -46,6 +63,45 @@ export class ControlFieira {
         return new ControlFieira(props, id);
     }
 
+    private hasChanges(props: UpdateControlFieiraProps): boolean {
+        return (
+            this.props.fieiraId !== props.fieiraId ||
+            this.props.orderQuantity !== props.orderQuantity ||
+            this.props.wireType !== props.wireType ||
+            this.props.metal !== props.metal ||
+            this.props.tension !== props.tension ||
+            this.props.width !== props.width ||
+            this.props.thickness !== props.thickness ||
+            this.props.orderStartDate.getTime() !== props.orderStartDate.getTime() ||
+            this.props.orderEndDate.getTime() !== props.orderEndDate.getTime() ||
+            this.props.orderCreateDate.getTime() !== props.orderCreateDate.getTime() ||
+            this.props.status !== props.status ||
+            this.props.qtdFieiraNec !== props.qtdFieiraNec
+        );
+    }
+
+    public update(props: UpdateControlFieiraProps): boolean {
+        if (!this.hasChanges(props)) {
+            return false;
+        }
+
+        this.props.fieiraId = props.fieiraId;
+        this.props.orderQuantity = props.orderQuantity;
+        this.props.wireType = props.wireType;
+        this.props.metal = props.metal;
+        this.props.tension = props.tension;
+        this.props.width = props.width;
+        this.props.thickness = props.thickness;
+        this.props.orderStartDate = props.orderStartDate;
+        this.props.orderEndDate = props.orderEndDate;
+        this.props.orderCreateDate = props.orderCreateDate;
+        this.props.status = props.status;
+        this.props.qtdFieiraNec = props.qtdFieiraNec;
+        this.props.updatedAt = new Date();
+
+        return true;
+    }
+
     public get id(): number | undefined {
         return this._id;
     }
@@ -67,11 +123,11 @@ export class ControlFieira {
     }
 
     public get metal(): Metal {
-        return this.props.metal as Metal;
+        return this.props.metal;
     }
 
     public get tension(): Tension {
-        return this.props.tension as Tension;
+        return this.props.tension;
     }
 
     public get width(): number {

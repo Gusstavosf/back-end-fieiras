@@ -14,7 +14,7 @@ export type CreateReservationFieiraInputDto = {
 };
 
 export type CreateReservationFieiraOutputDto = {
-    controlFieiraId: number;
+    controlId: number;
     stockFieiraId: number;
     quantity: number;
     createdAt: Date;
@@ -113,7 +113,7 @@ export class CreateReservationFieiraUseCase implements Usecase<
         const quantity = Math.min(availableCapacity, remainingQuantity);
 
         const reservation = ReservationFieira.create({
-            controlFieiraId: controlFieira.id,
+            controlId: controlFieira.id,
             stockFieiraId: stockFieira.id!,
             quantity: quantity,
             createdAt: new Date(),
@@ -137,7 +137,7 @@ export class CreateReservationFieiraUseCase implements Usecase<
         }
 
         return {
-            controlFieiraId: reservation.controlFieiraId,
+            controlId: reservation.controlId,
             stockFieiraId: reservation.stockFieiraId,
             quantity: reservation.quantity,
             createdAt: reservation.createdAt,

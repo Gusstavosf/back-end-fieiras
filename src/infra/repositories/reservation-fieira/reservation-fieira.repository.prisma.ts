@@ -16,9 +16,10 @@ export class ReservationFieiraRepositoryPrisma implements ReservationFieiraGatew
     private toEntity(reservation: PrismaReservationFieira): ReservationFieira {
         return ReservationFieira.restore(
             {
-                controlFieiraId: reservation.controlId,
+                controlId: reservation.controlId,
                 stockFieiraId: reservation.stockFieiraId,
-                quantity: Number(reservation.quantity),
+                quantity:
+                    reservation.quantity !== null ? Number(reservation.quantity) : null,
                 createdAt: reservation.createdAt,
                 updatedAt: reservation.updatedAt,
             },
@@ -28,7 +29,7 @@ export class ReservationFieiraRepositoryPrisma implements ReservationFieiraGatew
 
     private toPersistence(reservation: ReservationFieira) {
         return {
-            controlId: reservation.controlFieiraId,
+            controlId: reservation.controlId,
             stockFieiraId: reservation.stockFieiraId,
             quantity: reservation.quantity,
             createdAt: reservation.createdAt,
@@ -37,8 +38,10 @@ export class ReservationFieiraRepositoryPrisma implements ReservationFieiraGatew
     }
 
     public async save(reservation: ReservationFieira): Promise<ReservationFieira> {
+        const data = this.toPersistence(reservation);
+
         const reservationSaved = await this.prismaClient.reservationFieira.create({
-            data: this.toPersistence(reservation),
+            data,
         });
 
         return this.toEntity(reservationSaved);

@@ -7,7 +7,7 @@ import type {
 import { HttpMethod, type Route } from "../../route.js";
 
 export type CreateReservationFieiraResponseDto = {
-    controlFieiraId: number;
+    controlId: number;
     stockFieiraId: number;
     quantity: number;
     createdAt: Date;
@@ -56,7 +56,7 @@ export class CreateReservationFieiraRoute implements Route {
         output: CreateReservationFieiraOutputDto,
     ): CreateReservationFieiraResponseDto {
         return {
-            controlFieiraId: output.controlFieiraId,
+            controlId: output.controlId,
             stockFieiraId: output.stockFieiraId,
             quantity: output.quantity,
             createdAt: output.createdAt,

@@ -1,6 +1,5 @@
 import {
     ControlFieira,
-    type ControlStatus,
     type Metal,
     type Tension,
 } from "../../../domain/control-fieira/entity/control-fieira.js";
@@ -14,11 +13,9 @@ import { DescriptionParser } from "../../../domain/control-fieira/parser/descrip
 import { StatusParser } from "../../../domain/control-fieira/parser/status.parser.js";
 import type { FieiraGateway } from "../../../domain/fieira/gateway/fieira.gateway.js";
 import { Fieira } from "../../../domain/fieira/entity/fieira.js";
-import type { ReservationFieiraGateway } from "../../../domain/reservation-fieira/gateway/reservation-fieira.gateway.js";
-import { ReservationFieira } from "../../../domain/reservation-fieira/entity/reservation-fieira.js";
 import IncorrectRequest from "../../../core/shared/errors/incorrectRequest.js";
 
-export type CreateControlFieiraInputDto = {
+export type UpdateControlFieiraInputDto = {
     order: number;
     material: number;
     description: string;
@@ -29,7 +26,7 @@ export type CreateControlFieiraInputDto = {
     status: string;
 };
 
-export type CreateControlFieiraOutputDto = {
+export type UpdateControlFieiraOutputDto = {
     id: number;
     fieiraId: number | null;
     material: number;
@@ -49,14 +46,13 @@ export type CreateControlFieiraOutputDto = {
     updatedAt: Date;
 };
 
-export class CreateControlFieiraUseCase implements Usecase<
-    CreateControlFieiraInputDto,
-    CreateControlFieiraOutputDto
+export class UpdateControlFieiraUseCase implements Usecase<
+    UpdateControlFieiraInputDto,
+    UpdateControlFieiraOutputDto
 > {
     private constructor(
         private readonly controlFieiraGateway: ControlFieiraGateway,
         private readonly fieiraGateway: FieiraGateway,
-        private readonly reservationFieiraGateway: ReservationFieiraGateway,
         private readonly descriptionParser: DescriptionParser,
         private readonly statusParser: StatusParser,
     ) {}
@@ -64,30 +60,28 @@ export class CreateControlFieiraUseCase implements Usecase<
     public static create(
         controlFieiraGateway: ControlFieiraGateway,
         fieiraGateway: FieiraGateway,
-        reservationFieiraGateway: ReservationFieiraGateway,
         descriptionParser: DescriptionParser,
         statusParser: StatusParser,
     ) {
-        return new CreateControlFieiraUseCase(
+        return new UpdateControlFieiraUseCase(
             controlFieiraGateway,
             fieiraGateway,
-            reservationFieiraGateway,
             descriptionParser,
             statusParser,
         );
     }
 
     public async execute(
-        input: CreateControlFieiraInputDto,
-    ): Promise<CreateControlFieiraOutputDto> {
+        input: UpdateControlFieiraInputDto,
+    ): Promise<UpdateControlFieiraOutputDto> {
         const parsedDescription = this.descriptionParser.parse(input.description);
 
         const existingControlFieira = await this.controlFieiraGateway.findByOrder(
             input.order,
         );
 
-        if (existingControlFieira) {
-            throw new IncorrectRequest(`A ordem ${input.order} já está cadastrada.`);
+        if (!existingControlFieira) {
+            throw new IncorrectRequest(`A ordem ${input.order} não está cadastrada.`);
         }
 
         if (!parsedDescription) {
@@ -136,10 +130,8 @@ export class CreateControlFieiraUseCase implements Usecase<
             fieiraId = savedFieira.id;
         }
 
-        const controlFieira = ControlFieira.create({
-            fieiraId: fieiraId,
-            order: input.order,
-            material: input.material,
+        const update = existingControlFieira.update({
+            fieiraId,
             orderQuantity: input.orderQuantity,
             wireType: parsedDescription.wireType,
             metal: parsedDescription.metal,
@@ -149,28 +141,18 @@ export class CreateControlFieiraUseCase implements Usecase<
             orderStartDate: input.orderStartDate,
             orderEndDate: input.orderEndDate,
             orderCreateDate: input.orderCreateDate,
-            status: parsedStatus as ControlStatus,
+            status: parsedStatus,
             qtdFieiraNec,
-            createdAt: new Date(),
-            updatedAt: new Date(),
         });
 
-        const savedControlFieira = await this.controlFieiraGateway.save(controlFieira);
+        if (update) {
+            await this.controlFieiraGateway.save(existingControlFieira);
+        }
 
-        const reservation = ReservationFieira.create({
-            controlId: savedControlFieira.id!,
-            stockFieiraId: null,
-            quantity: null,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-        });
-
-        await this.reservationFieiraGateway.save(reservation);
-
-        return this.presentOutput(savedControlFieira);
+        return this.presentOutput(existingControlFieira);
     }
 
-    private presentOutput(controlFieira: ControlFieira): CreateControlFieiraOutputDto {
+    private presentOutput(controlFieira: ControlFieira): UpdateControlFieiraOutputDto {
         return {
             id: controlFieira.id!,
             fieiraId: controlFieira.fieiraId,

@@ -49,13 +49,33 @@ export class ListReservationFieiraPendingUseCase implements Usecase<
     }
 
     public async execute(): Promise<ListReservationFieiraPendingOutputDto> {
-        const pendingStock = await this.controlFieiraGateway.listFieirasPendingStock();
+        const pendingControlFieiras =
+            await this.controlFieiraGateway.listFieirasPendingStock();
+
+        const pendingStock: ControlFieira[] = [];
+
+        for (const controlFieira of pendingControlFieiras) {
+            const reservations = await this.reservationFieiraGateway.findByControlFieira(
+                controlFieira.id!,
+            );
+
+            const totalReserved = reservations.reduce(
+                (total, reservation) => total + (reservation.quantity ?? 0),
+                0,
+            );
+
+            if (totalReserved >= controlFieira.orderQuantity) {
+                continue;
+            }
+
+            pendingStock.push(controlFieira);
+        }
 
         const groups = new Map<
             string,
             {
                 controlFieiras: ControlFieira[];
-                wireWitdh: number;
+                wireWidth: number;
                 wireThickness: number;
                 tension: Tension;
                 nominalCapacity: number;
@@ -79,7 +99,7 @@ export class ListReservationFieiraPendingUseCase implements Usecase<
             } else {
                 groups.set(key, {
                     controlFieiras: [controlFieira],
-                    wireWitdh: controlFieira.width,
+                    wireWidth: controlFieira.width,
                     wireThickness: controlFieira.thickness,
                     tension: controlFieira.tension,
                     nominalCapacity: fieira.nominalCapacity,
@@ -104,11 +124,11 @@ export class ListReservationFieiraPendingUseCase implements Usecase<
             for (const controlFieira of group.controlFieiras) {
                 const reservations =
                     await this.reservationFieiraGateway.findByControlFieira(
-                        controlFieira.order!,
+                        controlFieira.id!,
                     );
 
                 totalReserved += reservations.reduce(
-                    (total, reservation) => total + reservation.quantity!,
+                    (total, reservation) => total + (reservation.quantity ?? 0),
                     0,
                 );
             }
@@ -119,7 +139,7 @@ export class ListReservationFieiraPendingUseCase implements Usecase<
             );
 
             pendingStocks.push({
-                wireWidth: group.wireWitdh,
+                wireWidth: group.wireWidth,
                 wireThickness: group.wireThickness,
                 tension: group.tension,
                 qtdOrdens: group.controlFieiras.length,
