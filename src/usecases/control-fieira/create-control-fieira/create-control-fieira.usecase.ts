@@ -12,6 +12,7 @@ import {
 import type { Usecase } from "../../usecase.js";
 import { DescriptionParser } from "../../../domain/control-fieira/parser/description.parser.js";
 import { StatusParser } from "../../../domain/control-fieira/parser/status.parser.js";
+import { DateParser } from "../../../domain/control-fieira/parser/date.parser.js";
 import type { FieiraGateway } from "../../../domain/fieira/gateway/fieira.gateway.js";
 import { Fieira } from "../../../domain/fieira/entity/fieira.js";
 import type { ReservationFieiraGateway } from "../../../domain/reservation-fieira/gateway/reservation-fieira.gateway.js";
@@ -23,9 +24,9 @@ export type CreateControlFieiraInputDto = {
     material: number;
     description: string;
     orderQuantity: number;
-    orderStartDate: Date;
-    orderEndDate: Date;
-    orderCreateDate: Date;
+    orderStartDate: string;
+    orderEndDate: string;
+    orderCreateDate: string;
     status: string;
 };
 
@@ -59,6 +60,7 @@ export class CreateControlFieiraUseCase implements Usecase<
         private readonly reservationFieiraGateway: ReservationFieiraGateway,
         private readonly descriptionParser: DescriptionParser,
         private readonly statusParser: StatusParser,
+        private readonly dateParser: DateParser,
     ) {}
 
     public static create(
@@ -67,6 +69,7 @@ export class CreateControlFieiraUseCase implements Usecase<
         reservationFieiraGateway: ReservationFieiraGateway,
         descriptionParser: DescriptionParser,
         statusParser: StatusParser,
+        dateParser: DateParser,
     ) {
         return new CreateControlFieiraUseCase(
             controlFieiraGateway,
@@ -74,6 +77,7 @@ export class CreateControlFieiraUseCase implements Usecase<
             reservationFieiraGateway,
             descriptionParser,
             statusParser,
+            dateParser,
         );
     }
 
@@ -94,6 +98,9 @@ export class CreateControlFieiraUseCase implements Usecase<
             throw new Error("Descrição não suportada.");
         }
 
+        const parsedOrderStartDate = this.dateParser.parse(input.orderStartDate);
+        const parsedOrderEndDate = this.dateParser.parse(input.orderEndDate);
+        const parsedOrderCreateDate = this.dateParser.parse(input.orderCreateDate);
         const parsedStatus = this.statusParser.parse(input.status);
 
         if (!parsedStatus) {
@@ -146,9 +153,9 @@ export class CreateControlFieiraUseCase implements Usecase<
             tension: parsedDescription.tension,
             width: parsedDescription.width,
             thickness: parsedDescription.thickness,
-            orderStartDate: input.orderStartDate,
-            orderEndDate: input.orderEndDate,
-            orderCreateDate: input.orderCreateDate,
+            orderStartDate: parsedOrderStartDate,
+            orderEndDate: parsedOrderEndDate,
+            orderCreateDate: parsedOrderCreateDate,
             status: parsedStatus as ControlStatus,
             qtdFieiraNec,
             createdAt: new Date(),

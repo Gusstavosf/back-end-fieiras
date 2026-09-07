@@ -59,10 +59,10 @@ export class ListControlFieiraWithoutCabinetRoute implements Route {
     }
 
     private present(
-        input: ListControlFieiraWithoutCabinetOutputDto,
+        output: ListControlFieiraWithoutCabinetOutputDto,
     ): ListControlFieiraWithoutCabinetResponseDto {
         return {
-            pendingFieira: input.pendingFieira,
+            pendingFieira: output.pendingFieira,
         };
     }
 }

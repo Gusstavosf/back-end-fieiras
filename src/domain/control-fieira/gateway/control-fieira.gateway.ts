@@ -8,6 +8,7 @@ export type ControlFieiraWithCabinetName = {
 export interface ControlFieiraGateway {
     save(controlFieira: ControlFieira): Promise<ControlFieira>;
     list(): Promise<ControlFieiraWithCabinetName[]>;
+    findById(id: number): Promise<ControlFieira | null>;
     findByOrder(order: number): Promise<ControlFieira | null>;
     findByOrders(orders: number[]): Promise<ControlFieira[]>;
     listPendingFieiras(): Promise<ControlFieira[]>;

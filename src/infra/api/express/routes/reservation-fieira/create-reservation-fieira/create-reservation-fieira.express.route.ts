@@ -32,7 +32,7 @@ export class CreateReservationFieiraRoute implements Route {
     public getHandler(): RequestHandler {
         return async (request: Request, response: Response) => {
             const input: CreateReservationFieiraInputDto = {
-                order: request.body.order,
+                controlId: request.body.controlId,
                 stockFieiraId: request.body.stockFieiraId,
             };
 

@@ -1,5 +1,3 @@
-import IncorrectRequest from "../../../core/shared/errors/incorrectRequest.js";
-
 export type ControlFieiraProps = {
     fieiraId: number | null;
     order: number;
@@ -65,13 +63,7 @@ export class ControlFieira {
 
     private hasChanges(props: UpdateControlFieiraProps): boolean {
         return (
-            this.props.fieiraId !== props.fieiraId ||
             this.props.orderQuantity !== props.orderQuantity ||
-            this.props.wireType !== props.wireType ||
-            this.props.metal !== props.metal ||
-            this.props.tension !== props.tension ||
-            this.props.width !== props.width ||
-            this.props.thickness !== props.thickness ||
             this.props.orderStartDate.getTime() !== props.orderStartDate.getTime() ||
             this.props.orderEndDate.getTime() !== props.orderEndDate.getTime() ||
             this.props.orderCreateDate.getTime() !== props.orderCreateDate.getTime() ||
@@ -85,13 +77,7 @@ export class ControlFieira {
             return false;
         }
 
-        this.props.fieiraId = props.fieiraId;
         this.props.orderQuantity = props.orderQuantity;
-        this.props.wireType = props.wireType;
-        this.props.metal = props.metal;
-        this.props.tension = props.tension;
-        this.props.width = props.width;
-        this.props.thickness = props.thickness;
         this.props.orderStartDate = props.orderStartDate;
         this.props.orderEndDate = props.orderEndDate;
         this.props.orderCreateDate = props.orderCreateDate;

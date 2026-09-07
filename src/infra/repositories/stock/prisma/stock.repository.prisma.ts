@@ -114,7 +114,7 @@ export class StockReposistoryPrisma implements StockGateway {
     }
 
     public async findById(id: number): Promise<Stock | null> {
-        const stockId = await this.prismaClient.stockFieira.findUnique({
+        const stockId = await this.prismaClient.stockFieira.findFirst({
             where: { id },
         });
 
