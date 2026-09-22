@@ -17,6 +17,7 @@ export type ListReservationFieiraPendingResponseDto = {
             orderQuantity: number;
             wireType: string;
             qtdFieiraNec: number;
+            percentServed: number;
         }[];
         qtdFieiraNecTotal: number;
         percentServed: number;

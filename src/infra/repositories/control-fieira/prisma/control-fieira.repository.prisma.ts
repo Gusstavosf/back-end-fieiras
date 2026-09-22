@@ -153,25 +153,16 @@ export class ControlFieiraRepositoryPrisma implements ControlFieiraGateway {
     }
 
     public async listFieirasPendingStock(): Promise<ControlFieira[]> {
-        const controlFieiraPeindingStock = await this.prismaClient.controlFieira.findMany(
-            {
-                where: {
-                    status: ControlStatus.ReleasedPrinted,
-                    fieiraId: {
-                        not: null,
-                    },
-                    ReservationFieira: {
-                        none: {
-                            stockFieiraId: {
-                                not: null,
-                            },
-                        },
-                    },
+        const controlFieiras = await this.prismaClient.controlFieira.findMany({
+            where: {
+                status: ControlStatus.ReleasedPrinted,
+                fieiraId: {
+                    not: null,
                 },
             },
-        );
+        });
 
-        const controlFieiraList = controlFieiraPeindingStock.map((controlFieira) =>
+        const controlFieiraList = controlFieiras.map((controlFieira) =>
             this.toEntity(controlFieira),
         );
 

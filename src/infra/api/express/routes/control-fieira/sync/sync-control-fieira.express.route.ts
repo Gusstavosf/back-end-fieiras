@@ -33,7 +33,7 @@ export class SyncControlFieiraRoute implements Route {
     }
 
     public getPath(): string {
-        return this.method;
+        return this.path;
     }
 
     public getMethod(): HttpMethod {

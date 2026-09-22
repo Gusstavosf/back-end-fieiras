@@ -23,6 +23,7 @@ export type ListReservationFieiraPendingOutputDto = {
             orderQuantity: number;
             wireType: string;
             qtdFieiraNec: number;
+            percentServed: number;
         }[];
         qtdFieiraNecTotal: number;
         percentServed: number;
@@ -52,7 +53,13 @@ export class ListReservationFieiraPendingUseCase implements Usecase<
         const pendingControlFieiras =
             await this.controlFieiraGateway.listFieirasPendingStock();
 
-        const pendingStock: ControlFieira[] = [];
+        type PendingControlFieira = {
+            controlFieira: ControlFieira;
+            totalReserved: number;
+            percentServed: number;
+        };
+
+        const pendingStock: PendingControlFieira[] = [];
 
         for (const controlFieira of pendingControlFieiras) {
             const reservations = await this.reservationFieiraGateway.findByControlFieira(
@@ -64,17 +71,26 @@ export class ListReservationFieiraPendingUseCase implements Usecase<
                 0,
             );
 
-            if (totalReserved >= controlFieira.orderQuantity) {
+            const percentServed = Math.min(
+                (totalReserved / controlFieira.orderQuantity) * 100,
+                100,
+            );
+
+            if (percentServed >= 100) {
                 continue;
             }
 
-            pendingStock.push(controlFieira);
+            pendingStock.push({
+                controlFieira,
+                totalReserved,
+                percentServed,
+            });
         }
 
         const groups = new Map<
             string,
             {
-                controlFieiras: ControlFieira[];
+                controlFieiras: PendingControlFieira[];
                 wireWidth: number;
                 wireThickness: number;
                 tension: Tension;
@@ -82,7 +98,9 @@ export class ListReservationFieiraPendingUseCase implements Usecase<
             }
         >();
 
-        for (const controlFieira of pendingStock) {
+        for (const pending of pendingStock) {
+            const controlFieira = pending.controlFieira;
+
             const fieira = FieiraCalculator.calculate({
                 metal: controlFieira.metal,
                 tension: controlFieira.tension,
@@ -95,10 +113,10 @@ export class ListReservationFieiraPendingUseCase implements Usecase<
             const group = groups.get(key);
 
             if (group) {
-                group.controlFieiras.push(controlFieira);
+                group.controlFieiras.push(pending);
             } else {
                 groups.set(key, {
-                    controlFieiras: [controlFieira],
+                    controlFieiras: [pending],
                     wireWidth: controlFieira.width,
                     wireThickness: controlFieira.thickness,
                     tension: controlFieira.tension,
@@ -106,11 +124,11 @@ export class ListReservationFieiraPendingUseCase implements Usecase<
                 });
             }
         }
-        const pendingStocks = [];
+        const pendingStocks: ListReservationFieiraPendingOutputDto["pendingStocks"] = [];
 
         for (const group of groups.values()) {
             const totalOrderQuantity = group.controlFieiras.reduce(
-                (total, controlFieira) => total + controlFieira.orderQuantity,
+                (total, pending) => total + pending.controlFieira.orderQuantity,
                 0,
             );
 
@@ -119,39 +137,38 @@ export class ListReservationFieiraPendingUseCase implements Usecase<
                 nominalCapacity: group.nominalCapacity,
             });
 
-            let totalReserved = 0;
-
-            for (const controlFieira of group.controlFieiras) {
-                const reservations =
-                    await this.reservationFieiraGateway.findByControlFieira(
-                        controlFieira.id!,
-                    );
-
-                totalReserved += reservations.reduce(
-                    (total, reservation) => total + (reservation.quantity ?? 0),
-                    0,
-                );
-            }
+            const totalReserved = group.controlFieiras.reduce(
+                (total, pending) => total + pending.totalReserved,
+                0,
+            );
 
             const percentServed = Math.min(
                 (totalReserved / totalOrderQuantity) * 100,
                 100,
             );
 
-            pendingStocks.push({
-                wireWidth: group.wireWidth,
-                wireThickness: group.wireThickness,
-                tension: group.tension,
-                qtdOrdens: group.controlFieiras.length,
-                orders: group.controlFieiras.map((controlFieira) => ({
+            const orders = group.controlFieiras.map((pending) => {
+                const controlFieira = pending.controlFieira;
+
+                return {
                     order: controlFieira.order,
                     material: controlFieira.material,
                     orderQuantity: controlFieira.orderQuantity,
                     wireType: controlFieira.wireType,
                     qtdFieiraNec: controlFieira.qtdFieiraNec,
-                })),
-                qtdFieiraNecTotal: qtdFieiraNecTotal,
-                percentServed: percentServed,
+                    qtdFieiraReserved: pending.totalReserved,
+                    percentServed: pending.percentServed,
+                };
+            });
+
+            pendingStocks.push({
+                wireWidth: group.wireWidth,
+                wireThickness: group.wireThickness,
+                tension: group.tension,
+                qtdOrdens: group.controlFieiras.length,
+                orders,
+                qtdFieiraNecTotal,
+                percentServed,
             });
         }
         return {
