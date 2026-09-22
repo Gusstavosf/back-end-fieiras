@@ -8,10 +8,15 @@ export type ControlFieiraSyncInputDto = {
     material: number;
     description: string;
     orderQuantity: number;
-    orderStartDate: Date;
-    orderEndDate: Date;
-    orderCreateDate: Date;
+    orderStartDate: string;
+    orderEndDate: string;
+    orderCreateDate: string;
     status: string;
+};
+
+export type SyncControlFieiraOutputDto = {
+    created: number;
+    updated: number;
 };
 
 export type SyncControlFieiraInputDto = {
@@ -20,7 +25,7 @@ export type SyncControlFieiraInputDto = {
 
 export class SyncControlFieiraUseCase implements Usecase<
     SyncControlFieiraInputDto,
-    void
+    SyncControlFieiraOutputDto
 > {
     private constructor(
         private readonly controlFieiraGateway: ControlFieiraGateway,
@@ -40,7 +45,9 @@ export class SyncControlFieiraUseCase implements Usecase<
         );
     }
 
-    public async execute(input: SyncControlFieiraInputDto): Promise<void> {
+    public async execute(
+        input: SyncControlFieiraInputDto,
+    ): Promise<SyncControlFieiraOutputDto> {
         const orders = input.orders.map((item) => item.order);
 
         const existingControlFieira =
@@ -53,15 +60,25 @@ export class SyncControlFieiraUseCase implements Usecase<
             ]),
         );
 
+        let created = 0;
+        let updated = 0;
+
         for (const order of input.orders) {
             const existing = existingByOrder.get(order.order);
 
             if (existing) {
                 await this.updateControlFieiraUseCase.execute(order);
+
+                updated++;
                 continue;
             }
 
             await this.createControlFieiraUseCase.execute(order);
+            created++;
         }
+        return {
+            created,
+            updated,
+        };
     }
 }

@@ -106,6 +106,20 @@ export class ControlFieiraRepositoryPrisma implements ControlFieiraGateway {
         return this.toEntity(controlFieira);
     }
 
+    public async findById(id: number): Promise<ControlFieira | null> {
+        const controlFieira = await this.prismaClient.controlFieira.findFirst({
+            where: {
+                id,
+            },
+        });
+
+        if (!controlFieira) {
+            return null;
+        }
+
+        return this.toEntity(controlFieira);
+    }
+
     public async findByOrders(orders: number[]): Promise<ControlFieira[]> {
         const controlFieiras = await this.prismaClient.controlFieira.findMany({
             where: {

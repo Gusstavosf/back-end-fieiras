@@ -26,17 +26,17 @@ export class SyncControlFieiraRoute implements Route {
                 orders: request.body.orders,
             };
 
-            await this.syncControlFieiraService.execute(input);
+            const output = await this.syncControlFieiraService.execute(input);
 
-            response.status(204).send();
+            response.status(204).json(output);
         };
-    }
-
-    public getPath(): string {
-        return this.path;
     }
 
     public getMethod(): HttpMethod {
         return this.method;
+    }
+
+    public getPath(): string {
+        return this.path;
     }
 }

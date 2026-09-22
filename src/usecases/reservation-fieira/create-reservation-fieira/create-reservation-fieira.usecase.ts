@@ -9,7 +9,7 @@ import IncorrectRequest from "../../../core/shared/errors/incorrectRequest.js";
 import { ReservationFieira } from "../../../domain/reservation-fieira/entity/reservation-fieira.js";
 
 export type CreateReservationFieiraInputDto = {
-    order: number;
+    controlId: number;
     stockFieiraId: number;
 };
 
@@ -49,22 +49,28 @@ export class CreateReservationFieiraUseCase implements Usecase<
     public async execute(
         input: CreateReservationFieiraInputDto,
     ): Promise<CreateReservationFieiraOutputDto> {
-        const controlFieira = await this.controlFieiraGateway.findByOrder(input.order);
+        const controlFieira = await this.controlFieiraGateway.findById(input.controlId);
+
+        const order = controlFieira?.order;
 
         if (!controlFieira) {
-            throw new NotFound(`Ordem ${input.order} não encontrada`);
+            throw new NotFound(`Ordem ${order} não encontrada`);
         }
 
         const orderQuantity = controlFieira.orderQuantity;
 
-        const fieira = await this.fieiraGateway.findByDimensions(
-            controlFieira.width,
-            controlFieira.thickness,
-            controlFieira.tension,
-        );
+        const fieiraId = controlFieira.fieiraId;
+
+        if (!fieiraId) {
+            throw new NotFound(
+                `A ordem ${controlFieira.order} não possui uma Fieira associada.`,
+            );
+        }
+
+        const fieira = await this.fieiraGateway.findById(controlFieira.fieiraId);
 
         if (!fieira) {
-            throw new NotFound(`Fieira não encontrada`);
+            throw new NotFound(`Fieira ${controlFieira.fieiraId} não encontrada.`);
         }
 
         const nominalCapacity = fieira.nominalFieiraCapacity;
@@ -95,12 +101,8 @@ export class CreateReservationFieiraUseCase implements Usecase<
         const availableCapacity =
             nominalCapacity - stockFieira.production - totalReservedStock;
 
-        if (!controlFieira.id) {
-            throw new NotFound("Id não encontrado");
-        }
-
         const reservationOrder = await this.reservationFieiraGateway.findByControlFieira(
-            controlFieira.id,
+            input.controlId,
         );
 
         const totalReserved = reservationOrder.reduce(
@@ -112,15 +114,35 @@ export class CreateReservationFieiraUseCase implements Usecase<
 
         const quantity = Math.min(availableCapacity, remainingQuantity);
 
-        const reservation = ReservationFieira.create({
-            controlId: controlFieira.id,
-            stockFieiraId: stockFieira.id!,
-            quantity: quantity,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-        });
+        if (quantity <= 0) {
+            throw new IncorrectRequest(
+                "Não há quantidade disponível para realizar esta reserva.",
+            );
+        }
 
-        const savedReservation = await this.reservationFieiraGateway.update(reservation);
+        const pendingReservation = reservationOrder.find(
+            (reservation) =>
+                reservation.stockFieiraId === null && reservation.quantity === null,
+        );
+
+        let savedReservation: ReservationFieira;
+
+        if (pendingReservation) {
+            pendingReservation.attachStockFieira(stockFieira.id!, quantity);
+
+            savedReservation =
+                await this.reservationFieiraGateway.update(pendingReservation);
+        } else {
+            const reservation = ReservationFieira.create({
+                controlId: controlFieira.id!,
+                stockFieiraId: stockFieira.id!,
+                quantity,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            });
+
+            savedReservation = await this.reservationFieiraGateway.save(reservation);
+        }
 
         const output = this.presentOutput(savedReservation);
 

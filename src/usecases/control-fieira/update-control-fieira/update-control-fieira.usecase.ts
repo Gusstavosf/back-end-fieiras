@@ -14,15 +14,16 @@ import { StatusParser } from "../../../domain/control-fieira/parser/status.parse
 import type { FieiraGateway } from "../../../domain/fieira/gateway/fieira.gateway.js";
 import { Fieira } from "../../../domain/fieira/entity/fieira.js";
 import IncorrectRequest from "../../../core/shared/errors/incorrectRequest.js";
+import type { DateParser } from "../../../domain/control-fieira/parser/date.parser.js";
 
 export type UpdateControlFieiraInputDto = {
     order: number;
     material: number;
     description: string;
     orderQuantity: number;
-    orderStartDate: Date;
-    orderEndDate: Date;
-    orderCreateDate: Date;
+    orderStartDate: string;
+    orderEndDate: string;
+    orderCreateDate: string;
     status: string;
 };
 
@@ -55,6 +56,7 @@ export class UpdateControlFieiraUseCase implements Usecase<
         private readonly fieiraGateway: FieiraGateway,
         private readonly descriptionParser: DescriptionParser,
         private readonly statusParser: StatusParser,
+        private readonly dateParser: DateParser,
     ) {}
 
     public static create(
@@ -62,12 +64,14 @@ export class UpdateControlFieiraUseCase implements Usecase<
         fieiraGateway: FieiraGateway,
         descriptionParser: DescriptionParser,
         statusParser: StatusParser,
+        dateParser: DateParser,
     ) {
         return new UpdateControlFieiraUseCase(
             controlFieiraGateway,
             fieiraGateway,
             descriptionParser,
             statusParser,
+            dateParser,
         );
     }
 
@@ -87,7 +91,9 @@ export class UpdateControlFieiraUseCase implements Usecase<
         if (!parsedDescription) {
             throw new Error("Descrição não suportada.");
         }
-
+        const parsedOrderStartDate = this.dateParser.parse(input.orderStartDate);
+        const parsedOrderEndDate = this.dateParser.parse(input.orderEndDate);
+        const parsedOrderCreateDate = this.dateParser.parse(input.orderCreateDate);
         const parsedStatus = this.statusParser.parse(input.status);
 
         if (!parsedStatus) {
@@ -138,15 +144,15 @@ export class UpdateControlFieiraUseCase implements Usecase<
             tension: parsedDescription.tension,
             width: parsedDescription.width,
             thickness: parsedDescription.thickness,
-            orderStartDate: input.orderStartDate,
-            orderEndDate: input.orderEndDate,
-            orderCreateDate: input.orderCreateDate,
+            orderStartDate: parsedOrderStartDate,
+            orderEndDate: parsedOrderEndDate,
+            orderCreateDate: parsedOrderCreateDate,
             status: parsedStatus,
             qtdFieiraNec,
         });
 
         if (update) {
-            await this.controlFieiraGateway.save(existingControlFieira);
+            await this.controlFieiraGateway.update(existingControlFieira);
         }
 
         return this.presentOutput(existingControlFieira);
