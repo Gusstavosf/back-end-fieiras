@@ -2,6 +2,7 @@ import type { NextFunction, Request, Response } from "express";
 import { Prisma } from "../../generated/prisma/client.js";
 import IncorrectRequest from "../../core/shared/errors/incorrectRequest.js";
 import NotFound from "../../core/shared/errors/notFound.js";
+import { error } from "node:console";
 
 interface AppError {
     message: string;
@@ -25,6 +26,12 @@ function ErrorHandler(
     }
 
     if (erro instanceof Prisma.PrismaClientKnownRequestError) {
+        console.error("========== PRISMA ERROR ==========");
+        console.error(erro);
+        console.error("CODE:", erro.code);
+        console.error("META:", erro.meta);
+        console.error("==================================");
+
         switch (erro.code) {
             case "P2002":
                 return response.status(409).json({ message: "Registro já existe" });

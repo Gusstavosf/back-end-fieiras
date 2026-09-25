@@ -208,7 +208,7 @@ export type CabinetWhereInput = {
   name?: Prisma.StringFilter<"Cabinet"> | string
   createdAt?: Prisma.DateTimeFilter<"Cabinet"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Cabinet"> | Date | string
-  Fieira?: Prisma.FieiraListRelationFilter
+  Fieira?: Prisma.XOR<Prisma.FieiraNullableScalarRelationFilter, Prisma.FieiraWhereInput> | null
 }
 
 export type CabinetOrderByWithRelationInput = {
@@ -216,7 +216,7 @@ export type CabinetOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  Fieira?: Prisma.FieiraOrderByRelationAggregateInput
+  Fieira?: Prisma.FieiraOrderByWithRelationInput
 }
 
 export type CabinetWhereUniqueInput = Prisma.AtLeast<{
@@ -227,7 +227,7 @@ export type CabinetWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.CabinetWhereInput | Prisma.CabinetWhereInput[]
   createdAt?: Prisma.DateTimeFilter<"Cabinet"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Cabinet"> | Date | string
-  Fieira?: Prisma.FieiraListRelationFilter
+  Fieira?: Prisma.XOR<Prisma.FieiraNullableScalarRelationFilter, Prisma.FieiraWhereInput> | null
 }, "id" | "name">
 
 export type CabinetOrderByWithAggregationInput = {
@@ -256,7 +256,7 @@ export type CabinetCreateInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  Fieira?: Prisma.FieiraCreateNestedManyWithoutCabinetInput
+  Fieira?: Prisma.FieiraCreateNestedOneWithoutCabinetInput
 }
 
 export type CabinetUncheckedCreateInput = {
@@ -264,14 +264,14 @@ export type CabinetUncheckedCreateInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  Fieira?: Prisma.FieiraUncheckedCreateNestedManyWithoutCabinetInput
+  Fieira?: Prisma.FieiraUncheckedCreateNestedOneWithoutCabinetInput
 }
 
 export type CabinetUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  Fieira?: Prisma.FieiraUpdateManyWithoutCabinetNestedInput
+  Fieira?: Prisma.FieiraUpdateOneWithoutCabinetNestedInput
 }
 
 export type CabinetUncheckedUpdateInput = {
@@ -279,7 +279,7 @@ export type CabinetUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  Fieira?: Prisma.FieiraUncheckedUpdateManyWithoutCabinetNestedInput
+  Fieira?: Prisma.FieiraUncheckedUpdateOneWithoutCabinetNestedInput
 }
 
 export type CabinetCreateManyInput = {
@@ -411,35 +411,6 @@ export type CabinetUncheckedUpdateWithoutFieiraInput = {
 }
 
 
-/**
- * Count Type CabinetCountOutputType
- */
-
-export type CabinetCountOutputType = {
-  Fieira: number
-}
-
-export type CabinetCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Fieira?: boolean | CabinetCountOutputTypeCountFieiraArgs
-}
-
-/**
- * CabinetCountOutputType without action
- */
-export type CabinetCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CabinetCountOutputType
-   */
-  select?: Prisma.CabinetCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * CabinetCountOutputType without action
- */
-export type CabinetCountOutputTypeCountFieiraArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.FieiraWhereInput
-}
-
 
 export type CabinetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -447,7 +418,6 @@ export type CabinetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   createdAt?: boolean
   updatedAt?: boolean
   Fieira?: boolean | Prisma.Cabinet$FieiraArgs<ExtArgs>
-  _count?: boolean | Prisma.CabinetCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["cabinet"]>
 
 export type CabinetSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -474,7 +444,6 @@ export type CabinetSelectScalar = {
 export type CabinetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt", ExtArgs["result"]["cabinet"]>
 export type CabinetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Fieira?: boolean | Prisma.Cabinet$FieiraArgs<ExtArgs>
-  _count?: boolean | Prisma.CabinetCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CabinetIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 export type CabinetIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -482,7 +451,7 @@ export type CabinetIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type $CabinetPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Cabinet"
   objects: {
-    Fieira: Prisma.$FieiraPayload<ExtArgs>[]
+    Fieira: Prisma.$FieiraPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -883,7 +852,7 @@ readonly fields: CabinetFieldRefs;
  */
 export interface Prisma__CabinetClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Fieira<T extends Prisma.Cabinet$FieiraArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Cabinet$FieiraArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FieiraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  Fieira<T extends Prisma.Cabinet$FieiraArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Cabinet$FieiraArgs<ExtArgs>>): Prisma.Prisma__FieiraClient<runtime.Types.Result.GetResult<Prisma.$FieiraPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1326,11 +1295,6 @@ export type Cabinet$FieiraArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   include?: Prisma.FieiraInclude<ExtArgs> | null
   where?: Prisma.FieiraWhereInput
-  orderBy?: Prisma.FieiraOrderByWithRelationInput | Prisma.FieiraOrderByWithRelationInput[]
-  cursor?: Prisma.FieiraWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.FieiraScalarFieldEnum | Prisma.FieiraScalarFieldEnum[]
 }
 
 /**

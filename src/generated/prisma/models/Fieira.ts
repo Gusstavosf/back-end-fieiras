@@ -415,14 +415,9 @@ export type FieiraUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type FieiraListRelationFilter = {
-  every?: Prisma.FieiraWhereInput
-  some?: Prisma.FieiraWhereInput
-  none?: Prisma.FieiraWhereInput
-}
-
-export type FieiraOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
+export type FieiraNullableScalarRelationFilter = {
+  is?: Prisma.FieiraWhereInput | null
+  isNot?: Prisma.FieiraWhereInput | null
 }
 
 export type FieiraWidthThicknessTensionCompoundUniqueInput = {
@@ -482,56 +477,41 @@ export type FieiraSumOrderByAggregateInput = {
   nominalFieiraCapacity?: Prisma.SortOrder
 }
 
-export type FieiraNullableScalarRelationFilter = {
-  is?: Prisma.FieiraWhereInput | null
-  isNot?: Prisma.FieiraWhereInput | null
-}
-
 export type FieiraScalarRelationFilter = {
   is?: Prisma.FieiraWhereInput
   isNot?: Prisma.FieiraWhereInput
 }
 
-export type FieiraCreateNestedManyWithoutCabinetInput = {
-  create?: Prisma.XOR<Prisma.FieiraCreateWithoutCabinetInput, Prisma.FieiraUncheckedCreateWithoutCabinetInput> | Prisma.FieiraCreateWithoutCabinetInput[] | Prisma.FieiraUncheckedCreateWithoutCabinetInput[]
-  connectOrCreate?: Prisma.FieiraCreateOrConnectWithoutCabinetInput | Prisma.FieiraCreateOrConnectWithoutCabinetInput[]
-  createMany?: Prisma.FieiraCreateManyCabinetInputEnvelope
-  connect?: Prisma.FieiraWhereUniqueInput | Prisma.FieiraWhereUniqueInput[]
+export type FieiraCreateNestedOneWithoutCabinetInput = {
+  create?: Prisma.XOR<Prisma.FieiraCreateWithoutCabinetInput, Prisma.FieiraUncheckedCreateWithoutCabinetInput>
+  connectOrCreate?: Prisma.FieiraCreateOrConnectWithoutCabinetInput
+  connect?: Prisma.FieiraWhereUniqueInput
 }
 
-export type FieiraUncheckedCreateNestedManyWithoutCabinetInput = {
-  create?: Prisma.XOR<Prisma.FieiraCreateWithoutCabinetInput, Prisma.FieiraUncheckedCreateWithoutCabinetInput> | Prisma.FieiraCreateWithoutCabinetInput[] | Prisma.FieiraUncheckedCreateWithoutCabinetInput[]
-  connectOrCreate?: Prisma.FieiraCreateOrConnectWithoutCabinetInput | Prisma.FieiraCreateOrConnectWithoutCabinetInput[]
-  createMany?: Prisma.FieiraCreateManyCabinetInputEnvelope
-  connect?: Prisma.FieiraWhereUniqueInput | Prisma.FieiraWhereUniqueInput[]
+export type FieiraUncheckedCreateNestedOneWithoutCabinetInput = {
+  create?: Prisma.XOR<Prisma.FieiraCreateWithoutCabinetInput, Prisma.FieiraUncheckedCreateWithoutCabinetInput>
+  connectOrCreate?: Prisma.FieiraCreateOrConnectWithoutCabinetInput
+  connect?: Prisma.FieiraWhereUniqueInput
 }
 
-export type FieiraUpdateManyWithoutCabinetNestedInput = {
-  create?: Prisma.XOR<Prisma.FieiraCreateWithoutCabinetInput, Prisma.FieiraUncheckedCreateWithoutCabinetInput> | Prisma.FieiraCreateWithoutCabinetInput[] | Prisma.FieiraUncheckedCreateWithoutCabinetInput[]
-  connectOrCreate?: Prisma.FieiraCreateOrConnectWithoutCabinetInput | Prisma.FieiraCreateOrConnectWithoutCabinetInput[]
-  upsert?: Prisma.FieiraUpsertWithWhereUniqueWithoutCabinetInput | Prisma.FieiraUpsertWithWhereUniqueWithoutCabinetInput[]
-  createMany?: Prisma.FieiraCreateManyCabinetInputEnvelope
-  set?: Prisma.FieiraWhereUniqueInput | Prisma.FieiraWhereUniqueInput[]
-  disconnect?: Prisma.FieiraWhereUniqueInput | Prisma.FieiraWhereUniqueInput[]
-  delete?: Prisma.FieiraWhereUniqueInput | Prisma.FieiraWhereUniqueInput[]
-  connect?: Prisma.FieiraWhereUniqueInput | Prisma.FieiraWhereUniqueInput[]
-  update?: Prisma.FieiraUpdateWithWhereUniqueWithoutCabinetInput | Prisma.FieiraUpdateWithWhereUniqueWithoutCabinetInput[]
-  updateMany?: Prisma.FieiraUpdateManyWithWhereWithoutCabinetInput | Prisma.FieiraUpdateManyWithWhereWithoutCabinetInput[]
-  deleteMany?: Prisma.FieiraScalarWhereInput | Prisma.FieiraScalarWhereInput[]
+export type FieiraUpdateOneWithoutCabinetNestedInput = {
+  create?: Prisma.XOR<Prisma.FieiraCreateWithoutCabinetInput, Prisma.FieiraUncheckedCreateWithoutCabinetInput>
+  connectOrCreate?: Prisma.FieiraCreateOrConnectWithoutCabinetInput
+  upsert?: Prisma.FieiraUpsertWithoutCabinetInput
+  disconnect?: Prisma.FieiraWhereInput | boolean
+  delete?: Prisma.FieiraWhereInput | boolean
+  connect?: Prisma.FieiraWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FieiraUpdateToOneWithWhereWithoutCabinetInput, Prisma.FieiraUpdateWithoutCabinetInput>, Prisma.FieiraUncheckedUpdateWithoutCabinetInput>
 }
 
-export type FieiraUncheckedUpdateManyWithoutCabinetNestedInput = {
-  create?: Prisma.XOR<Prisma.FieiraCreateWithoutCabinetInput, Prisma.FieiraUncheckedCreateWithoutCabinetInput> | Prisma.FieiraCreateWithoutCabinetInput[] | Prisma.FieiraUncheckedCreateWithoutCabinetInput[]
-  connectOrCreate?: Prisma.FieiraCreateOrConnectWithoutCabinetInput | Prisma.FieiraCreateOrConnectWithoutCabinetInput[]
-  upsert?: Prisma.FieiraUpsertWithWhereUniqueWithoutCabinetInput | Prisma.FieiraUpsertWithWhereUniqueWithoutCabinetInput[]
-  createMany?: Prisma.FieiraCreateManyCabinetInputEnvelope
-  set?: Prisma.FieiraWhereUniqueInput | Prisma.FieiraWhereUniqueInput[]
-  disconnect?: Prisma.FieiraWhereUniqueInput | Prisma.FieiraWhereUniqueInput[]
-  delete?: Prisma.FieiraWhereUniqueInput | Prisma.FieiraWhereUniqueInput[]
-  connect?: Prisma.FieiraWhereUniqueInput | Prisma.FieiraWhereUniqueInput[]
-  update?: Prisma.FieiraUpdateWithWhereUniqueWithoutCabinetInput | Prisma.FieiraUpdateWithWhereUniqueWithoutCabinetInput[]
-  updateMany?: Prisma.FieiraUpdateManyWithWhereWithoutCabinetInput | Prisma.FieiraUpdateManyWithWhereWithoutCabinetInput[]
-  deleteMany?: Prisma.FieiraScalarWhereInput | Prisma.FieiraScalarWhereInput[]
+export type FieiraUncheckedUpdateOneWithoutCabinetNestedInput = {
+  create?: Prisma.XOR<Prisma.FieiraCreateWithoutCabinetInput, Prisma.FieiraUncheckedCreateWithoutCabinetInput>
+  connectOrCreate?: Prisma.FieiraCreateOrConnectWithoutCabinetInput
+  upsert?: Prisma.FieiraUpsertWithoutCabinetInput
+  disconnect?: Prisma.FieiraWhereInput | boolean
+  delete?: Prisma.FieiraWhereInput | boolean
+  connect?: Prisma.FieiraWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FieiraUpdateToOneWithWhereWithoutCabinetInput, Prisma.FieiraUpdateWithoutCabinetInput>, Prisma.FieiraUncheckedUpdateWithoutCabinetInput>
 }
 
 export type DecimalFieldUpdateOperationsInput = {
@@ -624,39 +604,40 @@ export type FieiraCreateOrConnectWithoutCabinetInput = {
   create: Prisma.XOR<Prisma.FieiraCreateWithoutCabinetInput, Prisma.FieiraUncheckedCreateWithoutCabinetInput>
 }
 
-export type FieiraCreateManyCabinetInputEnvelope = {
-  data: Prisma.FieiraCreateManyCabinetInput | Prisma.FieiraCreateManyCabinetInput[]
-  skipDuplicates?: boolean
-}
-
-export type FieiraUpsertWithWhereUniqueWithoutCabinetInput = {
-  where: Prisma.FieiraWhereUniqueInput
+export type FieiraUpsertWithoutCabinetInput = {
   update: Prisma.XOR<Prisma.FieiraUpdateWithoutCabinetInput, Prisma.FieiraUncheckedUpdateWithoutCabinetInput>
   create: Prisma.XOR<Prisma.FieiraCreateWithoutCabinetInput, Prisma.FieiraUncheckedCreateWithoutCabinetInput>
+  where?: Prisma.FieiraWhereInput
 }
 
-export type FieiraUpdateWithWhereUniqueWithoutCabinetInput = {
-  where: Prisma.FieiraWhereUniqueInput
+export type FieiraUpdateToOneWithWhereWithoutCabinetInput = {
+  where?: Prisma.FieiraWhereInput
   data: Prisma.XOR<Prisma.FieiraUpdateWithoutCabinetInput, Prisma.FieiraUncheckedUpdateWithoutCabinetInput>
 }
 
-export type FieiraUpdateManyWithWhereWithoutCabinetInput = {
-  where: Prisma.FieiraScalarWhereInput
-  data: Prisma.XOR<Prisma.FieiraUpdateManyMutationInput, Prisma.FieiraUncheckedUpdateManyWithoutCabinetInput>
+export type FieiraUpdateWithoutCabinetInput = {
+  width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  tension?: Prisma.IntFieldUpdateOperationsInput | number
+  nominalFieiraCapacity?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ControlFieira?: Prisma.ControlFieiraUpdateManyWithoutFieiraNestedInput
+  StockFieira?: Prisma.StockFieiraUpdateManyWithoutFieiraNestedInput
+  Requisitions?: Prisma.RequisitionUpdateManyWithoutFieiraNestedInput
 }
 
-export type FieiraScalarWhereInput = {
-  AND?: Prisma.FieiraScalarWhereInput | Prisma.FieiraScalarWhereInput[]
-  OR?: Prisma.FieiraScalarWhereInput[]
-  NOT?: Prisma.FieiraScalarWhereInput | Prisma.FieiraScalarWhereInput[]
-  id?: Prisma.IntFilter<"Fieira"> | number
-  cabinetId?: Prisma.IntNullableFilter<"Fieira"> | number | null
-  width?: Prisma.DecimalFilter<"Fieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  thickness?: Prisma.DecimalFilter<"Fieira"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  tension?: Prisma.IntFilter<"Fieira"> | number
-  nominalFieiraCapacity?: Prisma.IntFilter<"Fieira"> | number
-  createdAt?: Prisma.DateTimeFilter<"Fieira"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Fieira"> | Date | string
+export type FieiraUncheckedUpdateWithoutCabinetInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  tension?: Prisma.IntFieldUpdateOperationsInput | number
+  nominalFieiraCapacity?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ControlFieira?: Prisma.ControlFieiraUncheckedUpdateManyWithoutFieiraNestedInput
+  StockFieira?: Prisma.StockFieiraUncheckedUpdateManyWithoutFieiraNestedInput
+  Requisitions?: Prisma.RequisitionUncheckedUpdateManyWithoutFieiraNestedInput
 }
 
 export type FieiraCreateWithoutControlFieiraInput = {
@@ -855,51 +836,6 @@ export type FieiraUncheckedUpdateWithoutRequisitionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ControlFieira?: Prisma.ControlFieiraUncheckedUpdateManyWithoutFieiraNestedInput
   StockFieira?: Prisma.StockFieiraUncheckedUpdateManyWithoutFieiraNestedInput
-}
-
-export type FieiraCreateManyCabinetInput = {
-  id?: number
-  width: runtime.Decimal | runtime.DecimalJsLike | number | string
-  thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
-  tension: number
-  nominalFieiraCapacity: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type FieiraUpdateWithoutCabinetInput = {
-  width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  tension?: Prisma.IntFieldUpdateOperationsInput | number
-  nominalFieiraCapacity?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  ControlFieira?: Prisma.ControlFieiraUpdateManyWithoutFieiraNestedInput
-  StockFieira?: Prisma.StockFieiraUpdateManyWithoutFieiraNestedInput
-  Requisitions?: Prisma.RequisitionUpdateManyWithoutFieiraNestedInput
-}
-
-export type FieiraUncheckedUpdateWithoutCabinetInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  tension?: Prisma.IntFieldUpdateOperationsInput | number
-  nominalFieiraCapacity?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  ControlFieira?: Prisma.ControlFieiraUncheckedUpdateManyWithoutFieiraNestedInput
-  StockFieira?: Prisma.StockFieiraUncheckedUpdateManyWithoutFieiraNestedInput
-  Requisitions?: Prisma.RequisitionUncheckedUpdateManyWithoutFieiraNestedInput
-}
-
-export type FieiraUncheckedUpdateManyWithoutCabinetInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  tension?: Prisma.IntFieldUpdateOperationsInput | number
-  nominalFieiraCapacity?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 

@@ -138,9 +138,7 @@ export class StockReposistoryPrisma implements StockGateway {
     public async findEmptyCabinet(): Promise<Cabinet | null> {
         const cabinet = await this.prismaClient.cabinet.findFirst({
             where: {
-                Fieira: {
-                    none: {},
-                },
+                Fieira: null,
             },
         });
 
@@ -160,7 +158,7 @@ export class StockReposistoryPrisma implements StockGateway {
         const cabinets = await this.prismaClient.cabinet.findMany({
             where: {
                 Fieira: {
-                    some: {
+                    is: {
                         StockFieira: {
                             every: {
                                 status: "dead",
