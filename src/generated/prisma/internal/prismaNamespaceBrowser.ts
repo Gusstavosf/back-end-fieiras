@@ -157,7 +157,9 @@ export type RequisitionScalarFieldEnum = (typeof RequisitionScalarFieldEnum)[key
 export const RequisitionItemScalarFieldEnum = {
   id: 'id',
   requisitionId: 'requisitionId',
-  fieiraId: 'fieiraId'
+  stockFieiraId: 'stockFieiraId',
+  supplierFieiraStockId: 'supplierFieiraStockId',
+  type: 'type'
 } as const
 
 export type RequisitionItemScalarFieldEnum = (typeof RequisitionItemScalarFieldEnum)[keyof typeof RequisitionItemScalarFieldEnum]

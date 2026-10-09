@@ -9,6 +9,14 @@
 * 🟢 You can import this file directly.
 */
 
+export const RequisitionItemType = {
+  new: 'new',
+  rework: 'rework'
+} as const
+
+export type RequisitionItemType = (typeof RequisitionItemType)[keyof typeof RequisitionItemType]
+
+
 export const StatusFieira = {
   new: 'new',
   requested: 'requested',

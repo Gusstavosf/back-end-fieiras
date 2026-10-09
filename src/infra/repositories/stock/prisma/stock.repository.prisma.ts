@@ -86,6 +86,14 @@ export class StockReposistoryPrisma implements StockGateway {
         return stockList;
     }
 
+    public async listByFieiraId(fieiraId: number): Promise<Stock[]> {
+        const stocksFromDb = await this.prismaClient.stockFieira.findMany({
+            where: { fieiraId },
+        });
+
+        return stocksFromDb.map((stock) => this.toEntity(stock));
+    }
+
     public async findByCode(code: string, fieiraId: number): Promise<Stock | null> {
         const stockCode = await this.prismaClient.stockFieira.findFirst({
             where: { code, fieiraId },

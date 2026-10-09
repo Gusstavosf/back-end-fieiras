@@ -82,12 +82,14 @@ model StockFieira {
 }
 
 model Requisition {
-  id              Int      @id @default(autoincrement())
-  fieiraId        Int
-  currentStockQty Int
-  requisitionQty  Int
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @default(now())
+  id                   Int             @id @default(autoincrement())
+  fieiraId             Int
+  type                 RequisitionType
+  currentStockQty      Int
+  currentStockCapacity Int
+  necessaryQty         Int
+  createdAt            DateTime        @default(now())
+  updatedAt            DateTime        @default(now())
 
   // Relations
   Fieira              Fieira               @relation(fields: [fieiraId], references: [id])
@@ -95,16 +97,27 @@ model Requisition {
   requisitionControls RequisitionControl[]
 }
 
+enum RequisitionType {
+  production
+  free_stock
+}
+
 model RequisitionItem {
-  id            Int @id @default(autoincrement())
-  requisitionId Int
-  fieiraId      Int
+  id                    Int                 @id @default(autoincrement())
+  requisitionId         Int
+  stockFieiraId         Int?
+  supplierFieiraStockId Int?
+  type                  RequisitionItemType
 
   // Relations
-  StockFieira StockFieira @relation(fields: [fieiraId], references: [id])
-  Requisition Requisition @relation(fields: [requisitionId], references: [id])
+  Requisition         Requisition          @relation(fields: [requisitionId], references: [id])
+  StockFieira         StockFieira?         @relation(fields: [stockFieiraId], references: [id])
+  SupplierFieiraStock SupplierFieiraStock? @relation(fields: [supplierFieiraStockId], references: [id])
+}
 
-  @@unique([requisitionId, fieiraId])
+enum RequisitionItemType {
+  new
+  rework
 }
 
 model RequisitionControl {
@@ -156,6 +169,8 @@ model SupplierFieiraStock {
   quantityUsed Int
   createdAt    DateTime @default(now())
   updatedAt    DateTime @default(now())
+
+  requisitionItems RequisitionItem[]
 }
 
 enum StatusFieira {

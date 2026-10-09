@@ -29,31 +29,39 @@ export type AggregateRequisitionItem = {
 export type RequisitionItemAvgAggregateOutputType = {
   id: number | null
   requisitionId: number | null
-  fieiraId: number | null
+  stockFieiraId: number | null
+  supplierFieiraStockId: number | null
 }
 
 export type RequisitionItemSumAggregateOutputType = {
   id: number | null
   requisitionId: number | null
-  fieiraId: number | null
+  stockFieiraId: number | null
+  supplierFieiraStockId: number | null
 }
 
 export type RequisitionItemMinAggregateOutputType = {
   id: number | null
   requisitionId: number | null
-  fieiraId: number | null
+  stockFieiraId: number | null
+  supplierFieiraStockId: number | null
+  type: $Enums.RequisitionItemType | null
 }
 
 export type RequisitionItemMaxAggregateOutputType = {
   id: number | null
   requisitionId: number | null
-  fieiraId: number | null
+  stockFieiraId: number | null
+  supplierFieiraStockId: number | null
+  type: $Enums.RequisitionItemType | null
 }
 
 export type RequisitionItemCountAggregateOutputType = {
   id: number
   requisitionId: number
-  fieiraId: number
+  stockFieiraId: number
+  supplierFieiraStockId: number
+  type: number
   _all: number
 }
 
@@ -61,31 +69,39 @@ export type RequisitionItemCountAggregateOutputType = {
 export type RequisitionItemAvgAggregateInputType = {
   id?: true
   requisitionId?: true
-  fieiraId?: true
+  stockFieiraId?: true
+  supplierFieiraStockId?: true
 }
 
 export type RequisitionItemSumAggregateInputType = {
   id?: true
   requisitionId?: true
-  fieiraId?: true
+  stockFieiraId?: true
+  supplierFieiraStockId?: true
 }
 
 export type RequisitionItemMinAggregateInputType = {
   id?: true
   requisitionId?: true
-  fieiraId?: true
+  stockFieiraId?: true
+  supplierFieiraStockId?: true
+  type?: true
 }
 
 export type RequisitionItemMaxAggregateInputType = {
   id?: true
   requisitionId?: true
-  fieiraId?: true
+  stockFieiraId?: true
+  supplierFieiraStockId?: true
+  type?: true
 }
 
 export type RequisitionItemCountAggregateInputType = {
   id?: true
   requisitionId?: true
-  fieiraId?: true
+  stockFieiraId?: true
+  supplierFieiraStockId?: true
+  type?: true
   _all?: true
 }
 
@@ -178,7 +194,9 @@ export type RequisitionItemGroupByArgs<ExtArgs extends runtime.Types.Extensions.
 export type RequisitionItemGroupByOutputType = {
   id: number
   requisitionId: number
-  fieiraId: number
+  stockFieiraId: number | null
+  supplierFieiraStockId: number | null
+  type: $Enums.RequisitionItemType
   _count: RequisitionItemCountAggregateOutputType | null
   _avg: RequisitionItemAvgAggregateOutputType | null
   _sum: RequisitionItemSumAggregateOutputType | null
@@ -207,35 +225,46 @@ export type RequisitionItemWhereInput = {
   NOT?: Prisma.RequisitionItemWhereInput | Prisma.RequisitionItemWhereInput[]
   id?: Prisma.IntFilter<"RequisitionItem"> | number
   requisitionId?: Prisma.IntFilter<"RequisitionItem"> | number
-  fieiraId?: Prisma.IntFilter<"RequisitionItem"> | number
-  StockFieira?: Prisma.XOR<Prisma.StockFieiraScalarRelationFilter, Prisma.StockFieiraWhereInput>
+  stockFieiraId?: Prisma.IntNullableFilter<"RequisitionItem"> | number | null
+  supplierFieiraStockId?: Prisma.IntNullableFilter<"RequisitionItem"> | number | null
+  type?: Prisma.EnumRequisitionItemTypeFilter<"RequisitionItem"> | $Enums.RequisitionItemType
   Requisition?: Prisma.XOR<Prisma.RequisitionScalarRelationFilter, Prisma.RequisitionWhereInput>
+  StockFieira?: Prisma.XOR<Prisma.StockFieiraNullableScalarRelationFilter, Prisma.StockFieiraWhereInput> | null
+  SupplierFieiraStock?: Prisma.XOR<Prisma.SupplierFieiraStockNullableScalarRelationFilter, Prisma.SupplierFieiraStockWhereInput> | null
 }
 
 export type RequisitionItemOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   requisitionId?: Prisma.SortOrder
-  fieiraId?: Prisma.SortOrder
-  StockFieira?: Prisma.StockFieiraOrderByWithRelationInput
+  stockFieiraId?: Prisma.SortOrderInput | Prisma.SortOrder
+  supplierFieiraStockId?: Prisma.SortOrderInput | Prisma.SortOrder
+  type?: Prisma.SortOrder
   Requisition?: Prisma.RequisitionOrderByWithRelationInput
+  StockFieira?: Prisma.StockFieiraOrderByWithRelationInput
+  SupplierFieiraStock?: Prisma.SupplierFieiraStockOrderByWithRelationInput
 }
 
 export type RequisitionItemWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  requisitionId_fieiraId?: Prisma.RequisitionItemRequisitionIdFieiraIdCompoundUniqueInput
+  requisitionId_stockFieiraId?: Prisma.RequisitionItemRequisitionIdStockFieiraIdCompoundUniqueInput
   AND?: Prisma.RequisitionItemWhereInput | Prisma.RequisitionItemWhereInput[]
   OR?: Prisma.RequisitionItemWhereInput[]
   NOT?: Prisma.RequisitionItemWhereInput | Prisma.RequisitionItemWhereInput[]
   requisitionId?: Prisma.IntFilter<"RequisitionItem"> | number
-  fieiraId?: Prisma.IntFilter<"RequisitionItem"> | number
-  StockFieira?: Prisma.XOR<Prisma.StockFieiraScalarRelationFilter, Prisma.StockFieiraWhereInput>
+  stockFieiraId?: Prisma.IntNullableFilter<"RequisitionItem"> | number | null
+  supplierFieiraStockId?: Prisma.IntNullableFilter<"RequisitionItem"> | number | null
+  type?: Prisma.EnumRequisitionItemTypeFilter<"RequisitionItem"> | $Enums.RequisitionItemType
   Requisition?: Prisma.XOR<Prisma.RequisitionScalarRelationFilter, Prisma.RequisitionWhereInput>
-}, "id" | "requisitionId_fieiraId">
+  StockFieira?: Prisma.XOR<Prisma.StockFieiraNullableScalarRelationFilter, Prisma.StockFieiraWhereInput> | null
+  SupplierFieiraStock?: Prisma.XOR<Prisma.SupplierFieiraStockNullableScalarRelationFilter, Prisma.SupplierFieiraStockWhereInput> | null
+}, "id" | "requisitionId_stockFieiraId">
 
 export type RequisitionItemOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   requisitionId?: Prisma.SortOrder
-  fieiraId?: Prisma.SortOrder
+  stockFieiraId?: Prisma.SortOrderInput | Prisma.SortOrder
+  supplierFieiraStockId?: Prisma.SortOrderInput | Prisma.SortOrder
+  type?: Prisma.SortOrder
   _count?: Prisma.RequisitionItemCountOrderByAggregateInput
   _avg?: Prisma.RequisitionItemAvgOrderByAggregateInput
   _max?: Prisma.RequisitionItemMaxOrderByAggregateInput
@@ -249,45 +278,59 @@ export type RequisitionItemScalarWhereWithAggregatesInput = {
   NOT?: Prisma.RequisitionItemScalarWhereWithAggregatesInput | Prisma.RequisitionItemScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"RequisitionItem"> | number
   requisitionId?: Prisma.IntWithAggregatesFilter<"RequisitionItem"> | number
-  fieiraId?: Prisma.IntWithAggregatesFilter<"RequisitionItem"> | number
+  stockFieiraId?: Prisma.IntNullableWithAggregatesFilter<"RequisitionItem"> | number | null
+  supplierFieiraStockId?: Prisma.IntNullableWithAggregatesFilter<"RequisitionItem"> | number | null
+  type?: Prisma.EnumRequisitionItemTypeWithAggregatesFilter<"RequisitionItem"> | $Enums.RequisitionItemType
 }
 
 export type RequisitionItemCreateInput = {
-  StockFieira: Prisma.StockFieiraCreateNestedOneWithoutRequisitionItemsInput
+  type: $Enums.RequisitionItemType
   Requisition: Prisma.RequisitionCreateNestedOneWithoutRequisitionItemsInput
+  StockFieira?: Prisma.StockFieiraCreateNestedOneWithoutRequisitionItemsInput
+  SupplierFieiraStock?: Prisma.SupplierFieiraStockCreateNestedOneWithoutRequisitionItemsInput
 }
 
 export type RequisitionItemUncheckedCreateInput = {
   id?: number
   requisitionId: number
-  fieiraId: number
+  stockFieiraId?: number | null
+  supplierFieiraStockId?: number | null
+  type: $Enums.RequisitionItemType
 }
 
 export type RequisitionItemUpdateInput = {
-  StockFieira?: Prisma.StockFieiraUpdateOneRequiredWithoutRequisitionItemsNestedInput
+  type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
   Requisition?: Prisma.RequisitionUpdateOneRequiredWithoutRequisitionItemsNestedInput
+  StockFieira?: Prisma.StockFieiraUpdateOneWithoutRequisitionItemsNestedInput
+  SupplierFieiraStock?: Prisma.SupplierFieiraStockUpdateOneWithoutRequisitionItemsNestedInput
 }
 
 export type RequisitionItemUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   requisitionId?: Prisma.IntFieldUpdateOperationsInput | number
-  fieiraId?: Prisma.IntFieldUpdateOperationsInput | number
+  stockFieiraId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  supplierFieiraStockId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
 }
 
 export type RequisitionItemCreateManyInput = {
   id?: number
   requisitionId: number
-  fieiraId: number
+  stockFieiraId?: number | null
+  supplierFieiraStockId?: number | null
+  type: $Enums.RequisitionItemType
 }
 
 export type RequisitionItemUpdateManyMutationInput = {
-
+  type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
 }
 
 export type RequisitionItemUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   requisitionId?: Prisma.IntFieldUpdateOperationsInput | number
-  fieiraId?: Prisma.IntFieldUpdateOperationsInput | number
+  stockFieiraId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  supplierFieiraStockId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
 }
 
 export type RequisitionItemListRelationFilter = {
@@ -300,39 +343,47 @@ export type RequisitionItemOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type RequisitionItemRequisitionIdFieiraIdCompoundUniqueInput = {
+export type RequisitionItemRequisitionIdStockFieiraIdCompoundUniqueInput = {
   requisitionId: number
-  fieiraId: number
+  stockFieiraId: number
 }
 
 export type RequisitionItemCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   requisitionId?: Prisma.SortOrder
-  fieiraId?: Prisma.SortOrder
+  stockFieiraId?: Prisma.SortOrder
+  supplierFieiraStockId?: Prisma.SortOrder
+  type?: Prisma.SortOrder
 }
 
 export type RequisitionItemAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   requisitionId?: Prisma.SortOrder
-  fieiraId?: Prisma.SortOrder
+  stockFieiraId?: Prisma.SortOrder
+  supplierFieiraStockId?: Prisma.SortOrder
 }
 
 export type RequisitionItemMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   requisitionId?: Prisma.SortOrder
-  fieiraId?: Prisma.SortOrder
+  stockFieiraId?: Prisma.SortOrder
+  supplierFieiraStockId?: Prisma.SortOrder
+  type?: Prisma.SortOrder
 }
 
 export type RequisitionItemMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   requisitionId?: Prisma.SortOrder
-  fieiraId?: Prisma.SortOrder
+  stockFieiraId?: Prisma.SortOrder
+  supplierFieiraStockId?: Prisma.SortOrder
+  type?: Prisma.SortOrder
 }
 
 export type RequisitionItemSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   requisitionId?: Prisma.SortOrder
-  fieiraId?: Prisma.SortOrder
+  stockFieiraId?: Prisma.SortOrder
+  supplierFieiraStockId?: Prisma.SortOrder
 }
 
 export type RequisitionItemCreateNestedManyWithoutStockFieiraInput = {
@@ -419,13 +470,63 @@ export type RequisitionItemUncheckedUpdateManyWithoutRequisitionNestedInput = {
   deleteMany?: Prisma.RequisitionItemScalarWhereInput | Prisma.RequisitionItemScalarWhereInput[]
 }
 
+export type EnumRequisitionItemTypeFieldUpdateOperationsInput = {
+  set?: $Enums.RequisitionItemType
+}
+
+export type RequisitionItemCreateNestedManyWithoutSupplierFieiraStockInput = {
+  create?: Prisma.XOR<Prisma.RequisitionItemCreateWithoutSupplierFieiraStockInput, Prisma.RequisitionItemUncheckedCreateWithoutSupplierFieiraStockInput> | Prisma.RequisitionItemCreateWithoutSupplierFieiraStockInput[] | Prisma.RequisitionItemUncheckedCreateWithoutSupplierFieiraStockInput[]
+  connectOrCreate?: Prisma.RequisitionItemCreateOrConnectWithoutSupplierFieiraStockInput | Prisma.RequisitionItemCreateOrConnectWithoutSupplierFieiraStockInput[]
+  createMany?: Prisma.RequisitionItemCreateManySupplierFieiraStockInputEnvelope
+  connect?: Prisma.RequisitionItemWhereUniqueInput | Prisma.RequisitionItemWhereUniqueInput[]
+}
+
+export type RequisitionItemUncheckedCreateNestedManyWithoutSupplierFieiraStockInput = {
+  create?: Prisma.XOR<Prisma.RequisitionItemCreateWithoutSupplierFieiraStockInput, Prisma.RequisitionItemUncheckedCreateWithoutSupplierFieiraStockInput> | Prisma.RequisitionItemCreateWithoutSupplierFieiraStockInput[] | Prisma.RequisitionItemUncheckedCreateWithoutSupplierFieiraStockInput[]
+  connectOrCreate?: Prisma.RequisitionItemCreateOrConnectWithoutSupplierFieiraStockInput | Prisma.RequisitionItemCreateOrConnectWithoutSupplierFieiraStockInput[]
+  createMany?: Prisma.RequisitionItemCreateManySupplierFieiraStockInputEnvelope
+  connect?: Prisma.RequisitionItemWhereUniqueInput | Prisma.RequisitionItemWhereUniqueInput[]
+}
+
+export type RequisitionItemUpdateManyWithoutSupplierFieiraStockNestedInput = {
+  create?: Prisma.XOR<Prisma.RequisitionItemCreateWithoutSupplierFieiraStockInput, Prisma.RequisitionItemUncheckedCreateWithoutSupplierFieiraStockInput> | Prisma.RequisitionItemCreateWithoutSupplierFieiraStockInput[] | Prisma.RequisitionItemUncheckedCreateWithoutSupplierFieiraStockInput[]
+  connectOrCreate?: Prisma.RequisitionItemCreateOrConnectWithoutSupplierFieiraStockInput | Prisma.RequisitionItemCreateOrConnectWithoutSupplierFieiraStockInput[]
+  upsert?: Prisma.RequisitionItemUpsertWithWhereUniqueWithoutSupplierFieiraStockInput | Prisma.RequisitionItemUpsertWithWhereUniqueWithoutSupplierFieiraStockInput[]
+  createMany?: Prisma.RequisitionItemCreateManySupplierFieiraStockInputEnvelope
+  set?: Prisma.RequisitionItemWhereUniqueInput | Prisma.RequisitionItemWhereUniqueInput[]
+  disconnect?: Prisma.RequisitionItemWhereUniqueInput | Prisma.RequisitionItemWhereUniqueInput[]
+  delete?: Prisma.RequisitionItemWhereUniqueInput | Prisma.RequisitionItemWhereUniqueInput[]
+  connect?: Prisma.RequisitionItemWhereUniqueInput | Prisma.RequisitionItemWhereUniqueInput[]
+  update?: Prisma.RequisitionItemUpdateWithWhereUniqueWithoutSupplierFieiraStockInput | Prisma.RequisitionItemUpdateWithWhereUniqueWithoutSupplierFieiraStockInput[]
+  updateMany?: Prisma.RequisitionItemUpdateManyWithWhereWithoutSupplierFieiraStockInput | Prisma.RequisitionItemUpdateManyWithWhereWithoutSupplierFieiraStockInput[]
+  deleteMany?: Prisma.RequisitionItemScalarWhereInput | Prisma.RequisitionItemScalarWhereInput[]
+}
+
+export type RequisitionItemUncheckedUpdateManyWithoutSupplierFieiraStockNestedInput = {
+  create?: Prisma.XOR<Prisma.RequisitionItemCreateWithoutSupplierFieiraStockInput, Prisma.RequisitionItemUncheckedCreateWithoutSupplierFieiraStockInput> | Prisma.RequisitionItemCreateWithoutSupplierFieiraStockInput[] | Prisma.RequisitionItemUncheckedCreateWithoutSupplierFieiraStockInput[]
+  connectOrCreate?: Prisma.RequisitionItemCreateOrConnectWithoutSupplierFieiraStockInput | Prisma.RequisitionItemCreateOrConnectWithoutSupplierFieiraStockInput[]
+  upsert?: Prisma.RequisitionItemUpsertWithWhereUniqueWithoutSupplierFieiraStockInput | Prisma.RequisitionItemUpsertWithWhereUniqueWithoutSupplierFieiraStockInput[]
+  createMany?: Prisma.RequisitionItemCreateManySupplierFieiraStockInputEnvelope
+  set?: Prisma.RequisitionItemWhereUniqueInput | Prisma.RequisitionItemWhereUniqueInput[]
+  disconnect?: Prisma.RequisitionItemWhereUniqueInput | Prisma.RequisitionItemWhereUniqueInput[]
+  delete?: Prisma.RequisitionItemWhereUniqueInput | Prisma.RequisitionItemWhereUniqueInput[]
+  connect?: Prisma.RequisitionItemWhereUniqueInput | Prisma.RequisitionItemWhereUniqueInput[]
+  update?: Prisma.RequisitionItemUpdateWithWhereUniqueWithoutSupplierFieiraStockInput | Prisma.RequisitionItemUpdateWithWhereUniqueWithoutSupplierFieiraStockInput[]
+  updateMany?: Prisma.RequisitionItemUpdateManyWithWhereWithoutSupplierFieiraStockInput | Prisma.RequisitionItemUpdateManyWithWhereWithoutSupplierFieiraStockInput[]
+  deleteMany?: Prisma.RequisitionItemScalarWhereInput | Prisma.RequisitionItemScalarWhereInput[]
+}
+
 export type RequisitionItemCreateWithoutStockFieiraInput = {
+  type: $Enums.RequisitionItemType
   Requisition: Prisma.RequisitionCreateNestedOneWithoutRequisitionItemsInput
+  SupplierFieiraStock?: Prisma.SupplierFieiraStockCreateNestedOneWithoutRequisitionItemsInput
 }
 
 export type RequisitionItemUncheckedCreateWithoutStockFieiraInput = {
   id?: number
   requisitionId: number
+  supplierFieiraStockId?: number | null
+  type: $Enums.RequisitionItemType
 }
 
 export type RequisitionItemCreateOrConnectWithoutStockFieiraInput = {
@@ -460,16 +561,22 @@ export type RequisitionItemScalarWhereInput = {
   NOT?: Prisma.RequisitionItemScalarWhereInput | Prisma.RequisitionItemScalarWhereInput[]
   id?: Prisma.IntFilter<"RequisitionItem"> | number
   requisitionId?: Prisma.IntFilter<"RequisitionItem"> | number
-  fieiraId?: Prisma.IntFilter<"RequisitionItem"> | number
+  stockFieiraId?: Prisma.IntNullableFilter<"RequisitionItem"> | number | null
+  supplierFieiraStockId?: Prisma.IntNullableFilter<"RequisitionItem"> | number | null
+  type?: Prisma.EnumRequisitionItemTypeFilter<"RequisitionItem"> | $Enums.RequisitionItemType
 }
 
 export type RequisitionItemCreateWithoutRequisitionInput = {
-  StockFieira: Prisma.StockFieiraCreateNestedOneWithoutRequisitionItemsInput
+  type: $Enums.RequisitionItemType
+  StockFieira?: Prisma.StockFieiraCreateNestedOneWithoutRequisitionItemsInput
+  SupplierFieiraStock?: Prisma.SupplierFieiraStockCreateNestedOneWithoutRequisitionItemsInput
 }
 
 export type RequisitionItemUncheckedCreateWithoutRequisitionInput = {
   id?: number
-  fieiraId: number
+  stockFieiraId?: number | null
+  supplierFieiraStockId?: number | null
+  type: $Enums.RequisitionItemType
 }
 
 export type RequisitionItemCreateOrConnectWithoutRequisitionInput = {
@@ -498,42 +605,124 @@ export type RequisitionItemUpdateManyWithWhereWithoutRequisitionInput = {
   data: Prisma.XOR<Prisma.RequisitionItemUpdateManyMutationInput, Prisma.RequisitionItemUncheckedUpdateManyWithoutRequisitionInput>
 }
 
+export type RequisitionItemCreateWithoutSupplierFieiraStockInput = {
+  type: $Enums.RequisitionItemType
+  Requisition: Prisma.RequisitionCreateNestedOneWithoutRequisitionItemsInput
+  StockFieira?: Prisma.StockFieiraCreateNestedOneWithoutRequisitionItemsInput
+}
+
+export type RequisitionItemUncheckedCreateWithoutSupplierFieiraStockInput = {
+  id?: number
+  requisitionId: number
+  stockFieiraId?: number | null
+  type: $Enums.RequisitionItemType
+}
+
+export type RequisitionItemCreateOrConnectWithoutSupplierFieiraStockInput = {
+  where: Prisma.RequisitionItemWhereUniqueInput
+  create: Prisma.XOR<Prisma.RequisitionItemCreateWithoutSupplierFieiraStockInput, Prisma.RequisitionItemUncheckedCreateWithoutSupplierFieiraStockInput>
+}
+
+export type RequisitionItemCreateManySupplierFieiraStockInputEnvelope = {
+  data: Prisma.RequisitionItemCreateManySupplierFieiraStockInput | Prisma.RequisitionItemCreateManySupplierFieiraStockInput[]
+  skipDuplicates?: boolean
+}
+
+export type RequisitionItemUpsertWithWhereUniqueWithoutSupplierFieiraStockInput = {
+  where: Prisma.RequisitionItemWhereUniqueInput
+  update: Prisma.XOR<Prisma.RequisitionItemUpdateWithoutSupplierFieiraStockInput, Prisma.RequisitionItemUncheckedUpdateWithoutSupplierFieiraStockInput>
+  create: Prisma.XOR<Prisma.RequisitionItemCreateWithoutSupplierFieiraStockInput, Prisma.RequisitionItemUncheckedCreateWithoutSupplierFieiraStockInput>
+}
+
+export type RequisitionItemUpdateWithWhereUniqueWithoutSupplierFieiraStockInput = {
+  where: Prisma.RequisitionItemWhereUniqueInput
+  data: Prisma.XOR<Prisma.RequisitionItemUpdateWithoutSupplierFieiraStockInput, Prisma.RequisitionItemUncheckedUpdateWithoutSupplierFieiraStockInput>
+}
+
+export type RequisitionItemUpdateManyWithWhereWithoutSupplierFieiraStockInput = {
+  where: Prisma.RequisitionItemScalarWhereInput
+  data: Prisma.XOR<Prisma.RequisitionItemUpdateManyMutationInput, Prisma.RequisitionItemUncheckedUpdateManyWithoutSupplierFieiraStockInput>
+}
+
 export type RequisitionItemCreateManyStockFieiraInput = {
   id?: number
   requisitionId: number
+  supplierFieiraStockId?: number | null
+  type: $Enums.RequisitionItemType
 }
 
 export type RequisitionItemUpdateWithoutStockFieiraInput = {
+  type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
   Requisition?: Prisma.RequisitionUpdateOneRequiredWithoutRequisitionItemsNestedInput
+  SupplierFieiraStock?: Prisma.SupplierFieiraStockUpdateOneWithoutRequisitionItemsNestedInput
 }
 
 export type RequisitionItemUncheckedUpdateWithoutStockFieiraInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   requisitionId?: Prisma.IntFieldUpdateOperationsInput | number
+  supplierFieiraStockId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
 }
 
 export type RequisitionItemUncheckedUpdateManyWithoutStockFieiraInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   requisitionId?: Prisma.IntFieldUpdateOperationsInput | number
+  supplierFieiraStockId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
 }
 
 export type RequisitionItemCreateManyRequisitionInput = {
   id?: number
-  fieiraId: number
+  stockFieiraId?: number | null
+  supplierFieiraStockId?: number | null
+  type: $Enums.RequisitionItemType
 }
 
 export type RequisitionItemUpdateWithoutRequisitionInput = {
-  StockFieira?: Prisma.StockFieiraUpdateOneRequiredWithoutRequisitionItemsNestedInput
+  type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
+  StockFieira?: Prisma.StockFieiraUpdateOneWithoutRequisitionItemsNestedInput
+  SupplierFieiraStock?: Prisma.SupplierFieiraStockUpdateOneWithoutRequisitionItemsNestedInput
 }
 
 export type RequisitionItemUncheckedUpdateWithoutRequisitionInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  fieiraId?: Prisma.IntFieldUpdateOperationsInput | number
+  stockFieiraId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  supplierFieiraStockId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
 }
 
 export type RequisitionItemUncheckedUpdateManyWithoutRequisitionInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  fieiraId?: Prisma.IntFieldUpdateOperationsInput | number
+  stockFieiraId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  supplierFieiraStockId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
+}
+
+export type RequisitionItemCreateManySupplierFieiraStockInput = {
+  id?: number
+  requisitionId: number
+  stockFieiraId?: number | null
+  type: $Enums.RequisitionItemType
+}
+
+export type RequisitionItemUpdateWithoutSupplierFieiraStockInput = {
+  type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
+  Requisition?: Prisma.RequisitionUpdateOneRequiredWithoutRequisitionItemsNestedInput
+  StockFieira?: Prisma.StockFieiraUpdateOneWithoutRequisitionItemsNestedInput
+}
+
+export type RequisitionItemUncheckedUpdateWithoutSupplierFieiraStockInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  requisitionId?: Prisma.IntFieldUpdateOperationsInput | number
+  stockFieiraId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
+}
+
+export type RequisitionItemUncheckedUpdateManyWithoutSupplierFieiraStockInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  requisitionId?: Prisma.IntFieldUpdateOperationsInput | number
+  stockFieiraId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
 }
 
 
@@ -541,57 +730,74 @@ export type RequisitionItemUncheckedUpdateManyWithoutRequisitionInput = {
 export type RequisitionItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   requisitionId?: boolean
-  fieiraId?: boolean
-  StockFieira?: boolean | Prisma.StockFieiraDefaultArgs<ExtArgs>
+  stockFieiraId?: boolean
+  supplierFieiraStockId?: boolean
+  type?: boolean
   Requisition?: boolean | Prisma.RequisitionDefaultArgs<ExtArgs>
+  StockFieira?: boolean | Prisma.RequisitionItem$StockFieiraArgs<ExtArgs>
+  SupplierFieiraStock?: boolean | Prisma.RequisitionItem$SupplierFieiraStockArgs<ExtArgs>
 }, ExtArgs["result"]["requisitionItem"]>
 
 export type RequisitionItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   requisitionId?: boolean
-  fieiraId?: boolean
-  StockFieira?: boolean | Prisma.StockFieiraDefaultArgs<ExtArgs>
+  stockFieiraId?: boolean
+  supplierFieiraStockId?: boolean
+  type?: boolean
   Requisition?: boolean | Prisma.RequisitionDefaultArgs<ExtArgs>
+  StockFieira?: boolean | Prisma.RequisitionItem$StockFieiraArgs<ExtArgs>
+  SupplierFieiraStock?: boolean | Prisma.RequisitionItem$SupplierFieiraStockArgs<ExtArgs>
 }, ExtArgs["result"]["requisitionItem"]>
 
 export type RequisitionItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   requisitionId?: boolean
-  fieiraId?: boolean
-  StockFieira?: boolean | Prisma.StockFieiraDefaultArgs<ExtArgs>
+  stockFieiraId?: boolean
+  supplierFieiraStockId?: boolean
+  type?: boolean
   Requisition?: boolean | Prisma.RequisitionDefaultArgs<ExtArgs>
+  StockFieira?: boolean | Prisma.RequisitionItem$StockFieiraArgs<ExtArgs>
+  SupplierFieiraStock?: boolean | Prisma.RequisitionItem$SupplierFieiraStockArgs<ExtArgs>
 }, ExtArgs["result"]["requisitionItem"]>
 
 export type RequisitionItemSelectScalar = {
   id?: boolean
   requisitionId?: boolean
-  fieiraId?: boolean
+  stockFieiraId?: boolean
+  supplierFieiraStockId?: boolean
+  type?: boolean
 }
 
-export type RequisitionItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "requisitionId" | "fieiraId", ExtArgs["result"]["requisitionItem"]>
+export type RequisitionItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "requisitionId" | "stockFieiraId" | "supplierFieiraStockId" | "type", ExtArgs["result"]["requisitionItem"]>
 export type RequisitionItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  StockFieira?: boolean | Prisma.StockFieiraDefaultArgs<ExtArgs>
   Requisition?: boolean | Prisma.RequisitionDefaultArgs<ExtArgs>
+  StockFieira?: boolean | Prisma.RequisitionItem$StockFieiraArgs<ExtArgs>
+  SupplierFieiraStock?: boolean | Prisma.RequisitionItem$SupplierFieiraStockArgs<ExtArgs>
 }
 export type RequisitionItemIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  StockFieira?: boolean | Prisma.StockFieiraDefaultArgs<ExtArgs>
   Requisition?: boolean | Prisma.RequisitionDefaultArgs<ExtArgs>
+  StockFieira?: boolean | Prisma.RequisitionItem$StockFieiraArgs<ExtArgs>
+  SupplierFieiraStock?: boolean | Prisma.RequisitionItem$SupplierFieiraStockArgs<ExtArgs>
 }
 export type RequisitionItemIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  StockFieira?: boolean | Prisma.StockFieiraDefaultArgs<ExtArgs>
   Requisition?: boolean | Prisma.RequisitionDefaultArgs<ExtArgs>
+  StockFieira?: boolean | Prisma.RequisitionItem$StockFieiraArgs<ExtArgs>
+  SupplierFieiraStock?: boolean | Prisma.RequisitionItem$SupplierFieiraStockArgs<ExtArgs>
 }
 
 export type $RequisitionItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "RequisitionItem"
   objects: {
-    StockFieira: Prisma.$StockFieiraPayload<ExtArgs>
     Requisition: Prisma.$RequisitionPayload<ExtArgs>
+    StockFieira: Prisma.$StockFieiraPayload<ExtArgs> | null
+    SupplierFieiraStock: Prisma.$SupplierFieiraStockPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     requisitionId: number
-    fieiraId: number
+    stockFieiraId: number | null
+    supplierFieiraStockId: number | null
+    type: $Enums.RequisitionItemType
   }, ExtArgs["result"]["requisitionItem"]>
   composites: {}
 }
@@ -986,8 +1192,9 @@ readonly fields: RequisitionItemFieldRefs;
  */
 export interface Prisma__RequisitionItemClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  StockFieira<T extends Prisma.StockFieiraDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StockFieiraDefaultArgs<ExtArgs>>): Prisma.Prisma__StockFieiraClient<runtime.Types.Result.GetResult<Prisma.$StockFieiraPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   Requisition<T extends Prisma.RequisitionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RequisitionDefaultArgs<ExtArgs>>): Prisma.Prisma__RequisitionClient<runtime.Types.Result.GetResult<Prisma.$RequisitionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  StockFieira<T extends Prisma.RequisitionItem$StockFieiraArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RequisitionItem$StockFieiraArgs<ExtArgs>>): Prisma.Prisma__StockFieiraClient<runtime.Types.Result.GetResult<Prisma.$StockFieiraPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  SupplierFieiraStock<T extends Prisma.RequisitionItem$SupplierFieiraStockArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RequisitionItem$SupplierFieiraStockArgs<ExtArgs>>): Prisma.Prisma__SupplierFieiraStockClient<runtime.Types.Result.GetResult<Prisma.$SupplierFieiraStockPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1019,7 +1226,9 @@ export interface Prisma__RequisitionItemClient<T, Null = never, ExtArgs extends 
 export interface RequisitionItemFieldRefs {
   readonly id: Prisma.FieldRef<"RequisitionItem", 'Int'>
   readonly requisitionId: Prisma.FieldRef<"RequisitionItem", 'Int'>
-  readonly fieiraId: Prisma.FieldRef<"RequisitionItem", 'Int'>
+  readonly stockFieiraId: Prisma.FieldRef<"RequisitionItem", 'Int'>
+  readonly supplierFieiraStockId: Prisma.FieldRef<"RequisitionItem", 'Int'>
+  readonly type: Prisma.FieldRef<"RequisitionItem", 'RequisitionItemType'>
 }
     
 
@@ -1418,6 +1627,44 @@ export type RequisitionItemDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many RequisitionItems to delete.
    */
   limit?: number
+}
+
+/**
+ * RequisitionItem.StockFieira
+ */
+export type RequisitionItem$StockFieiraArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StockFieira
+   */
+  select?: Prisma.StockFieiraSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StockFieira
+   */
+  omit?: Prisma.StockFieiraOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StockFieiraInclude<ExtArgs> | null
+  where?: Prisma.StockFieiraWhereInput
+}
+
+/**
+ * RequisitionItem.SupplierFieiraStock
+ */
+export type RequisitionItem$SupplierFieiraStockArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupplierFieiraStock
+   */
+  select?: Prisma.SupplierFieiraStockSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupplierFieiraStock
+   */
+  omit?: Prisma.SupplierFieiraStockOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupplierFieiraStockInclude<ExtArgs> | null
+  where?: Prisma.SupplierFieiraStockWhereInput
 }
 
 /**

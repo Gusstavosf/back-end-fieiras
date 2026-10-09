@@ -525,14 +525,14 @@ export type StockFieiraSumOrderByAggregateInput = {
   production?: Prisma.SortOrder
 }
 
-export type StockFieiraScalarRelationFilter = {
-  is?: Prisma.StockFieiraWhereInput
-  isNot?: Prisma.StockFieiraWhereInput
-}
-
 export type StockFieiraNullableScalarRelationFilter = {
   is?: Prisma.StockFieiraWhereInput | null
   isNot?: Prisma.StockFieiraWhereInput | null
+}
+
+export type StockFieiraScalarRelationFilter = {
+  is?: Prisma.StockFieiraWhereInput
+  isNot?: Prisma.StockFieiraWhereInput
 }
 
 export type StockFieiraCreateNestedManyWithoutFieiraInput = {
@@ -595,10 +595,12 @@ export type StockFieiraCreateNestedOneWithoutRequisitionItemsInput = {
   connect?: Prisma.StockFieiraWhereUniqueInput
 }
 
-export type StockFieiraUpdateOneRequiredWithoutRequisitionItemsNestedInput = {
+export type StockFieiraUpdateOneWithoutRequisitionItemsNestedInput = {
   create?: Prisma.XOR<Prisma.StockFieiraCreateWithoutRequisitionItemsInput, Prisma.StockFieiraUncheckedCreateWithoutRequisitionItemsInput>
   connectOrCreate?: Prisma.StockFieiraCreateOrConnectWithoutRequisitionItemsInput
   upsert?: Prisma.StockFieiraUpsertWithoutRequisitionItemsInput
+  disconnect?: Prisma.StockFieiraWhereInput | boolean
+  delete?: Prisma.StockFieiraWhereInput | boolean
   connect?: Prisma.StockFieiraWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.StockFieiraUpdateToOneWithWhereWithoutRequisitionItemsInput, Prisma.StockFieiraUpdateWithoutRequisitionItemsInput>, Prisma.StockFieiraUncheckedUpdateWithoutRequisitionItemsInput>
 }

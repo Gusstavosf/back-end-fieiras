@@ -1270,7 +1270,9 @@ export type RequisitionScalarFieldEnum = (typeof RequisitionScalarFieldEnum)[key
 export const RequisitionItemScalarFieldEnum = {
   id: 'id',
   requisitionId: 'requisitionId',
-  fieiraId: 'fieiraId'
+  stockFieiraId: 'stockFieiraId',
+  supplierFieiraStockId: 'supplierFieiraStockId',
+  type: 'type'
 } as const
 
 export type RequisitionItemScalarFieldEnum = (typeof RequisitionItemScalarFieldEnum)[keyof typeof RequisitionItemScalarFieldEnum]
@@ -1450,6 +1452,20 @@ export type EnumStatusFieiraFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'StatusFieira[]'
  */
 export type ListEnumStatusFieiraFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusFieira[]'>
+    
+
+
+/**
+ * Reference to a field of type 'RequisitionItemType'
+ */
+export type EnumRequisitionItemTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RequisitionItemType'>
+    
+
+
+/**
+ * Reference to a field of type 'RequisitionItemType[]'
+ */
+export type ListEnumRequisitionItemTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RequisitionItemType[]'>
     
 
 

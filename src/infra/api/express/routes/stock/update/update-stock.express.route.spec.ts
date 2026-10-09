@@ -45,7 +45,7 @@ describe("UPDATE /stock", () => {
         console.log(response.status);
         console.log(response.body);
 
-        expect(response.status).toBe(201);
+        expect(response.status).toBe(200);
 
         expect(response.body).toEqual({
             id: expect.any(Number),

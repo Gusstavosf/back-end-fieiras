@@ -8,7 +8,7 @@ describe("", () => {
         const result = parser.parse("CRC 3P/E KFT0,96 8,7X1,85 T 170 WPR-5061");
 
         expect(result).toEqual({
-            material: Metal.Cu,
+            metal: Metal.Cu,
             wireType: "CRC P/E",
             width: 8.7,
             thickness: 1.85,
