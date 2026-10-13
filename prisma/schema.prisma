@@ -88,6 +88,7 @@ model Requisition {
   currentStockQty      Int
   currentStockCapacity Int
   necessaryQty         Int
+  requestedQty         Int
   createdAt            DateTime        @default(now())
   updatedAt            DateTime        @default(now())
 
@@ -163,10 +164,10 @@ model StockFieiraHistory {
 
 model SupplierFieiraStock {
   id           Int      @id @default(autoincrement())
-  thickness    Decimal? @db.Decimal(10, 2)
-  width        Decimal? @db.Decimal(10, 2)
+  thickness    Decimal @db.Decimal(10, 2)
+  width        Decimal @db.Decimal(10, 2)
   quantitySent Int
-  quantityUsed Int
+  quantityUsed Int      @default(0)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @default(now())
 

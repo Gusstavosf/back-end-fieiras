@@ -36,6 +36,7 @@ export interface RequisitionGateway {
     update(requisition: Requisition): Promise<Requisition>;
     delete(id: number): Promise<void>;
     findById(id: number): Promise<Requisition | null>;
+    findByOrder(order: number): Promise<Requisition | null>;
     listRequisitionToBeProcessed(): Promise<Requisition[]>;
     listRequisitionProcessed(): Promise<RequisitionProcessed[]>;
     list(): Promise<Requisition[]>;

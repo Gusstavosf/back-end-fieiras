@@ -45,6 +45,25 @@ export class Fieira {
         this.props.updatedAt = new Date();
     }
 
+    public static nextCode(code: string): string {
+        if (!/^[A-Z][0-9]{2}$/.test(code)) {
+            throw new Error(`Código de fieira inválido: ${code}`);
+        }
+
+        const letter = code[0]!;
+        const number = Number(code.slice(1));
+
+        if (number < 99) {
+            return `${letter}${String(number + 1).padStart(2, "0")}`;
+        }
+
+        if (letter === "Z") {
+            throw new Error("Limite de códigos de fieira atingido.");
+        }
+
+        return `${String.fromCharCode(letter.charCodeAt(0) + 1)}01`;
+    }
+
     public get id(): number {
         return this.props.id;
     }
