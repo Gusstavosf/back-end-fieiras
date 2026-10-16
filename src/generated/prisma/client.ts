@@ -91,3 +91,8 @@ export type StockFieiraHistory = Prisma.StockFieiraHistoryModel
  * 
  */
 export type SupplierFieiraStock = Prisma.SupplierFieiraStockModel
+/**
+ * Model SupplierFieiraStockHistory
+ * 
+ */
+export type SupplierFieiraStockHistory = Prisma.SupplierFieiraStockHistoryModel

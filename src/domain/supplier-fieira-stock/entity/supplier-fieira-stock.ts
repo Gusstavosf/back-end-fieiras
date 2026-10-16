@@ -13,7 +13,7 @@ export class SupplierFieiraStock {
         private readonly _id?: number,
     ) {}
 
-    public static create(props: SupplierFieiraStock): SupplierFieiraStock {
+    public static create(props: SupplierFieiraStockProps): SupplierFieiraStock {
         return new SupplierFieiraStock(props);
     }
 
@@ -29,26 +29,26 @@ export class SupplierFieiraStock {
     }
 
     public get thickness(): number {
-        return this.thickness;
+        return this.props.thickness;
     }
 
     public get width(): number {
-        return this.width;
+        return this.props.width;
     }
 
     public get quantitySent(): number {
-        return this.quantitySent;
+        return this.props.quantitySent;
     }
 
     public get quantityUsed(): number {
-        return this.quantityUsed;
+        return this.props.quantityUsed;
     }
 
     public get createdAt(): Date {
-        return this.createdAt;
+        return this.props.createdAt;
     }
 
     public get updatedAt(): Date {
-        return this.updatedAt;
+        return this.props.updatedAt;
     }
 }

@@ -236,6 +236,23 @@ export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedDecimalNullableFilter<$PrismaModel>
 }
 
+export type EnumRequisitionTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.RequisitionType | Prisma.EnumRequisitionTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.RequisitionType[] | Prisma.ListEnumRequisitionTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.RequisitionType[] | Prisma.ListEnumRequisitionTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumRequisitionTypeFilter<$PrismaModel> | $Enums.RequisitionType
+}
+
+export type EnumRequisitionTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.RequisitionType | Prisma.EnumRequisitionTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.RequisitionType[] | Prisma.ListEnumRequisitionTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.RequisitionType[] | Prisma.ListEnumRequisitionTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumRequisitionTypeWithAggregatesFilter<$PrismaModel> | $Enums.RequisitionType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumRequisitionTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumRequisitionTypeFilter<$PrismaModel>
+}
+
 export type EnumRequisitionItemTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.RequisitionItemType | Prisma.EnumRequisitionItemTypeFieldRefInput<$PrismaModel>
   in?: $Enums.RequisitionItemType[] | Prisma.ListEnumRequisitionItemTypeFieldRefInput<$PrismaModel>
@@ -488,6 +505,23 @@ export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedDecimalNullableFilter<$PrismaModel>
   _min?: Prisma.NestedDecimalNullableFilter<$PrismaModel>
   _max?: Prisma.NestedDecimalNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumRequisitionTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.RequisitionType | Prisma.EnumRequisitionTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.RequisitionType[] | Prisma.ListEnumRequisitionTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.RequisitionType[] | Prisma.ListEnumRequisitionTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumRequisitionTypeFilter<$PrismaModel> | $Enums.RequisitionType
+}
+
+export type NestedEnumRequisitionTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.RequisitionType | Prisma.EnumRequisitionTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.RequisitionType[] | Prisma.ListEnumRequisitionTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.RequisitionType[] | Prisma.ListEnumRequisitionTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumRequisitionTypeWithAggregatesFilter<$PrismaModel> | $Enums.RequisitionType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumRequisitionTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumRequisitionTypeFilter<$PrismaModel>
 }
 
 export type NestedEnumRequisitionItemTypeFilter<$PrismaModel = never> = {

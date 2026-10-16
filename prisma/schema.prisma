@@ -164,14 +164,29 @@ model StockFieiraHistory {
 
 model SupplierFieiraStock {
   id           Int      @id @default(autoincrement())
-  thickness    Decimal @db.Decimal(10, 2)
-  width        Decimal @db.Decimal(10, 2)
+  thickness    Decimal  @db.Decimal(10, 2)
+  width        Decimal  @db.Decimal(10, 2)
   quantitySent Int
   quantityUsed Int      @default(0)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @default(now())
 
-  requisitionItems RequisitionItem[]
+  requisitionItems             RequisitionItem[]
+  supplierFieiraStockHistories SupplierFieiraStockHistory[]
+
+  @@unique([width, thickness])
+}
+
+model SupplierFieiraStockHistory {
+  id                    Int      @id @default(autoincrement())
+  supplierFieiraStockId Int
+  quantitySent          Int
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @default(now()) @updatedAt
+
+  SupplierFieiraStock SupplierFieiraStock @relation(fields: [supplierFieiraStockId], references: [id], onDelete: Cascade)
+
+  @@map("SupplierFieiraStockHistory")
 }
 
 enum StatusFieira {

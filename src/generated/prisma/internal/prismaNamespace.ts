@@ -393,7 +393,8 @@ export const ModelName = {
   RequisitionControl: 'RequisitionControl',
   ReservationFieira: 'ReservationFieira',
   StockFieiraHistory: 'StockFieiraHistory',
-  SupplierFieiraStock: 'SupplierFieiraStock'
+  SupplierFieiraStock: 'SupplierFieiraStock',
+  SupplierFieiraStockHistory: 'SupplierFieiraStockHistory'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -409,7 +410,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "cabinet" | "fieira" | "controlFieira" | "stockFieira" | "requisition" | "requisitionItem" | "requisitionControl" | "reservationFieira" | "stockFieiraHistory" | "supplierFieiraStock"
+    modelProps: "cabinet" | "fieira" | "controlFieira" | "stockFieira" | "requisition" | "requisitionItem" | "requisitionControl" | "reservationFieira" | "stockFieiraHistory" | "supplierFieiraStock" | "supplierFieiraStockHistory"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1153,6 +1154,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    SupplierFieiraStockHistory: {
+      payload: Prisma.$SupplierFieiraStockHistoryPayload<ExtArgs>
+      fields: Prisma.SupplierFieiraStockHistoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SupplierFieiraStockHistoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierFieiraStockHistoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SupplierFieiraStockHistoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierFieiraStockHistoryPayload>
+        }
+        findFirst: {
+          args: Prisma.SupplierFieiraStockHistoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierFieiraStockHistoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SupplierFieiraStockHistoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierFieiraStockHistoryPayload>
+        }
+        findMany: {
+          args: Prisma.SupplierFieiraStockHistoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierFieiraStockHistoryPayload>[]
+        }
+        create: {
+          args: Prisma.SupplierFieiraStockHistoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierFieiraStockHistoryPayload>
+        }
+        createMany: {
+          args: Prisma.SupplierFieiraStockHistoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SupplierFieiraStockHistoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierFieiraStockHistoryPayload>[]
+        }
+        delete: {
+          args: Prisma.SupplierFieiraStockHistoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierFieiraStockHistoryPayload>
+        }
+        update: {
+          args: Prisma.SupplierFieiraStockHistoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierFieiraStockHistoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.SupplierFieiraStockHistoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SupplierFieiraStockHistoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SupplierFieiraStockHistoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierFieiraStockHistoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.SupplierFieiraStockHistoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierFieiraStockHistoryPayload>
+        }
+        aggregate: {
+          args: Prisma.SupplierFieiraStockHistoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSupplierFieiraStockHistory>
+        }
+        groupBy: {
+          args: Prisma.SupplierFieiraStockHistoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SupplierFieiraStockHistoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SupplierFieiraStockHistoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SupplierFieiraStockHistoryCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1258,8 +1333,11 @@ export type StockFieiraScalarFieldEnum = (typeof StockFieiraScalarFieldEnum)[key
 export const RequisitionScalarFieldEnum = {
   id: 'id',
   fieiraId: 'fieiraId',
+  type: 'type',
   currentStockQty: 'currentStockQty',
-  requisitionQty: 'requisitionQty',
+  currentStockCapacity: 'currentStockCapacity',
+  necessaryQty: 'necessaryQty',
+  requestedQty: 'requestedQty',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1325,6 +1403,17 @@ export const SupplierFieiraStockScalarFieldEnum = {
 } as const
 
 export type SupplierFieiraStockScalarFieldEnum = (typeof SupplierFieiraStockScalarFieldEnum)[keyof typeof SupplierFieiraStockScalarFieldEnum]
+
+
+export const SupplierFieiraStockHistoryScalarFieldEnum = {
+  id: 'id',
+  supplierFieiraStockId: 'supplierFieiraStockId',
+  quantitySent: 'quantitySent',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SupplierFieiraStockHistoryScalarFieldEnum = (typeof SupplierFieiraStockHistoryScalarFieldEnum)[keyof typeof SupplierFieiraStockHistoryScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1452,6 +1541,20 @@ export type EnumStatusFieiraFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'StatusFieira[]'
  */
 export type ListEnumStatusFieiraFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusFieira[]'>
+    
+
+
+/**
+ * Reference to a field of type 'RequisitionType'
+ */
+export type EnumRequisitionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RequisitionType'>
+    
+
+
+/**
+ * Reference to a field of type 'RequisitionType[]'
+ */
+export type ListEnumRequisitionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RequisitionType[]'>
     
 
 
@@ -1602,6 +1705,7 @@ export type GlobalOmitConfig = {
   reservationFieira?: Prisma.ReservationFieiraOmit
   stockFieiraHistory?: Prisma.StockFieiraHistoryOmit
   supplierFieiraStock?: Prisma.SupplierFieiraStockOmit
+  supplierFieiraStockHistory?: Prisma.SupplierFieiraStockHistoryOmit
 }
 
 /* Types for Logging */

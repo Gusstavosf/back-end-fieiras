@@ -209,8 +209,8 @@ export type SupplierFieiraStockGroupByArgs<ExtArgs extends runtime.Types.Extensi
 
 export type SupplierFieiraStockGroupByOutputType = {
   id: number
-  thickness: runtime.Decimal | null
-  width: runtime.Decimal | null
+  thickness: runtime.Decimal
+  width: runtime.Decimal
   quantitySent: number
   quantityUsed: number
   createdAt: Date
@@ -242,44 +242,48 @@ export type SupplierFieiraStockWhereInput = {
   OR?: Prisma.SupplierFieiraStockWhereInput[]
   NOT?: Prisma.SupplierFieiraStockWhereInput | Prisma.SupplierFieiraStockWhereInput[]
   id?: Prisma.IntFilter<"SupplierFieiraStock"> | number
-  thickness?: Prisma.DecimalNullableFilter<"SupplierFieiraStock"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  width?: Prisma.DecimalNullableFilter<"SupplierFieiraStock"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  thickness?: Prisma.DecimalFilter<"SupplierFieiraStock"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  width?: Prisma.DecimalFilter<"SupplierFieiraStock"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   quantitySent?: Prisma.IntFilter<"SupplierFieiraStock"> | number
   quantityUsed?: Prisma.IntFilter<"SupplierFieiraStock"> | number
   createdAt?: Prisma.DateTimeFilter<"SupplierFieiraStock"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SupplierFieiraStock"> | Date | string
   requisitionItems?: Prisma.RequisitionItemListRelationFilter
+  supplierFieiraStockHistories?: Prisma.SupplierFieiraStockHistoryListRelationFilter
 }
 
 export type SupplierFieiraStockOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  thickness?: Prisma.SortOrderInput | Prisma.SortOrder
-  width?: Prisma.SortOrderInput | Prisma.SortOrder
+  thickness?: Prisma.SortOrder
+  width?: Prisma.SortOrder
   quantitySent?: Prisma.SortOrder
   quantityUsed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   requisitionItems?: Prisma.RequisitionItemOrderByRelationAggregateInput
+  supplierFieiraStockHistories?: Prisma.SupplierFieiraStockHistoryOrderByRelationAggregateInput
 }
 
 export type SupplierFieiraStockWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  width_thickness?: Prisma.SupplierFieiraStockWidthThicknessCompoundUniqueInput
   AND?: Prisma.SupplierFieiraStockWhereInput | Prisma.SupplierFieiraStockWhereInput[]
   OR?: Prisma.SupplierFieiraStockWhereInput[]
   NOT?: Prisma.SupplierFieiraStockWhereInput | Prisma.SupplierFieiraStockWhereInput[]
-  thickness?: Prisma.DecimalNullableFilter<"SupplierFieiraStock"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  width?: Prisma.DecimalNullableFilter<"SupplierFieiraStock"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  thickness?: Prisma.DecimalFilter<"SupplierFieiraStock"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  width?: Prisma.DecimalFilter<"SupplierFieiraStock"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   quantitySent?: Prisma.IntFilter<"SupplierFieiraStock"> | number
   quantityUsed?: Prisma.IntFilter<"SupplierFieiraStock"> | number
   createdAt?: Prisma.DateTimeFilter<"SupplierFieiraStock"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SupplierFieiraStock"> | Date | string
   requisitionItems?: Prisma.RequisitionItemListRelationFilter
-}, "id">
+  supplierFieiraStockHistories?: Prisma.SupplierFieiraStockHistoryListRelationFilter
+}, "id" | "width_thickness">
 
 export type SupplierFieiraStockOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  thickness?: Prisma.SortOrderInput | Prisma.SortOrder
-  width?: Prisma.SortOrderInput | Prisma.SortOrder
+  thickness?: Prisma.SortOrder
+  width?: Prisma.SortOrder
   quantitySent?: Prisma.SortOrder
   quantityUsed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -296,8 +300,8 @@ export type SupplierFieiraStockScalarWhereWithAggregatesInput = {
   OR?: Prisma.SupplierFieiraStockScalarWhereWithAggregatesInput[]
   NOT?: Prisma.SupplierFieiraStockScalarWhereWithAggregatesInput | Prisma.SupplierFieiraStockScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"SupplierFieiraStock"> | number
-  thickness?: Prisma.DecimalNullableWithAggregatesFilter<"SupplierFieiraStock"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  width?: Prisma.DecimalNullableWithAggregatesFilter<"SupplierFieiraStock"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  thickness?: Prisma.DecimalWithAggregatesFilter<"SupplierFieiraStock"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  width?: Prisma.DecimalWithAggregatesFilter<"SupplierFieiraStock"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   quantitySent?: Prisma.IntWithAggregatesFilter<"SupplierFieiraStock"> | number
   quantityUsed?: Prisma.IntWithAggregatesFilter<"SupplierFieiraStock"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"SupplierFieiraStock"> | Date | string
@@ -305,60 +309,64 @@ export type SupplierFieiraStockScalarWhereWithAggregatesInput = {
 }
 
 export type SupplierFieiraStockCreateInput = {
-  thickness?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  width?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
+  width: runtime.Decimal | runtime.DecimalJsLike | number | string
   quantitySent: number
-  quantityUsed: number
+  quantityUsed?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   requisitionItems?: Prisma.RequisitionItemCreateNestedManyWithoutSupplierFieiraStockInput
+  supplierFieiraStockHistories?: Prisma.SupplierFieiraStockHistoryCreateNestedManyWithoutSupplierFieiraStockInput
 }
 
 export type SupplierFieiraStockUncheckedCreateInput = {
   id?: number
-  thickness?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  width?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
+  width: runtime.Decimal | runtime.DecimalJsLike | number | string
   quantitySent: number
-  quantityUsed: number
+  quantityUsed?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   requisitionItems?: Prisma.RequisitionItemUncheckedCreateNestedManyWithoutSupplierFieiraStockInput
+  supplierFieiraStockHistories?: Prisma.SupplierFieiraStockHistoryUncheckedCreateNestedManyWithoutSupplierFieiraStockInput
 }
 
 export type SupplierFieiraStockUpdateInput = {
-  thickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  width?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quantitySent?: Prisma.IntFieldUpdateOperationsInput | number
   quantityUsed?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   requisitionItems?: Prisma.RequisitionItemUpdateManyWithoutSupplierFieiraStockNestedInput
+  supplierFieiraStockHistories?: Prisma.SupplierFieiraStockHistoryUpdateManyWithoutSupplierFieiraStockNestedInput
 }
 
 export type SupplierFieiraStockUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  thickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  width?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quantitySent?: Prisma.IntFieldUpdateOperationsInput | number
   quantityUsed?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   requisitionItems?: Prisma.RequisitionItemUncheckedUpdateManyWithoutSupplierFieiraStockNestedInput
+  supplierFieiraStockHistories?: Prisma.SupplierFieiraStockHistoryUncheckedUpdateManyWithoutSupplierFieiraStockNestedInput
 }
 
 export type SupplierFieiraStockCreateManyInput = {
   id?: number
-  thickness?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  width?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
+  width: runtime.Decimal | runtime.DecimalJsLike | number | string
   quantitySent: number
-  quantityUsed: number
+  quantityUsed?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type SupplierFieiraStockUpdateManyMutationInput = {
-  thickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  width?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quantitySent?: Prisma.IntFieldUpdateOperationsInput | number
   quantityUsed?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -367,8 +375,8 @@ export type SupplierFieiraStockUpdateManyMutationInput = {
 
 export type SupplierFieiraStockUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  thickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  width?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quantitySent?: Prisma.IntFieldUpdateOperationsInput | number
   quantityUsed?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -378,6 +386,11 @@ export type SupplierFieiraStockUncheckedUpdateManyInput = {
 export type SupplierFieiraStockNullableScalarRelationFilter = {
   is?: Prisma.SupplierFieiraStockWhereInput | null
   isNot?: Prisma.SupplierFieiraStockWhereInput | null
+}
+
+export type SupplierFieiraStockWidthThicknessCompoundUniqueInput = {
+  width: runtime.Decimal | runtime.DecimalJsLike | number | string
+  thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
 export type SupplierFieiraStockCountOrderByAggregateInput = {
@@ -426,6 +439,11 @@ export type SupplierFieiraStockSumOrderByAggregateInput = {
   quantityUsed?: Prisma.SortOrder
 }
 
+export type SupplierFieiraStockScalarRelationFilter = {
+  is?: Prisma.SupplierFieiraStockWhereInput
+  isNot?: Prisma.SupplierFieiraStockWhereInput
+}
+
 export type SupplierFieiraStockCreateNestedOneWithoutRequisitionItemsInput = {
   create?: Prisma.XOR<Prisma.SupplierFieiraStockCreateWithoutRequisitionItemsInput, Prisma.SupplierFieiraStockUncheckedCreateWithoutRequisitionItemsInput>
   connectOrCreate?: Prisma.SupplierFieiraStockCreateOrConnectWithoutRequisitionItemsInput
@@ -442,23 +460,39 @@ export type SupplierFieiraStockUpdateOneWithoutRequisitionItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SupplierFieiraStockUpdateToOneWithWhereWithoutRequisitionItemsInput, Prisma.SupplierFieiraStockUpdateWithoutRequisitionItemsInput>, Prisma.SupplierFieiraStockUncheckedUpdateWithoutRequisitionItemsInput>
 }
 
+export type SupplierFieiraStockCreateNestedOneWithoutSupplierFieiraStockHistoriesInput = {
+  create?: Prisma.XOR<Prisma.SupplierFieiraStockCreateWithoutSupplierFieiraStockHistoriesInput, Prisma.SupplierFieiraStockUncheckedCreateWithoutSupplierFieiraStockHistoriesInput>
+  connectOrCreate?: Prisma.SupplierFieiraStockCreateOrConnectWithoutSupplierFieiraStockHistoriesInput
+  connect?: Prisma.SupplierFieiraStockWhereUniqueInput
+}
+
+export type SupplierFieiraStockUpdateOneRequiredWithoutSupplierFieiraStockHistoriesNestedInput = {
+  create?: Prisma.XOR<Prisma.SupplierFieiraStockCreateWithoutSupplierFieiraStockHistoriesInput, Prisma.SupplierFieiraStockUncheckedCreateWithoutSupplierFieiraStockHistoriesInput>
+  connectOrCreate?: Prisma.SupplierFieiraStockCreateOrConnectWithoutSupplierFieiraStockHistoriesInput
+  upsert?: Prisma.SupplierFieiraStockUpsertWithoutSupplierFieiraStockHistoriesInput
+  connect?: Prisma.SupplierFieiraStockWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SupplierFieiraStockUpdateToOneWithWhereWithoutSupplierFieiraStockHistoriesInput, Prisma.SupplierFieiraStockUpdateWithoutSupplierFieiraStockHistoriesInput>, Prisma.SupplierFieiraStockUncheckedUpdateWithoutSupplierFieiraStockHistoriesInput>
+}
+
 export type SupplierFieiraStockCreateWithoutRequisitionItemsInput = {
-  thickness?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  width?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
+  width: runtime.Decimal | runtime.DecimalJsLike | number | string
   quantitySent: number
-  quantityUsed: number
+  quantityUsed?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  supplierFieiraStockHistories?: Prisma.SupplierFieiraStockHistoryCreateNestedManyWithoutSupplierFieiraStockInput
 }
 
 export type SupplierFieiraStockUncheckedCreateWithoutRequisitionItemsInput = {
   id?: number
-  thickness?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  width?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
+  width: runtime.Decimal | runtime.DecimalJsLike | number | string
   quantitySent: number
-  quantityUsed: number
+  quantityUsed?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  supplierFieiraStockHistories?: Prisma.SupplierFieiraStockHistoryUncheckedCreateNestedManyWithoutSupplierFieiraStockInput
 }
 
 export type SupplierFieiraStockCreateOrConnectWithoutRequisitionItemsInput = {
@@ -478,22 +512,82 @@ export type SupplierFieiraStockUpdateToOneWithWhereWithoutRequisitionItemsInput 
 }
 
 export type SupplierFieiraStockUpdateWithoutRequisitionItemsInput = {
-  thickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  width?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quantitySent?: Prisma.IntFieldUpdateOperationsInput | number
   quantityUsed?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supplierFieiraStockHistories?: Prisma.SupplierFieiraStockHistoryUpdateManyWithoutSupplierFieiraStockNestedInput
 }
 
 export type SupplierFieiraStockUncheckedUpdateWithoutRequisitionItemsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  thickness?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  width?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quantitySent?: Prisma.IntFieldUpdateOperationsInput | number
   quantityUsed?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supplierFieiraStockHistories?: Prisma.SupplierFieiraStockHistoryUncheckedUpdateManyWithoutSupplierFieiraStockNestedInput
+}
+
+export type SupplierFieiraStockCreateWithoutSupplierFieiraStockHistoriesInput = {
+  thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
+  width: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantitySent: number
+  quantityUsed?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  requisitionItems?: Prisma.RequisitionItemCreateNestedManyWithoutSupplierFieiraStockInput
+}
+
+export type SupplierFieiraStockUncheckedCreateWithoutSupplierFieiraStockHistoriesInput = {
+  id?: number
+  thickness: runtime.Decimal | runtime.DecimalJsLike | number | string
+  width: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantitySent: number
+  quantityUsed?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  requisitionItems?: Prisma.RequisitionItemUncheckedCreateNestedManyWithoutSupplierFieiraStockInput
+}
+
+export type SupplierFieiraStockCreateOrConnectWithoutSupplierFieiraStockHistoriesInput = {
+  where: Prisma.SupplierFieiraStockWhereUniqueInput
+  create: Prisma.XOR<Prisma.SupplierFieiraStockCreateWithoutSupplierFieiraStockHistoriesInput, Prisma.SupplierFieiraStockUncheckedCreateWithoutSupplierFieiraStockHistoriesInput>
+}
+
+export type SupplierFieiraStockUpsertWithoutSupplierFieiraStockHistoriesInput = {
+  update: Prisma.XOR<Prisma.SupplierFieiraStockUpdateWithoutSupplierFieiraStockHistoriesInput, Prisma.SupplierFieiraStockUncheckedUpdateWithoutSupplierFieiraStockHistoriesInput>
+  create: Prisma.XOR<Prisma.SupplierFieiraStockCreateWithoutSupplierFieiraStockHistoriesInput, Prisma.SupplierFieiraStockUncheckedCreateWithoutSupplierFieiraStockHistoriesInput>
+  where?: Prisma.SupplierFieiraStockWhereInput
+}
+
+export type SupplierFieiraStockUpdateToOneWithWhereWithoutSupplierFieiraStockHistoriesInput = {
+  where?: Prisma.SupplierFieiraStockWhereInput
+  data: Prisma.XOR<Prisma.SupplierFieiraStockUpdateWithoutSupplierFieiraStockHistoriesInput, Prisma.SupplierFieiraStockUncheckedUpdateWithoutSupplierFieiraStockHistoriesInput>
+}
+
+export type SupplierFieiraStockUpdateWithoutSupplierFieiraStockHistoriesInput = {
+  thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantitySent?: Prisma.IntFieldUpdateOperationsInput | number
+  quantityUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  requisitionItems?: Prisma.RequisitionItemUpdateManyWithoutSupplierFieiraStockNestedInput
+}
+
+export type SupplierFieiraStockUncheckedUpdateWithoutSupplierFieiraStockHistoriesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  thickness?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  width?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantitySent?: Prisma.IntFieldUpdateOperationsInput | number
+  quantityUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  requisitionItems?: Prisma.RequisitionItemUncheckedUpdateManyWithoutSupplierFieiraStockNestedInput
 }
 
 
@@ -503,10 +597,12 @@ export type SupplierFieiraStockUncheckedUpdateWithoutRequisitionItemsInput = {
 
 export type SupplierFieiraStockCountOutputType = {
   requisitionItems: number
+  supplierFieiraStockHistories: number
 }
 
 export type SupplierFieiraStockCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   requisitionItems?: boolean | SupplierFieiraStockCountOutputTypeCountRequisitionItemsArgs
+  supplierFieiraStockHistories?: boolean | SupplierFieiraStockCountOutputTypeCountSupplierFieiraStockHistoriesArgs
 }
 
 /**
@@ -526,6 +622,13 @@ export type SupplierFieiraStockCountOutputTypeCountRequisitionItemsArgs<ExtArgs 
   where?: Prisma.RequisitionItemWhereInput
 }
 
+/**
+ * SupplierFieiraStockCountOutputType without action
+ */
+export type SupplierFieiraStockCountOutputTypeCountSupplierFieiraStockHistoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SupplierFieiraStockHistoryWhereInput
+}
+
 
 export type SupplierFieiraStockSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -536,6 +639,7 @@ export type SupplierFieiraStockSelect<ExtArgs extends runtime.Types.Extensions.I
   createdAt?: boolean
   updatedAt?: boolean
   requisitionItems?: boolean | Prisma.SupplierFieiraStock$requisitionItemsArgs<ExtArgs>
+  supplierFieiraStockHistories?: boolean | Prisma.SupplierFieiraStock$supplierFieiraStockHistoriesArgs<ExtArgs>
   _count?: boolean | Prisma.SupplierFieiraStockCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["supplierFieiraStock"]>
 
@@ -572,6 +676,7 @@ export type SupplierFieiraStockSelectScalar = {
 export type SupplierFieiraStockOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "thickness" | "width" | "quantitySent" | "quantityUsed" | "createdAt" | "updatedAt", ExtArgs["result"]["supplierFieiraStock"]>
 export type SupplierFieiraStockInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   requisitionItems?: boolean | Prisma.SupplierFieiraStock$requisitionItemsArgs<ExtArgs>
+  supplierFieiraStockHistories?: boolean | Prisma.SupplierFieiraStock$supplierFieiraStockHistoriesArgs<ExtArgs>
   _count?: boolean | Prisma.SupplierFieiraStockCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SupplierFieiraStockIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -581,11 +686,12 @@ export type $SupplierFieiraStockPayload<ExtArgs extends runtime.Types.Extensions
   name: "SupplierFieiraStock"
   objects: {
     requisitionItems: Prisma.$RequisitionItemPayload<ExtArgs>[]
+    supplierFieiraStockHistories: Prisma.$SupplierFieiraStockHistoryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    thickness: runtime.Decimal | null
-    width: runtime.Decimal | null
+    thickness: runtime.Decimal
+    width: runtime.Decimal
     quantitySent: number
     quantityUsed: number
     createdAt: Date
@@ -985,6 +1091,7 @@ readonly fields: SupplierFieiraStockFieldRefs;
 export interface Prisma__SupplierFieiraStockClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   requisitionItems<T extends Prisma.SupplierFieiraStock$requisitionItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SupplierFieiraStock$requisitionItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RequisitionItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  supplierFieiraStockHistories<T extends Prisma.SupplierFieiraStock$supplierFieiraStockHistoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SupplierFieiraStock$supplierFieiraStockHistoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupplierFieiraStockHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1435,6 +1542,30 @@ export type SupplierFieiraStock$requisitionItemsArgs<ExtArgs extends runtime.Typ
   take?: number
   skip?: number
   distinct?: Prisma.RequisitionItemScalarFieldEnum | Prisma.RequisitionItemScalarFieldEnum[]
+}
+
+/**
+ * SupplierFieiraStock.supplierFieiraStockHistories
+ */
+export type SupplierFieiraStock$supplierFieiraStockHistoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupplierFieiraStockHistory
+   */
+  select?: Prisma.SupplierFieiraStockHistorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupplierFieiraStockHistory
+   */
+  omit?: Prisma.SupplierFieiraStockHistoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupplierFieiraStockHistoryInclude<ExtArgs> | null
+  where?: Prisma.SupplierFieiraStockHistoryWhereInput
+  orderBy?: Prisma.SupplierFieiraStockHistoryOrderByWithRelationInput | Prisma.SupplierFieiraStockHistoryOrderByWithRelationInput[]
+  cursor?: Prisma.SupplierFieiraStockHistoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SupplierFieiraStockHistoryScalarFieldEnum | Prisma.SupplierFieiraStockHistoryScalarFieldEnum[]
 }
 
 /**

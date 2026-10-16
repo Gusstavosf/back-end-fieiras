@@ -30,21 +30,28 @@ export type RequisitionAvgAggregateOutputType = {
   id: number | null
   fieiraId: number | null
   currentStockQty: number | null
-  requisitionQty: number | null
+  currentStockCapacity: number | null
+  necessaryQty: number | null
+  requestedQty: number | null
 }
 
 export type RequisitionSumAggregateOutputType = {
   id: number | null
   fieiraId: number | null
   currentStockQty: number | null
-  requisitionQty: number | null
+  currentStockCapacity: number | null
+  necessaryQty: number | null
+  requestedQty: number | null
 }
 
 export type RequisitionMinAggregateOutputType = {
   id: number | null
   fieiraId: number | null
+  type: $Enums.RequisitionType | null
   currentStockQty: number | null
-  requisitionQty: number | null
+  currentStockCapacity: number | null
+  necessaryQty: number | null
+  requestedQty: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -52,8 +59,11 @@ export type RequisitionMinAggregateOutputType = {
 export type RequisitionMaxAggregateOutputType = {
   id: number | null
   fieiraId: number | null
+  type: $Enums.RequisitionType | null
   currentStockQty: number | null
-  requisitionQty: number | null
+  currentStockCapacity: number | null
+  necessaryQty: number | null
+  requestedQty: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -61,8 +71,11 @@ export type RequisitionMaxAggregateOutputType = {
 export type RequisitionCountAggregateOutputType = {
   id: number
   fieiraId: number
+  type: number
   currentStockQty: number
-  requisitionQty: number
+  currentStockCapacity: number
+  necessaryQty: number
+  requestedQty: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -73,21 +86,28 @@ export type RequisitionAvgAggregateInputType = {
   id?: true
   fieiraId?: true
   currentStockQty?: true
-  requisitionQty?: true
+  currentStockCapacity?: true
+  necessaryQty?: true
+  requestedQty?: true
 }
 
 export type RequisitionSumAggregateInputType = {
   id?: true
   fieiraId?: true
   currentStockQty?: true
-  requisitionQty?: true
+  currentStockCapacity?: true
+  necessaryQty?: true
+  requestedQty?: true
 }
 
 export type RequisitionMinAggregateInputType = {
   id?: true
   fieiraId?: true
+  type?: true
   currentStockQty?: true
-  requisitionQty?: true
+  currentStockCapacity?: true
+  necessaryQty?: true
+  requestedQty?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -95,8 +115,11 @@ export type RequisitionMinAggregateInputType = {
 export type RequisitionMaxAggregateInputType = {
   id?: true
   fieiraId?: true
+  type?: true
   currentStockQty?: true
-  requisitionQty?: true
+  currentStockCapacity?: true
+  necessaryQty?: true
+  requestedQty?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -104,8 +127,11 @@ export type RequisitionMaxAggregateInputType = {
 export type RequisitionCountAggregateInputType = {
   id?: true
   fieiraId?: true
+  type?: true
   currentStockQty?: true
-  requisitionQty?: true
+  currentStockCapacity?: true
+  necessaryQty?: true
+  requestedQty?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -200,8 +226,11 @@ export type RequisitionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 export type RequisitionGroupByOutputType = {
   id: number
   fieiraId: number
+  type: $Enums.RequisitionType
   currentStockQty: number
-  requisitionQty: number
+  currentStockCapacity: number
+  necessaryQty: number
+  requestedQty: number
   createdAt: Date
   updatedAt: Date
   _count: RequisitionCountAggregateOutputType | null
@@ -232,8 +261,11 @@ export type RequisitionWhereInput = {
   NOT?: Prisma.RequisitionWhereInput | Prisma.RequisitionWhereInput[]
   id?: Prisma.IntFilter<"Requisition"> | number
   fieiraId?: Prisma.IntFilter<"Requisition"> | number
+  type?: Prisma.EnumRequisitionTypeFilter<"Requisition"> | $Enums.RequisitionType
   currentStockQty?: Prisma.IntFilter<"Requisition"> | number
-  requisitionQty?: Prisma.IntFilter<"Requisition"> | number
+  currentStockCapacity?: Prisma.IntFilter<"Requisition"> | number
+  necessaryQty?: Prisma.IntFilter<"Requisition"> | number
+  requestedQty?: Prisma.IntFilter<"Requisition"> | number
   createdAt?: Prisma.DateTimeFilter<"Requisition"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Requisition"> | Date | string
   Fieira?: Prisma.XOR<Prisma.FieiraScalarRelationFilter, Prisma.FieiraWhereInput>
@@ -244,8 +276,11 @@ export type RequisitionWhereInput = {
 export type RequisitionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   fieiraId?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   currentStockQty?: Prisma.SortOrder
-  requisitionQty?: Prisma.SortOrder
+  currentStockCapacity?: Prisma.SortOrder
+  necessaryQty?: Prisma.SortOrder
+  requestedQty?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   Fieira?: Prisma.FieiraOrderByWithRelationInput
@@ -259,8 +294,11 @@ export type RequisitionWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.RequisitionWhereInput[]
   NOT?: Prisma.RequisitionWhereInput | Prisma.RequisitionWhereInput[]
   fieiraId?: Prisma.IntFilter<"Requisition"> | number
+  type?: Prisma.EnumRequisitionTypeFilter<"Requisition"> | $Enums.RequisitionType
   currentStockQty?: Prisma.IntFilter<"Requisition"> | number
-  requisitionQty?: Prisma.IntFilter<"Requisition"> | number
+  currentStockCapacity?: Prisma.IntFilter<"Requisition"> | number
+  necessaryQty?: Prisma.IntFilter<"Requisition"> | number
+  requestedQty?: Prisma.IntFilter<"Requisition"> | number
   createdAt?: Prisma.DateTimeFilter<"Requisition"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Requisition"> | Date | string
   Fieira?: Prisma.XOR<Prisma.FieiraScalarRelationFilter, Prisma.FieiraWhereInput>
@@ -271,8 +309,11 @@ export type RequisitionWhereUniqueInput = Prisma.AtLeast<{
 export type RequisitionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   fieiraId?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   currentStockQty?: Prisma.SortOrder
-  requisitionQty?: Prisma.SortOrder
+  currentStockCapacity?: Prisma.SortOrder
+  necessaryQty?: Prisma.SortOrder
+  requestedQty?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.RequisitionCountOrderByAggregateInput
@@ -288,15 +329,21 @@ export type RequisitionScalarWhereWithAggregatesInput = {
   NOT?: Prisma.RequisitionScalarWhereWithAggregatesInput | Prisma.RequisitionScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Requisition"> | number
   fieiraId?: Prisma.IntWithAggregatesFilter<"Requisition"> | number
+  type?: Prisma.EnumRequisitionTypeWithAggregatesFilter<"Requisition"> | $Enums.RequisitionType
   currentStockQty?: Prisma.IntWithAggregatesFilter<"Requisition"> | number
-  requisitionQty?: Prisma.IntWithAggregatesFilter<"Requisition"> | number
+  currentStockCapacity?: Prisma.IntWithAggregatesFilter<"Requisition"> | number
+  necessaryQty?: Prisma.IntWithAggregatesFilter<"Requisition"> | number
+  requestedQty?: Prisma.IntWithAggregatesFilter<"Requisition"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Requisition"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Requisition"> | Date | string
 }
 
 export type RequisitionCreateInput = {
+  type: $Enums.RequisitionType
   currentStockQty: number
-  requisitionQty: number
+  currentStockCapacity: number
+  necessaryQty: number
+  requestedQty: number
   createdAt?: Date | string
   updatedAt?: Date | string
   Fieira: Prisma.FieiraCreateNestedOneWithoutRequisitionsInput
@@ -307,8 +354,11 @@ export type RequisitionCreateInput = {
 export type RequisitionUncheckedCreateInput = {
   id?: number
   fieiraId: number
+  type: $Enums.RequisitionType
   currentStockQty: number
-  requisitionQty: number
+  currentStockCapacity: number
+  necessaryQty: number
+  requestedQty: number
   createdAt?: Date | string
   updatedAt?: Date | string
   RequisitionItems?: Prisma.RequisitionItemUncheckedCreateNestedManyWithoutRequisitionInput
@@ -316,8 +366,11 @@ export type RequisitionUncheckedCreateInput = {
 }
 
 export type RequisitionUpdateInput = {
+  type?: Prisma.EnumRequisitionTypeFieldUpdateOperationsInput | $Enums.RequisitionType
   currentStockQty?: Prisma.IntFieldUpdateOperationsInput | number
-  requisitionQty?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStockCapacity?: Prisma.IntFieldUpdateOperationsInput | number
+  necessaryQty?: Prisma.IntFieldUpdateOperationsInput | number
+  requestedQty?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Fieira?: Prisma.FieiraUpdateOneRequiredWithoutRequisitionsNestedInput
@@ -328,8 +381,11 @@ export type RequisitionUpdateInput = {
 export type RequisitionUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   fieiraId?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumRequisitionTypeFieldUpdateOperationsInput | $Enums.RequisitionType
   currentStockQty?: Prisma.IntFieldUpdateOperationsInput | number
-  requisitionQty?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStockCapacity?: Prisma.IntFieldUpdateOperationsInput | number
+  necessaryQty?: Prisma.IntFieldUpdateOperationsInput | number
+  requestedQty?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   RequisitionItems?: Prisma.RequisitionItemUncheckedUpdateManyWithoutRequisitionNestedInput
@@ -339,15 +395,21 @@ export type RequisitionUncheckedUpdateInput = {
 export type RequisitionCreateManyInput = {
   id?: number
   fieiraId: number
+  type: $Enums.RequisitionType
   currentStockQty: number
-  requisitionQty: number
+  currentStockCapacity: number
+  necessaryQty: number
+  requestedQty: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type RequisitionUpdateManyMutationInput = {
+  type?: Prisma.EnumRequisitionTypeFieldUpdateOperationsInput | $Enums.RequisitionType
   currentStockQty?: Prisma.IntFieldUpdateOperationsInput | number
-  requisitionQty?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStockCapacity?: Prisma.IntFieldUpdateOperationsInput | number
+  necessaryQty?: Prisma.IntFieldUpdateOperationsInput | number
+  requestedQty?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -355,8 +417,11 @@ export type RequisitionUpdateManyMutationInput = {
 export type RequisitionUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   fieiraId?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumRequisitionTypeFieldUpdateOperationsInput | $Enums.RequisitionType
   currentStockQty?: Prisma.IntFieldUpdateOperationsInput | number
-  requisitionQty?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStockCapacity?: Prisma.IntFieldUpdateOperationsInput | number
+  necessaryQty?: Prisma.IntFieldUpdateOperationsInput | number
+  requestedQty?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -374,8 +439,11 @@ export type RequisitionOrderByRelationAggregateInput = {
 export type RequisitionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   fieiraId?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   currentStockQty?: Prisma.SortOrder
-  requisitionQty?: Prisma.SortOrder
+  currentStockCapacity?: Prisma.SortOrder
+  necessaryQty?: Prisma.SortOrder
+  requestedQty?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -384,14 +452,19 @@ export type RequisitionAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   fieiraId?: Prisma.SortOrder
   currentStockQty?: Prisma.SortOrder
-  requisitionQty?: Prisma.SortOrder
+  currentStockCapacity?: Prisma.SortOrder
+  necessaryQty?: Prisma.SortOrder
+  requestedQty?: Prisma.SortOrder
 }
 
 export type RequisitionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   fieiraId?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   currentStockQty?: Prisma.SortOrder
-  requisitionQty?: Prisma.SortOrder
+  currentStockCapacity?: Prisma.SortOrder
+  necessaryQty?: Prisma.SortOrder
+  requestedQty?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -399,8 +472,11 @@ export type RequisitionMaxOrderByAggregateInput = {
 export type RequisitionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   fieiraId?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   currentStockQty?: Prisma.SortOrder
-  requisitionQty?: Prisma.SortOrder
+  currentStockCapacity?: Prisma.SortOrder
+  necessaryQty?: Prisma.SortOrder
+  requestedQty?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -409,7 +485,9 @@ export type RequisitionSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   fieiraId?: Prisma.SortOrder
   currentStockQty?: Prisma.SortOrder
-  requisitionQty?: Prisma.SortOrder
+  currentStockCapacity?: Prisma.SortOrder
+  necessaryQty?: Prisma.SortOrder
+  requestedQty?: Prisma.SortOrder
 }
 
 export type RequisitionScalarRelationFilter = {
@@ -459,6 +537,10 @@ export type RequisitionUncheckedUpdateManyWithoutFieiraNestedInput = {
   deleteMany?: Prisma.RequisitionScalarWhereInput | Prisma.RequisitionScalarWhereInput[]
 }
 
+export type EnumRequisitionTypeFieldUpdateOperationsInput = {
+  set?: $Enums.RequisitionType
+}
+
 export type RequisitionCreateNestedOneWithoutRequisitionItemsInput = {
   create?: Prisma.XOR<Prisma.RequisitionCreateWithoutRequisitionItemsInput, Prisma.RequisitionUncheckedCreateWithoutRequisitionItemsInput>
   connectOrCreate?: Prisma.RequisitionCreateOrConnectWithoutRequisitionItemsInput
@@ -488,8 +570,11 @@ export type RequisitionUpdateOneRequiredWithoutRequisitionControlsNestedInput = 
 }
 
 export type RequisitionCreateWithoutFieiraInput = {
+  type: $Enums.RequisitionType
   currentStockQty: number
-  requisitionQty: number
+  currentStockCapacity: number
+  necessaryQty: number
+  requestedQty: number
   createdAt?: Date | string
   updatedAt?: Date | string
   RequisitionItems?: Prisma.RequisitionItemCreateNestedManyWithoutRequisitionInput
@@ -498,8 +583,11 @@ export type RequisitionCreateWithoutFieiraInput = {
 
 export type RequisitionUncheckedCreateWithoutFieiraInput = {
   id?: number
+  type: $Enums.RequisitionType
   currentStockQty: number
-  requisitionQty: number
+  currentStockCapacity: number
+  necessaryQty: number
+  requestedQty: number
   createdAt?: Date | string
   updatedAt?: Date | string
   RequisitionItems?: Prisma.RequisitionItemUncheckedCreateNestedManyWithoutRequisitionInput
@@ -538,15 +626,21 @@ export type RequisitionScalarWhereInput = {
   NOT?: Prisma.RequisitionScalarWhereInput | Prisma.RequisitionScalarWhereInput[]
   id?: Prisma.IntFilter<"Requisition"> | number
   fieiraId?: Prisma.IntFilter<"Requisition"> | number
+  type?: Prisma.EnumRequisitionTypeFilter<"Requisition"> | $Enums.RequisitionType
   currentStockQty?: Prisma.IntFilter<"Requisition"> | number
-  requisitionQty?: Prisma.IntFilter<"Requisition"> | number
+  currentStockCapacity?: Prisma.IntFilter<"Requisition"> | number
+  necessaryQty?: Prisma.IntFilter<"Requisition"> | number
+  requestedQty?: Prisma.IntFilter<"Requisition"> | number
   createdAt?: Prisma.DateTimeFilter<"Requisition"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Requisition"> | Date | string
 }
 
 export type RequisitionCreateWithoutRequisitionItemsInput = {
+  type: $Enums.RequisitionType
   currentStockQty: number
-  requisitionQty: number
+  currentStockCapacity: number
+  necessaryQty: number
+  requestedQty: number
   createdAt?: Date | string
   updatedAt?: Date | string
   Fieira: Prisma.FieiraCreateNestedOneWithoutRequisitionsInput
@@ -556,8 +650,11 @@ export type RequisitionCreateWithoutRequisitionItemsInput = {
 export type RequisitionUncheckedCreateWithoutRequisitionItemsInput = {
   id?: number
   fieiraId: number
+  type: $Enums.RequisitionType
   currentStockQty: number
-  requisitionQty: number
+  currentStockCapacity: number
+  necessaryQty: number
+  requestedQty: number
   createdAt?: Date | string
   updatedAt?: Date | string
   requisitionControls?: Prisma.RequisitionControlUncheckedCreateNestedManyWithoutRequisitionInput
@@ -580,8 +677,11 @@ export type RequisitionUpdateToOneWithWhereWithoutRequisitionItemsInput = {
 }
 
 export type RequisitionUpdateWithoutRequisitionItemsInput = {
+  type?: Prisma.EnumRequisitionTypeFieldUpdateOperationsInput | $Enums.RequisitionType
   currentStockQty?: Prisma.IntFieldUpdateOperationsInput | number
-  requisitionQty?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStockCapacity?: Prisma.IntFieldUpdateOperationsInput | number
+  necessaryQty?: Prisma.IntFieldUpdateOperationsInput | number
+  requestedQty?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Fieira?: Prisma.FieiraUpdateOneRequiredWithoutRequisitionsNestedInput
@@ -591,16 +691,22 @@ export type RequisitionUpdateWithoutRequisitionItemsInput = {
 export type RequisitionUncheckedUpdateWithoutRequisitionItemsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   fieiraId?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumRequisitionTypeFieldUpdateOperationsInput | $Enums.RequisitionType
   currentStockQty?: Prisma.IntFieldUpdateOperationsInput | number
-  requisitionQty?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStockCapacity?: Prisma.IntFieldUpdateOperationsInput | number
+  necessaryQty?: Prisma.IntFieldUpdateOperationsInput | number
+  requestedQty?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   requisitionControls?: Prisma.RequisitionControlUncheckedUpdateManyWithoutRequisitionNestedInput
 }
 
 export type RequisitionCreateWithoutRequisitionControlsInput = {
+  type: $Enums.RequisitionType
   currentStockQty: number
-  requisitionQty: number
+  currentStockCapacity: number
+  necessaryQty: number
+  requestedQty: number
   createdAt?: Date | string
   updatedAt?: Date | string
   Fieira: Prisma.FieiraCreateNestedOneWithoutRequisitionsInput
@@ -610,8 +716,11 @@ export type RequisitionCreateWithoutRequisitionControlsInput = {
 export type RequisitionUncheckedCreateWithoutRequisitionControlsInput = {
   id?: number
   fieiraId: number
+  type: $Enums.RequisitionType
   currentStockQty: number
-  requisitionQty: number
+  currentStockCapacity: number
+  necessaryQty: number
+  requestedQty: number
   createdAt?: Date | string
   updatedAt?: Date | string
   RequisitionItems?: Prisma.RequisitionItemUncheckedCreateNestedManyWithoutRequisitionInput
@@ -634,8 +743,11 @@ export type RequisitionUpdateToOneWithWhereWithoutRequisitionControlsInput = {
 }
 
 export type RequisitionUpdateWithoutRequisitionControlsInput = {
+  type?: Prisma.EnumRequisitionTypeFieldUpdateOperationsInput | $Enums.RequisitionType
   currentStockQty?: Prisma.IntFieldUpdateOperationsInput | number
-  requisitionQty?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStockCapacity?: Prisma.IntFieldUpdateOperationsInput | number
+  necessaryQty?: Prisma.IntFieldUpdateOperationsInput | number
+  requestedQty?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Fieira?: Prisma.FieiraUpdateOneRequiredWithoutRequisitionsNestedInput
@@ -645,8 +757,11 @@ export type RequisitionUpdateWithoutRequisitionControlsInput = {
 export type RequisitionUncheckedUpdateWithoutRequisitionControlsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   fieiraId?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumRequisitionTypeFieldUpdateOperationsInput | $Enums.RequisitionType
   currentStockQty?: Prisma.IntFieldUpdateOperationsInput | number
-  requisitionQty?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStockCapacity?: Prisma.IntFieldUpdateOperationsInput | number
+  necessaryQty?: Prisma.IntFieldUpdateOperationsInput | number
+  requestedQty?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   RequisitionItems?: Prisma.RequisitionItemUncheckedUpdateManyWithoutRequisitionNestedInput
@@ -654,15 +769,21 @@ export type RequisitionUncheckedUpdateWithoutRequisitionControlsInput = {
 
 export type RequisitionCreateManyFieiraInput = {
   id?: number
+  type: $Enums.RequisitionType
   currentStockQty: number
-  requisitionQty: number
+  currentStockCapacity: number
+  necessaryQty: number
+  requestedQty: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type RequisitionUpdateWithoutFieiraInput = {
+  type?: Prisma.EnumRequisitionTypeFieldUpdateOperationsInput | $Enums.RequisitionType
   currentStockQty?: Prisma.IntFieldUpdateOperationsInput | number
-  requisitionQty?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStockCapacity?: Prisma.IntFieldUpdateOperationsInput | number
+  necessaryQty?: Prisma.IntFieldUpdateOperationsInput | number
+  requestedQty?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   RequisitionItems?: Prisma.RequisitionItemUpdateManyWithoutRequisitionNestedInput
@@ -671,8 +792,11 @@ export type RequisitionUpdateWithoutFieiraInput = {
 
 export type RequisitionUncheckedUpdateWithoutFieiraInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumRequisitionTypeFieldUpdateOperationsInput | $Enums.RequisitionType
   currentStockQty?: Prisma.IntFieldUpdateOperationsInput | number
-  requisitionQty?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStockCapacity?: Prisma.IntFieldUpdateOperationsInput | number
+  necessaryQty?: Prisma.IntFieldUpdateOperationsInput | number
+  requestedQty?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   RequisitionItems?: Prisma.RequisitionItemUncheckedUpdateManyWithoutRequisitionNestedInput
@@ -681,8 +805,11 @@ export type RequisitionUncheckedUpdateWithoutFieiraInput = {
 
 export type RequisitionUncheckedUpdateManyWithoutFieiraInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumRequisitionTypeFieldUpdateOperationsInput | $Enums.RequisitionType
   currentStockQty?: Prisma.IntFieldUpdateOperationsInput | number
-  requisitionQty?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStockCapacity?: Prisma.IntFieldUpdateOperationsInput | number
+  necessaryQty?: Prisma.IntFieldUpdateOperationsInput | number
+  requestedQty?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -730,8 +857,11 @@ export type RequisitionCountOutputTypeCountRequisitionControlsArgs<ExtArgs exten
 export type RequisitionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   fieiraId?: boolean
+  type?: boolean
   currentStockQty?: boolean
-  requisitionQty?: boolean
+  currentStockCapacity?: boolean
+  necessaryQty?: boolean
+  requestedQty?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
@@ -743,8 +873,11 @@ export type RequisitionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
 export type RequisitionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   fieiraId?: boolean
+  type?: boolean
   currentStockQty?: boolean
-  requisitionQty?: boolean
+  currentStockCapacity?: boolean
+  necessaryQty?: boolean
+  requestedQty?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
@@ -753,8 +886,11 @@ export type RequisitionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
 export type RequisitionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   fieiraId?: boolean
+  type?: boolean
   currentStockQty?: boolean
-  requisitionQty?: boolean
+  currentStockCapacity?: boolean
+  necessaryQty?: boolean
+  requestedQty?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
@@ -763,13 +899,16 @@ export type RequisitionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
 export type RequisitionSelectScalar = {
   id?: boolean
   fieiraId?: boolean
+  type?: boolean
   currentStockQty?: boolean
-  requisitionQty?: boolean
+  currentStockCapacity?: boolean
+  necessaryQty?: boolean
+  requestedQty?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type RequisitionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fieiraId" | "currentStockQty" | "requisitionQty" | "createdAt" | "updatedAt", ExtArgs["result"]["requisition"]>
+export type RequisitionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fieiraId" | "type" | "currentStockQty" | "currentStockCapacity" | "necessaryQty" | "requestedQty" | "createdAt" | "updatedAt", ExtArgs["result"]["requisition"]>
 export type RequisitionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Fieira?: boolean | Prisma.FieiraDefaultArgs<ExtArgs>
   RequisitionItems?: boolean | Prisma.Requisition$RequisitionItemsArgs<ExtArgs>
@@ -793,8 +932,11 @@ export type $RequisitionPayload<ExtArgs extends runtime.Types.Extensions.Interna
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     fieiraId: number
+    type: $Enums.RequisitionType
     currentStockQty: number
-    requisitionQty: number
+    currentStockCapacity: number
+    necessaryQty: number
+    requestedQty: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["requisition"]>
@@ -1225,8 +1367,11 @@ export interface Prisma__RequisitionClient<T, Null = never, ExtArgs extends runt
 export interface RequisitionFieldRefs {
   readonly id: Prisma.FieldRef<"Requisition", 'Int'>
   readonly fieiraId: Prisma.FieldRef<"Requisition", 'Int'>
+  readonly type: Prisma.FieldRef<"Requisition", 'RequisitionType'>
   readonly currentStockQty: Prisma.FieldRef<"Requisition", 'Int'>
-  readonly requisitionQty: Prisma.FieldRef<"Requisition", 'Int'>
+  readonly currentStockCapacity: Prisma.FieldRef<"Requisition", 'Int'>
+  readonly necessaryQty: Prisma.FieldRef<"Requisition", 'Int'>
+  readonly requestedQty: Prisma.FieldRef<"Requisition", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Requisition", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Requisition", 'DateTime'>
 }

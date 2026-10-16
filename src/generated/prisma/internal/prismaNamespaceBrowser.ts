@@ -60,7 +60,8 @@ export const ModelName = {
   RequisitionControl: 'RequisitionControl',
   ReservationFieira: 'ReservationFieira',
   StockFieiraHistory: 'StockFieiraHistory',
-  SupplierFieiraStock: 'SupplierFieiraStock'
+  SupplierFieiraStock: 'SupplierFieiraStock',
+  SupplierFieiraStockHistory: 'SupplierFieiraStockHistory'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -145,8 +146,11 @@ export type StockFieiraScalarFieldEnum = (typeof StockFieiraScalarFieldEnum)[key
 export const RequisitionScalarFieldEnum = {
   id: 'id',
   fieiraId: 'fieiraId',
+  type: 'type',
   currentStockQty: 'currentStockQty',
-  requisitionQty: 'requisitionQty',
+  currentStockCapacity: 'currentStockCapacity',
+  necessaryQty: 'necessaryQty',
+  requestedQty: 'requestedQty',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -212,6 +216,17 @@ export const SupplierFieiraStockScalarFieldEnum = {
 } as const
 
 export type SupplierFieiraStockScalarFieldEnum = (typeof SupplierFieiraStockScalarFieldEnum)[keyof typeof SupplierFieiraStockScalarFieldEnum]
+
+
+export const SupplierFieiraStockHistoryScalarFieldEnum = {
+  id: 'id',
+  supplierFieiraStockId: 'supplierFieiraStockId',
+  quantitySent: 'quantitySent',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SupplierFieiraStockHistoryScalarFieldEnum = (typeof SupplierFieiraStockHistoryScalarFieldEnum)[keyof typeof SupplierFieiraStockHistoryScalarFieldEnum]
 
 
 export const SortOrder = {

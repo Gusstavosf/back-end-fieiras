@@ -246,7 +246,6 @@ export type RequisitionItemOrderByWithRelationInput = {
 
 export type RequisitionItemWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  requisitionId_stockFieiraId?: Prisma.RequisitionItemRequisitionIdStockFieiraIdCompoundUniqueInput
   AND?: Prisma.RequisitionItemWhereInput | Prisma.RequisitionItemWhereInput[]
   OR?: Prisma.RequisitionItemWhereInput[]
   NOT?: Prisma.RequisitionItemWhereInput | Prisma.RequisitionItemWhereInput[]
@@ -257,7 +256,7 @@ export type RequisitionItemWhereUniqueInput = Prisma.AtLeast<{
   Requisition?: Prisma.XOR<Prisma.RequisitionScalarRelationFilter, Prisma.RequisitionWhereInput>
   StockFieira?: Prisma.XOR<Prisma.StockFieiraNullableScalarRelationFilter, Prisma.StockFieiraWhereInput> | null
   SupplierFieiraStock?: Prisma.XOR<Prisma.SupplierFieiraStockNullableScalarRelationFilter, Prisma.SupplierFieiraStockWhereInput> | null
-}, "id" | "requisitionId_stockFieiraId">
+}, "id">
 
 export type RequisitionItemOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -341,11 +340,6 @@ export type RequisitionItemListRelationFilter = {
 
 export type RequisitionItemOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type RequisitionItemRequisitionIdStockFieiraIdCompoundUniqueInput = {
-  requisitionId: number
-  stockFieiraId: number
 }
 
 export type RequisitionItemCountOrderByAggregateInput = {

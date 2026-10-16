@@ -8,7 +8,7 @@ import { FieiraRepositoryPrisma } from "../../infra/repositories/fieira/prisma/f
 import { CreateControlFieiraUseCase } from "../../usecases/control-fieira/create-control-fieira/create-control-fieira.usecase.js";
 import { ListControlFieiraUseCase } from "../../usecases/control-fieira/list-control-fieira/list-control-fieira.usecase.js";
 import { ListControlFieiraWithoutCabinetUseCase } from "../../usecases/control-fieira/list-control-fieira-without-cabinet/list-control-fieira-without-cabinet.usecase.js";
-import { ReservationFieiraRepositoryPrisma } from "../../infra/repositories/reservation-fieira/reservation-fieira.repository.prisma.js";
+import { ReservationFieiraRepositoryPrisma } from "../../infra/repositories/reservation-fieira/prisma/reservation-fieira.repository.prisma.js";
 import { UpdateControlFieiraUseCase } from "../../usecases/control-fieira/update-control-fieira/update-control-fieira.usecase.js";
 import { SyncControlFieiraUseCase } from "../../usecases/control-fieira/sync-control-fieira/sync-control-fieira.usecase.js";
 import { SyncControlFieiraRoute } from "../../infra/api/express/routes/control-fieira/sync/sync-control-fieira.express.route.js";
