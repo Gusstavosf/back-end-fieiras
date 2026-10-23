@@ -38,9 +38,9 @@ export class DeleteSupplierFieiraStockRoute implements Route {
             const input: DeleteSupplierFieiraStockInputDto = {
                 id: Number(id),
             };
-            await this.deleteSupplierFieiraStockService.execute(input);
+            const output = await this.deleteSupplierFieiraStockService.execute(input);
 
-            const responseDto = this.present(input);
+            const responseDto = this.presentOutput(output);
 
             response.status(200).json(responseDto).send();
         };
@@ -54,8 +54,8 @@ export class DeleteSupplierFieiraStockRoute implements Route {
         return this.method;
     }
 
-    private present(
-        input: DeleteSupplierFieiraStockInputDto,
+    private presentOutput(
+        input: DeleteSupplierFieiraStockResponseDto,
     ): DeleteSupplierFieiraStockResponseDto {
         return {
             id: input.id,

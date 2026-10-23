@@ -12,11 +12,12 @@ export interface SupplierFieiraStockGateway {
     findById(id: number): Promise<SupplierFieiraStock | null>;
     list(): Promise<SupplierFieiraStock[]>;
     delete(id: number): Promise<void>;
-    update(stock: SupplierFieiraStock): Promise<SupplierFieiraStock>;
-    listCompatible(width: number, thickness: number): Promise<SupplierFieiraStock[]>;
+    update(stock: SupplierFieiraStock): Promise<void>;
+    sentFieira(id: number, quantitySent: number): Promise<void>;
+    listCompatible(thickness: number, width: number): Promise<SupplierFieiraStock[]>;
     findByDimensions(
-        width: number,
         thickness: number,
+        width: number,
     ): Promise<SupplierFieiraStock | null>;
     saveHistory(history: SupplierFieiraStockHistoryInput): Promise<void>;
 }

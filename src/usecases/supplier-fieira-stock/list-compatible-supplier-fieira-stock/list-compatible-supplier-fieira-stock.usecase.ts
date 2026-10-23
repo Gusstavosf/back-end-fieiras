@@ -1,10 +1,11 @@
 import type { Usecase } from "../../usecase.js";
 import type { SupplierFieiraStockGateway } from "../../../domain/supplier-fieira-stock/gateway/supplier-fieira-stock.gateway.js";
 import type { SupplierFieiraStock } from "../../../domain/supplier-fieira-stock/entity/supplier-fieira-stock.js";
+import NotFound from "../../../core/shared/errors/notFound.js";
 
 export type ListCompatibleSupplierFieiraStockInputDto = {
-    width: number;
     thickness: number;
+    width: number;
 };
 
 export type ListCompatibleSupplierFieiraStockOutputDto = {
@@ -35,9 +36,13 @@ export class ListCompatibleSupplierFieiraStockUseCase implements Usecase<
         input: ListCompatibleSupplierFieiraStockInputDto,
     ): Promise<ListCompatibleSupplierFieiraStockOutputDto> {
         const supplierStockEntity = await this.supplierFieiraStockGateway.listCompatible(
-            input.width,
             input.thickness,
+            input.width,
         );
+
+        if (!supplierStockEntity || supplierStockEntity.length === 0) {
+            throw new NotFound("Nenhuma fieira compatível encontrada.");
+        }
 
         const output = this.presentOutput(supplierStockEntity);
 

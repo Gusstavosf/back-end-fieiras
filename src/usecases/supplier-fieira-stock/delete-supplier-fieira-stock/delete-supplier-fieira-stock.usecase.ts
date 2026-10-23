@@ -9,8 +9,8 @@ export type DeleteSupplierFieiraStockInputDto = {
 
 export type DeleteSupplierFieiraStockOutputDto = {
     id: number | undefined;
-    width: number;
     thickness: number;
+    width: number;
     quantitySent: number;
     quantityUsed: number;
     createdAt: Date;
@@ -50,8 +50,8 @@ export class DeleteSupplierFieiraStockUseCase implements Usecase<
     ): DeleteSupplierFieiraStockOutputDto {
         const output: DeleteSupplierFieiraStockOutputDto = {
             id: stock.id,
-            width: stock.width,
             thickness: stock.thickness,
+            width: stock.width,
             quantitySent: stock.quantitySent,
             quantityUsed: stock.quantityUsed,
             createdAt: stock.createdAt,

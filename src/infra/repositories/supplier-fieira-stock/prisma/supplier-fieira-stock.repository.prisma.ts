@@ -82,44 +82,54 @@ export class SupplierFieiraStockRepositoryPrisma implements SupplierFieiraStockG
         });
     }
 
-    public async update(stock: SupplierFieiraStock): Promise<SupplierFieiraStock> {
+    public async update(stock: SupplierFieiraStock): Promise<void> {
         await this.prismaClient.supplierFieiraStock.update({
             where: { id: stock.id! },
             data: this.toPersistence(stock),
         });
+    }
 
-        return stock;
+    public async sentFieira(id: number, quantitySent: number): Promise<void> {
+        await this.prismaClient.supplierFieiraStock.update({
+            where: { id },
+            data: {
+                quantitySent: {
+                    increment: quantitySent,
+                },
+            },
+        });
     }
 
     public async listCompatible(
-        width: number,
         thickness: number,
+        width: number,
     ): Promise<SupplierFieiraStock[]> {
+        const maxThickness = Number((thickness - 0.2).toFixed(2));
+        const maxWidth = Number((width - 0.2).toFixed(2));
+
         const stocks = await this.prismaClient.supplierFieiraStock.findMany({
             where: {
-                width: {
-                    lte: width - 0.2,
-                },
                 thickness: {
-                    lte: thickness - 0.2,
+                    lte: maxThickness,
+                },
+                width: {
+                    lte: maxWidth,
                 },
             },
         });
 
-        const stockEntities = stocks.map((stock) => this.toEntity(stock));
-
-        return stockEntities;
+        return stocks.map((stock) => this.toEntity(stock));
     }
 
     public async findByDimensions(
-        width: number,
         thickness: number,
+        width: number,
     ): Promise<SupplierFieiraStock | null> {
         const fieira = await this.prismaClient.supplierFieiraStock.findUnique({
             where: {
                 width_thickness: {
-                    width,
                     thickness,
+                    width,
                 },
             },
         });

@@ -1,3 +1,5 @@
+import type { SupplierFieiraStockHistory } from "./supplier-fieira-stock-history.js";
+
 export type SupplierFieiraStockProps = {
     thickness: number;
     width: number;
@@ -22,6 +24,15 @@ export class SupplierFieiraStock {
         id: number,
     ): SupplierFieiraStock {
         return new SupplierFieiraStock(props, id);
+    }
+
+    public recalculateFromHistory(timeline: SupplierFieiraStockHistory[] | null): void {
+        const history = timeline ?? [];
+
+        const totalSent = history.reduce((total, item) => total + item.quantitySent, 0);
+
+        this.props.quantitySent = totalSent;
+        this.props.updatedAt = new Date();
     }
 
     public get id(): number | undefined {

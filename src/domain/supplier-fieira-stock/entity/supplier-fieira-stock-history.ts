@@ -15,6 +15,11 @@ export class SupplierFieiraStockHistory {
         return new SupplierFieiraStockHistory(props);
     }
 
+    public updateQuantitySent(quantitySent: number): void {
+        this.props.quantitySent = quantitySent;
+        this.props.updatedAt = new Date();
+    }
+
     public get id(): number {
         return this.props.id;
     }

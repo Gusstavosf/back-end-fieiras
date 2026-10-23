@@ -11,7 +11,7 @@ model Cabinet {
   id        Int      @id @default(autoincrement())
   name      String   @unique
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   Fieira Fieira?
 }
@@ -24,7 +24,7 @@ model Fieira {
   tension               Int
   nominalFieiraCapacity Int
   createdAt             DateTime @default(now())
-  updatedAt             DateTime @default(now())
+  updatedAt             DateTime @default(now()) @updatedAt
 
   // Relations
   Cabinet       Cabinet?        @relation(fields: [cabinetId], references: [id])
@@ -52,7 +52,7 @@ model ControlFieira {
   status          ControlStatus
   qtdFieiraNec    Int
   createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @default(now())
+  updatedAt       DateTime      @default(now()) @updatedAt
 
   // Relations
   Fieira              Fieira?              @relation(fields: [fieiraId], references: [id])
@@ -70,7 +70,7 @@ model StockFieira {
   utilization      Int          @default(0)
   production       Int          @default(0)
   createdAt        DateTime     @default(now())
-  updatedAt        DateTime     @default(now())
+  updatedAt        DateTime     @default(now()) @updatedAt
 
   // Relations
   Fieira            Fieira               @relation(fields: [fieiraId], references: [id])
@@ -90,7 +90,7 @@ model Requisition {
   necessaryQty         Int
   requestedQty         Int
   createdAt            DateTime        @default(now())
-  updatedAt            DateTime        @default(now())
+  updatedAt            DateTime        @default(now()) @updatedAt
 
   // Relations
   Fieira              Fieira               @relation(fields: [fieiraId], references: [id])
@@ -169,7 +169,7 @@ model SupplierFieiraStock {
   quantitySent Int
   quantityUsed Int      @default(0)
   createdAt    DateTime @default(now())
-  updatedAt    DateTime @default(now())
+  updatedAt    DateTime @default(now()) @updatedAt
 
   requisitionItems             RequisitionItem[]
   supplierFieiraStockHistories SupplierFieiraStockHistory[]

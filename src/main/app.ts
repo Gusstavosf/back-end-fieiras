@@ -6,6 +6,8 @@ import { cabinetsRoutes } from "./modules/cabinet.module.js";
 import { controlFieiraRoutes } from "./modules/control-fieira.module.js";
 import { fieiraRoutes } from "./modules/fieira.module.js";
 import { reservationFieiraRoutes } from "./modules/reservation-fieira.module.js";
+import { supplierStockFieiraRoutes } from "./modules/supplier-fieira-stock.module.js";
+import { supplierStockFieiraHistoryRoutes } from "./modules/supplier-fieira-stock-history.module.js";
 
 const api = Apiexpress.create([
     ...stockRoutes,
@@ -14,6 +16,8 @@ const api = Apiexpress.create([
     ...controlFieiraRoutes,
     ...fieiraRoutes,
     ...reservationFieiraRoutes,
+    ...supplierStockFieiraRoutes,
+    ...supplierStockFieiraHistoryRoutes,
 ]);
 
 export const app = api.getApp();

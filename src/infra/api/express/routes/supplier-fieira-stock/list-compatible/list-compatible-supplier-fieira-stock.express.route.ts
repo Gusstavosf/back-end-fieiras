@@ -37,10 +37,12 @@ export class ListCompatibleSupplierFieiraStockRoute implements Route {
     public getHandler() {
         return async (request: Request, response: Response) => {
             const { width, thickness } = request.query;
+
             const result = await this.listCompatibleSupplierFieiraStockService.execute({
-                width: Number(width),
                 thickness: Number(thickness),
+                width: Number(width),
             });
+
             response.json(this.present(result));
         };
     }

@@ -7,6 +7,7 @@ import type { ReservationFieiraGateway } from "../../../domain/reservation-fieir
 import type { Tension } from "../../../domain/control-fieira/entity/control-fieira.js";
 import type { ControlFieiraGateway } from "../../../domain/control-fieira/gateway/control-fieira.gateway.js";
 import IncorrectRequest from "../../../core/shared/errors/incorrectRequest.js";
+import type { SupplierFieiraStockGateway } from "../../../domain/supplier-fieira-stock/gateway/supplier-fieira-stock.gateway.js";
 
 export type CreateRequisitionToOrderInputDto = {
     order: number;
@@ -35,25 +36,19 @@ export class CreateRequisitionToOrderUseCase implements Usecase<
 > {
     private constructor(
         private readonly requisitionGateway: RequisitionGateway,
-        private readonly fieraGateway: FieiraGateway,
         private readonly controlFieiraGateway: ControlFieiraGateway,
-        private readonly stockGateway: StockGateway,
-        private readonly reservationFieiraGateway: ReservationFieiraGateway,
+        private readonly supplierFieiraStockGateway: SupplierFieiraStockGateway,
     ) {}
 
     public static create(
         requisitionGateway: RequisitionGateway,
-        fieraGateway: FieiraGateway,
         controlFieiraGateway: ControlFieiraGateway,
-        stockGateway: StockGateway,
-        reservationFieiraGateway: ReservationFieiraGateway,
+        supplierFieiraStockGateway: SupplierFieiraStockGateway,
     ) {
         return new CreateRequisitionToOrderUseCase(
             requisitionGateway,
-            fieraGateway,
             controlFieiraGateway,
-            stockGateway,
-            reservationFieiraGateway,
+            supplierFieiraStockGateway,
         );
     }
 

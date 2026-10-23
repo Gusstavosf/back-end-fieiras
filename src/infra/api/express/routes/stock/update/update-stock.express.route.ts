@@ -8,7 +8,6 @@ import { HttpMethod, type Route } from "../../route.js";
 import { StatusFieira } from "../../../../../../domain/stock/entity/stock.js";
 import { UpdateStockZodValidator } from "../../../validators/stock/update-stock.zod.validator.js";
 import { validationStock } from "../../../../../middlewares/validationStock.js";
-import { error } from "node:console";
 
 export type UpdateStockResponseDto = {
     id: number;
@@ -58,7 +57,7 @@ export class UpdateStockRoute implements Route {
 
             const responseBody = this.present(output);
 
-            response.status(201).json(responseBody);
+            response.status(201).send().json(responseBody);
         };
     }
 

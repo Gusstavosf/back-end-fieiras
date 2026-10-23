@@ -35,8 +35,8 @@ export class CreateSupplierStockFieiraUseCase implements Usecase<
         input: CreateSupplierFieiraStockInputDto,
     ): Promise<CreateSupplierStockFieiraOutputDto> {
         const fieiraExisting = await this.supplierFieiraStockGateway.findByDimensions(
-            input.width,
             input.thickness,
+            input.width,
         );
 
         if (fieiraExisting) {
@@ -58,8 +58,8 @@ export class CreateSupplierStockFieiraUseCase implements Usecase<
 
         const idFromSupplierFieiraStock =
             await this.supplierFieiraStockGateway.findByDimensions(
-                input.width,
                 input.thickness,
+                input.width,
             );
 
         if (!idFromSupplierFieiraStock) {
