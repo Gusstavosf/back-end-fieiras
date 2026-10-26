@@ -197,6 +197,60 @@ export class Stock {
         this.props.updatedAt = new Date();
     }
 
+    public static generateNextCodes(stocks: Stock[], quantity: number): string[] {
+        if (!Number.isInteger(quantity) || quantity < 0) {
+            throw new IncorrectRequest(
+                "A quantidade de códigos deve ser um número inteiro não negativo.",
+            );
+        }
+
+        const existingCodes = stocks.map((stock) => stock.code);
+
+        for (const code of existingCodes) {
+            if (!/^[A-Z](0[1-9]|[1-9][0-9])$/.test(code)) {
+                throw new IncorrectRequest(`Código de fieira inválido: ${code}`);
+            }
+        }
+
+        const sortedCodes = [...existingCodes].sort((a, b) => {
+            const letterDiff = b.charCodeAt(0) - a.charCodeAt(0);
+
+            if (letterDiff !== 0) {
+                return letterDiff;
+            }
+
+            return Number(b.slice(1)) - Number(a.slice(1));
+        });
+
+        const lastCode = sortedCodes[0];
+
+        let letter = lastCode ? lastCode.charCodeAt(0) : "A".charCodeAt(0);
+        let number = lastCode ? Number(lastCode.slice(1)) : 0;
+
+        const codes: string[] = [];
+
+        for (let i = 0; i < quantity; i++) {
+            if (number < 99) {
+                number++;
+            } else {
+                letter++;
+                number = 1;
+            }
+
+            if (letter > "Z".charCodeAt(0)) {
+                throw new IncorrectRequest(
+                    "Não há códigos de estoque disponíveis para a quantidade solicitada.",
+                );
+            }
+
+            codes.push(
+                `${String.fromCharCode(letter)}${String(number).padStart(2, "0")}`,
+            );
+        }
+
+        return codes;
+    }
+
     public get id(): number | undefined {
         return this.props.id;
     }

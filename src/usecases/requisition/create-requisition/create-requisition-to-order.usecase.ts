@@ -8,10 +8,12 @@ import type { Tension } from "../../../domain/control-fieira/entity/control-fiei
 import type { ControlFieiraGateway } from "../../../domain/control-fieira/gateway/control-fieira.gateway.js";
 import IncorrectRequest from "../../../core/shared/errors/incorrectRequest.js";
 import type { SupplierFieiraStockGateway } from "../../../domain/supplier-fieira-stock/gateway/supplier-fieira-stock.gateway.js";
+import { Stock } from "../../../domain/stock/entity/stock.js";
 
 export type CreateRequisitionToOrderInputDto = {
     order: number;
     requestedQty: number;
+    codesRequested: string[];
     qtyRework?: number;
 };
 
@@ -37,17 +39,26 @@ export class CreateRequisitionToOrderUseCase implements Usecase<
     private constructor(
         private readonly requisitionGateway: RequisitionGateway,
         private readonly controlFieiraGateway: ControlFieiraGateway,
+        private readonly fieiraGateway: FieiraGateway,
+        private readonly stockFieiraGateway: StockGateway,
+        private readonly reservationFieiraGateway: ReservationFieiraGateway,
         private readonly supplierFieiraStockGateway: SupplierFieiraStockGateway,
     ) {}
 
     public static create(
         requisitionGateway: RequisitionGateway,
         controlFieiraGateway: ControlFieiraGateway,
+        fieiraGateway: FieiraGateway,
+        stockFieiraGateway: StockGateway,
+        reservationFieiraGateway: ReservationFieiraGateway,
         supplierFieiraStockGateway: SupplierFieiraStockGateway,
     ) {
         return new CreateRequisitionToOrderUseCase(
             requisitionGateway,
             controlFieiraGateway,
+            fieiraGateway,
+            stockFieiraGateway,
+            reservationFieiraGateway,
             supplierFieiraStockGateway,
         );
     }
@@ -61,14 +72,36 @@ export class CreateRequisitionToOrderUseCase implements Usecase<
             throw new NotFound("Ordem não encontrada.");
         }
 
-        if (!order.fieiraId) {
+        const fieiraId = order.fieiraId;
+
+        if (!fieiraId) {
             throw new NotFound("Ordem sem fieira associada.");
         }
 
-        const existing = await this.requisitionGateway.findByOrder(input.order);
+        const requisitionExisting = await this.requisitionGateway.findByOrder(
+            input.order,
+        );
 
-        if (existing) {
+        if (requisitionExisting) {
             throw new IncorrectRequest("Já existe uma requisição para essa ordem.");
         }
+
+        const stockFieiraList = await this.stockFieiraGateway.listByFieiraId(
+            order.fieiraId,
+        );
+
+        const fieirainfos = await this.fieiraGateway.findById(fieiraId);
+
+        if (!fieirainfos) {
+            throw new IncorrectRequest("informações da fieira não encontradas.");
+        }
+
+        const reservationFieira =
+            await this.reservationFieiraGateway.findByStockFieira(fieiraId);
+
+        const generateNextCode = Stock.generateNextCodes(
+            stockFieiraList,
+            order.qtdFieiraNec,
+        );
     }
 }
