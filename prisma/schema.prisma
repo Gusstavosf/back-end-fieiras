@@ -109,6 +109,7 @@ model RequisitionItem {
   stockFieiraId         Int?
   supplierFieiraStockId Int?
   type                  RequisitionItemType
+  createdAt             DateTime            @default(now())
 
   // Relations
   Requisition         Requisition          @relation(fields: [requisitionId], references: [id])
@@ -122,9 +123,10 @@ enum RequisitionItemType {
 }
 
 model RequisitionControl {
-  id              Int @id @default(autoincrement())
+  id              Int      @id @default(autoincrement())
   requisitionId   Int
   controlFieiraId Int
+  createdAt       DateTime @default(now())
 
   Requisition   Requisition   @relation(fields: [requisitionId], references: [id])
   ControlFieira ControlFieira @relation(fields: [controlFieiraId], references: [id])

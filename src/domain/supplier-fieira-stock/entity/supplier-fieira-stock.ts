@@ -35,6 +35,42 @@ export class SupplierFieiraStock {
         this.props.updatedAt = new Date();
     }
 
+    public increaseQuantityUsed(quantity: number): void {
+        if (!Number.isInteger(quantity) || quantity <= 0) {
+            throw new Error(
+                "A quantidade a ser aumentada deve ser um número inteiro positivo.",
+            );
+        }
+
+        const available = this.props.quantitySent - this.props.quantityUsed;
+
+        if (quantity > available) {
+            throw new Error(
+                `A quantidade a ser aumentada (${quantity}) excede a quantidade disponível (${available}).`,
+            );
+        }
+
+        this.props.quantityUsed += quantity;
+        this.props.updatedAt = new Date();
+    }
+
+    public decreaseQuantityUse(quantity: number): void {
+        if (!Number.isInteger(quantity) || quantity <= 0) {
+            throw new Error(
+                "A quantidade a ser diminuída deve ser um número inteiro positivo.",
+            );
+        }
+
+        if (quantity > this.props.quantityUsed) {
+            throw new Error(
+                `A quantidade a ser diminuída (${quantity}) excede a quantidade utilizada (${this.props.quantityUsed}).`,
+            );
+        }
+
+        this.props.quantityUsed -= quantity;
+        this.props.updatedAt = new Date();
+    }
+
     public get id(): number | undefined {
         return this._id;
     }

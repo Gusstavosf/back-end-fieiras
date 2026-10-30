@@ -13,7 +13,6 @@ import { Stock } from "../../../domain/stock/entity/stock.js";
 export type CreateRequisitionToOrderInputDto = {
     order: number;
     requestedQty: number;
-    codesRequested: string[];
     qtyRework?: number;
 };
 
@@ -101,7 +100,7 @@ export class CreateRequisitionToOrderUseCase implements Usecase<
 
         const generateNextCode = Stock.generateNextCodes(
             stockFieiraList,
-            order.qtdFieiraNec,
+            input.codesRequested.length,
         );
     }
 }
