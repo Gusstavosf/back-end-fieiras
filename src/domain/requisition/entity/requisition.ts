@@ -3,6 +3,7 @@ export type RequisitionProps = {
     currentStockQty: number;
     type: RequisitionType;
     necessaryQty: number;
+    requestedQty: number;
     currentStockCapacity: number;
     createdAt: Date;
     updatedAt: Date;
@@ -49,6 +50,10 @@ export class Requisition {
 
     public get necessaryQty(): number {
         return this.props.necessaryQty;
+    }
+
+    public get requestedQty(): number {
+        return this.props.requestedQty;
     }
 
     public get createdAt(): Date {

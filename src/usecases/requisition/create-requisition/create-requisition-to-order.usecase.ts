@@ -1,5 +1,9 @@
 import type { Usecase } from "../../usecase.js";
 import type { RequisitionGateway } from "../../../domain/requisition/gateway/requisition.gateway.js";
+import {
+    Requisition,
+    RequisitionType,
+} from "../../../domain/requisition/entity/requisition.js";
 import type { FieiraGateway } from "../../../domain/fieira/gateway/fieira.gateway.js";
 import NotFound from "../../../core/shared/errors/notFound.js";
 import type { StockGateway } from "../../../domain/stock/gateway/stock.gateway.js";
@@ -9,6 +13,7 @@ import type { ControlFieiraGateway } from "../../../domain/control-fieira/gatewa
 import IncorrectRequest from "../../../core/shared/errors/incorrectRequest.js";
 import type { SupplierFieiraStockGateway } from "../../../domain/supplier-fieira-stock/gateway/supplier-fieira-stock.gateway.js";
 import { Stock } from "../../../domain/stock/entity/stock.js";
+import { ReservationFieira } from "../../../domain/reservation-fieira/entity/reservation-fieira.js";
 
 export type CreateRequisitionToOrderInputDto = {
     order: number;
@@ -71,10 +76,20 @@ export class CreateRequisitionToOrderUseCase implements Usecase<
             throw new NotFound("Ordem não encontrada.");
         }
 
+        if (!order.id) {
+            throw new NotFound("Ordem sem identificação válida.");
+        }
+
         const fieiraId = order.fieiraId;
 
         if (!fieiraId) {
             throw new NotFound("Ordem sem fieira associada.");
+        }
+
+        if (!Number.isInteger(input.requestedQty) || input.requestedQty <= 0) {
+            throw new IncorrectRequest(
+                "A quantidade requisitada deve ser um número inteiro maior que zero.",
+            );
         }
 
         const requisitionExisting = await this.requisitionGateway.findByOrder(
@@ -85,22 +100,106 @@ export class CreateRequisitionToOrderUseCase implements Usecase<
             throw new IncorrectRequest("Já existe uma requisição para essa ordem.");
         }
 
-        const stockFieiraList = await this.stockFieiraGateway.listByFieiraId(
-            order.fieiraId,
-        );
+        const stockFieiraList = await this.stockFieiraGateway.listByFieiraId(fieiraId);
 
-        const fieirainfos = await this.fieiraGateway.findById(fieiraId);
+        const fieira = await this.fieiraGateway.findById(fieiraId);
 
-        if (!fieirainfos) {
-            throw new IncorrectRequest("informações da fieira não encontradas.");
+        if (!fieira) {
+            throw new IncorrectRequest("Informações da fieira não encontradas.");
         }
 
-        const reservationFieira =
-            await this.reservationFieiraGateway.findByStockFieira(fieiraId);
-
-        const generateNextCode = Stock.generateNextCodes(
+        const generatedCodes = Stock.generateNextCodes(
             stockFieiraList,
-            input.codesRequested.length,
+            input.requestedQty,
         );
+
+        const requisition = Requisition.create({
+            fieiraId,
+            currentStockQty: stockFieiraList.length,
+            type: RequisitionType.production,
+            necessaryQty: order.qtdFieiraNec,
+            requestedQty: input.requestedQty,
+            currentStockCapacity: fieira.nominalFieiraCapacity,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        });
+
+        const requisitionSaved = await this.requisitionGateway.save(requisition);
+
+        for (const code of generatedCodes) {
+            const newStock = Stock.create(fieiraId, code);
+
+            await this.stockFieiraGateway.save(newStock);
+
+            const stockSaved = await this.stockFieiraGateway.findByCode(code, fieiraId);
+
+            if (!stockSaved || !stockSaved.id) {
+                throw new NotFound(
+                    `Não foi possível recuperar a fieira ${code} após a criação.`,
+                );
+            }
+
+            const reservation = ReservationFieira.create({
+                controlId: order.id,
+                stockFieiraId: stockSaved.id,
+                quantity: input.requestedQty,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            });
+
+            await this.reservationFieiraGateway.save(reservation);
+
+            await this.stockFieiraGateway.saveHistory({
+                stockFieiraId: stockSaved.id,
+                status: newStock.status,
+                thickness: null,
+                width: null,
+                production: 0,
+                utilization: 0,
+            });
+        }
+
+        const compatibleSupplierStock = (
+            await this.supplierFieiraStockGateway.listCompatible(
+                fieira.thickness,
+                fieira.width,
+            )
+        ).find(
+            (supplierStock) =>
+                supplierStock.quantitySent - supplierStock.quantityUsed >=
+                input.requestedQty,
+        );
+
+        if (!compatibleSupplierStock || !compatibleSupplierStock.id) {
+            throw new IncorrectRequest(
+                "Não há estoque do fornecedor compatível com a quantidade requisitada.",
+            );
+        }
+
+        compatibleSupplierStock.increaseQuantityUsed(input.requestedQty);
+
+        await this.supplierFieiraStockGateway.update(compatibleSupplierStock);
+
+        await this.supplierFieiraStockGateway.saveHistory({
+            supplierFieiraStockId: compatibleSupplierStock.id,
+            quantitySent: input.requestedQty,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        });
+
+        return {
+            cabinetName: "",
+            dimension: `${fieira.width}x${fieira.thickness}`,
+            wireType: order.wireType,
+            tension: order.tension,
+            destination: order.order,
+            material: order.material,
+            necessaryTotalQty: order.qtdFieiraNec,
+            currentStockQty: stockFieiraList.length,
+            currentStockCapacity: fieira.nominalFieiraCapacity,
+            necessaryRequisitionQty: input.requestedQty,
+            createdAt: requisitionSaved.createdAt,
+            updatedAt: requisitionSaved.updatedAt,
+        };
     }
 }
