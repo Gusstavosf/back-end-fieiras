@@ -1,0 +1,54 @@
+@baseUrl = http://localhost:8000
+# Use um armário ligado a uma fieira e um código ainda livre nesse armário.
+# Na implementação atual, o backend usa o ID do armário como fieiraId. Para testar o cadastro e a atualização, escolha um vínculo em que esses IDs coincidam.
+@cabinetName = CTC002
+@code = Z90
+# Preencha com stock[].id retornado na listagem para o item de teste.
+@stockFieiraId = 1
+
+### Cadastrar uma fieira no estoque — 201
+POST {{baseUrl}}/stock
+Content-Type: application/json
+Accept: application/json
+
+{
+  "cabinetName": "{{cabinetName}}",
+  "code": "{{code}}"
+}
+
+### Listar o estoque de fieiras — 200
+GET {{baseUrl}}/stock
+Accept: application/json
+
+### Buscar uma fieira do estoque pelo ID — 200
+GET {{baseUrl}}/stock/{{stockFieiraId}}
+Accept: application/json
+
+### Atualizar o item de Requisição para Nova — 201
+PATCH {{baseUrl}}/stock/
+Content-Type: application/json
+
+{
+  "cabinetName": "{{cabinetName}}",
+  "code": "{{code}}",
+  "status": "Nova"
+}
+
+### Registrar o polimento da fieira — 201
+# Execute após marcar a peça como Nova. Gera um registro para os testes em stock-history.http.
+PATCH {{baseUrl}}/stock/
+Content-Type: application/json
+
+{
+  "cabinetName": "{{cabinetName}}",
+  "code": "{{code}}",
+  "status": "Polida",
+  "thickness": 1.90,
+  "width": 4.02,
+  "production": 100
+}
+
+### Excluir uma fieira do estoque — 200
+# Use o ID de um item descartável, sem vínculos de reserva ou requisição.
+DELETE {{baseUrl}}/stock/{{stockFieiraId}}
+Accept: application/json

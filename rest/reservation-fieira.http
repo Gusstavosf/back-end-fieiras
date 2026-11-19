@@ -1,0 +1,19 @@
+@baseUrl = http://localhost:8000
+# Use o id da ordem em GET /control-fieira e o id do item em GET /stock.
+@controlId = 1
+@stockFieiraId = 1
+
+### Listar reservas pendentes — 200
+GET {{baseUrl}}/reservation-fieira/pending
+Accept: application/json
+
+### Reservar uma fieira do estoque para uma ordem — 200
+# Use uma peça Nova ou Polida compatível com a ordem e com capacidade disponível.
+PATCH {{baseUrl}}/reservation-fieira
+Content-Type: application/json
+Accept: application/json
+
+{
+  "controlId": {{controlId}},
+  "stockFieiraId": {{stockFieiraId}}
+}

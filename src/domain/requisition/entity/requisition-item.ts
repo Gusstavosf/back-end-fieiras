@@ -1,7 +1,7 @@
 export type RequistionItem = {
-    requisitonId: number;
+    requisitionId: number;
     stockFieiraId: number;
-    supplierFieiraStockId: number;
+    supplierFieiraStockId: number | null;
     type: RequisitionItemType;
     createdAt: Date;
 };
@@ -29,15 +29,15 @@ export class RequisitionItem {
         return this._id;
     }
 
-    public get requisitonId(): number {
-        return this.props.requisitonId;
+    public get requisitionId(): number {
+        return this.props.requisitionId;
     }
 
     public get stockFieiraId(): number {
         return this.props.stockFieiraId;
     }
 
-    public get supplierFieiraStockId(): number {
+    public get supplierFieiraStockId(): number | null {
         return this.props.supplierFieiraStockId;
     }
 

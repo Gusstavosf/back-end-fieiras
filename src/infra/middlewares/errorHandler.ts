@@ -2,7 +2,6 @@ import type { NextFunction, Request, Response } from "express";
 import { Prisma } from "../../generated/prisma/client.js";
 import IncorrectRequest from "../../core/shared/errors/incorrectRequest.js";
 import NotFound from "../../core/shared/errors/notFound.js";
-import { error } from "node:console";
 
 interface AppError {
     message: string;
@@ -21,7 +20,7 @@ function ErrorHandler(
     _next: NextFunction,
 ) {
     if (erro instanceof Prisma.PrismaClientValidationError) {
-        console.log(erro);
+        console.error("[PrismaClientValidationError]", erro.message);
         return response.status(400).json({ message: "Erro de validação nos dados" });
     }
 

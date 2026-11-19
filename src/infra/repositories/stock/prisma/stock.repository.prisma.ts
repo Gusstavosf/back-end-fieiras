@@ -2,18 +2,17 @@ import type {
     StockGateway,
     StockHistoryInput,
 } from "../../../../domain/stock/gateway/stock.gateway.js";
-import { PrismaClient } from "../../../../generated/prisma/client.js";
+import { StatusFieira, type Prisma } from "../../../../generated/prisma/client.js";
 import {
     Stock,
     StatusFieira as DomainStatusFieira,
 } from "../../../../domain/stock/entity/stock.js";
-import { StatusFieira } from "../../../../generated/prisma/client.js";
 import { Cabinet } from "../../../../domain/cabinet/entity/cabinet.js";
 
 export class StockReposistoryPrisma implements StockGateway {
-    private constructor(private readonly prismaClient: PrismaClient) {}
+    private constructor(private readonly prismaClient: Prisma.TransactionClient) {}
 
-    public static build(prismaClient: PrismaClient) {
+    public static build(prismaClient: Prisma.TransactionClient) {
         return new StockReposistoryPrisma(prismaClient);
     }
 

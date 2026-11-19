@@ -4,6 +4,10 @@ import {
     Requisition,
     RequisitionType,
 } from "../../../domain/requisition/entity/requisition.js";
+import {
+    RequisitionItem,
+    RequisitionItemType,
+} from "../../../domain/requisition/entity/requisition-item.js";
 import type { FieiraGateway } from "../../../domain/fieira/gateway/fieira.gateway.js";
 import NotFound from "../../../core/shared/errors/notFound.js";
 import type { StockGateway } from "../../../domain/stock/gateway/stock.gateway.js";
@@ -14,11 +18,18 @@ import IncorrectRequest from "../../../core/shared/errors/incorrectRequest.js";
 import type { SupplierFieiraStockGateway } from "../../../domain/supplier-fieira-stock/gateway/supplier-fieira-stock.gateway.js";
 import { Stock } from "../../../domain/stock/entity/stock.js";
 import { ReservationFieira } from "../../../domain/reservation-fieira/entity/reservation-fieira.js";
+import type { RequisitionItemGateway } from "../../../domain/requisition/gateway/requisition-item.gateway.js";
+import type { RequisitionControlGateway } from "../../../domain/requisition/gateway/requisition-control.gateway.js";
+import type { CabinetGateway } from "../../../domain/cabinet/gateway/cabinet.gateway.js";
 
 export type CreateRequisitionToOrderInputDto = {
     order: number;
     requestedQty: number;
     qtyRework?: number;
+    reworkSelections?: {
+        supplierStockId: number;
+        quantity: number;
+    }[];
 };
 
 export type CreateRequisitionToOrderOutputDto = {
@@ -26,7 +37,7 @@ export type CreateRequisitionToOrderOutputDto = {
     dimension: string;
     wireType: string;
     tension: Tension;
-    destination: number;
+    order: number;
     material: number;
     necessaryTotalQty: number;
     currentStockQty: number;
@@ -36,170 +47,274 @@ export type CreateRequisitionToOrderOutputDto = {
     updatedAt: Date;
 };
 
+export type CreateRequisitionGateways = {
+    requisitionGateway: RequisitionGateway;
+    controlFieiraGateway: ControlFieiraGateway;
+    fieiraGateway: FieiraGateway;
+    stockFieiraGateway: StockGateway;
+    reservationFieiraGateway: ReservationFieiraGateway;
+    supplierFieiraStockGateway: SupplierFieiraStockGateway;
+    requisitionItemGateway: RequisitionItemGateway;
+    requisitionControlGateway: RequisitionControlGateway;
+    cabinetGateway: CabinetGateway;
+};
+
+export interface CreateRequisitionUnitOfWork {
+    run<T>(work: (gateways: CreateRequisitionGateways) => Promise<T>): Promise<T>;
+}
+
+const toGrams = (kg: number): number => Math.round(kg * 1_000);
+
 export class CreateRequisitionToOrderUseCase implements Usecase<
     CreateRequisitionToOrderInputDto,
     CreateRequisitionToOrderOutputDto
 > {
-    private constructor(
-        private readonly requisitionGateway: RequisitionGateway,
-        private readonly controlFieiraGateway: ControlFieiraGateway,
-        private readonly fieiraGateway: FieiraGateway,
-        private readonly stockFieiraGateway: StockGateway,
-        private readonly reservationFieiraGateway: ReservationFieiraGateway,
-        private readonly supplierFieiraStockGateway: SupplierFieiraStockGateway,
-    ) {}
+    private constructor(private readonly unitOfWork: CreateRequisitionUnitOfWork) {}
 
-    public static create(
-        requisitionGateway: RequisitionGateway,
-        controlFieiraGateway: ControlFieiraGateway,
-        fieiraGateway: FieiraGateway,
-        stockFieiraGateway: StockGateway,
-        reservationFieiraGateway: ReservationFieiraGateway,
-        supplierFieiraStockGateway: SupplierFieiraStockGateway,
-    ) {
-        return new CreateRequisitionToOrderUseCase(
-            requisitionGateway,
-            controlFieiraGateway,
-            fieiraGateway,
-            stockFieiraGateway,
-            reservationFieiraGateway,
-            supplierFieiraStockGateway,
-        );
+    public static create(unitOfWork: CreateRequisitionUnitOfWork) {
+        return new CreateRequisitionToOrderUseCase(unitOfWork);
     }
 
     public async execute(
         input: CreateRequisitionToOrderInputDto,
     ): Promise<CreateRequisitionToOrderOutputDto> {
-        const order = await this.controlFieiraGateway.findByOrder(input.order);
+        const { requestedQty } = input;
 
-        if (!order) {
-            throw new NotFound("Ordem não encontrada.");
-        }
+        const qtyRework = input.qtyRework ?? 0;
 
-        if (!order.id) {
-            throw new NotFound("Ordem sem identificação válida.");
-        }
-
-        const fieiraId = order.fieiraId;
-
-        if (!fieiraId) {
-            throw new NotFound("Ordem sem fieira associada.");
-        }
-
-        if (!Number.isInteger(input.requestedQty) || input.requestedQty <= 0) {
+        if (!Number.isInteger(requestedQty) || requestedQty <= 0) {
             throw new IncorrectRequest(
-                "A quantidade requisitada deve ser um número inteiro maior que zero.",
+                "A quantidade requisitada deve ser um inteiro maior que zero.",
             );
         }
 
-        const requisitionExisting = await this.requisitionGateway.findByOrder(
-            input.order,
-        );
-
-        if (requisitionExisting) {
-            throw new IncorrectRequest("Já existe uma requisição para essa ordem.");
+        if (!Number.isInteger(qtyRework) || qtyRework < 0 || qtyRework > requestedQty) {
+            throw new IncorrectRequest(
+                "A quantidade para retrabalho deve ser um inteiro entre zero e a quantidade requisitada.",
+            );
         }
 
-        const stockFieiraList = await this.stockFieiraGateway.listByFieiraId(fieiraId);
+        const qtyNew = requestedQty - qtyRework;
 
-        const fieira = await this.fieiraGateway.findById(fieiraId);
+        return this.unitOfWork.run(
+            async ({
+                requisitionGateway,
+                controlFieiraGateway,
+                fieiraGateway,
+                stockFieiraGateway,
+                reservationFieiraGateway,
+                supplierFieiraStockGateway,
+                requisitionItemGateway,
+                requisitionControlGateway,
+                cabinetGateway,
+            }) => {
+                const order = await controlFieiraGateway.findByOrder(input.order);
 
-        if (!fieira) {
-            throw new IncorrectRequest("Informações da fieira não encontradas.");
-        }
+                if (order?.id == null) {
+                    throw new NotFound(
+                        "Ordem sem identificação válida ou não encontrada.",
+                    );
+                }
 
-        const generatedCodes = Stock.generateNextCodes(
-            stockFieiraList,
-            input.requestedQty,
-        );
+                const controlId = order.id;
+                const fieiraId = order.fieiraId;
 
-        const requisition = Requisition.create({
-            fieiraId,
-            currentStockQty: stockFieiraList.length,
-            type: RequisitionType.production,
-            necessaryQty: order.qtdFieiraNec,
-            requestedQty: input.requestedQty,
-            currentStockCapacity: fieira.nominalFieiraCapacity,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-        });
+                if (fieiraId == null) {
+                    throw new NotFound("Ordem sem fieira associada.");
+                }
 
-        const requisitionSaved = await this.requisitionGateway.save(requisition);
+                if (await requisitionGateway.findByOrder(input.order)) {
+                    throw new IncorrectRequest(
+                        "Já existe uma requisição para essa ordem.",
+                    );
+                }
 
-        for (const code of generatedCodes) {
-            const newStock = Stock.create(fieiraId, code);
+                const fieira = await fieiraGateway.findById(fieiraId);
 
-            await this.stockFieiraGateway.save(newStock);
+                if (!fieira) {
+                    throw new NotFound("Informações da fieira não encontradas.");
+                }
 
-            const stockSaved = await this.stockFieiraGateway.findByCode(code, fieiraId);
+                if (fieira.cabinetId == null) {
+                    throw new NotFound("Fieira não possui armário associado.");
+                }
 
-            if (!stockSaved || !stockSaved.id) {
-                throw new NotFound(
-                    `Não foi possível recuperar a fieira ${code} após a criação.`,
+                const cabinet = await cabinetGateway.findById(fieira.cabinetId);
+
+                if (!cabinet) {
+                    throw new NotFound("Armário não encontrado.");
+                }
+
+                let compatibleSupplierStock;
+
+                const reworkSelections = input.reworkSelections ?? [];
+
+                if (qtyRework > 0) {
+                    const supplierStocks =
+                        await supplierFieiraStockGateway.listCompatible(
+                            fieira.thickness,
+                            fieira.width,
+                        );
+
+                    compatibleSupplierStock = supplierStocks.find(
+                        (stock) =>
+                            stock.id != null &&
+                            stock.quantitySent - stock.quantityUsed >= qtyRework,
+                    );
+
+                    if (!compatibleSupplierStock) {
+                        throw new IncorrectRequest(
+                            "O estoque do fornecedor não cobre a quantidade escolhida para retrabalho.",
+                        );
+                    }
+                }
+
+                const stockList = await stockFieiraGateway.listByFieiraId(fieiraId);
+
+                const generatedCodes = Stock.generateNextCodes(stockList, requestedQty);
+
+                const usableStock = stockList.filter(
+                    (stock) => stock.status === "new" || stock.status === "polished",
                 );
-            }
+                const nominalCapacityGrams = toGrams(fieira.nominalFieiraCapacity);
 
-            const reservation = ReservationFieira.create({
-                controlId: order.id,
-                stockFieiraId: stockSaved.id,
-                quantity: input.requestedQty,
-                createdAt: new Date(),
-                updatedAt: new Date(),
-            });
+                const orderReservations =
+                    await reservationFieiraGateway.findByControlFieira(controlId);
 
-            await this.reservationFieiraGateway.save(reservation);
+                const reservedForOrderGrams = orderReservations.reduce(
+                    (sum, reservation) => sum + toGrams(reservation.quantity ?? 0),
+                    0,
+                );
 
-            await this.stockFieiraGateway.saveHistory({
-                stockFieiraId: stockSaved.id,
-                status: newStock.status,
-                thickness: null,
-                width: null,
-                production: 0,
-                utilization: 0,
-            });
-        }
+                let remainingGrams = Math.max(
+                    0,
+                    toGrams(order.orderQuantity) - reservedForOrderGrams,
+                );
 
-        const compatibleSupplierStock = (
-            await this.supplierFieiraStockGateway.listCompatible(
-                fieira.thickness,
-                fieira.width,
-            )
-        ).find(
-            (supplierStock) =>
-                supplierStock.quantitySent - supplierStock.quantityUsed >=
-                input.requestedQty,
+                let availableTotalGrams = 0;
+
+                for (const stock of usableStock) {
+                    if (stock.id == null) {
+                        throw new NotFound("Fieira em estoque sem identificação válida.");
+                    }
+
+                    const reservations = await reservationFieiraGateway.findByStockFieira(
+                        stock.id,
+                    );
+
+                    const reservedForOthersGrams = reservations
+                        .filter((reservation) => reservation.controlId !== controlId)
+                        .reduce(
+                            (sum, reservation) =>
+                                sum + toGrams(reservation.quantity ?? 0),
+                            0,
+                        );
+
+                    availableTotalGrams += Math.max(
+                        0,
+                        nominalCapacityGrams -
+                            toGrams(stock.production) -
+                            reservedForOthersGrams,
+                    );
+                }
+
+                const currentStockQty = usableStock.length;
+
+                const currentStockCapacity = Math.floor(availableTotalGrams / 1_000);
+
+                const now = new Date();
+
+                const saved = await requisitionGateway.save(
+                    Requisition.create({
+                        fieiraId,
+                        type: RequisitionType.production,
+                        currentStockQty,
+                        currentStockCapacity,
+                        necessaryQty: order.qtdFieiraNec,
+                        requestedQty,
+                        createdAt: now,
+                        updatedAt: now,
+                    }),
+                );
+
+                const requisitionId = saved.id;
+
+                if (requisitionId == null) {
+                    throw new NotFound("A requisição salva está sem identificação.");
+                }
+
+                await requisitionControlGateway.save({
+                    requisitionId,
+                    controlFieiraId: controlId,
+                });
+
+                const supplierStockId = compatibleSupplierStock?.id ?? null;
+
+                for (const [index, code] of generatedCodes.entries()) {
+                    await stockFieiraGateway.save(Stock.create(fieiraId, code));
+
+                    const stockSaved = await stockFieiraGateway.findByCode(
+                        code,
+                        fieiraId,
+                    );
+
+                    if (stockSaved?.id == null) {
+                        throw new NotFound(
+                            `Não foi possível recuperar a fieira ${code} após a criação.`,
+                        );
+                    }
+
+                    const isRework = index >= qtyNew;
+
+                    await requisitionItemGateway.save(
+                        RequisitionItem.create({
+                            requisitionId,
+                            stockFieiraId: stockSaved.id,
+                            supplierFieiraStockId: isRework ? supplierStockId : null,
+                            type: isRework
+                                ? RequisitionItemType.rework
+                                : RequisitionItemType.new,
+                            createdAt: now,
+                        }),
+                    );
+
+                    const reservedGrams = Math.min(remainingGrams, nominalCapacityGrams);
+
+                    if (reservedGrams > 0) {
+                        await reservationFieiraGateway.save(
+                            ReservationFieira.create({
+                                controlId,
+                                stockFieiraId: stockSaved.id,
+                                quantity: reservedGrams / 1_000,
+                                createdAt: now,
+                                updatedAt: now,
+                            }),
+                        );
+
+                        remainingGrams -= reservedGrams;
+                    }
+                }
+
+                if (compatibleSupplierStock) {
+                    compatibleSupplierStock.increaseQuantityUsed(qtyRework);
+                    await supplierFieiraStockGateway.update(compatibleSupplierStock);
+                }
+
+                return {
+                    cabinetName: cabinet.name,
+                    dimension: `${fieira.width}x${fieira.thickness}`,
+                    wireType: order.wireType,
+                    tension: order.tension,
+                    order: order.order,
+                    material: order.material,
+                    necessaryTotalQty: order.qtdFieiraNec,
+                    currentStockQty,
+                    currentStockCapacity,
+                    necessaryRequisitionQty: requestedQty,
+                    createdAt: saved.createdAt,
+                    updatedAt: saved.updatedAt,
+                };
+            },
         );
-
-        if (!compatibleSupplierStock || !compatibleSupplierStock.id) {
-            throw new IncorrectRequest(
-                "Não há estoque do fornecedor compatível com a quantidade requisitada.",
-            );
-        }
-
-        compatibleSupplierStock.increaseQuantityUsed(input.requestedQty);
-
-        await this.supplierFieiraStockGateway.update(compatibleSupplierStock);
-
-        await this.supplierFieiraStockGateway.saveHistory({
-            supplierFieiraStockId: compatibleSupplierStock.id,
-            quantitySent: input.requestedQty,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-        });
-
-        return {
-            cabinetName: "",
-            dimension: `${fieira.width}x${fieira.thickness}`,
-            wireType: order.wireType,
-            tension: order.tension,
-            destination: order.order,
-            material: order.material,
-            necessaryTotalQty: order.qtdFieiraNec,
-            currentStockQty: stockFieiraList.length,
-            currentStockCapacity: fieira.nominalFieiraCapacity,
-            necessaryRequisitionQty: input.requestedQty,
-            createdAt: requisitionSaved.createdAt,
-            updatedAt: requisitionSaved.updatedAt,
-        };
     }
 }

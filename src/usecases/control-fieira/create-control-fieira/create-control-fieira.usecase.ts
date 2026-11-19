@@ -164,15 +164,16 @@ export class CreateControlFieiraUseCase implements Usecase<
 
         const savedControlFieira = await this.controlFieiraGateway.save(controlFieira);
 
-        const reservation = ReservationFieira.create({
-            controlId: savedControlFieira.id!,
-            stockFieiraId: null,
-            quantity: null,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-        });
+        // TRECHO COMENTADA PARA NÃO CRIAR RESERVA AUTOMÁTICA AO CRIAR CONTROLE DE FIEIRA
+        // const reservation = ReservationFieira.create({
+        //     controlId: savedControlFieira.id!,
+        //     stockFieiraId: null,
+        //     quantity: null,
+        //     createdAt: new Date(),
+        //     updatedAt: new Date(),
+        // });
 
-        await this.reservationFieiraGateway.save(reservation);
+        // await this.reservationFieiraGateway.save(reservation);
 
         return this.presentOutput(savedControlFieira);
     }

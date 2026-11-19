@@ -1,4 +1,4 @@
-import { PrismaClient } from "../../../../generated/prisma/client.js";
+import type { Prisma } from "../../../../generated/prisma/client.js";
 import type {
     SupplierFieiraStockGateway,
     SupplierFieiraStockHistoryInput,
@@ -6,9 +6,9 @@ import type {
 import { SupplierFieiraStock } from "../../../../domain/supplier-fieira-stock/entity/supplier-fieira-stock.js";
 
 export class SupplierFieiraStockRepositoryPrisma implements SupplierFieiraStockGateway {
-    private constructor(private readonly prismaClient: PrismaClient) {}
+    private constructor(private readonly prismaClient: Prisma.TransactionClient) {}
 
-    public static build(prismaClient: PrismaClient) {
+    public static build(prismaClient: Prisma.TransactionClient) {
         return new SupplierFieiraStockRepositoryPrisma(prismaClient);
     }
 

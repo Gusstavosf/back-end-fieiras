@@ -1,14 +1,14 @@
-import {
-    PrismaClient,
-    type Fieira as PrismaFieira,
+import type {
+    Prisma,
+    Fieira as PrismaFieira,
 } from "../../../../generated/prisma/client.js";
 import type { FieiraGateway } from "../../../../domain/fieira/gateway/fieira.gateway.js";
 import { Fieira } from "../../../../domain/fieira/entity/fieira.js";
 
 export class FieiraRepositoryPrisma implements FieiraGateway {
-    private constructor(private readonly prismaClient: PrismaClient) {}
+    private constructor(private readonly prismaClient: Prisma.TransactionClient) {}
 
-    public static build(prismaClient: PrismaClient) {
+    public static build(prismaClient: Prisma.TransactionClient) {
         return new FieiraRepositoryPrisma(prismaClient);
     }
 

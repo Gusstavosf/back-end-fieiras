@@ -2,14 +2,14 @@ import NotFound from "../../../../core/shared/errors/notFound.js";
 import { ReservationFieira } from "../../../../domain/reservation-fieira/entity/reservation-fieira.js";
 import type { ReservationFieiraGateway } from "../../../../domain/reservation-fieira/gateway/reservation-fieira.gateway.js";
 import type {
-    PrismaClient,
+    Prisma,
     ReservationFieira as PrismaReservationFieira,
 } from "../../../../generated/prisma/client.js";
 
 export class ReservationFieiraRepositoryPrisma implements ReservationFieiraGateway {
-    private constructor(private readonly prismaClient: PrismaClient) {}
+    private constructor(private readonly prismaClient: Prisma.TransactionClient) {}
 
-    public static build(prismaClient: PrismaClient) {
+    public static build(prismaClient: Prisma.TransactionClient) {
         return new ReservationFieiraRepositoryPrisma(prismaClient);
     }
 

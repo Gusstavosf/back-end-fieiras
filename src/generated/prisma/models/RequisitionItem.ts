@@ -46,6 +46,7 @@ export type RequisitionItemMinAggregateOutputType = {
   stockFieiraId: number | null
   supplierFieiraStockId: number | null
   type: $Enums.RequisitionItemType | null
+  createdAt: Date | null
 }
 
 export type RequisitionItemMaxAggregateOutputType = {
@@ -54,6 +55,7 @@ export type RequisitionItemMaxAggregateOutputType = {
   stockFieiraId: number | null
   supplierFieiraStockId: number | null
   type: $Enums.RequisitionItemType | null
+  createdAt: Date | null
 }
 
 export type RequisitionItemCountAggregateOutputType = {
@@ -62,6 +64,7 @@ export type RequisitionItemCountAggregateOutputType = {
   stockFieiraId: number
   supplierFieiraStockId: number
   type: number
+  createdAt: number
   _all: number
 }
 
@@ -86,6 +89,7 @@ export type RequisitionItemMinAggregateInputType = {
   stockFieiraId?: true
   supplierFieiraStockId?: true
   type?: true
+  createdAt?: true
 }
 
 export type RequisitionItemMaxAggregateInputType = {
@@ -94,6 +98,7 @@ export type RequisitionItemMaxAggregateInputType = {
   stockFieiraId?: true
   supplierFieiraStockId?: true
   type?: true
+  createdAt?: true
 }
 
 export type RequisitionItemCountAggregateInputType = {
@@ -102,6 +107,7 @@ export type RequisitionItemCountAggregateInputType = {
   stockFieiraId?: true
   supplierFieiraStockId?: true
   type?: true
+  createdAt?: true
   _all?: true
 }
 
@@ -197,6 +203,7 @@ export type RequisitionItemGroupByOutputType = {
   stockFieiraId: number | null
   supplierFieiraStockId: number | null
   type: $Enums.RequisitionItemType
+  createdAt: Date
   _count: RequisitionItemCountAggregateOutputType | null
   _avg: RequisitionItemAvgAggregateOutputType | null
   _sum: RequisitionItemSumAggregateOutputType | null
@@ -228,6 +235,7 @@ export type RequisitionItemWhereInput = {
   stockFieiraId?: Prisma.IntNullableFilter<"RequisitionItem"> | number | null
   supplierFieiraStockId?: Prisma.IntNullableFilter<"RequisitionItem"> | number | null
   type?: Prisma.EnumRequisitionItemTypeFilter<"RequisitionItem"> | $Enums.RequisitionItemType
+  createdAt?: Prisma.DateTimeFilter<"RequisitionItem"> | Date | string
   Requisition?: Prisma.XOR<Prisma.RequisitionScalarRelationFilter, Prisma.RequisitionWhereInput>
   StockFieira?: Prisma.XOR<Prisma.StockFieiraNullableScalarRelationFilter, Prisma.StockFieiraWhereInput> | null
   SupplierFieiraStock?: Prisma.XOR<Prisma.SupplierFieiraStockNullableScalarRelationFilter, Prisma.SupplierFieiraStockWhereInput> | null
@@ -239,6 +247,7 @@ export type RequisitionItemOrderByWithRelationInput = {
   stockFieiraId?: Prisma.SortOrderInput | Prisma.SortOrder
   supplierFieiraStockId?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   Requisition?: Prisma.RequisitionOrderByWithRelationInput
   StockFieira?: Prisma.StockFieiraOrderByWithRelationInput
   SupplierFieiraStock?: Prisma.SupplierFieiraStockOrderByWithRelationInput
@@ -253,6 +262,7 @@ export type RequisitionItemWhereUniqueInput = Prisma.AtLeast<{
   stockFieiraId?: Prisma.IntNullableFilter<"RequisitionItem"> | number | null
   supplierFieiraStockId?: Prisma.IntNullableFilter<"RequisitionItem"> | number | null
   type?: Prisma.EnumRequisitionItemTypeFilter<"RequisitionItem"> | $Enums.RequisitionItemType
+  createdAt?: Prisma.DateTimeFilter<"RequisitionItem"> | Date | string
   Requisition?: Prisma.XOR<Prisma.RequisitionScalarRelationFilter, Prisma.RequisitionWhereInput>
   StockFieira?: Prisma.XOR<Prisma.StockFieiraNullableScalarRelationFilter, Prisma.StockFieiraWhereInput> | null
   SupplierFieiraStock?: Prisma.XOR<Prisma.SupplierFieiraStockNullableScalarRelationFilter, Prisma.SupplierFieiraStockWhereInput> | null
@@ -264,6 +274,7 @@ export type RequisitionItemOrderByWithAggregationInput = {
   stockFieiraId?: Prisma.SortOrderInput | Prisma.SortOrder
   supplierFieiraStockId?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   _count?: Prisma.RequisitionItemCountOrderByAggregateInput
   _avg?: Prisma.RequisitionItemAvgOrderByAggregateInput
   _max?: Prisma.RequisitionItemMaxOrderByAggregateInput
@@ -280,10 +291,12 @@ export type RequisitionItemScalarWhereWithAggregatesInput = {
   stockFieiraId?: Prisma.IntNullableWithAggregatesFilter<"RequisitionItem"> | number | null
   supplierFieiraStockId?: Prisma.IntNullableWithAggregatesFilter<"RequisitionItem"> | number | null
   type?: Prisma.EnumRequisitionItemTypeWithAggregatesFilter<"RequisitionItem"> | $Enums.RequisitionItemType
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"RequisitionItem"> | Date | string
 }
 
 export type RequisitionItemCreateInput = {
   type: $Enums.RequisitionItemType
+  createdAt?: Date | string
   Requisition: Prisma.RequisitionCreateNestedOneWithoutRequisitionItemsInput
   StockFieira?: Prisma.StockFieiraCreateNestedOneWithoutRequisitionItemsInput
   SupplierFieiraStock?: Prisma.SupplierFieiraStockCreateNestedOneWithoutRequisitionItemsInput
@@ -295,10 +308,12 @@ export type RequisitionItemUncheckedCreateInput = {
   stockFieiraId?: number | null
   supplierFieiraStockId?: number | null
   type: $Enums.RequisitionItemType
+  createdAt?: Date | string
 }
 
 export type RequisitionItemUpdateInput = {
   type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Requisition?: Prisma.RequisitionUpdateOneRequiredWithoutRequisitionItemsNestedInput
   StockFieira?: Prisma.StockFieiraUpdateOneWithoutRequisitionItemsNestedInput
   SupplierFieiraStock?: Prisma.SupplierFieiraStockUpdateOneWithoutRequisitionItemsNestedInput
@@ -310,6 +325,7 @@ export type RequisitionItemUncheckedUpdateInput = {
   stockFieiraId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   supplierFieiraStockId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type RequisitionItemCreateManyInput = {
@@ -318,10 +334,12 @@ export type RequisitionItemCreateManyInput = {
   stockFieiraId?: number | null
   supplierFieiraStockId?: number | null
   type: $Enums.RequisitionItemType
+  createdAt?: Date | string
 }
 
 export type RequisitionItemUpdateManyMutationInput = {
   type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type RequisitionItemUncheckedUpdateManyInput = {
@@ -330,6 +348,7 @@ export type RequisitionItemUncheckedUpdateManyInput = {
   stockFieiraId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   supplierFieiraStockId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type RequisitionItemListRelationFilter = {
@@ -348,6 +367,7 @@ export type RequisitionItemCountOrderByAggregateInput = {
   stockFieiraId?: Prisma.SortOrder
   supplierFieiraStockId?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type RequisitionItemAvgOrderByAggregateInput = {
@@ -363,6 +383,7 @@ export type RequisitionItemMaxOrderByAggregateInput = {
   stockFieiraId?: Prisma.SortOrder
   supplierFieiraStockId?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type RequisitionItemMinOrderByAggregateInput = {
@@ -371,6 +392,7 @@ export type RequisitionItemMinOrderByAggregateInput = {
   stockFieiraId?: Prisma.SortOrder
   supplierFieiraStockId?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type RequisitionItemSumOrderByAggregateInput = {
@@ -512,6 +534,7 @@ export type RequisitionItemUncheckedUpdateManyWithoutSupplierFieiraStockNestedIn
 
 export type RequisitionItemCreateWithoutStockFieiraInput = {
   type: $Enums.RequisitionItemType
+  createdAt?: Date | string
   Requisition: Prisma.RequisitionCreateNestedOneWithoutRequisitionItemsInput
   SupplierFieiraStock?: Prisma.SupplierFieiraStockCreateNestedOneWithoutRequisitionItemsInput
 }
@@ -521,6 +544,7 @@ export type RequisitionItemUncheckedCreateWithoutStockFieiraInput = {
   requisitionId: number
   supplierFieiraStockId?: number | null
   type: $Enums.RequisitionItemType
+  createdAt?: Date | string
 }
 
 export type RequisitionItemCreateOrConnectWithoutStockFieiraInput = {
@@ -558,10 +582,12 @@ export type RequisitionItemScalarWhereInput = {
   stockFieiraId?: Prisma.IntNullableFilter<"RequisitionItem"> | number | null
   supplierFieiraStockId?: Prisma.IntNullableFilter<"RequisitionItem"> | number | null
   type?: Prisma.EnumRequisitionItemTypeFilter<"RequisitionItem"> | $Enums.RequisitionItemType
+  createdAt?: Prisma.DateTimeFilter<"RequisitionItem"> | Date | string
 }
 
 export type RequisitionItemCreateWithoutRequisitionInput = {
   type: $Enums.RequisitionItemType
+  createdAt?: Date | string
   StockFieira?: Prisma.StockFieiraCreateNestedOneWithoutRequisitionItemsInput
   SupplierFieiraStock?: Prisma.SupplierFieiraStockCreateNestedOneWithoutRequisitionItemsInput
 }
@@ -571,6 +597,7 @@ export type RequisitionItemUncheckedCreateWithoutRequisitionInput = {
   stockFieiraId?: number | null
   supplierFieiraStockId?: number | null
   type: $Enums.RequisitionItemType
+  createdAt?: Date | string
 }
 
 export type RequisitionItemCreateOrConnectWithoutRequisitionInput = {
@@ -601,6 +628,7 @@ export type RequisitionItemUpdateManyWithWhereWithoutRequisitionInput = {
 
 export type RequisitionItemCreateWithoutSupplierFieiraStockInput = {
   type: $Enums.RequisitionItemType
+  createdAt?: Date | string
   Requisition: Prisma.RequisitionCreateNestedOneWithoutRequisitionItemsInput
   StockFieira?: Prisma.StockFieiraCreateNestedOneWithoutRequisitionItemsInput
 }
@@ -610,6 +638,7 @@ export type RequisitionItemUncheckedCreateWithoutSupplierFieiraStockInput = {
   requisitionId: number
   stockFieiraId?: number | null
   type: $Enums.RequisitionItemType
+  createdAt?: Date | string
 }
 
 export type RequisitionItemCreateOrConnectWithoutSupplierFieiraStockInput = {
@@ -643,10 +672,12 @@ export type RequisitionItemCreateManyStockFieiraInput = {
   requisitionId: number
   supplierFieiraStockId?: number | null
   type: $Enums.RequisitionItemType
+  createdAt?: Date | string
 }
 
 export type RequisitionItemUpdateWithoutStockFieiraInput = {
   type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Requisition?: Prisma.RequisitionUpdateOneRequiredWithoutRequisitionItemsNestedInput
   SupplierFieiraStock?: Prisma.SupplierFieiraStockUpdateOneWithoutRequisitionItemsNestedInput
 }
@@ -656,6 +687,7 @@ export type RequisitionItemUncheckedUpdateWithoutStockFieiraInput = {
   requisitionId?: Prisma.IntFieldUpdateOperationsInput | number
   supplierFieiraStockId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type RequisitionItemUncheckedUpdateManyWithoutStockFieiraInput = {
@@ -663,6 +695,7 @@ export type RequisitionItemUncheckedUpdateManyWithoutStockFieiraInput = {
   requisitionId?: Prisma.IntFieldUpdateOperationsInput | number
   supplierFieiraStockId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type RequisitionItemCreateManyRequisitionInput = {
@@ -670,10 +703,12 @@ export type RequisitionItemCreateManyRequisitionInput = {
   stockFieiraId?: number | null
   supplierFieiraStockId?: number | null
   type: $Enums.RequisitionItemType
+  createdAt?: Date | string
 }
 
 export type RequisitionItemUpdateWithoutRequisitionInput = {
   type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   StockFieira?: Prisma.StockFieiraUpdateOneWithoutRequisitionItemsNestedInput
   SupplierFieiraStock?: Prisma.SupplierFieiraStockUpdateOneWithoutRequisitionItemsNestedInput
 }
@@ -683,6 +718,7 @@ export type RequisitionItemUncheckedUpdateWithoutRequisitionInput = {
   stockFieiraId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   supplierFieiraStockId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type RequisitionItemUncheckedUpdateManyWithoutRequisitionInput = {
@@ -690,6 +726,7 @@ export type RequisitionItemUncheckedUpdateManyWithoutRequisitionInput = {
   stockFieiraId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   supplierFieiraStockId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type RequisitionItemCreateManySupplierFieiraStockInput = {
@@ -697,10 +734,12 @@ export type RequisitionItemCreateManySupplierFieiraStockInput = {
   requisitionId: number
   stockFieiraId?: number | null
   type: $Enums.RequisitionItemType
+  createdAt?: Date | string
 }
 
 export type RequisitionItemUpdateWithoutSupplierFieiraStockInput = {
   type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Requisition?: Prisma.RequisitionUpdateOneRequiredWithoutRequisitionItemsNestedInput
   StockFieira?: Prisma.StockFieiraUpdateOneWithoutRequisitionItemsNestedInput
 }
@@ -710,6 +749,7 @@ export type RequisitionItemUncheckedUpdateWithoutSupplierFieiraStockInput = {
   requisitionId?: Prisma.IntFieldUpdateOperationsInput | number
   stockFieiraId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type RequisitionItemUncheckedUpdateManyWithoutSupplierFieiraStockInput = {
@@ -717,6 +757,7 @@ export type RequisitionItemUncheckedUpdateManyWithoutSupplierFieiraStockInput = 
   requisitionId?: Prisma.IntFieldUpdateOperationsInput | number
   stockFieiraId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   type?: Prisma.EnumRequisitionItemTypeFieldUpdateOperationsInput | $Enums.RequisitionItemType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -727,6 +768,7 @@ export type RequisitionItemSelect<ExtArgs extends runtime.Types.Extensions.Inter
   stockFieiraId?: boolean
   supplierFieiraStockId?: boolean
   type?: boolean
+  createdAt?: boolean
   Requisition?: boolean | Prisma.RequisitionDefaultArgs<ExtArgs>
   StockFieira?: boolean | Prisma.RequisitionItem$StockFieiraArgs<ExtArgs>
   SupplierFieiraStock?: boolean | Prisma.RequisitionItem$SupplierFieiraStockArgs<ExtArgs>
@@ -738,6 +780,7 @@ export type RequisitionItemSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   stockFieiraId?: boolean
   supplierFieiraStockId?: boolean
   type?: boolean
+  createdAt?: boolean
   Requisition?: boolean | Prisma.RequisitionDefaultArgs<ExtArgs>
   StockFieira?: boolean | Prisma.RequisitionItem$StockFieiraArgs<ExtArgs>
   SupplierFieiraStock?: boolean | Prisma.RequisitionItem$SupplierFieiraStockArgs<ExtArgs>
@@ -749,6 +792,7 @@ export type RequisitionItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   stockFieiraId?: boolean
   supplierFieiraStockId?: boolean
   type?: boolean
+  createdAt?: boolean
   Requisition?: boolean | Prisma.RequisitionDefaultArgs<ExtArgs>
   StockFieira?: boolean | Prisma.RequisitionItem$StockFieiraArgs<ExtArgs>
   SupplierFieiraStock?: boolean | Prisma.RequisitionItem$SupplierFieiraStockArgs<ExtArgs>
@@ -760,9 +804,10 @@ export type RequisitionItemSelectScalar = {
   stockFieiraId?: boolean
   supplierFieiraStockId?: boolean
   type?: boolean
+  createdAt?: boolean
 }
 
-export type RequisitionItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "requisitionId" | "stockFieiraId" | "supplierFieiraStockId" | "type", ExtArgs["result"]["requisitionItem"]>
+export type RequisitionItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "requisitionId" | "stockFieiraId" | "supplierFieiraStockId" | "type" | "createdAt", ExtArgs["result"]["requisitionItem"]>
 export type RequisitionItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Requisition?: boolean | Prisma.RequisitionDefaultArgs<ExtArgs>
   StockFieira?: boolean | Prisma.RequisitionItem$StockFieiraArgs<ExtArgs>
@@ -792,6 +837,7 @@ export type $RequisitionItemPayload<ExtArgs extends runtime.Types.Extensions.Int
     stockFieiraId: number | null
     supplierFieiraStockId: number | null
     type: $Enums.RequisitionItemType
+    createdAt: Date
   }, ExtArgs["result"]["requisitionItem"]>
   composites: {}
 }
@@ -1223,6 +1269,7 @@ export interface RequisitionItemFieldRefs {
   readonly stockFieiraId: Prisma.FieldRef<"RequisitionItem", 'Int'>
   readonly supplierFieiraStockId: Prisma.FieldRef<"RequisitionItem", 'Int'>
   readonly type: Prisma.FieldRef<"RequisitionItem", 'RequisitionItemType'>
+  readonly createdAt: Prisma.FieldRef<"RequisitionItem", 'DateTime'>
 }
     
 

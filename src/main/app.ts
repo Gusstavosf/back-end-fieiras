@@ -8,6 +8,7 @@ import { fieiraRoutes } from "./modules/fieira.module.js";
 import { reservationFieiraRoutes } from "./modules/reservation-fieira.module.js";
 import { supplierStockFieiraRoutes } from "./modules/supplier-fieira-stock.module.js";
 import { supplierStockFieiraHistoryRoutes } from "./modules/supplier-fieira-stock-history.module.js";
+import { requisitionRoutes } from "./modules/requisition.module.js";
 
 const api = Apiexpress.create([
     ...stockRoutes,
@@ -18,6 +19,7 @@ const api = Apiexpress.create([
     ...reservationFieiraRoutes,
     ...supplierStockFieiraRoutes,
     ...supplierStockFieiraHistoryRoutes,
+    ...requisitionRoutes,
 ]);
 
 export const app = api.getApp();

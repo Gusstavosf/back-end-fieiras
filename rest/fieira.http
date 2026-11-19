@@ -1,0 +1,15 @@
+@baseUrl = http://localhost:8000
+# Use o fieiraId retornado por GET /control-fieira e o id do armário na tabela Cabinet do banco de teste.
+@fieiraId = 1
+@cabinetId = 1
+
+### Vincular uma fieira a um armário — 200
+# Escolha um armário de teste vazio. A rota pode desvincular a fieira que já estiver nele.
+PATCH {{baseUrl}}/fieira/attach-to-cabinet
+Content-Type: application/json
+Accept: application/json
+
+{
+  "fieiraId": {{fieiraId}},
+  "cabinetId": {{cabinetId}}
+}

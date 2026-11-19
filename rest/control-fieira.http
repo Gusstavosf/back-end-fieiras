@@ -1,0 +1,48 @@
+@baseUrl = http://localhost:8000
+@order = 990000001
+@directCreateOrder = 990000002
+
+### Sincronizar uma ordem de teste — 204
+# A sincronização cria a ordem se ela for nova e atualiza uma ordem existente.
+POST {{baseUrl}}/control-feira/sync
+Content-Type: application/json
+
+{
+  "orders": [
+    {
+      "order": 1236,
+      "material": 100001,
+      "description": "FRC E2FM 5,00X2,00 T 60",
+      "orderQuantity": 3000,
+      "orderStartDate": "19.11.2026",
+      "orderEndDate": "23.11.2026",
+      "orderCreateDate": "18.11.2026",
+      "status": "LIB IMPR"
+    }
+  ]
+}
+
+### Listar ordens do controle de fieiras — 200
+# Use controlFieira[].id para reservas e controlFieira[].fieiraId para o vínculo com o armário.
+GET {{baseUrl}}/control-fieira
+Accept: application/json
+
+### Listar ordens com fieira sem armário — 200
+GET {{baseUrl}}/control-fieira/without-cabinet
+Accept: application/json
+
+### Criar uma ordem diretamente — 404 na configuração atual
+# O handler existe, mas o módulo ainda não registra esse POST. Use a sincronização acima para criar uma ordem agora.
+POST {{baseUrl}}/control-fieira
+Content-Type: application/json
+
+{
+  "order": {{directCreateOrder}},
+  "material": 990002,
+  "description": "FRC PE 4,00X1,90 T 60",
+  "orderQuantity": 500,
+  "orderStartDate": "19.11.2026",
+  "orderEndDate": "23.11.2026",
+  "orderCreateDate": "18.11.2026",
+  "status": "LIB IMPR"
+}

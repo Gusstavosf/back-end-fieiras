@@ -42,18 +42,21 @@ export type RequisitionControlMinAggregateOutputType = {
   id: number | null
   requisitionId: number | null
   controlFieiraId: number | null
+  createdAt: Date | null
 }
 
 export type RequisitionControlMaxAggregateOutputType = {
   id: number | null
   requisitionId: number | null
   controlFieiraId: number | null
+  createdAt: Date | null
 }
 
 export type RequisitionControlCountAggregateOutputType = {
   id: number
   requisitionId: number
   controlFieiraId: number
+  createdAt: number
   _all: number
 }
 
@@ -74,18 +77,21 @@ export type RequisitionControlMinAggregateInputType = {
   id?: true
   requisitionId?: true
   controlFieiraId?: true
+  createdAt?: true
 }
 
 export type RequisitionControlMaxAggregateInputType = {
   id?: true
   requisitionId?: true
   controlFieiraId?: true
+  createdAt?: true
 }
 
 export type RequisitionControlCountAggregateInputType = {
   id?: true
   requisitionId?: true
   controlFieiraId?: true
+  createdAt?: true
   _all?: true
 }
 
@@ -179,6 +185,7 @@ export type RequisitionControlGroupByOutputType = {
   id: number
   requisitionId: number
   controlFieiraId: number
+  createdAt: Date
   _count: RequisitionControlCountAggregateOutputType | null
   _avg: RequisitionControlAvgAggregateOutputType | null
   _sum: RequisitionControlSumAggregateOutputType | null
@@ -208,6 +215,7 @@ export type RequisitionControlWhereInput = {
   id?: Prisma.IntFilter<"RequisitionControl"> | number
   requisitionId?: Prisma.IntFilter<"RequisitionControl"> | number
   controlFieiraId?: Prisma.IntFilter<"RequisitionControl"> | number
+  createdAt?: Prisma.DateTimeFilter<"RequisitionControl"> | Date | string
   Requisition?: Prisma.XOR<Prisma.RequisitionScalarRelationFilter, Prisma.RequisitionWhereInput>
   ControlFieira?: Prisma.XOR<Prisma.ControlFieiraScalarRelationFilter, Prisma.ControlFieiraWhereInput>
 }
@@ -216,6 +224,7 @@ export type RequisitionControlOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   requisitionId?: Prisma.SortOrder
   controlFieiraId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   Requisition?: Prisma.RequisitionOrderByWithRelationInput
   ControlFieira?: Prisma.ControlFieiraOrderByWithRelationInput
 }
@@ -228,6 +237,7 @@ export type RequisitionControlWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.RequisitionControlWhereInput | Prisma.RequisitionControlWhereInput[]
   requisitionId?: Prisma.IntFilter<"RequisitionControl"> | number
   controlFieiraId?: Prisma.IntFilter<"RequisitionControl"> | number
+  createdAt?: Prisma.DateTimeFilter<"RequisitionControl"> | Date | string
   Requisition?: Prisma.XOR<Prisma.RequisitionScalarRelationFilter, Prisma.RequisitionWhereInput>
   ControlFieira?: Prisma.XOR<Prisma.ControlFieiraScalarRelationFilter, Prisma.ControlFieiraWhereInput>
 }, "id" | "requisitionId_controlFieiraId">
@@ -236,6 +246,7 @@ export type RequisitionControlOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   requisitionId?: Prisma.SortOrder
   controlFieiraId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   _count?: Prisma.RequisitionControlCountOrderByAggregateInput
   _avg?: Prisma.RequisitionControlAvgOrderByAggregateInput
   _max?: Prisma.RequisitionControlMaxOrderByAggregateInput
@@ -250,9 +261,11 @@ export type RequisitionControlScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"RequisitionControl"> | number
   requisitionId?: Prisma.IntWithAggregatesFilter<"RequisitionControl"> | number
   controlFieiraId?: Prisma.IntWithAggregatesFilter<"RequisitionControl"> | number
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"RequisitionControl"> | Date | string
 }
 
 export type RequisitionControlCreateInput = {
+  createdAt?: Date | string
   Requisition: Prisma.RequisitionCreateNestedOneWithoutRequisitionControlsInput
   ControlFieira: Prisma.ControlFieiraCreateNestedOneWithoutRequisitionControlsInput
 }
@@ -261,9 +274,11 @@ export type RequisitionControlUncheckedCreateInput = {
   id?: number
   requisitionId: number
   controlFieiraId: number
+  createdAt?: Date | string
 }
 
 export type RequisitionControlUpdateInput = {
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Requisition?: Prisma.RequisitionUpdateOneRequiredWithoutRequisitionControlsNestedInput
   ControlFieira?: Prisma.ControlFieiraUpdateOneRequiredWithoutRequisitionControlsNestedInput
 }
@@ -272,22 +287,25 @@ export type RequisitionControlUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   requisitionId?: Prisma.IntFieldUpdateOperationsInput | number
   controlFieiraId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type RequisitionControlCreateManyInput = {
   id?: number
   requisitionId: number
   controlFieiraId: number
+  createdAt?: Date | string
 }
 
 export type RequisitionControlUpdateManyMutationInput = {
-
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type RequisitionControlUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   requisitionId?: Prisma.IntFieldUpdateOperationsInput | number
   controlFieiraId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type RequisitionControlListRelationFilter = {
@@ -309,6 +327,7 @@ export type RequisitionControlCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   requisitionId?: Prisma.SortOrder
   controlFieiraId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type RequisitionControlAvgOrderByAggregateInput = {
@@ -321,12 +340,14 @@ export type RequisitionControlMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   requisitionId?: Prisma.SortOrder
   controlFieiraId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type RequisitionControlMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   requisitionId?: Prisma.SortOrder
   controlFieiraId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type RequisitionControlSumOrderByAggregateInput = {
@@ -420,12 +441,14 @@ export type RequisitionControlUncheckedUpdateManyWithoutRequisitionNestedInput =
 }
 
 export type RequisitionControlCreateWithoutControlFieiraInput = {
+  createdAt?: Date | string
   Requisition: Prisma.RequisitionCreateNestedOneWithoutRequisitionControlsInput
 }
 
 export type RequisitionControlUncheckedCreateWithoutControlFieiraInput = {
   id?: number
   requisitionId: number
+  createdAt?: Date | string
 }
 
 export type RequisitionControlCreateOrConnectWithoutControlFieiraInput = {
@@ -461,15 +484,18 @@ export type RequisitionControlScalarWhereInput = {
   id?: Prisma.IntFilter<"RequisitionControl"> | number
   requisitionId?: Prisma.IntFilter<"RequisitionControl"> | number
   controlFieiraId?: Prisma.IntFilter<"RequisitionControl"> | number
+  createdAt?: Prisma.DateTimeFilter<"RequisitionControl"> | Date | string
 }
 
 export type RequisitionControlCreateWithoutRequisitionInput = {
+  createdAt?: Date | string
   ControlFieira: Prisma.ControlFieiraCreateNestedOneWithoutRequisitionControlsInput
 }
 
 export type RequisitionControlUncheckedCreateWithoutRequisitionInput = {
   id?: number
   controlFieiraId: number
+  createdAt?: Date | string
 }
 
 export type RequisitionControlCreateOrConnectWithoutRequisitionInput = {
@@ -501,39 +527,47 @@ export type RequisitionControlUpdateManyWithWhereWithoutRequisitionInput = {
 export type RequisitionControlCreateManyControlFieiraInput = {
   id?: number
   requisitionId: number
+  createdAt?: Date | string
 }
 
 export type RequisitionControlUpdateWithoutControlFieiraInput = {
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Requisition?: Prisma.RequisitionUpdateOneRequiredWithoutRequisitionControlsNestedInput
 }
 
 export type RequisitionControlUncheckedUpdateWithoutControlFieiraInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   requisitionId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type RequisitionControlUncheckedUpdateManyWithoutControlFieiraInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   requisitionId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type RequisitionControlCreateManyRequisitionInput = {
   id?: number
   controlFieiraId: number
+  createdAt?: Date | string
 }
 
 export type RequisitionControlUpdateWithoutRequisitionInput = {
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ControlFieira?: Prisma.ControlFieiraUpdateOneRequiredWithoutRequisitionControlsNestedInput
 }
 
 export type RequisitionControlUncheckedUpdateWithoutRequisitionInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   controlFieiraId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type RequisitionControlUncheckedUpdateManyWithoutRequisitionInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   controlFieiraId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -542,6 +576,7 @@ export type RequisitionControlSelect<ExtArgs extends runtime.Types.Extensions.In
   id?: boolean
   requisitionId?: boolean
   controlFieiraId?: boolean
+  createdAt?: boolean
   Requisition?: boolean | Prisma.RequisitionDefaultArgs<ExtArgs>
   ControlFieira?: boolean | Prisma.ControlFieiraDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["requisitionControl"]>
@@ -550,6 +585,7 @@ export type RequisitionControlSelectCreateManyAndReturn<ExtArgs extends runtime.
   id?: boolean
   requisitionId?: boolean
   controlFieiraId?: boolean
+  createdAt?: boolean
   Requisition?: boolean | Prisma.RequisitionDefaultArgs<ExtArgs>
   ControlFieira?: boolean | Prisma.ControlFieiraDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["requisitionControl"]>
@@ -558,6 +594,7 @@ export type RequisitionControlSelectUpdateManyAndReturn<ExtArgs extends runtime.
   id?: boolean
   requisitionId?: boolean
   controlFieiraId?: boolean
+  createdAt?: boolean
   Requisition?: boolean | Prisma.RequisitionDefaultArgs<ExtArgs>
   ControlFieira?: boolean | Prisma.ControlFieiraDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["requisitionControl"]>
@@ -566,9 +603,10 @@ export type RequisitionControlSelectScalar = {
   id?: boolean
   requisitionId?: boolean
   controlFieiraId?: boolean
+  createdAt?: boolean
 }
 
-export type RequisitionControlOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "requisitionId" | "controlFieiraId", ExtArgs["result"]["requisitionControl"]>
+export type RequisitionControlOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "requisitionId" | "controlFieiraId" | "createdAt", ExtArgs["result"]["requisitionControl"]>
 export type RequisitionControlInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Requisition?: boolean | Prisma.RequisitionDefaultArgs<ExtArgs>
   ControlFieira?: boolean | Prisma.ControlFieiraDefaultArgs<ExtArgs>
@@ -592,6 +630,7 @@ export type $RequisitionControlPayload<ExtArgs extends runtime.Types.Extensions.
     id: number
     requisitionId: number
     controlFieiraId: number
+    createdAt: Date
   }, ExtArgs["result"]["requisitionControl"]>
   composites: {}
 }
@@ -1020,6 +1059,7 @@ export interface RequisitionControlFieldRefs {
   readonly id: Prisma.FieldRef<"RequisitionControl", 'Int'>
   readonly requisitionId: Prisma.FieldRef<"RequisitionControl", 'Int'>
   readonly controlFieiraId: Prisma.FieldRef<"RequisitionControl", 'Int'>
+  readonly createdAt: Prisma.FieldRef<"RequisitionControl", 'DateTime'>
 }
     
 

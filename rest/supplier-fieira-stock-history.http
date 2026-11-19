@@ -1,0 +1,21 @@
+@baseUrl = http://localhost:8000
+# Use o ID do estoque e o ID de um envio em supplierFieiraStockHistory[].id, respectivamente.
+@supplierFieiraStockId = 1
+@historyId = 1
+
+### Listar o histórico de envios do estoque no fornecedor — 200
+GET {{baseUrl}}/supplier-fieira-stock-history/{{supplierFieiraStockId}}
+Accept: application/json
+
+### Corrigir a quantidade de um envio — 200
+PATCH {{baseUrl}}/supplier-fieira-stock-history/{{historyId}}
+Content-Type: application/json
+
+{
+  "quantitySent": 4
+}
+
+### Excluir um envio do histórico — 200
+# Use o ID de um envio de teste. A exclusão recalcula a quantidade enviada no estoque.
+DELETE {{baseUrl}}/supplier-fieira-stock-history/{{historyId}}
+Accept: application/json

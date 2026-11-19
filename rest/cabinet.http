@@ -1,0 +1,5 @@
+@baseUrl = http://localhost:8000
+
+### Listar armários elegíveis para receber uma fieira — 200
+GET {{baseUrl}}/cabinet/eligible-for-fieira
+Accept: application/json

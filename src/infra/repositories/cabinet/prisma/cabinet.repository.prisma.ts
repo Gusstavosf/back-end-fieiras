@@ -1,5 +1,5 @@
 import {
-    PrismaClient,
+    type Prisma,
     StatusFieira,
     type Cabinet as CabinetPrisma,
 } from "../../../../generated/prisma/client.js";
@@ -10,9 +10,9 @@ import type {
 import { Cabinet } from "../../../../domain/cabinet/entity/cabinet.js";
 
 export class CabinetRepositoryPrisma implements CabinetGateway {
-    private constructor(private readonly prismaClient: PrismaClient) {}
+    private constructor(private readonly prismaClient: Prisma.TransactionClient) {}
 
-    public static build(prismaClient: PrismaClient) {
+    public static build(prismaClient: Prisma.TransactionClient) {
         return new CabinetRepositoryPrisma(prismaClient);
     }
 

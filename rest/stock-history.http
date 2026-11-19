@@ -1,0 +1,23 @@
+@baseUrl = http://localhost:8000
+# IDs do item no estoque e do registro Polida em stockHistory[].id, respectivamente.
+@stockFieiraId = 1
+@historyId = 1
+
+### Listar o histórico de uma fieira do estoque — 200
+GET {{baseUrl}}/stock/history/{{stockFieiraId}}
+Accept: application/json
+
+### Corrigir a produção de um registro Polida — 200
+# Use o ID de um registro de polimento, como o criado em stock.http.
+PATCH {{baseUrl}}/stock/history/{{historyId}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "production": 120
+}
+
+### Excluir um registro de polimento do histórico — 200
+# Use o último registro Polida de um item de teste.
+DELETE {{baseUrl}}/stock/history/{{historyId}}
+Accept: application/json

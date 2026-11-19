@@ -1,0 +1,43 @@
+@baseUrl = http://localhost:8000
+@width = 3.80
+@thickness = 1.70
+@targetWidth = 4.02
+@targetThickness = 1.90
+# Preencha com supplierFieiraStock[].id retornado na listagem para o item de teste.
+@supplierFieiraStockId = 1
+
+### Cadastrar um estoque no fornecedor — 201
+# Use um par de dimensões ainda não cadastrado.
+POST {{baseUrl}}/supplier-fieira-stock
+Content-Type: application/json
+Accept: application/json
+
+{
+  "width": {{width}},
+  "thickness": {{thickness}},
+  "quantitySent": 5
+}
+
+### Listar o estoque no fornecedor — 200
+GET {{baseUrl}}/supplier-fieira-stock
+Accept: application/json
+
+### Listar estoques compatíveis com as dimensões de destino — 200
+GET {{baseUrl}}/supplier-fieira-stock/compatible?width={{targetWidth}}&thickness={{targetThickness}}
+Accept: application/json
+
+### Registrar um envio adicional ao fornecedor — 200
+# Informe as dimensões exatas de um estoque já cadastrado.
+POST {{baseUrl}}/supplier-fieira-stock/sent
+Content-Type: application/json
+
+{
+  "width": {{width}},
+  "thickness": {{thickness}},
+  "quantitySent": 3
+}
+
+### Excluir um estoque no fornecedor — 200
+# Use um item de teste sem vínculo com requisições. A exclusão também remove o histórico desse item.
+DELETE {{baseUrl}}/supplier-fieira-stock/{{supplierFieiraStockId}}
+Accept: application/json

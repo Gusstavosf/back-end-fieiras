@@ -9,14 +9,14 @@ import type {
     ControlFieiraWithCabinetName,
 } from "../../../../domain/control-fieira/gateway/control-fieira.gateway.js";
 import type {
-    PrismaClient,
+    Prisma,
     ControlFieira as PrismaControlFieira,
 } from "../../../../generated/prisma/client.js";
 
 export class ControlFieiraRepositoryPrisma implements ControlFieiraGateway {
-    private constructor(private readonly prismaClient: PrismaClient) {}
+    private constructor(private readonly prismaClient: Prisma.TransactionClient) {}
 
-    public static build(prismaClient: PrismaClient) {
+    public static build(prismaClient: Prisma.TransactionClient) {
         return new ControlFieiraRepositoryPrisma(prismaClient);
     }
 

@@ -1350,7 +1350,8 @@ export const RequisitionItemScalarFieldEnum = {
   requisitionId: 'requisitionId',
   stockFieiraId: 'stockFieiraId',
   supplierFieiraStockId: 'supplierFieiraStockId',
-  type: 'type'
+  type: 'type',
+  createdAt: 'createdAt'
 } as const
 
 export type RequisitionItemScalarFieldEnum = (typeof RequisitionItemScalarFieldEnum)[keyof typeof RequisitionItemScalarFieldEnum]
@@ -1359,7 +1360,8 @@ export type RequisitionItemScalarFieldEnum = (typeof RequisitionItemScalarFieldE
 export const RequisitionControlScalarFieldEnum = {
   id: 'id',
   requisitionId: 'requisitionId',
-  controlFieiraId: 'controlFieiraId'
+  controlFieiraId: 'controlFieiraId',
+  createdAt: 'createdAt'
 } as const
 
 export type RequisitionControlScalarFieldEnum = (typeof RequisitionControlScalarFieldEnum)[keyof typeof RequisitionControlScalarFieldEnum]

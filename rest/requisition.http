@@ -1,0 +1,18 @@
+@baseUrl = http://localhost:8000
+# Use o número da ordem de teste em control-fieira.http. Ela precisa ter uma fieira vinculada a um armário.
+@order = 990000001
+@requestedQty = 2
+# Para testar retrabalho, use uma quantidade positiva até requestedQty e estoque compatível com saldo.
+@qtyRework = 0
+
+### Criar uma requisição para a ordem — 201
+# Use outra ordem de teste para repetir a criação. A API aceita somente uma requisição por ordem.
+POST {{baseUrl}}/requisition
+Content-Type: application/json
+Accept: application/json
+
+{
+  "order": 1236,
+  "requestedQty": 5,
+  "qtyRework": 0
+}
